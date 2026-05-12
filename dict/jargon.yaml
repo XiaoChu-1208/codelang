@@ -49,7 +49,7 @@
   example: 这次大促结束我们开个复盘会，看哪些招有效、哪些是白花钱。
 
 - term: 漏斗
-  aliases: [转化漏斗, funnel]
+  aliases: [funnel]
   category: jargon
   literal: 漏斗形状，上宽下窄
   meaning: 想象 100 个人路过店门口——80 个看了一眼、30 个进店、10 个看商品、3 个下单付款。每步流失一批，画出来像漏斗。优化转化率本质就是"放大漏斗每层的通过率"，找出"哪一环掉得最多"是分析的核心。
@@ -245,7 +245,7 @@
   example: 双十一拉新成本飙到 80 块一个用户。
 
 - term: 留存
-  aliases: [次日留存, retention]
+  aliases: [retention]
   category: jargon
   literal: 留下来
   meaning: 新用户/老用户后续还回来用的比例。次日留存=注册第二天还来的占比。
@@ -271,7 +271,7 @@
   example: 这周 DAU 跌 10%，看下哪个渠道流失最猛。
 
 - term: 获客
-  aliases: [获客成本, CAC]
+  aliases: []
   category: jargon
   meaning: 拿到一个新客户。"获客成本"=买一个新客户花多少。
   example: SEM 渠道获客成本 200，太贵了。

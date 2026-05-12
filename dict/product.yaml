@@ -1,0 +1,377 @@
+# 产品 / 运营 / 增长 术语
+# —— 互联网公司产品经理、运营、数据分析、增长岗位日常对话高频词
+
+# --- 用户经济指标 ---
+
+- term: LTV
+  aliases: [Lifetime Value, 用户生命周期价值]
+  category: abbr
+  literal: Lifetime Value
+  meaning: 一个用户从注册到流失的整个生命周期里，平均贡献多少营收。"算 LTV"是评估"花多少钱拉一个用户划算"的核心。LTV 大于 CAC 才是赚钱的生意。
+  example: 这款 App LTV 200 块，CAC 80 块——能扩大投放。
+
+- term: CAC
+  aliases: [Customer Acquisition Cost, 获客成本]
+  category: abbr
+  literal: Customer Acquisition Cost
+  meaning: 获取一个新用户花多少钱——广告投放费、邀请奖励、内容生产成本都算。CAC 越低生意越赚，但好渠道往往 CAC 高。和 LTV 配对看，LTV/CAC > 3 是健康。
+  example: 双 11 期间 CAC 飙到 150 块，太贵了不投。
+
+- term: ARPU
+  aliases: [Average Revenue Per User, 每用户平均收入]
+  category: abbr
+  literal: Average Revenue Per User
+  meaning: 全体活跃用户人均贡献多少营收（一段时间内）。"ARPU 50 块"=平均每个用户给公司带来 50 块。常见月 ARPU、季 ARPU、年 ARPU。
+  example: 这季度 ARPU 涨了 20%，主要靠 VIP 用户拉的。
+
+- term: ARPPU
+  aliases: [Average Revenue Per Paying User]
+  category: abbr
+  literal: Average Revenue Per Paying User
+  meaning: 只算"付费用户"的人均收入。和 ARPU 区别：ARPU 包含白嫖用户，ARPPU 只看付费的。游戏、直播、知识付费类业务都看这个。
+  example: 游戏整体 ARPU 5 块，但 ARPPU 是 500 块——靠少数大 R 撑起来的。
+
+- term: 客单价
+  aliases: [average order value, AOV]
+  category: jargon
+  literal: 平均每单成交金额
+  meaning: 一个用户/订单平均花多少钱。"客单价 200 块"=平均一笔订单 200 块。电商核心指标之一。提客单价靠组合销售、推荐、满减门槛。
+  example: 这家奶茶店客单价 35 块，是 9.9 价格带的三倍。
+
+- term: 复购率
+  aliases: [回购率]
+  category: jargon
+  meaning: 老用户重复购买的比例——"30 天复购率 40%"=买过一次后 40% 的人 30 天内再买一次。复购率高的生意才能长期盈利。
+  example: 这款洗发水复购率才 5%，说明用户用一次不再回头。
+
+- term: ROAS
+  aliases: [Return on Ad Spend, 广告投资回报率]
+  category: abbr
+  literal: Return on Ad Spend
+  meaning: 广告花一块钱换回多少营收。ROAS 1=亏本（不考虑成本），ROAS 3+=赚钱（看品类）。和 ROI 类似但只算广告这一项。投放策略最核心指标。
+  example: 这个渠道 ROAS 0.8，比成本还低，立刻停。
+
+- term: CPL
+  aliases: [Cost Per Lead]
+  category: abbr
+  literal: Cost Per Lead
+  meaning: 获取一条销售线索（潜在客户）花多少钱。B2B、保险、教育这类要"先线索后转化"的业务最关心 CPL。
+  example: 教育公司一条 CPL 300 块，转化率 5% 才回本。
+
+- term: CPS
+  aliases: [Cost Per Sale]
+  category: abbr
+  literal: Cost Per Sale
+  meaning: 按"实际成交"付广告费——卖出一单付一份钱。淘宝客、CPS 联盟营销用这种结算。
+  example: 美妆品牌找 KOL 走 CPS，成交才付佣金。
+
+# --- 留存与流失 ---
+
+- term: 留存率
+  aliases: [retention rate]
+  category: jargon
+  meaning: 用户在一段时间后还回来用的比例——"次日留存""7 日留存""30 日留存"是经典三档。留存高=产品有粘性。游戏圈"7 日留存 40%"是中等水平。
+  example: 这款 App 30 日留存只 5%，运营怎么救都救不回来。
+
+- term: 次日留存
+  aliases: [D1 留存]
+  category: jargon
+  meaning: 用户注册第二天还会回来用的比例——拉新效果最直接的指标。次日留存低=用户第一天的体验出问题。游戏 50%+ 算优秀，工具类 30%+ 不错。
+  example: 次日留存才 20%，新手引导得重做。
+
+- term: 7 日留存
+  aliases: [D7 留存]
+  category: jargon
+  meaning: 注册满 7 天还活跃的比例。"D7 留存 40%"算中上。这指标兼顾"用户第一周的体验+习惯养成"。
+  example: 新版本 D7 留存涨了 8 个点，引导改对了。
+
+- term: 30 日留存
+  aliases: [D30 留存]
+  category: jargon
+  meaning: 一个月后还活跃的比例。判断"用户长期粘性"的关键。30 日留存 30%+ 已经是相当优秀的产品。
+  example: 30 日留存稳在 35%，说明产品有真实价值。
+
+- term: 流失率
+  aliases: [churn rate]
+  category: jargon
+  meaning: 一段时间内流失用户占比。"月流失率 10%"=每月 10% 的人不再用。和留存互补：留存率 + 流失率 = 100%。
+  example: 这个月流失率 15%，运营得搞召回活动。
+
+- term: 召回率
+  aliases: [recall rate]
+  category: jargon
+  meaning: 两层意思：(1) 运营：被召回回来的流失用户占比；(2) 算法/搜索：相关结果被检索出来的比例（recall）。语境决定。
+  example: 短信召回这批沉默用户，召回率 8%——回本了。
+
+# --- 流量 ---
+
+- term: 流量
+  aliases: [traffic, 站点流量]
+  category: jargon
+  meaning: 来访的用户量统称。"网站日流量 100 万"=每天 100 万 PV/UV。也指"流量入口"=用户从哪里来。
+  example: 双 11 流量爆炸，服务器扩 5 倍才扛住。
+
+- term: 流量池
+  aliases: []
+  category: jargon
+  meaning: 一个平台/账号下你能反复触达的用户集合。微信群、企微好友、公众号粉丝都是"自己的流量池"。和"公域流量"相对——公域要花钱买，私域流量池是你"圈起来的"。
+  example: 这条短视频导粉 1 万到企微，扩大私域流量池。
+
+- term: 流量入口
+  aliases: [入口流量]
+  category: jargon
+  meaning: 用户访问的"门口"——搜索、首页、推荐位、广告位都是流量入口。"抢入口"=抢用户必经之路。微信支付按钮是高频入口，所以兵家必争。
+  example: 大牌品牌花几亿抢淘宝首页流量入口。
+
+- term: 自然流量
+  aliases: [自然搜索, organic traffic]
+  category: jargon
+  meaning: 不花钱来的流量——搜索引擎自然结果、用户主动分享、社交推荐都是。和"付费流量"相对。自然流量增长难但成本低且稳。
+  example: 这个站 80% 是自然流量，SEO 做得好。
+
+- term: 付费流量
+  aliases: [paid traffic, 投放流量]
+  category: jargon
+  meaning: 花钱买的流量——广告投放、KOL 推广、信息流广告。和自然流量相对。付费流量快但贵，停投立刻没流量。
+  example: 公司主要靠付费流量起家，但 ROAS 在下降。
+
+# --- 转化漏斗 / 互动指标 ---
+
+- term: 转化漏斗
+  aliases: [conversion funnel]
+  category: jargon
+  meaning: 想象用户从看到 → 点击 → 加购 → 下单 → 付款，每步都掉一批人，画出来上宽下窄像漏斗。优化转化率就是放大漏斗每层的通过率。
+  example: 看转化漏斗发现"加购到下单"环节流失最严重，得改下单页。
+
+- term: 跳出率
+  aliases: [bounce rate]
+  category: jargon
+  meaning: 用户进网站只看了一页就离开的比例。"跳出率 70%"=70% 的人进来一眼就走。低跳出率=用户被内容留住，高跳出率=吸引点击但内容失望。
+  example: 这篇文章跳出率 90%，标题党了吧。
+
+- term: 完播率
+  aliases: [completion rate, 看完率]
+  category: jargon
+  meaning: 视频/直播被完整看完的比例。抖音/B 站算法最重视的指标之一——完播率高，系统就给你推更多流量。
+  example: 这条短视频完播率 65%，算法判定优质内容，推荐量爆炸。
+
+- term: 停留时长
+  aliases: [time on page, 时长]
+  category: jargon
+  meaning: 用户在页面/App 上停留多久。停留时间长说明用户感兴趣。算法推荐很看这个——抖音首页一刷 30 分钟就是停留时长创造的。
+  example: App 改版后人均停留时长从 8 分钟降到 5 分钟，要查原因。
+
+- term: 互动率
+  aliases: [engagement rate]
+  category: jargon
+  meaning: 用户主动操作（点赞、评论、转发、收藏）占曝光的比例。社交平台/内容平台核心指标。
+  example: 这条小红书互动率 8%，远高于平均，算爆款雏形。
+
+- term: 点赞率
+  aliases: [like rate]
+  category: jargon
+  meaning: 看到内容里点赞的人占比。互动率细分指标。
+  example: 这条朋友圈点赞率达到 30%——人缘真好。
+
+- term: 触达率
+  aliases: [reach rate]
+  category: jargon
+  meaning: 推送/通知/消息被用户实际看到的比例。"消息推送触达 70%"=发 100 条，70 条到了用户眼前。短信因为不被屏蔽，触达率最高。
+  example: 短信召回触达率 95%，但 push 通知只有 40%。
+
+# --- 用户分群 / 画像 ---
+
+- term: 用户画像
+  aliases: [user profile]
+  category: jargon
+  meaning: 一个虚拟的"典型用户长什么样"的描述——年龄、性别、收入、兴趣、行为习惯。做产品/做投放前都要画用户画像，避免凭感觉。
+  example: 这款 App 用户画像是"25-35 一线城市白领"，新功能针对他们设计。
+
+- term: persona
+  aliases: [设计 persona, user persona]
+  category: jargon
+  meaning: 用户画像的英文。Persona 多用于设计圈/产品圈："为 Persona A（24 岁刚毕业小红书爱好者）做这个功能"。
+  example: 产品文档每个 persona 都有专门解决方案。
+
+- term: 用户分层
+  aliases: [user segmentation, 分层运营]
+  category: jargon
+  meaning: 把用户按消费、活跃、忠诚度分成 N 层，对每层用不同策略。VIP 给折扣、流失风险者发挽留券、新人发体验券——精细化运营基本功。
+  example: 用户分层后 VIP 用户保留率提升 20%。
+
+- term: 用户分群
+  aliases: [user cluster, 聚类]
+  category: jargon
+  meaning: 用算法/规则把用户分成几"群"——"价格敏感型""品质敏感型""图便宜型"。比"分层"颗粒度更细，常用 RFM/聚类算法做。
+  example: 用 K-means 把用户分 5 群，针对性发优惠券。
+
+- term: RFM
+  aliases: [RFM 模型]
+  category: abbr
+  literal: Recency, Frequency, Monetary
+  meaning: 一种经典用户分析模型——三个维度：最近一次消费时间（R）、消费频次（F）、消费金额（M）。把每个维度切几档组合，能把用户分成 8 类（如"高 R 高 F 高 M"=核心 VIP）。
+  example: 用 RFM 把用户分群，针对"高价值流失"的下重金召回。
+
+- term: 同期群
+  aliases: [cohort, cohort analysis, 队列分析]
+  category: jargon
+  meaning: 按某个共同特征（如"同一周注册"）把用户分组，跟踪每组的行为变化。最常用：周同期群留存分析——看每周拉的新人后续怎么样。
+  example: 同期群分析显示 9 月拉的新人留存比 8 月低，9 月广告渠道有问题。
+
+- term: 归因
+  aliases: [attribution, 渠道归因]
+  category: jargon
+  meaning: 用户最终下单了，功劳算给哪个渠道？广告？搜索？朋友推荐？归因模型决定怎么分功劳。常见模型：最后一次点击、首次点击、线性、时间衰减。
+  example: 改成多触点归因后，朋友圈广告的贡献从 5% 变 20%。
+
+- term: 北极星指标
+  aliases: [North Star, North Star Metric, NSM]
+  category: jargon
+  literal: 像北极星一样永远指向北方
+  meaning: 一个公司/产品最关心的"灯塔指标"——所有团队的工作都要服务于它。Airbnb 是"订房晚数"、Facebook 是"日活跃用户"。其他指标都是"支线"。
+  example: 把北极星指标改成"次日留存"后，新人引导团队优先级全变。
+
+- term: 数据看板
+  aliases: [数据大盘, BI 看板]
+  category: jargon
+  meaning: 把关键指标可视化在一个页面——折线图、柱状图、漏斗图齐全。老板和运营每天看的"驾驶舱"。常用 Tableau、PowerBI、自建 BI 平台。
+  example: 写完数据看板，老板每天早上必看才安心。
+
+- term: 健康度
+  aliases: [产品健康度, health score]
+  category: jargon
+  meaning: 综合衡量产品/业务"是否健康"的复合指标——留存+营收+增长+用户满意度加权。比单看 DAU 客观。
+  example: 这个产品健康度连续三个月下降，要紧急复盘。
+
+# --- 增长 / 营销 ---
+
+- term: 增长黑客
+  aliases: [growth hacker, growth hacking]
+  category: jargon
+  literal: 用工程方法做增长的人
+  meaning: 用数据、A/B 测试、技术手段做用户增长的角色/方法论。Dropbox 邀请送空间、PayPal 给注册送 10 美元都是经典增长黑客案例。
+  example: 找个增长黑客来优化注册转化，比堆产品功能管用。
+
+- term: 病毒系数
+  aliases: [K 因子, viral coefficient, K factor]
+  category: jargon
+  meaning: 衡量"产品自传播能力"的数字——一个用户能带来多少新用户。K > 1 意味着自然指数增长（拼多多砍一刀经典案例）。K < 1 就是普通转化。
+  example: 设计了砍一刀邀请后 K 因子从 0.3 升到 1.2，注册量爆炸。
+
+# --- 内容/社群运营 ---
+
+- term: 种草
+  aliases: [种草帖]
+  category: jargon
+  literal: 在心里种下购买欲的草
+  meaning: 用内容（推荐/测评/晒物）激发用户购买欲。小红书的核心玩法。"被种草了"=被一篇内容打动想买。
+  example: 这款相机被小红书种草，月销翻 5 倍。
+
+- term: 拔草
+  aliases: [拔了]
+  category: jargon
+  literal: 把种下的草拔掉（实际买了）
+  meaning: 真正下单买了"被种草的东西"。"我拔草了那个口红"=我真的买了那只口红。也指"放弃种草"（看到差评不买了）。
+  example: 看了三天测评终于拔草买了那把椅子。
+
+- term: 平替
+  aliases: [平价替代]
+  category: jargon
+  meaning: 比贵货便宜很多的替代品。小红书最热搜索词之一——"YSL 口红平替""LV 包平替"。年轻人消费降级背景下的高频词。
+  example: 想买兰蔻贵，姐妹推荐一款平替才 80 块。
+
+- term: 避雷
+  aliases: [避雷指南]
+  category: jargon
+  literal: 避开雷区（不踩坑）
+  meaning: 类似"别买这个/别去这家"的提醒帖。和种草相反——种草让你买，避雷让你别买。"求避雷"=求别人告诉我哪些不要买。
+  example: 这家奶茶店避雷帖刷屏，难喝还贵。
+
+- term: 红人
+  aliases: [网红, internet celebrity]
+  category: jargon
+  meaning: 网络上有影响力的人——粉丝几万到几千万。带货能力是其核心商业价值。比"KOL"更口语化。
+  example: 找几个本地红人合作推这家店。
+
+- term: 达人
+  aliases: [达人探店]
+  category: jargon
+  meaning: 某领域有专业度+影响力的人。和"红人"区别：达人偏专业，红人偏知名。淘宝/小红书/抖音都有"达人计划"。"达人探店"是常见短视频形式。
+  example: 找美食达人探店，10 个 5 万粉的比 1 个百万粉划算。
+
+- term: 社群运营
+  aliases: [社群]
+  category: jargon
+  meaning: 通过微信群/QQ 群/Discord 等运营用户的工作。日常发优惠、组织活动、维护活跃。"社群"是私域运营的核心载体。
+  example: 这家健身房靠社群运营，把会员复购率从 30% 提到 60%。
+
+- term: 内容运营
+  aliases: [content ops]
+  category: jargon
+  meaning: 生产/分发内容来吸引和留住用户的工作。包括公众号写文、小红书发笔记、视频脚本策划。和"用户运营""活动运营""产品运营"并列。
+  example: 内容运营每天要发 5 条小红书，撑起品牌曝光。
+
+# --- 通用产品词 ---
+
+- term: feature
+  aliases: [功能, 特性]
+  category: devterm
+  meaning: 产品的一个具体功能。"加个 feature"=做个新功能。和"bug"配对——feature 是有意为之的能力。开发者间还有梗"It's not a bug, it's a feature"（你以为是 bug 其实是设计）。
+  example: 这次迭代加了"批量删除"feature，用户反馈很好。
+
+- term: case
+  aliases: [case study, 案例]
+  category: devterm
+  meaning: 两层意思：(1) 业务"案例"——真实使用场景或客户故事，用于学习/营销；(2) "case study"=深入剖析某个项目的文章。To B 销售/咨询特别看重 case。
+  example: 这家 SaaS 公司主页全是大客户 case，方便潜客对号入座。
+
+- term: use case
+  aliases: [使用场景, 用例]
+  category: devterm
+  meaning: 产品/功能要被怎么用的具体场景描述。"这个 feature 的 use case 是 X"=它解决 X 场景下的问题。和 case 区别：use case 偏"功能用法"，case 偏"客户故事"。
+  example: 写需求文档先列 5 个核心 use case，再设计功能。
+
+- term: 用户故事
+  aliases: [user story]
+  category: jargon
+  meaning: 敏捷开发里描述需求的格式："作为某用户，我想要 X，以便 Y"。比"功能列表"更聚焦用户视角。
+  example: 用户故事"作为 VIP 我想一键导出订单方便报销"，列入下迭代。
+
+- term: 用户旅程
+  aliases: [user journey, customer journey]
+  category: jargon
+  meaning: 把用户从认知品牌→第一次试→反复使用→流失的全过程画成一张图。每个环节标出用户痛点+情绪。设计/运营圈高频词。
+  example: 画完用户旅程图，发现客服环节是最大流失点。
+
+- term: 产品经理
+  aliases: [PM, Product Manager]
+  category: jargon
+  meaning: 互联网公司岗位——负责定义产品做什么、怎么做、什么时候做。需求写得好坏直接决定产品命运。常被吐槽"啥也不会但啥都管"。
+  example: 这个产品经理写需求很细，开发抱怨也少。
+
+- term: PRD
+  aliases: [Product Requirements Document, 需求文档]
+  category: abbr
+  literal: Product Requirements Document
+  meaning: 产品需求文档——产品经理写给开发/设计/测试看的"做什么"说明书。包含用户场景、功能描述、交互逻辑、边界情况。
+  example: PRD 评审会上设计师当场指出 3 个矛盾点。
+
+- term: BRD
+  aliases: [Business Requirements Document]
+  category: abbr
+  literal: Business Requirements Document
+  meaning: 商业需求文档——比 PRD 更前置。讲"为什么做这事+商业价值"，给老板看的。常见结构：背景、问题、机会、方案、收益预估。
+  example: 立项前先写 BRD 说服老板批资源。
+
+- term: MRD
+  aliases: [Market Requirements Document]
+  category: abbr
+  literal: Market Requirements Document
+  meaning: 市场需求文档——介于 BRD 和 PRD 之间。讲"市场上有什么需求+竞品做了什么+我们怎么切入"。
+  example: MRD 调研显示竞品都缺这个能力，我们做差异化优势。
+
+- term: 周活
+  aliases: [Weekly Active Users]
+  category: abbr
+  meaning: 周活跃用户数——一周内访问过的去重用户数。介于日活（DAU）和月活（MAU）之间。"WAU 占 MAU 比例"反映用户活跃强度。注：英文缩写 WAU 已在 DAU 词条里收录。
+  example: 这款 App 周活 1000 万，月活 1500 万，活跃强度还行。

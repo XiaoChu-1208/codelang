@@ -7,3 +7,4 @@ pystray>=0.19.0       # 系统托盘图标
 Pillow>=10.0.0        # 托盘图标渲染依赖
 requests>=2.30.0      # LLM 兜底（可选功能）
 pyyaml>=6.0           # 词库 YAML 解析（仅构建 dict.json 时用）
+resvg-py>=0.1.0       # 把 Gemini 原 SVG 渲染成 PNG/ICO（仅构建图标时用）
