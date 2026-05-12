@@ -1,6 +1,6 @@
 # codelang
 
-> codelang（中文别名：懂网 / dongwang）是一个开源 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1009 条精校词条，100% 本地查询，MIT 协议免费开源。
+> codelang（中文别名：懂网 / dongwang）是一个开源 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1088 条精校词条，100% 本地查询，MIT 协议免费开源。
 
 ## 项目导航
 
@@ -12,7 +12,7 @@
 
 ## 词库
 
-- [词库目录（全部 1009 条 YAML 源）](https://github.com/XiaoChu-1208/codelang/tree/main/dict)
+- [词库目录（全部 1088 条 YAML 源）](https://github.com/XiaoChu-1208/codelang/tree/main/dict)
 - [devterm.yaml - 开发/工程概念 ~330 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/devterm.yaml)
 - [ai.yaml - AI/LLM/大模型 ~120 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/ai.yaml)
 - [platforms.yaml - 平台/框架/数据库/云 ~70 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/platforms.yaml)

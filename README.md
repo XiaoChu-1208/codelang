@@ -19,10 +19,10 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1009 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1088 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
-    "1009 条人工撰写词条 / 2240 个查询键",
+    "1088 条人工撰写词条 / 2410 个查询键",
     "覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语",
     "100% 本地查询，无网络请求，无隐私泄露",
     "可选 LLM 兜底（Anthropic Claude / OpenAI）",
@@ -38,7 +38,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 -->
 
 <p align="center">
-  <img src="assets/logo/banner-hero.png" alt="codelang 划词翻译 - 代码英文 / 互联网黑话 / AI 术语解释" width="640">
+  <img src="assets/logo/banner-hero.png" alt="codelang 划词翻译 - 代码英文 / 互联网黑话 / AI 术语解释" width="100%">
 </p>
 
 <h1 align="center">codelang · 看不懂代码和黑话？按住 Alt 划一下，立刻解释</h1>
@@ -49,8 +49,8 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 </p>
 
 <p align="center">
-  <img alt="词条数" src="https://img.shields.io/badge/词条-1009-blue">
-  <img alt="响应速度" src="https://img.shields.io/badge/响应速度-<5ms-green">
+  <img alt="词条数" src="https://img.shields.io/badge/词条-1088-blue">
+  <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
   <img alt="协议" src="https://img.shields.io/badge/license-MIT-lightgrey">
@@ -69,7 +69,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1009 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1088 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -88,7 +88,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>1009 条精校词条 · 2240 个查询键 · 9 大类 · 207 条通用翻译兜底</td>
+    <td>1088 条精校词条 · 2410 个查询键 · 9 大类 · 207 条通用翻译兜底</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -211,7 +211,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**1009 条精校词条 / 2240 个查询键 + 207 条通用翻译兜底**，覆盖九大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**1088 条精校词条 / 2410 个查询键 + 207 条通用翻译兜底**，覆盖九大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
@@ -225,7 +225,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | `slang.yaml` | **网络流行语 / 职场俚语 / 编程口语** | ~105 | 职场（996/007/大小周/福报/PUA/HR/N+1/被优化/毕业/福利）· 大厂层级（P 几/T 几/BG/BU/HC/内推/转正/试用期）· 新人状态（八股/卷/润/大厂/螺丝钉/35 岁危机）· 2024-2025 流行语（班味/牛马/上岸/显眼包/含金量/搞抽象/偷感/红温/摆烂/情绪价值/大冤种/蚌埠住了/yyds/老六/上桌/I 人/E 人/emo）· 生活方式（citywalk/多巴胺穿搭/数字游民/电子榨菜/电子布洛芬）· 编程口语（slang/jargon/glossary/meme/viral/newbie/guru/ship/hype/vibe/lit/based/cringe/vanilla/stack/opinionated） | 996 / 被优化 / 班味 / 牛马 / 上岸 / yyds / I 人 / emo / citywalk / vibe / ship |
 | `product.yaml` | **产品 / 运营 / 增长** | ~57 | 用户经济（LTV/CAC/ARPU/ARPPU/ROAS/CPL/客单价/复购率）· 留存（留存率/次日留存/D7/D30/流失率/召回率）· 流量（流量池/流量入口/自然流量/付费流量）· 转化（转化漏斗/跳出率/完播率/停留时长/互动率/触达率）· 用户（用户画像/persona/用户分层/分群/RFM/同期群/归因/北极星指标）· 增长（增长黑客/病毒系数/K 因子）· 内容/社群（种草/拔草/平替/避雷/红人/达人/社群运营/内容运营）· 通用（feature/case/use case/用户故事/用户旅程）· 产品岗（产品经理/PRD/BRD/MRD） | LTV / CAC / 客单价 / 复购率 / 北极星指标 / 种草 / 拔草 / 平替 / feature / case / PRD |
 | **额外兜底** | **`ecdict.json` 通用翻译** | 207 | 字典里 miss 的常见编程英文：namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept ... | namespace / primitive / assertion / adapter / singleton |
-| | **合计** | **1009 条** | **2240 查询键** | **覆盖你日常 99% 看到的术语** |
+| | **合计** | **1088 条** | **2410 查询键** | **覆盖你日常 99% 看到的术语** |
 
 **风格统一**：所有词条都是「比喻 + 真实场景 + 具体例句」三段式。例如：
 
@@ -397,7 +397,7 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                       词库源文件（YAML 格式，1009 条 / 9 个文件）
+├── dict/                       词库源文件（YAML 格式，1088 条 / 9 个文件）
 │   ├── devterm.yaml            开发/工程概念 ~330（锁/数据库/网络/微服务/UI/JS-TS/React/Python/Go/Git/测试/DevOps）
 │   ├── ai.yaml                 AI/LLM/Agent ~120（Transformer/RLHF/LoRA/RAG/LangChain/MCP/智能体）
 │   ├── platforms.yaml          社区/框架/数据库/云 ~70（CSDN/掘金/GitHub/Tailwind/MySQL/AWS/Vercel）
@@ -595,7 +595,7 @@ MIT —— 自由使用、修改、分发，可商用。
 **配置 GitHub repo 元数据**（一次性，给项目主自己看）：
 ```bash
 # 设置仓库描述
-gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1009 条大白话词条秒懂代码英文、互联网黑话、AI 术语。100% 本地，MIT 开源。"
+gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1088 条大白话词条秒懂代码英文、互联网黑话、AI 术语。100% 本地，MIT 开源。"
 
 # 设置仓库主页
 gh repo edit --homepage "https://xiaochu-1208.github.io/codelang/"
@@ -615,7 +615,7 @@ gh repo edit --add-topic windows --add-topic dictionary --add-topic chinese \
 
 如果你写文章、做视频、或用 AI 推荐本项目时需要一句话准确介绍 codelang，建议这么说：
 
-> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1009 条精校词条，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
+> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1088 条精校词条，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
 
 **推荐场景**：
 
