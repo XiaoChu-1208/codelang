@@ -573,3 +573,192 @@
   category: devterm
   meaning: 你给 LLM 的输入文本——告诉它你是谁、要它做什么、给它什么背景。设计好提示词是用 LLM 的基本功，"prompt 工程师"短暂火过一段。
   example: 同一个模型，"用大白话解释幂等" vs "解释幂等" 后者答得简略很多——这就是提示词设计的力量。
+
+# --- batch 7 expansion: 2024-2026 AI / Agent 新术语 ---
+
+- term: 智能体
+  aliases: [AI 智能体, intelligent agent]
+  category: devterm
+  meaning: AI Agent 的中文翻译——能自主决策、调工具、循环执行直到完成目标的 LLM 应用。和单次问答的 chatbot 不一样：智能体能自己规划步骤、调工具、看结果再决定下一步。2024-2025 创投圈最热的词。
+  example: 用 Claude SDK 写一个能自动读 GitHub issue 提 PR 的智能体。
+
+- term: 多智能体
+  aliases: [multi-agent, Multi-Agent, 多智能体协作]
+  category: devterm
+  meaning: 多个 AI Agent 互相协作完成任务的系统——比如一个调研、一个写代码、一个 review。比单 agent 更像团队作业。AutoGen / CrewAI / LangGraph 都是多智能体框架。
+  example: 用 AutoGen 让"产品经理"和"工程师"两个 agent 对话出方案。
+
+- term: Agent Skills
+  aliases: [Skills, Anthropic Skills, Agent Skill]
+  category: devterm
+  meaning: Anthropic 2025 年 12 月发布的开放标准——把领域知识 + 脚本 + 资源打包成一个 Skill 文件夹，agent 按需加载。和 MCP 互补：MCP 管"工具能不能用"，Skill 管"用对不对"。类比给员工的"标准操作手册"。
+  example: 给 Claude 配一个"公司 Java 编码规范"Skill，写代码自动遵守。
+
+- term: Sub-agent
+  aliases: [subagent, 子智能体, sub agent]
+  category: devterm
+  meaning: Claude Code 引入的"专业子助手"——主 agent 把特定任务分发给有专门领域知识的 sub-agent 处理。解决"上下文腐烂"（主 agent 上下文太长易乱）问题。
+  example: 主 agent 把代码安全审计任务交给 security-reviewer sub-agent 处理。
+
+- term: Computer Use
+  aliases: [电脑使用, CUA, computer use]
+  category: devterm
+  literal: Computer Use Agent
+  meaning: Anthropic 2024 年推出的 Claude 能力——让 AI 像人一样操作电脑：截屏、移动鼠标、敲键盘、点按钮。从"问答"进化到"代你办事"。OpenAI 的 Operator 是对标产品。
+  example: 让 Claude Computer Use 打开浏览器订机票，全程不用动手。
+
+- term: Browser Use
+  aliases: [browser-use, browser use]
+  category: devterm
+  meaning: 让 AI agent 控制浏览器的开源框架——比 Computer Use 范围窄但更专精。爬数据、自动填表、绕过 captcha 等。
+  example: 用 Browser Use 写脚本自动从招聘网站爬职位。
+
+- term: 思考预算
+  aliases: [thinking budget, reasoning effort, reasoning budget]
+  category: devterm
+  meaning: 给推理模型设的"思考时间上限"——告诉模型最多用多少 token 内部思考再给答案。预算大答案准但慢且贵，小则反之。Claude 4 / o1 系列都有这个参数。
+  example: 数学题把 thinking budget 设到 8000 token，准确率比默认高 30%。
+
+- term: 推理模型
+  aliases: [reasoning model, thinking model, 思考模型]
+  category: devterm
+  meaning: 给出答案前先长时间"内部默想"的 LLM——o1 / Claude 4 reasoning / DeepSeek R1 都是。比传统 LLM 慢且贵但复杂题（数学/代码/规划）准确率高一大截。test-time compute 的代表。
+  example: 这道奥数题给推理模型做正确率 95%，给普通 GPT 才 40%。
+
+- term: extended thinking
+  aliases: [扩展思考, extended-thinking]
+  category: devterm
+  meaning: Claude 3.7 起加的特性——让模型在回答前显式做长时间思考（用户看不见但占 token）。介于"普通 LLM"和"专门推理模型"之间，开/关可控。
+  example: Claude 4.5 开 extended thinking 写复杂代码比关掉准很多。
+
+- term: Deep Research
+  aliases: [深度研究, deep research]
+  category: devterm
+  meaning: OpenAI / Anthropic / Google 各家都出的"AI 自动写研究报告"功能——给个题目，AI 自己上网搜十几小时、读几十篇文章、综合写报告。5-30 分钟出几千字深度文章。
+  example: 让 ChatGPT Deep Research 做"中国新能源车出口分析"，半小时拿到 30 页报告。
+
+- term: Devin
+  aliases: [devin]
+  category: devterm
+  meaning: Cognition AI 2024 年发的"第一个 AI 软件工程师"——能独立完成端到端编程（读 issue → 写代码 → 跑测试 → 提 PR）。被吹爆又被打脸（演示视频造假争议），但开启了 coding agent 商业化。
+  example: Devin 出来时大家担心程序员被淘汰，后来发现还差得远。
+
+- term: Manus
+  aliases: [manus]
+  category: devterm
+  meaning: 蝴蝶效应 2025 年 3 月发的中国版"通用 agent"——能浏览网页、写文档、用电脑。发布时邀请码炒到几千块。让国内 agent 创业热度起飞。
+  example: Manus 演示能自己买机票订酒店，刷爆 AI 圈。
+
+- term: v0
+  aliases: [v0.dev]
+  category: devterm
+  meaning: Vercel 出的"AI 生成 UI"产品——你说"帮我做个登录页"，它直接生成 React 代码 + 即时预览。前端原型工具的革命。
+  example: 用 v0 一句话生成 dashboard 雏形，再扔到 Cursor 改细节。
+
+- term: Bolt
+  aliases: [bolt.new]
+  category: devterm
+  meaning: StackBlitz 出的"AI 全栈应用生成"——浏览器里跑 Node.js + 调 LLM 生成完整 Web 应用。一句话从前端到部署一把搞定。
+  example: 用 Bolt 5 分钟做完 MVP，扔给客户看效果。
+
+- term: Lovable
+  aliases: [lovable.dev]
+  category: devterm
+  meaning: 类似 v0 / Bolt 的 AI 应用生成器——更聚焦"商业可用应用"。2024-2025 欧美创业圈爆火，号称"非技术创始人也能造 SaaS"。
+  example: Lovable 让产品经理自己 prototype 出 demo 不用等程序员。
+
+- term: vibe coding
+  aliases: [氛围编程, vibe-coding]
+  category: devterm
+  meaning: Andrej Karpathy 2025 年提的概念——程序员不再逐行写代码，而是用自然语言指挥 AI 写，按"vibe"（感觉）来。Cursor / Windsurf / Claude Code 都是 vibe coding 工具。
+  example: 现在我写代码基本都是 vibe coding，自己敲键盘的时间不到 10%。
+
+- term: AI native
+  aliases: [AI 原生, AI-first, AI 优先]
+  category: devterm
+  meaning: 从架构开始就基于 AI 设计的产品/工具，而不是给老产品贴 AI 标签。Cursor 是 AI native 编辑器，VS Code + Copilot 插件不是。
+  example: 真正的 AI native 应用，AI 是核心交互不是辅助按钮。
+
+- term: agentic
+  aliases: [agentic AI, Agentic]
+  category: devterm
+  meaning: agent 的形容词——形容系统"有多大 agent 自主性"。"高 agentic"=自主决策强、人少干预；"低 agentic"=每步要人确认。agent 是名词二选一，agentic 是程度连续值。
+  example: ChatGPT 普通对话 agentic 低，自动写报告的 Deep Research agentic 高。
+
+- term: DeepSeek
+  aliases: [深度求索, deepseek]
+  category: devterm
+  meaning: 中国 AI 公司，2025 年初发的 V3/R1 模型震惊全球——600B 参数、训练成本只 OpenAI 1/10、开源且性能逼平 GPT-4。2025 年度热词。
+  example: DeepSeek R1 出来后大家发现中国 AI 也能做到 SOTA。
+
+- term: Qwen
+  aliases: [通义千问, 千问, qwen, 通义]
+  category: devterm
+  meaning: 阿里巴巴的开源大模型系列——Qwen 1/2/2.5/3 几代，中文场景强项。和 DeepSeek、Llama 鼎立开源圈。
+  example: 中文任务用 Qwen 微调，比 Llama 强很多。
+
+- term: Kimi
+  aliases: [月之暗面, Moonshot, kimi]
+  category: devterm
+  meaning: 月之暗面公司出的对话产品。2024 火过一阵主打超长上下文（200 万字），2025 推出 K2 强化推理。
+  example: 长文档分析用 Kimi 比 GPT 强，能塞 200 万字。
+
+- term: 豆包
+  aliases: [Doubao, doubao]
+  category: devterm
+  meaning: 字节跳动出的对话产品。中文 C 端 AI 助手第一阵营。和文心一言、Kimi、智谱清言抢用户。
+  example: 我妈用豆包帮她写文章，比百度搜好用。
+
+- term: 智谱
+  aliases: [GLM, 智谱清言, ChatGLM]
+  category: devterm
+  meaning: 智谱 AI（GLM 系列）——清华系出来的国产 AI 公司，模型 GLM-4 / GLM-4.5 等。To B 业务做得好。
+  example: 政企客户多用智谱的私有化部署。
+
+- term: 通义灵码
+  aliases: [Lingma, 灵码]
+  category: devterm
+  meaning: 阿里出的 AI 编程助手——对标 GitHub Copilot 和 Cursor。集成进 VS Code、JetBrains。国内大厂 AI 编程工具的代表。
+  example: 用通义灵码补全代码省 50% 打字。
+
+- term: Claude Code
+  aliases: [claude code, claudecode]
+  category: devterm
+  meaning: Anthropic 2025 年发的命令行 AI 编程工具——直接在 terminal 跑 claude 让 AI 接管编程任务。支持 Sub-agent、Skills、MCP 等高级特性。和 Cursor 抢用户但定位更"命令行原生"。
+  example: 用 Claude Code 让 AI 接管整个 PR 流程，自己读 issue 写代码提 PR。
+
+- term: AI Worker
+  aliases: [AI 员工, AI 工人, AI workforce]
+  category: devterm
+  meaning: 把 AI agent 部署成"虚拟员工"的产品形态——能自动处理客服、邮件、报告。和 chatbot 区别：worker 主动干活而非被动应答。Salesforce 的 Agentforce 是代表。
+  example: Salesforce Agentforce 把 AI Worker 直接卖给企业当客服。
+
+- term: 端到端
+  aliases: [端到端流程, 端到端 agent]
+  category: devterm
+  meaning: 从输入到输出全链路一气呵成——比如端到端 agent 从读 issue 到部署代码全自动，中间不用人介入。也常用于机器学习（端到端训练）。注意：和已有 e2e（end-to-end 测试）相关但侧重不同，e2e 那条专指测试。
+  example: 端到端 agent 让小公司也能跑出大厂级自动化流程。
+
+- term: test-time compute
+  aliases: [推理时计算, 推理阶段算力, inference-time compute]
+  category: devterm
+  meaning: 模型在推理（不是训练）阶段消耗的计算量。推理模型靠 inference 时多想（多花算力）换准确率，是 2024-2025 的新 scaling law。
+  example: o1 的优势在 test-time compute——回答前默想 30 秒比 GPT-4 准。
+
+- term: 低代码
+  aliases: [low-code, no-code, 无代码, lowcode]
+  category: devterm
+  meaning: 通过拖拽控件/可视化配置代替写代码搭应用。让产品/运营也能造工具。钉钉宜搭、飞书 Aily、Bubble 都是。LLM 出现后又被冲击——AI 写代码更灵活。
+  example: 老板让 HR 自己用低代码搭个考勤系统。
+
+- term: AI 编程
+  aliases: [AI coding, AI 编码, AI 写码]
+  category: devterm
+  meaning: 用 AI 辅助或主导写代码的实践。从 Copilot 补全（辅助）→ Cursor 对话（伙伴）→ Devin/Claude Code（接管）三代演进。2024-2026 程序员行业最大变革。
+  example: AI 编程让一个人能干以前小团队的活，但也加剧"会用 AI 的卷死不会用的"。
+
+- term: 上下文腐烂
+  aliases: [context rot]
+  category: devterm
+  meaning: LLM 对话太长后"记性变差"——开头说过的事到后面忘了或弄混。即使在 context window 内也会发生，是注意力机制的固有问题。Sub-agent 设计就是为解决它。
+  example: 这个 agent 跑了两小时上下文腐烂，把 user 名字记错了。
