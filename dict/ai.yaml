@@ -838,3 +838,140 @@
   category: ai
   meaning: 企业级 AI 编程平台——主打"理解超大代码库"。融了几亿美金，硅谷新星。卖给大公司。
   example: Augment 主打能吃下 Google 量级的 monorepo。
+
+# ====================
+# AI 框架 / 库 / 工具（v3 补漏）
+# ====================
+
+- term: smolagents
+  aliases: [smol agents, smolagent]
+  category: ai
+  meaning: HuggingFace 2024 年底推的极简 agent 框架——核心思路是让 LLM 直接生成 Python 代码（CodeAgent）而非 JSON tool call，更灵活更省 token。"smol"=small，几百行实现一个 agent 库。
+  example: 用 smolagents 几十行代码就跑通了一个 search agent。
+
+- term: PydanticAI
+  aliases: [pydantic ai, pydantic-ai]
+  category: ai
+  meaning: Pydantic 团队 2024 年推的 agent 框架——核心卖点是"用 Pydantic 模型定义输出和工具"，类型安全、IDE 自动补全。FastAPI 那套体验搬到 agent 圈。Python 圈技术口碑很好。
+  example: 我们 agent 用 PydanticAI 写，类型安全好维护。
+
+- term: DSPy
+  aliases: [dspy]
+  category: ai
+  meaning: Stanford 出的 prompt 编程框架——不让你手写 prompt 字符串，而是声明输入输出"签名"，DSPy 自动用样本优化 prompt。"程序合成 prompt"思路代表作。
+  example: 用 DSPy 自动优化 prompt，比手调好 20%。
+
+- term: Instructor
+  aliases: [instructor python]
+  category: ai
+  meaning: 让 LLM 输出结构化数据（Pydantic 对象）的 Python 库——自动重试、自动校验、自动重新 ask。OpenAI structured output 出来前最流行的方案，现在仍广泛用。
+  example: 用 instructor 提取 JSON 比手写 prompt 稳很多。
+
+- term: Outlines
+  aliases: [outlines python]
+  category: ai
+  meaning: 强约束输出库——能让 LLM 100% 输出合法 JSON/正则/上下文无关文法。靠在采样阶段直接屏蔽不合规 token 实现。本地模型场景非常实用。
+  example: 用 Outlines 跑 Llama 输出严格符合 JSON Schema。
+
+- term: LiteLLM
+  aliases: [litellm]
+  category: ai
+  meaning: 统一 LLM API 调用的代理层——一份代码同时调 OpenAI/Anthropic/Gemini/本地模型。屏蔽差异、做负载均衡、限流。BerriAI 出品，开源极火。
+  example: 用 LiteLLM 当代理层，模型供应商随便切。
+
+- term: llama.cpp
+  aliases: [llamacpp]
+  category: ai
+  meaning: Georgi Gerganov 写的 C++ LLM 推理引擎——核心创新：把模型量化（INT4/INT8）让笔记本能跑 Llama。本地 LLM 革命的引擎。Ollama、LM Studio 都基于它。
+  example: MacBook M3 上用 llama.cpp 跑 Llama 70B Q4 量化版。
+
+- term: LM Studio
+  aliases: [lmstudio]
+  category: ai
+  meaning: 桌面应用——本地一键下载和跑 Llama/Qwen/Mistral 等模型。图形界面友好，适合不想敲命令行的人。Mac/Windows/Linux 全平台。
+  example: 用 LM Studio 本地跑 Qwen 写日记。
+
+- term: Open WebUI
+  aliases: [open webui, openwebui]
+  category: ai
+  meaning: 给本地 LLM（通过 Ollama）套一个像 ChatGPT 的 Web 聊天界面。开源、自部署、社区超活跃。是"用 Ollama 跑本地模型"的事实标准前端。
+  example: 用 Open WebUI + Ollama 搭了私有 ChatGPT。
+
+- term: LangFlow
+  aliases: [langflow]
+  category: ai
+  meaning: 拖拖拽拽搭 LangChain 应用——可视化 agent/RAG 编排。对不会写代码的非技术用户友好。开源。
+  example: 给运营用 LangFlow 搭了一个客服 bot。
+
+- term: Flowise
+  aliases: [flowise]
+  category: ai
+  meaning: 和 LangFlow 同类——拖拽搭 AI 应用，基于 LangChain。开源、Node.js。两家在抢同一个生态位。
+  example: 用 Flowise 搭了内部知识库问答。
+
+- term: n8n
+  aliases: []
+  category: platforms
+  meaning: 开源的工作流自动化平台——本来是"Zapier 平替"，2024 年起接 LLM 节点变成"AI 自动化"利器。能本地部署。技术圈和小公司很爱用。
+  example: 用 n8n 搭了一个微信群消息归档到 Notion 的 agent 工作流。
+
+- term: Dify
+  aliases: []
+  category: ai
+  meaning: 中国开源的 LLM 应用开发平台——Web 界面里建 chatbot/agent/RAG/工作流，能接所有主流 LLM。开源版+SaaS 双轨。被国内中小公司广泛采用做企业 AI 应用。
+  example: 公司用 Dify 自部署了一套客服 bot。
+
+- term: FastGPT
+  aliases: [fastgpt]
+  category: ai
+  meaning: 中国开源的"基于 LLM 的知识库问答"系统——和 Dify 是同类竞品。专注 RAG 场景，工作流灵活。开源活跃。
+  example: 部署 FastGPT 做了内部文档检索。
+
+- term: Coze
+  aliases: [扣子, coze.com, coze.cn]
+  category: ai
+  meaning: 字节跳动的 AI agent 开发平台——海外版叫 Coze、国内版叫"扣子"。零代码搭 bot、能发布到飞书/微信/Discord。商业化 Dify 的对手。
+  example: 用 Coze 搭了一个抖音运营助手发到飞书。
+
+- term: AG2
+  aliases: [ag2]
+  category: ai
+  meaning: 多 agent 协作框架——前身是微软 AutoGen，2024 年改名 AG2 独立运营。让多个 agent 互相对话完成复杂任务的代表框架之一。
+  example: 用 AG2 搭了"产品+开发+QA"三个 agent 协作生成项目代码。
+
+- term: Mastra
+  aliases: [mastra]
+  category: ai
+  meaning: TypeScript 的 agent 框架——Gatsby 创始人做的。主打"在 TS 项目里写 agent"，前端工程师友好。2024 年新晋热门项目。
+  example: 用 Mastra 在 Next.js 项目里直接写 agent。
+
+- term: Marvin
+  aliases: [marvin ai]
+  category: ai
+  meaning: Prefect 团队做的 AI 工具库——把 LLM 包装成"AI 函数"（用装饰器声明）。Python 圈技术派喜欢，但生态比 LangChain 小。
+  example: 写小工具用 Marvin 比 LangChain 简洁。
+
+- term: AgentChat
+  aliases: [agent chat]
+  category: ai
+  meaning: AutoGen/AG2 团队 2024 年重构出的新核心——更现代的多 agent 对话框架，作为 AG2 内的下一代 API。和老 AutoGen 设计哲学有差异。
+  example: 新项目用 AgentChat 而不是老 AutoGen API。
+
+- term: TGI
+  aliases: [Text Generation Inference]
+  category: abbr
+  literal: Text Generation Inference
+  meaning: HuggingFace 出的 LLM 推理引擎——生产级、企业向。和 vLLM 是直接竞品。提供 OpenAI 兼容 API、连续批处理。
+  example: HF 内部用 TGI 部署他家所有 model。
+
+- term: Haystack
+  aliases: [haystack ai, deepset]
+  category: ai
+  meaning: deepset 公司开源的 RAG/搜索框架——和 LlamaIndex 同类。德国团队做的，企业级用户多。在 NLP 圈历史比 LLM 圈早。
+  example: 这家欧洲企业用 Haystack 做内部知识库。
+
+- term: Comet
+  aliases: [comet browser, perplexity comet]
+  category: ai
+  meaning: Perplexity 推出的 AI 浏览器——内嵌 AI agent，能自动总结网页/对比商品/填表/订机票。和 Arc、The Browser Company 等 AI 浏览器赛道竞争。
+  example: 装了 Comet 浏览器，购物前自动比价超方便。

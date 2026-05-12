@@ -295,3 +295,154 @@
   category: devterm
   meaning: 两层意思：(1) 程序运行时（"runtime error"=运行期间报的错，区别于编译期）；(2) 跑代码的环境（Node.js 是 JS 的服务端 runtime，Deno/Bun 是替代品）。
   example: 这个错误是 runtime 才暴露的，编译期没看出来。
+
+# ====================
+# 基础文档/写作/办公词（v2 补漏）
+# ====================
+
+- term: markdown
+  aliases: [Markdown]
+  category: devterm
+  literal: markdown
+  meaning: 一种用纯文本写格式的语法——`# 标题`变标题、`**粗体**`变粗体、`- item`变列表。GitHub README、Notion、博客、AI 对话框几乎全用 markdown。后缀 `.md` 文件就是 markdown 文档。
+  example: 写需求用 markdown，PRD 一定要是 .md 我才能改。
+
+- term: demo
+  aliases: [演示, demo 版]
+  category: basics
+  literal: demonstration
+  meaning: 字面是"演示版"——能跑通核心功能、给老板/客户看的雏形。还不是完整产品。开发口语里"先做个 demo"=先搞个能动的版本验证想法。
+  example: 周五要给客户演示，明天得先把 demo 做出来。
+
+- term: 文档
+  aliases: [doc, documentation, docs, document]
+  category: basics
+  literal: document
+  meaning: 项目相关的所有书面材料——产品需求、技术设计、API 说明、用户手册、README。"看文档"="去找说明书"。优秀程序员的标志之一：文档写得清楚。
+  example: 这个库的文档写得太烂，得猜 API 怎么用。
+
+- term: 草稿
+  aliases: [draft]
+  category: basics
+  literal: draft
+  meaning: 还没完成的中间版本——文档/PR/PPT/邮件都有草稿状态。"还在草稿"=别评论别催。GitHub 的 PR 有 Draft 状态，开发中的 PR 别合并别 review。
+  example: PR 还是 draft，明天 review。
+
+- term: README
+  aliases: [readme, readme.md, READ ME]
+  category: devterm
+  literal: read me (first)
+  meaning: 项目根目录的"说明书"——任何开源项目第一个看的文件。介绍项目是啥、怎么装、怎么用、有什么限制。写得好坏直接决定别人愿不愿意用。
+  example: clone 下来先看 README 怎么 quick start。
+
+- term: CHANGELOG
+  aliases: [changelog, CHANGELOG.md, 更新日志]
+  category: devterm
+  literal: change log
+  meaning: 项目的"版本更新记录"——每个版本改了什么、修了哪些 bug、加了什么功能。用户升级前看 changelog 决定要不要升。Keep a Changelog 是流行规范。
+  example: 升级前看下 CHANGELOG 有没有 breaking change。
+
+- term: LICENSE
+  aliases: [license, License, 协议]
+  category: devterm
+  literal: license file
+  meaning: 项目根目录里的"开源协议文件"——告诉用户能怎么用：能商用吗、能改吗、要署名吗。常见 MIT/Apache 2.0/GPL。没 LICENSE 文件等于版权全留作者，别人法律上不敢用。
+  example: 加个 LICENSE 文件，否则别人法律上不敢用。
+
+- term: 注释
+  aliases: [comment, comments]
+  category: basics
+  literal: code comment
+  meaning: 代码里给人看的说明文字——计算机会跳过不执行。`# 这一段是干啥的`/`// foo` 都是注释。好注释写"为什么"，烂注释写"做了啥"。
+  example: 这段逻辑加几行注释，半年后自己都看不懂。
+
+- term: 截图
+  aliases: [screenshot, 截屏, 屏幕截图]
+  category: basics
+  literal: screenshot
+  meaning: 把屏幕上的内容拍成图片——Win+Shift+S（Windows）/Cmd+Shift+4（Mac）。bug 截图发群里、产品需求贴截图、向 AI 描述问题都靠它。
+  example: 报 bug 的时候记得带截图，文字描述不清。
+
+- term: PDF
+  aliases: []
+  category: system
+  literal: Portable Document Format
+  meaning: 跨平台的"固定格式文档"——Adobe 1993 年发明，电脑/手机/打印机看都一模一样。合同、论文、报告都用 PDF。开发的痛：要从 PDF 里抽数据特别难。
+  example: 合同发个 PDF 我打印签字。
+
+- term: GIF
+  aliases: []
+  category: system
+  literal: Graphics Interchange Format
+  meaning: 一种"会动的图片"格式——本质是一帧帧静态图轮播。1987 年发明，比短视频早 30 年。今天大量用于聊天表情包、技术演示动图（README 里常见）。
+  example: README 里放个 GIF 演示功能，比文字直观 10 倍。
+
+- term: SVG
+  aliases: [Scalable Vector Graphics]
+  category: devterm
+  literal: Scalable Vector Graphics
+  meaning: 矢量图格式——本质是 XML 描述"在哪画线、在哪填色"，所以放大缩小都不糊。logo、图标、插图都用 SVG。和 PNG/JPG（位图）相对。
+  example: 这个 logo 给我 SVG 版本，不要 PNG，要无损放大。
+
+- term: WebP
+  aliases: []
+  category: devterm
+  literal: WebP image format
+  meaning: Google 2010 年推的图片格式——比 JPG 小 30%、比 PNG 小更多。现代浏览器都支持。网站性能优化经常会把图换成 WebP。
+  example: 网站图片全转 WebP，加载快一截。
+
+- term: Markdown 编辑器
+  aliases: [md editor]
+  category: platforms
+  meaning: 专门写 markdown 的编辑器——Typora、Obsidian、Mark Text 都是。提供实时预览、目录、公式、绘图等。技术写作者首选。
+  example: 用 Typora 写技术博客最舒服。
+
+- term: 模板
+  aliases: [template, tmpl]
+  category: basics
+  literal: template
+  meaning: 预先做好的"骨架"——你填空就能得到完整内容。简历模板、邮件模板、PPT 模板、代码项目模板（cookiecutter）都是。提效神器。
+  example: 用这个 PRD 模板填，省一半时间。
+
+- term: 配置文件
+  aliases: [config, configuration, cfg, settings]
+  category: basics
+  literal: configuration file
+  meaning: 程序的"个性化设置"存在的文件——通常 .json/.yaml/.toml/.ini。改了配置不用改代码，重启程序就生效。`~/.xxx/config.json` 是用户级配置常见路径。
+  example: 改下 config.yaml 把端口从 8080 改成 9000。
+
+- term: 环境变量
+  aliases: []
+  category: devterm
+  literal: environment variable
+  meaning: 操作系统级的"全局变量"——任何程序都能读。常用来传 API key、DB 地址、运行环境（dev/prod）。本地用 .env 文件管，生产用云平台的 secret 管。
+  example: API_KEY 放环境变量里，别 hardcode 到代码。
+
+- term: 依赖
+  aliases: [dependency, dependencies, deps]
+  category: basics
+  literal: dependency
+  meaning: 你的项目要用的"外部包/库"——React、numpy、requests 都是依赖。`package.json`/`requirements.txt`/`pom.xml` 列出所有依赖。"装依赖"=npm install / pip install。
+  example: 项目跑不起来，先 npm i 装一下依赖。
+
+- term: bug
+  aliases: [BUG, 缺陷, 漏洞]
+  category: basics
+  literal: bug (literally insect)
+  meaning: 程序里的"虫子"——能让程序出错的逻辑缺陷。起源：1947 年 Grace Hopper 在 Mark II 计算机里真捡到一只蛾子卡死了继电器。从此 bug 成程序员日常。
+  example: 这个新版又出 bug 了，赶紧回滚。
+
+- term: feature 请求
+  aliases: [feature request, FR]
+  category: basics
+  literal: feature request
+  meaning: 用户向开发者提"我想要 XX 功能"——GitHub Issues 上常见 label：bug / feature request / question。开发会按重要度排优先级。
+  example: 这个功能我提了 feature request，作者说下版加上。
+
+- term: 上线
+  aliases: [上线发布, go live, launch]
+  category: basics
+  literal: launch / go live
+  meaning: 新版本/新功能开始让所有用户能用——和"内部测试"对应。互联网公司"上线"是大事，要走发布流程、要看数据、要值班。"上线后值班"是开发常态。
+  example: 这个功能周三上线，记得提前发通知。
+

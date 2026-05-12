@@ -1,0 +1,265 @@
+# AI / 互联网圈名人
+# —— LLM 大佬、创始人、科学家、网红工程师
+# 风格：他/她是谁 + 做了什么 + 当前位置
+
+# ====================
+# OpenAI
+# ====================
+
+- term: Sam Altman
+  aliases: [sam altman, 山姆奥特曼]
+  category: people
+  meaning: OpenAI CEO。Y Combinator 前总裁，2019 年起掌舵 OpenAI。2022 年 ChatGPT 出圈、2023 年宫斗事件（被董事会开除又请回）让他成为 AI 圈最有话题的人。被称为"AI 时代的乔布斯"。
+  example: Sam Altman 又发推说 GPT-5 训练顺利。
+
+- term: Greg Brockman
+  aliases: [GDB, greg brockman]
+  category: people
+  meaning: OpenAI 联合创始人、前总裁。技术出身，是 OpenAI 早期工程文化的核心。2024 年请过几个月长假后回归。Twitter ID @gdb。
+  example: Greg Brockman 现场 demo 了 Codex 新功能。
+
+- term: Mira Murati
+  aliases: [mira murati]
+  category: people
+  meaning: OpenAI 前 CTO——2024 年宫斗时短暂代理 CEO，后年底离职。2025 年创办 Thinking Machines Lab 做 AI 创业，融资百亿美金估值。被视为 OpenAI 出来的下一位明星创始人。
+  example: Mira 离开 OpenAI 后创立的 Thinking Machines 拉了 100 亿估值。
+
+- term: Ilya Sutskever
+  aliases: [ilya, ilya sutskever, 伊利亚]
+  category: people
+  meaning: 深度学习教父之一——Hinton 学生，AlexNet 共同作者，OpenAI 联合创始人和首席科学家。2024 年因"安全分歧"离开 OpenAI 创办 Safe Superintelligence (SSI) Inc。技术圈神级人物。
+  example: Ilya 离开后 OpenAI 的对齐团队基本散了。
+
+- term: Jakub Pachocki
+  aliases: [jakub pachocki]
+  category: people
+  meaning: OpenAI 现任首席科学家——Ilya 离开后接任。波兰人，竞赛编程出身。GPT-4 训练的核心负责人之一。低调技术派。
+  example: GPT-5 的训练由 Jakub 带的团队负责。
+
+# ====================
+# Anthropic
+# ====================
+
+- term: Dario Amodei
+  aliases: [dario amodei, dario, 达里奥]
+  category: people
+  meaning: Anthropic CEO、联合创始人。前 OpenAI 研究 VP，2021 年带一帮人出走创立 Anthropic 主打 AI 安全。Claude 系列模型的灵魂人物。和姐姐 Daniela 一起掌舵。
+  example: Dario 写的"Machines of Loving Grace"是当下 AI 圈必读。
+
+- term: Daniela Amodei
+  aliases: [daniela amodei]
+  category: people
+  meaning: Anthropic 总裁、联合创始人。Dario 的姐姐，负责公司运营和商业化。Anthropic 在企业市场快速扩张（年化收入 2024 突破 10 亿）背后是她。
+  example: Daniela 接受采访谈了 Anthropic 的企业战略。
+
+- term: Tom Brown
+  aliases: [tom b. brown]
+  category: people
+  meaning: GPT-3 论文一作（"Language Models are Few-Shot Learners"），后随 Dario 出走加入 Anthropic 任首席研究员。in-context learning 概念的奠基者之一。
+  example: 这篇 GPT-3 论文一作 Tom Brown 后来去了 Anthropic。
+
+- term: Chris Olah
+  aliases: [chris olah, 克里斯欧拉]
+  category: people
+  meaning: Anthropic 联合创始人、可解释性研究领军人——AI Alignment 圈最受尊敬的研究者之一。他写的神经网络可视化博客（distill.pub）是 ML 界最美的科普文。
+  example: Chris Olah 团队的 mechanistic interpretability 最近又有新发现。
+
+# ====================
+# Google DeepMind
+# ====================
+
+- term: Demis Hassabis
+  aliases: [demis, demis hassabis]
+  category: people
+  meaning: Google DeepMind CEO、联合创始人。神经科学博士+国际象棋大师+前游戏开发者，开创 AlphaGo/AlphaFold。2024 年因 AlphaFold 拿诺贝尔化学奖。AI 圈唯一一个"既是科学家又是 CEO"的级别。
+  example: Demis 拿诺贝尔奖那年也是 Gemini 大爆发的一年。
+
+- term: Jeff Dean
+  aliases: [jeff dean]
+  category: people
+  meaning: Google 首席科学家——Google 大脑、MapReduce、Bigtable、Spanner、TensorFlow 的核心架构师。"Jeff Dean 段子"是程序员圈梗（"Jeff Dean 编译代码会向他鼓掌"）。
+  example: Jeff Dean 出席的会议你别想发言。
+
+- term: Geoffrey Hinton
+  aliases: [hinton, geoff hinton, 杰弗里辛顿]
+  category: people
+  meaning: 深度学习之父——2024 年诺贝尔物理学奖得主。Ilya/李飞飞/Bengio/LeCun 都是他的学生或学生的学生。2023 年从 Google 退休后公开警告 AI 风险。多伦多大学。
+  example: Hinton 退休后专门给 AI 风险做警告演讲。
+
+- term: Mustafa Suleyman
+  aliases: [mustafa suleyman]
+  category: people
+  meaning: DeepMind 联合创始人，离开后创立 Inflection AI（做 Pi），2024 年带团队整体加入微软任 Microsoft AI CEO。写过《即将到来的浪潮》一本 AI 政策畅销书。
+  example: Mustafa 把 Inflection 卖给微软的操作很经典。
+
+- term: Noam Shazeer
+  aliases: [noam shazeer]
+  category: people
+  meaning: Transformer 论文（"Attention Is All You Need"）作者之一，离开 Google 创立 Character.AI，2024 年又回 Google 任 Gemini 联合负责人。被誉为最强的工程师之一。
+  example: Noam 回归后 Gemini 2.0 出来明显有进步。
+
+# ====================
+# Meta
+# ====================
+
+- term: Yann LeCun
+  aliases: [yann lecun, lecun, 杨立昆]
+  category: people
+  meaning: Meta 首席 AI 科学家，CNN 之父、图灵奖得主之一（和 Hinton/Bengio）。Twitter 上的"LLM 怀疑论者"——长期唱衰自回归 LLM 路线，主推 JEPA 等替代架构。和 Musk 对喷过。
+  example: LeCun 又说 LLM 不可能通向 AGI 了。
+
+- term: Mark Zuckerberg
+  aliases: [mark zuckerberg, 扎克伯格]
+  category: people
+  meaning: Meta CEO。2023 年起 All In AI，开源 Llama 系列模型（颠覆闭源生态）。2025 年砸百亿美金挖人组 Superintelligence Lab。是 Meta 押注 AI 路线的拍板者。
+  example: 扎克伯格出手挖 OpenAI/Anthropic 的人，1 亿美金签字费起步。
+
+# ====================
+# Nvidia / 硬件
+# ====================
+
+- term: Jensen Huang
+  aliases: [黄仁勋, 老黄, jensen]
+  category: people
+  meaning: Nvidia 创始人兼 CEO。AI 算力霸主——大模型训练用的 GPU 几乎全是他家的。皮夹克是个人 IP。市值因 AI 浪潮一度超 Apple/MS 成全球第一。台湾出生美国长大。
+  example: 老黄又上 GTC 主题演讲，AI 圈集体熬夜看。
+
+# ====================
+# xAI / Musk 派
+# ====================
+
+- term: Elon Musk
+  aliases: [elon, musk, 马斯克]
+  category: people
+  meaning: 不用介绍。AI 维度：OpenAI 早期联合创始人和大投资人（后退出），2023 年创立 xAI 做 Grok 对标 ChatGPT，2024 年起诉 OpenAI 违背非盈利初衷。AI 圈最大流量明星。
+  example: Musk 在 X 上的 AI 言论一发就被 AI 圈讨论几天。
+
+- term: Andrej Karpathy
+  aliases: [karpathy, andrej, andrej karpathy]
+  category: people
+  meaning: 教学型 AI 网红——前特斯拉 AI 总监、OpenAI 早期成员。YouTube 上的"Let's build GPT from scratch"系列是 LLM 入门最好的视频。2024 年创立 Eureka Labs 做 AI 教育。
+  example: Karpathy 的 video 看完才真正懂 Transformer 怎么 work。
+
+# ====================
+# 中国 AI 圈
+# ====================
+
+- term: 梁文锋
+  aliases: [liang wenfeng, deepseek 创始人]
+  category: people
+  meaning: DeepSeek 创始人，背后是量化基金"幻方"。2024-2025 年凭 DeepSeek V3/R1 一战封神——以远低于美国大厂的成本训出对标 GPT-4o/o1 的模型，引发 AI 圈"DeepSeek 时刻"。
+  example: 梁文锋的 DeepSeek 让美国 AI 圈集体重新思考训练成本。
+
+- term: 杨植麟
+  aliases: [yang zhilin, kimi 创始人]
+  category: people
+  meaning: 月之暗面（Kimi）创始人。清华+CMU 博士。Kimi 凭"超长上下文"在国内火出圈——能一次性塞下百万 token。被视为中国 LLM 大模型五虎之一。
+  example: 杨植麟最近被红杉等几亿美金估值给砸了。
+
+- term: 王慧文
+  aliases: [wang huiwen, 老王]
+  category: people
+  meaning: 美团联合创始人，2023 年退休后又创立"光年之外"做大模型，融资数亿。后因健康原因退出，公司被美团接手成"美团 AGI"团队。AI 创业潮里典型的"老钱+互联网老炮"案例。
+  example: 王慧文当年喊"AI 大航海时代"是国内 AI 创业开始的信号。
+
+- term: 张一鸣
+  aliases: [zhang yiming]
+  category: people
+  meaning: 字节跳动创始人。退休后专注 AI 研究——亲自带豆包模型团队。字节是中国互联网大厂 AI 押注最重的家之一（Doubao/Coze/Trae 一条龙）。
+  example: 张一鸣亲自盯豆包，字节的 AI 决心可见一斑。
+
+- term: 王兴兴
+  aliases: [wang xingxing, 宇树创始人]
+  category: people
+  meaning: 宇树科技（Unitree）创始人，做四足机器人和人形机器人。2025 年春晚机器人秧歌舞让宇树出圈。中国具身智能（具身 AI）赛道的代表人物。
+  example: 王兴兴的宇树春晚跳舞那段全网刷屏。
+
+- term: 李飞飞
+  aliases: [fei-fei li, fei fei li]
+  category: people
+  meaning: 斯坦福 AI 实验室创始人、ImageNet 创建人（CV 革命的起点）。被誉为"AI 教母"。2024 年创立 World Labs 做空间智能（Spatial AI）。华裔。
+  example: 李飞飞的 World Labs 拿了几亿美金估值。
+
+- term: 何恺明
+  aliases: [kaiming he, he kaiming]
+  category: people
+  meaning: ResNet 论文一作——CNN 时代最重要的工作之一（被引超 30 万次）。前 Meta FAIR 研究员，2024 年回 MIT 任教。中国 AI 圈最受敬重的研究者之一。
+  example: 何恺明 ResNet 这篇是 CV 必读经典。
+
+- term: 李沐
+  aliases: [mu li, li mu]
+  category: people
+  meaning: 亚马逊前首席科学家，《动手学深度学习》（d2l）作者——中国 ML 教育影响最大的人之一。B 站讲论文系列火出圈。2024 年创立 Boson AI 做语音模型。
+  example: 李沐的 d2l 中文 ML 入门首选。
+
+# ====================
+# 学术界 / 图灵奖
+# ====================
+
+- term: Yoshua Bengio
+  aliases: [bengio]
+  category: people
+  meaning: 深度学习三巨头之一（图灵奖 2018 与 Hinton/LeCun 共享）。蒙特利尔大学，Mila 实验室创始人。2023 年起公开警告 AI 风险，签署多份 AI 暂停信。
+  example: Bengio 联署 AI 暂停信引发学界大讨论。
+
+- term: Andrew Ng
+  aliases: [andrew ng, 吴恩达]
+  category: people
+  meaning: 全球最有影响力的 AI 教育者——Coursera 创始人，前 Google Brain 创始人、百度首席科学家。CS229 机器学习公开课启蒙了一代 ML 工程师。和 Hinton 是绝对 Top 名声。
+  example: 学 ML 入门都从吴恩达 CS229 开始。
+
+- term: Jürgen Schmidhuber
+  aliases: [schmidhuber, 施密德胡贝]
+  category: people
+  meaning: LSTM 之父——很多人认为他对深度学习的贡献被低估了。性格直率，常在公开场合表达"图灵奖颁错了应该有我"的态度。瑞士 IDSIA。
+  example: Schmidhuber 又跑出来说现代 LLM 的关键想法都是他先发明的。
+
+- term: Lex Fridman
+  aliases: [lex fridman]
+  category: people
+  meaning: AI/计算机/哲学播客界顶流——Lex Fridman Podcast 经常请 Musk、Altman、LeCun 这些大咖几小时长谈。MIT 出身。AI 圈"代言传声"渠道之一。
+  example: Lex Fridman 那期采访 Sam Altman 是 AI 圈年度大事。
+
+- term: Eliezer Yudkowsky
+  aliases: [yudkowsky]
+  category: people
+  meaning: AI 末日论代表人物——MIRI 创始人，长期警告 AGI 风险。Twitter 上以激进言论著称（"应该轰炸 GPU 数据中心"）。AI 安全圈最有争议的人物。
+  example: Yudkowsky 又在 Twitter 警告 AGI 灭世风险。
+
+- term: Stuart Russell
+  aliases: [stuart russell]
+  category: people
+  meaning: 加州伯克利教授，AI 经典教科书《Artificial Intelligence — A Modern Approach》作者——基本上全球计算机系学生都看过这本。AI 安全主张的温和派代表。
+  example: Russell 那本 AI 教科书是计算机系必修教材。
+
+# ====================
+# Mistral / 欧洲
+# ====================
+
+- term: Arthur Mensch
+  aliases: [arthur mensch]
+  category: people
+  meaning: Mistral AI CEO、联合创始人——前 DeepMind 研究员。法国 AI 国宝级公司创始人，把欧洲 AI 拉到全球牌桌上。Mistral 7B/Mixtral 主打小而强的开源模型。
+  example: Arthur Mensch 是欧洲对抗硅谷 AI 霸权的旗手。
+
+# ====================
+# AI 编程产品创始人
+# ====================
+
+- term: Aravind Srinivas
+  aliases: [aravind srinivas, perplexity ceo]
+  category: people
+  meaning: Perplexity AI CEO、联合创始人。前 OpenAI 研究员。Perplexity 把"AI 搜索"做出圈，估值百亿美金，被认为是 Google 搜索的最大威胁。Twitter 高活跃度。
+  example: Aravind 推 Perplexity 把 Comet 浏览器和 AI 搜索绑死。
+
+- term: Cognition
+  aliases: [cognition labs]
+  category: ai
+  meaning: Devin 背后的公司。2024 年靠"Devin 全自动软件工程师"演示视频出圈、估值飙升至 20 亿美金。后被指有作弊嫌疑，但产品仍持续迭代。
+  example: Cognition 的 Devin 一度被吹爆但实战还差点意思。
+
+- term: Michael Truell
+  aliases: [michael truell, truell]
+  category: people
+  meaning: Cursor（Anysphere）CEO、联合创始人——MIT 辍学创业。Cursor 2024-2025 年成 AI 编程工具王者，估值据传几十亿美金。年仅 20 多岁。
+  example: Michael Truell 创办 Cursor 时才 22 岁。

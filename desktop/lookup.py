@@ -43,6 +43,44 @@ def strip_punct(s: str) -> str:
     return str(s or "").strip(PUNCT_STRIP)
 
 
+def _edit_dist_le_1(a: str, b: str) -> bool:
+    """True if Damerau-Levenshtein(a, b) <= 1.
+    Handles: 1 substitution / 1 insertion / 1 deletion / 1 adjacent transposition.
+    """
+    if a == b:
+        return True
+    la, lb = len(a), len(b)
+    if abs(la - lb) > 1:
+        return False
+    if la == lb:
+        diffs = [i for i in range(la) if a[i] != b[i]]
+        if len(diffs) == 1:
+            return True
+        # adjacent transposition (e.g. claude vs cluade)
+        if (
+            len(diffs) == 2
+            and diffs[1] == diffs[0] + 1
+            and a[diffs[0]] == b[diffs[1]]
+            and a[diffs[1]] == b[diffs[0]]
+        ):
+            return True
+        return False
+    # length differs by 1: insertion or deletion
+    short, long = (a, b) if la < lb else (b, a)
+    i = j = 0
+    skipped = False
+    while i < len(short) and j < len(long):
+        if short[i] == long[j]:
+            i += 1
+            j += 1
+        else:
+            if skipped:
+                return False
+            skipped = True
+            j += 1
+    return True
+
+
 @dataclass
 class Entry:
     term: str
@@ -99,6 +137,52 @@ class DictIndex:
             example=e.get("example", ""),
             source="local",
         )
+
+    def fuzzy_lookup(self, query: str, max_results: int = 2) -> list[Entry]:
+        """Find entries whose normalized key is within edit-distance 1 of query.
+
+        Conservative defaults to avoid false positives:
+          - Input must be ASCII and length >= 4 (skip Chinese, skip short inputs like 'pip')
+          - Only matches against ASCII keys of length >= 4
+          - Single edit distance (sub/ins/del/transposition)
+        Returns up to max_results distinct entries, each tagged source='fuzzy'
+        with meaning prefixed by 'you mean X?' hint so user sees it's a guess.
+        """
+        nq = normalize(query)
+        if len(nq) < 4 or not nq.isascii() or not nq.isalpha():
+            return []
+
+        first = nq[0]
+        seen_terms = set()
+        out: list[Entry] = []
+        for key, idx in self.index.items():
+            if abs(len(key) - len(nq)) > 1 or len(key) < 4:
+                continue
+            if not key.isascii() or not key.isalpha():
+                continue
+            # Cheap pre-filter: same first char, OR transposition case (first 2 chars swapped)
+            if key[0] != first and not (len(key) == len(nq) and key[0] == nq[1] and key[1] == nq[0]):
+                continue
+            if not _edit_dist_le_1(nq, key):
+                continue
+            e = self.entries[idx]
+            term = e.get("term", "")
+            if term in seen_terms or normalize(term) == nq:
+                continue
+            seen_terms.add(term)
+            out.append(
+                Entry(
+                    term=term,
+                    category=e.get("category", "misc"),
+                    literal=e.get("literal", ""),
+                    meaning=f"（你是不是想查「{term}」？）{e.get('meaning', '')}",
+                    example=e.get("example", ""),
+                    source="fuzzy",
+                )
+            )
+            if len(out) >= max_results:
+                break
+        return out
 
     def smart_lookup(self, query: str, max_entries: int = 3) -> LookupResult:
         """Smart lookup with selection cleanup + multi-result.
@@ -161,6 +245,32 @@ class DictIndex:
             if result.entries:
                 result.cleanup = "extracted"
                 return result
+
+        # Step 5: fuzzy match (last resort, English only, edit distance 1).
+        # Catches typos like "claud"→"claude", "kuberntes"→"kubernetes",
+        # also handles "用 figmaa 画图" by fuzzy-matching extracted ASCII tokens.
+        # Conservative: only fires when everything else missed.
+        fuzzy_candidates = [stripped or query]
+        if ascii_tokens:
+            for t in ascii_tokens:
+                t_clean = strip_punct(t)
+                if t_clean and t_clean not in fuzzy_candidates:
+                    fuzzy_candidates.append(t_clean)
+        seen_terms = set()
+        for cand in fuzzy_candidates:
+            hits = self.fuzzy_lookup(cand, max_results=2)
+            for h in hits:
+                if h.term in seen_terms:
+                    continue
+                seen_terms.add(h.term)
+                result.entries.append(h)
+                if len(result.entries) >= max_entries:
+                    break
+            if len(result.entries) >= max_entries:
+                break
+        if result.entries:
+            result.cleanup = "fuzzy"
+            return result
 
         return result
 

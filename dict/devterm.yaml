@@ -1643,7 +1643,7 @@
   example: 这套 legacy 系统跑了 12 年，原作者都退休了，重写预算太大只能修修补补。
 
 - term: env var
-  aliases: [environment variable, 环境变量]
+  aliases: [environment variable]
   category: devterm
   meaning: 想象不同房间贴的"温度设置"小纸条——同一台空调，主卧贴 26 度、客厅贴 24 度。env var 就是给程序贴的环境差异化配置：开发环境一个数据库地址、生产一个，密钥不写代码里靠 env var 在不同环境注入。
   example: 把 DATABASE_URL 放 env var，开发用本地库、生产用云库，代码完全一样。
@@ -2045,7 +2045,7 @@
   example: PHP 的 php.ini 控制 PHP 运行时配置，改完重启生效。
 
 - term: .conf
-  aliases: [conf 文件, 配置文件]
+  aliases: [conf 文件]
   category: devterm
   meaning: 通用配置文件后缀——Linux 世界大量服务用 .conf。Nginx 的 nginx.conf、Apache 的 httpd.conf、SSH 的 sshd_config 都是。格式不统一，每个软件自己定规矩。
   example: 改 nginx.conf 配置反向代理，改完 `nginx -s reload` 热重载。

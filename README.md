@@ -19,10 +19,10 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1460 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1540 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
-    "1460 条人工撰写词条 / 3228 个查询键",
+    "1540 条人工撰写词条 / 3398 个查询键",
     "覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语",
     "100% 本地查询，无网络请求，无隐私泄露",
     "可选 LLM 兜底（Anthropic Claude / OpenAI）",
@@ -49,7 +49,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 </p>
 
 <p align="center">
-  <img alt="词条数" src="https://img.shields.io/badge/词条-1460-blue">
+  <img alt="词条数" src="https://img.shields.io/badge/词条-1540-blue">
   <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
@@ -69,7 +69,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1460 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1540 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -88,7 +88,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>1460 条精校词条 · 3228 个查询键 · 12 大类 · 207 条通用翻译兜底</td>
+    <td>1540 条精校词条 · 3398 个查询键 · 13 大类 · 207 条通用翻译兜底</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -211,7 +211,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**1460 条精校词条 / 3228 个查询键 + 207 条通用翻译兜底**，覆盖十二大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**1540 条精校词条 / 3398 个查询键 + 207 条通用翻译兜底**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
@@ -227,10 +227,20 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | **`security.yaml`** ✨ | **网络安全 / Cybersecurity** | ~55 | 漏洞类型（0day/CVE/CWE/RCE/SSRF/XXE/SSTI/提权/横向移动/沙箱逃逸/供应链攻击/投毒/撞库/拖库/钓鱼/鱼叉/社工）· 攻击（APT 攻击/勒索软件/木马/后门/webshell）· 攻防（红队/蓝队/紫队/渗透测试/零信任/CTF/白帽子/漏洞赏金）· 防护（WAF/IDS/SIEM/EDR/HIDS）· 框架（OWASP Top 10/MITRE ATT&CK/CVSS）· 加固（弱口令/爆破/撒网） | 0day / CVE / RCE / 红队 / 钓鱼 / APT 攻击 / OWASP / SIEM / EDR |
 | **`mlops.yaml`** ✨ | **数据工程 / 机器学习 / 数据库底层** | ~75 | 大数据栈（Spark/Flink/Kafka/Airflow/dbt/Snowflake 数据库/BigQuery/Databricks/Iceberg/Delta Lake/Parquet/Avro/ClickHouse/数仓/数据湖/湖仓一体/ETL/ELT）· **经典 ML**（监督/无监督/强化学习/梯度下降/反向传播/过拟合/正则化/Dropout/BatchNorm/迁移学习/交叉验证/k-means/决策树/随机森林/XGBoost/LightGBM/SVM/PCA/F1/AUC/混淆矩阵/特征工程/超参数/早停）· **数据库底层**（MVCC/隔离级别/脏读/幻读/两阶段提交/慢查询/EXPLAIN/WAL/redo log/binlog/undo log/索引下推/回表/覆盖索引/联合索引/最左前缀） | Spark / Kafka / Airflow / 数据湖 / 梯度下降 / 过拟合 / XGBoost / AUC / MVCC / WAL |
 | **`finance.yaml`** ✨ | **HR / 招聘 / 创投 / 财务** | ~65 | **HR/招聘**（JD/HC/OC/校招/社招/内推/PIP 绩效/试用期/转正/2N/竞业/NDA/sign-on/RSU/vesting/cliff/股权/期权/调岗/绩效/360 评估/calibration/1:1/skip level）· **创投**（ARR/MRR/TAM/SAM/SOM/burn rate/runway/term sheet/cap table/稀释/反稀释/A 轮 B 轮/Pre-IPO/IPO/估值/独角兽/对赌/FA/LP/GP/尽调/退出/M&A/MOIC/IRR/carry/估值倍数/现金流/烧钱/现金奶牛/PMF） | JD / HC / PIP / RSU / vesting / cliff / ARR / runway / TAM / 独角兽 / LP GP |
+| **`people.yaml`** ✨ | **AI / 互联网圈名人** | ~40 | **OpenAI**（Sam Altman/Greg Brockman/Mira Murati/Ilya Sutskever/Jakub Pachocki）· **Anthropic**（Dario Amodei/Daniela Amodei/Tom Brown/Chris Olah）· **DeepMind/Google**（Demis Hassabis/Jeff Dean/Geoffrey Hinton/Mustafa Suleyman/Noam Shazeer）· **Meta**（Yann LeCun/Mark Zuckerberg）· **Nvidia/xAI**（Jensen Huang/Elon Musk）· **学术界**（Yoshua Bengio/Andrew Ng/Jürgen Schmidhuber/Lex Fridman/Yudkowsky/Stuart Russell）· **中国 AI 圈**（梁文锋/杨植麟/王慧文/张一鸣/王兴兴/李飞飞/何恺明/李沐）· **AI 编程公司**（Aravind Srinivas/Cognition/Michael Truell）· **教学网红**（Andrej Karpathy） | Sam Altman / Karpathy / Dario / 李飞飞 / 梁文锋 / 黄仁勋 / 杨植麟 / 何恺明 |
 | **额外兜底** | **`ecdict.json` 通用翻译** | 207 | 字典里 miss 的常见编程英文：namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept ... | namespace / primitive / assertion / adapter / singleton |
-| | **合计** | **1460 条** | **3228 查询键** | **覆盖你日常 99% 看到的术语** |
+| | **合计** | **1540 条** | **3398 查询键** | **覆盖你日常 99% 看到的术语** |
 
-> ✨ = v2 新增板块。本次新增 **3 个 yaml 文件 + 372 条词条**，重点补全：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析。
+> ✨ = v2/v3 新增板块。覆盖：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析、**AI 名人/工程师 v3 新增**、**基础文档/写作词 v3 新增**（markdown/demo/文档/README/CHANGELOG 等）、**AI 库/框架 v3 新增**（smolagents/PydanticAI/DSPy/Instructor/Outlines/LiteLLM/vLLM/llama.cpp/LM Studio/Open WebUI/Dify/Coze 等）。
+
+### 模糊匹配（v3 新增）
+
+打错字也能找到——**输入 `claud` 自动定位 Claude，`pyrhon` 自动定位 Python，`figmaa` 自动定位 Figma**。
+
+- 仅在词典精确没命中时启用，保留精确查询的速度
+- 限制单字符编辑距离（错位 / 缺字 / 多字 / 邻字位置互换）
+- 仅对英文词启用 + 输入长度 ≥ 4，避免误命中（不会把 `pip` 当 `zip` 的笔误）
+- 卡片头部标注「你是不是想查 X？」让用户知道这是猜的不是字典命中
 
 **风格统一**：所有词条都是「比喻 + 真实场景 + 具体例句」三段式。例如：
 
@@ -402,7 +412,7 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                       词库源文件（YAML 格式，1460 条 / 12 个文件）
+├── dict/                       词库源文件（YAML 格式，1540 条 / 13 个文件）
 │   ├── devterm.yaml            开发/工程概念 ~520（锁/数据库/网络/微服务/K8s/SRE/加密/测试/前端构建/Apple/微软/协作工具）
 │   ├── ai.yaml                 AI/LLM/Agent ~135（Transformer/RLHF/LoRA/RAG/LangChain/MCP/Cline/Aider/Codex 等新一代 AI 编程工具）
 │   ├── platforms.yaml          社区/框架/数据库/云/Web3 ~85（CSDN/GitHub/Vercel/NFT/DeFi/DAO/智能合约/Solidity/zk-SNARK）
@@ -415,6 +425,7 @@ codelang/
 │   ├── security.yaml       ✨ 网络安全 ~55（0day/CVE/RCE/SSRF/红队蓝队/APT/钓鱼/OWASP/SIEM/EDR）
 │   ├── mlops.yaml          ✨ 数据工程/经典 ML/数据库底层 ~75（Spark/Kafka/dbt/XGBoost/MVCC/WAL/binlog）
 │   ├── finance.yaml        ✨ HR/招聘/创投/财务 ~65（JD/HC/PIP/RSU/vesting/ARR/runway/独角兽/LP GP/PMF）
+│   ├── people.yaml         ✨ AI/互联网圈名人 ~40（Sam Altman/Karpathy/李飞飞/梁文锋/黄仁勋/Dario Amodei）
 │   └── user.yaml               你录入的词（运行时自动追加）
 ├── desktop/                    桌面应用（Alt+划词触发）
 │   ├── app.py                  主入口
