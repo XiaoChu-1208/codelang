@@ -138,6 +138,111 @@ class DictIndex:
             source="local",
         )
 
+    # Generic basics-level words that show up in nearly every meaning text — they're
+    # legitimate dict entries (user can still look them up directly) but suggesting
+    # them as drill-down chips just produces noise. Curated by hand.
+    _CHIP_BLOCKLIST = frozenset(
+        normalize(s) for s in [
+            "item", "entry", "element", "value", "type", "name", "label", "tag",
+            "index", "format", "data", "list", "array", "object", "string",
+            "number", "boolean", "null", "true", "false", "undefined",
+            "function", "method", "variable", "constant", "parameter", "argument",
+            "module", "package", "library", "framework", "runtime", "ref",
+            "input", "output", "request", "response", "query", "command",
+            "system", "platform", "application", "server", "client",
+            "state", "category",
+            # CJK 太常见
+            "美", "码", "码农", "中", "技术", "公司", "用户", "代码",
+        ]
+    )
+
+    def find_referenced_terms(
+        self, text: str, exclude_terms: set[str] | None = None, max_n: int = 5
+    ) -> list[str]:
+        """Scan `text` and return up to `max_n` dict terms that appear in it.
+
+        Used to build the "相关概念" chip row at the bottom of a card so the user
+        can drill into terms used in the explanation. Sorted by first appearance.
+
+        Filters:
+          - exclude_terms: already-shown terms (avoids loops)
+          - _CHIP_BLOCKLIST: too-generic basics that fire in every meaning
+          - terms <2 chars are skipped (too noisy)
+          - ASCII terms matched case-insensitively with word boundary
+          - CJK terms matched as exact substring
+        """
+        if not text:
+            return []
+        exclude_norm = {normalize(t) for t in (exclude_terms or set())}
+        exclude_norm |= self._CHIP_BLOCKLIST
+
+        text_lower = text.lower()
+        found: list[tuple[int, str]] = []  # (position, term)
+        seen_norm: set[str] = set(exclude_norm)
+
+        for e in self.entries:
+            term = e.get("term", "")
+            if len(term) < 2:
+                continue
+            term_norm = normalize(term)
+            if term_norm in seen_norm:
+                continue
+
+            # search for the entry's term or any alias in text
+            candidates = [term] + list(e.get("aliases") or [])
+            best_pos = -1
+            best_len = 0
+            for cand in candidates:
+                is_ascii = cand.isascii() and cand.replace(" ", "").replace("-", "").replace(".", "").isalnum()
+                # min length: 3 for ASCII (avoid "VS"/"IT"/"AI" matching too liberally),
+                # 2 for CJK (单字汉字有意义但太常见, 双字起步)
+                if is_ascii:
+                    if len(cand) < 3:
+                        continue
+                    pos = self._find_ascii_ci(text_lower, cand.lower())
+                else:
+                    if len(cand) < 2:
+                        continue
+                    pos = text.find(cand)
+                if pos >= 0 and (best_pos < 0 or pos < best_pos):
+                    best_pos = pos
+                    best_len = len(cand)
+            if best_pos >= 0:
+                found.append((best_pos, best_len, term))
+                seen_norm.add(term_norm)
+
+        # Sort by position. For same/overlapping position, prefer longer matches
+        # (so "VS Code" wins over "VS" alias of Visual Studio).
+        found.sort(key=lambda t: (t[0], -t[1]))
+        # Drop terms whose match position is inside a longer earlier match's range
+        kept: list[tuple[int, int, str]] = []
+        for pos, length, term in found:
+            overlapped = any(
+                pos < kp + klen and pos + length > kp
+                for kp, klen, _ in kept
+            )
+            if not overlapped:
+                kept.append((pos, length, term))
+        return [t for _, _, t in kept[:max_n]]
+
+    @staticmethod
+    def _find_ascii_ci(haystack_lower: str, needle_lower: str) -> int:
+        """Case-insensitive find requiring word boundary on both ends.
+        haystack must already be lowered.
+        """
+        n = len(needle_lower)
+        pos = 0
+        while True:
+            i = haystack_lower.find(needle_lower, pos)
+            if i < 0:
+                return -1
+            before_ok = i == 0 or not haystack_lower[i - 1].isalnum()
+            after = i + n
+            after_ok = after >= len(haystack_lower) or not haystack_lower[after].isalnum()
+            if before_ok and after_ok:
+                return i
+            pos = i + 1
+
     def fuzzy_lookup(self, query: str, max_results: int = 2) -> list[Entry]:
         """Find entries whose normalized key is within edit-distance 1 of query.
 

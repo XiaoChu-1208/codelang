@@ -47,7 +47,7 @@
   example: 接口返回的 JSON format 变了，前端报错。
 
 - term: schema
-  aliases: [架构, 模式, 数据结构]
+  aliases: [数据 schema, 表结构]
   category: devterm
   meaning: 描述数据"长什么样"的规范——比如"用户表必须有 id/name/age 三个字段，id 是数字"。数据库表结构、JSON 数据格式、API 请求体都有 schema。
   example: 改数据库 schema 加一个字段，要做数据迁移。

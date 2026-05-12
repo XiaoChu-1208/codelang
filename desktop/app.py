@@ -97,6 +97,8 @@ class App:
             dot_interval_ms=int(self.cfg.get("loading_dot_interval_ms", 250)),
             error_close_ms=int(self.cfg.get("error_auto_close_ms", 1800)),
             on_user_save=self._on_user_save,
+            on_chip_click=self._on_chip_click,
+            find_refs_fn=self.dict.find_referenced_terms,
         )
 
         self.queue: "queue.Queue[tuple]" = queue.Queue()
@@ -250,6 +252,24 @@ class App:
             self.queue.put(("llm_result", gen, entry))
         except Exception as e:
             self.queue.put(("llm_error", gen, str(e)[:80]))
+
+    def _on_chip_click(self, term: str) -> None:
+        """User clicked a "相关" chip in the tooltip. Look up the term and append
+        a stacked sub-card below the current chain. Runs on tk main thread (chip
+        is a tk widget binding), so it's safe to do the lookup synchronously.
+        """
+        try:
+            result = self.dict.smart_lookup(term)
+            if result.is_hit:
+                self.tooltip.append_stacked_card(term, result.entries)
+                return
+            tr = self.translator.lookup(term)
+            if tr:
+                self.tooltip.append_stacked_card(term, [tr])
+                return
+            self.tooltip.append_stacked_card(term, [], missing=True)
+        except Exception as e:
+            print(f"[codelang] chip lookup error: {e}", file=sys.stderr)
 
     def _on_user_save(self, gen: int, term: str, meaning: str, example: str) -> None:
         """Called from UI when user submits a manual entry. Persist + reload + show."""

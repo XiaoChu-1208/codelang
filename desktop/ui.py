@@ -35,6 +35,9 @@ SOURCE_LABEL = {
 DOT_FRAMES = ["·    ", "· ·  ", "· · ·"]
 
 
+MAX_STACK_DEPTH = 4  # primary + up to 3 stacked sub-cards (4 total)
+
+
 class Tooltip:
     def __init__(
         self,
@@ -42,11 +45,15 @@ class Tooltip:
         dot_interval_ms: int = 250,
         error_close_ms: int = 1800,
         on_user_save: Optional[Callable[[int, str, str, str], None]] = None,
+        on_chip_click: Optional[Callable[[str], None]] = None,
+        find_refs_fn: Optional[Callable[[str, set[str]], list[str]]] = None,
     ):
         self.root = root
         self.dot_interval_ms = dot_interval_ms
         self.error_close_ms = error_close_ms
         self.on_user_save = on_user_save
+        self.on_chip_click = on_chip_click  # callback(term) when user clicks a 相关 chip
+        self.find_refs_fn = find_refs_fn    # callable(text, exclude_set) -> list[str]
 
         self._gen = 0
         self._loading = False
@@ -55,6 +62,9 @@ class Tooltip:
         self._auto_close_after_id: str | None = None
         self._current_term: str = ""
         self._input_visible = False
+        # Stacked sub-cards: each is a (Toplevel, term) — empty when no drill-down active.
+        # The primary self.top window is implicitly stack depth 0.
+        self.sub_windows: list[tuple[tk.Toplevel, str]] = []
 
         self.top = tk.Toplevel(root)
         self.top.withdraw()
@@ -153,6 +163,7 @@ class Tooltip:
         self.lbl_loading.pack_forget()
         self._hide_miss()
         self._clear_entries()
+        self._destroy_sub_windows()  # new top-level lookup wipes any drill-down stack
 
         if not entries:
             return
@@ -185,6 +196,12 @@ class Tooltip:
             if i < len(entries) - 1:
                 sep = tk.Frame(self.entries_frame, bg="#eaeaea", height=1)
                 sep.pack(fill="x", pady=(6, 0))
+
+        # Track primary card's term for stacked exclude filtering
+        self._current_term = entries[0].term if entries else ""
+
+        # Chip row: drill into terms referenced inside the meaning text
+        self._render_chip_row(self.entries_frame, entries, depth=0)
 
         # Source footer: aggregate sources across entries
         sources = {e.source for e in entries}
@@ -291,6 +308,7 @@ class Tooltip:
         self._stop_dots()
         self._cancel_auto_close()
         self._input_visible = False
+        self._destroy_sub_windows()
         self.top.withdraw()
 
     def is_visible(self) -> bool:
@@ -300,16 +318,173 @@ class Tooltip:
             return False
 
     def contains_point(self, x: int, y: int) -> bool:
+        """True if (x, y) is inside the primary card OR any stacked sub-card."""
         if not self.is_visible():
             return False
         try:
-            x0 = self.top.winfo_rootx()
-            y0 = self.top.winfo_rooty()
-            x1 = x0 + self.top.winfo_width()
-            y1 = y0 + self.top.winfo_height()
-            return x0 <= x <= x1 and y0 <= y <= y1
+            for win in (self.top, *(w for w, _ in self.sub_windows)):
+                x0 = win.winfo_rootx()
+                y0 = win.winfo_rooty()
+                x1 = x0 + win.winfo_width()
+                y1 = y0 + win.winfo_height()
+                if x0 <= x <= x1 and y0 <= y <= y1:
+                    return True
+            return False
         except tk.TclError:
             return False
+
+    # ---------- stacked drill-down cards ----------
+
+    def stack_depth(self) -> int:
+        """0 = only primary visible; N = primary + N stacked sub-cards."""
+        return len(self.sub_windows)
+
+    def stacked_terms(self) -> set[str]:
+        """All terms currently shown in the stack (primary + subs), for exclude filtering."""
+        terms = {self._current_term} if self._current_term else set()
+        terms.update(t for _, t in self.sub_windows)
+        return terms
+
+    def append_stacked_card(
+        self,
+        term: str,
+        entries: list[Entry],
+        missing: bool = False,
+    ) -> None:
+        """Add a new card below the bottom-most visible card.
+        - `entries` non-empty: render entries + chip row (unless at max depth).
+        - `entries` empty + missing=True: render a small "未收录" placeholder card.
+        """
+        if not self.is_visible():
+            return
+        new_depth = len(self.sub_windows) + 1
+        if new_depth > MAX_STACK_DEPTH - 1:
+            # already at max; the chip row should've been suppressed but guard anyway
+            return
+
+        sub = tk.Toplevel(self.root)
+        sub.withdraw()
+        sub.overrideredirect(True)
+        sub.attributes("-topmost", True)
+        try:
+            sub.attributes("-toolwindow", True)
+        except tk.TclError:
+            pass
+
+        outer = tk.Frame(sub, bg=self.border)
+        outer.pack(fill="both", expand=True)
+        inner = tk.Frame(outer, bg=self.bg, padx=10, pady=8)
+        inner.pack(fill="both", expand=True, padx=1, pady=1)
+
+        # Depth badge in header so user knows where they are in the drill chain
+        depth_head = tk.Frame(inner, bg=self.bg)
+        depth_head.pack(fill="x", anchor="w")
+        tk.Label(
+            depth_head,
+            text=f"↳ 第 {new_depth + 1} 层",
+            bg=self.bg,
+            fg=self.text_meta,
+            font=self.font_cat,
+            anchor="w",
+        ).pack(side="left")
+        close_lbl = tk.Label(
+            depth_head,
+            text="× 关闭这层",
+            bg=self.bg,
+            fg=self.text_meta,
+            font=self.font_btn,
+            cursor="hand2",
+        )
+        close_lbl.pack(side="right")
+        close_lbl.bind("<Button-1>", lambda _e, w=sub: self._close_sub_window(w))
+
+        body = tk.Frame(inner, bg=self.bg)
+        body.pack(fill="x", anchor="w", pady=(4, 0))
+
+        if missing or not entries:
+            # Miss placeholder card
+            tk.Label(
+                body,
+                text=self._truncate(term, 24),
+                bg=self.bg,
+                fg=self.text_dark,
+                font=self.font_title,
+                anchor="w",
+            ).pack(anchor="w")
+            tk.Label(
+                body,
+                text="未收录这个词。",
+                bg=self.bg,
+                fg=self.text_meta,
+                font=self.font_body,
+                anchor="w",
+            ).pack(anchor="w", pady=(2, 0))
+        else:
+            for i, e in enumerate(entries):
+                block = self._render_entry_block(body, e, compact=(len(entries) > 1))
+                block.pack(fill="x", pady=(0, 0) if i == 0 else (6, 0), anchor="w")
+                if i < len(entries) - 1:
+                    sep = tk.Frame(body, bg="#eaeaea", height=1)
+                    sep.pack(fill="x", pady=(6, 0))
+            # Chip row — suppressed at the last allowed depth (advise AI instead)
+            self._render_chip_row(body, entries, depth=new_depth)
+
+        # Position: directly below the bottom-most window, same x
+        last_win = self.sub_windows[-1][0] if self.sub_windows else self.top
+        try:
+            last_win.update_idletasks()
+            sub.update_idletasks()
+        except tk.TclError:
+            pass
+        last_x = last_win.winfo_rootx()
+        last_y = last_win.winfo_rooty()
+        last_h = last_win.winfo_height()
+        new_x = last_x
+        new_y = last_y + last_h + 6
+
+        # Clamp to screen
+        sub_w = max(sub.winfo_reqwidth(), 280)
+        sub_h = max(sub.winfo_reqheight(), 60)
+        left, top_e, right, bottom = winhelp.get_monitor_work_rect(
+            new_x + sub_w // 2, new_y + sub_h // 2
+        )
+        if new_y + sub_h > bottom - 4:
+            # No room below; place above the chain (above the primary)
+            new_y = max(top_e + 4, self.top.winfo_rooty() - sub_h - 6)
+        if new_x + sub_w > right - 4:
+            new_x = right - 4 - sub_w
+        if new_x < left + 4:
+            new_x = left + 4
+
+        sub.geometry(f"+{new_x}+{new_y}")
+        sub.deiconify()
+        sub.lift()
+        self.sub_windows.append((sub, term))
+
+    def _close_sub_window(self, w: tk.Toplevel) -> None:
+        """Close this sub-card AND any deeper sub-cards stacked below it."""
+        idx = None
+        for i, (win, _t) in enumerate(self.sub_windows):
+            if win is w:
+                idx = i
+                break
+        if idx is None:
+            return
+        # Destroy from this point down
+        for win, _t in self.sub_windows[idx:]:
+            try:
+                win.destroy()
+            except tk.TclError:
+                pass
+        self.sub_windows = self.sub_windows[:idx]
+
+    def _destroy_sub_windows(self) -> None:
+        for win, _t in self.sub_windows:
+            try:
+                win.destroy()
+            except tk.TclError:
+                pass
+        self.sub_windows.clear()
 
     # ---------- entry rendering ----------
 
@@ -350,6 +525,98 @@ class Tooltip:
             row("例句", entry.example, muted=True)
 
         return block
+
+    def _render_chip_row(self, parent: tk.Frame, entries: list[Entry], depth: int) -> None:
+        """Render the "相关" chip row at the bottom of a card.
+
+        - At final allowed depth, suppress chips and show "更深就建议问 AI" hint.
+        - For entries with translation/fuzzy/llm source, skip chips (too noisy).
+        - Aggregates referenced terms across all entries' meaning text.
+        """
+        if self.find_refs_fn is None:
+            return
+
+        # Skip chip row for non-local entries (translation/fuzzy/llm) — meanings
+        # there are auto-generated or generic, refs are usually noise.
+        meaningful = [e for e in entries if e.source in ("local", "user") and e.meaning]
+        if not meaningful:
+            return
+
+        # At the deepest allowed sub-card depth, show "去问 AI 吧" hint instead of chips
+        if depth >= MAX_STACK_DEPTH - 1:
+            row = tk.Frame(parent, bg=self.bg)
+            row.pack(fill="x", pady=(8, 0), anchor="w")
+            tk.Label(
+                row,
+                text="💡 概念套娃太深了，建议丢给 ChatGPT/Claude 整体讲一下",
+                bg=self.bg,
+                fg=self.text_meta,
+                font=self.font_cat,
+                anchor="w",
+            ).pack(anchor="w")
+            return
+
+        exclude = self.stacked_terms()
+        for e in entries:
+            if e.term:
+                exclude.add(e.term)
+
+        # Aggregate refs from all entries' meanings, preserving order
+        all_refs: list[str] = []
+        seen = set()
+        for e in meaningful:
+            try:
+                refs = self.find_refs_fn(e.meaning, exclude)
+            except Exception:
+                refs = []
+            for r in refs:
+                if r in seen:
+                    continue
+                seen.add(r)
+                all_refs.append(r)
+                if len(all_refs) >= 5:
+                    break
+            if len(all_refs) >= 5:
+                break
+
+        if not all_refs:
+            return
+
+        # Label + chips on one line
+        row = tk.Frame(parent, bg=self.bg)
+        row.pack(fill="x", pady=(8, 0), anchor="w")
+        tk.Label(
+            row,
+            text="相关",
+            bg=self.bg,
+            fg=self.text_meta,
+            font=self.font_label,
+            width=4,
+            anchor="w",
+        ).pack(side="left", anchor="n", pady=(2, 0))
+
+        # Chip container that allows wrapping if needed (use a sub-frame and pack chips with side='left')
+        chips = tk.Frame(row, bg=self.bg)
+        chips.pack(side="left", fill="x", expand=True, anchor="w")
+        for term in all_refs:
+            chip = tk.Label(
+                chips,
+                text=term,
+                bg="#eef4ff",
+                fg=self.cat_fg,
+                font=self.font_cat,
+                padx=7,
+                pady=2,
+                cursor="hand2",
+            )
+            chip.pack(side="left", padx=(0, 4), pady=2)
+            chip.bind(
+                "<Button-1>",
+                lambda _e, t=term: self.on_chip_click(t) if self.on_chip_click else None,
+            )
+            # Hover effect: subtle bg change
+            chip.bind("<Enter>", lambda _e, c=chip: c.config(bg="#dde7ff"))
+            chip.bind("<Leave>", lambda _e, c=chip: c.config(bg="#eef4ff"))
 
     def _clear_entries(self) -> None:
         for w in self.entries_frame.winfo_children():
