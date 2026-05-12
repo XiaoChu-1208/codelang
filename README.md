@@ -135,6 +135,18 @@ py -m pip install -r requirements.txt
 - 双击 `desktop\run.bat` 静默启动
 - 双击 `desktop\run_console.bat` 带控制台启动（调试用）
 
+### 卸载
+
+双击项目根目录的 `uninstall.bat` —— 干净反向操作：
+- 从用户 PATH 移除 `bin/`（不影响其他工具）
+- 删除桌面 `codelang.lnk`
+- 项目代码本身不动（直接删项目目录即可彻底清除）
+
+想顺手把 `~/.codelang/`（含 LLM 缓存、用户字典、日志）也清掉：
+```powershell
+py tools\uninstall_shortcuts.py --purge-config
+```
+
 ### 排查问题想看实时日志
 
 **托盘菜单点「查看日志」** —— 自动用记事本打开 `~/.codelang/codelang.log`，包含取词、Alt 检测、phantom 清理等所有诊断信息。
