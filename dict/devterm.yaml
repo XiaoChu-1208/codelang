@@ -1191,10 +1191,16 @@
   example: fork 某开源项目 → 改 bug → 提 PR 让作者合回。
 
 - term: upstream
-  aliases: [origin]
+  aliases: [上游远端, upstream 远端]
   category: devterm
-  meaning: 想象一条河——上游的水流到下游。你 fork 别人项目后，你的仓库是下游，原作者那个是 upstream（上游）。原作者更新了，你得手动从 upstream 拉新代码合到自己仓库，免得脱节。origin 一般指你自己那个远端。
-  example: 别人项目更新了，git fetch upstream 拉最新再合到自己的 fork。
+  meaning: 想象一条河——上游的水流到下游。你 fork（复印）别人项目后，你那个仓是下游，原作者那个仓是 upstream（上游）。原作者更新代码后，你得手动从 upstream 拉新合到自己仓，免得跟着脱节。upstream 是 fork 场景才用的特殊概念，普通项目里只有 origin。
+  example: 给开源项目提了 PR 后，过几天 git fetch upstream 拉原仓最新再合到自己 fork。
+
+- term: origin
+  aliases: [origin 远端]
+  category: devterm
+  meaning: Git 里每个仓库默认的"远端别名"——你 git clone 一个项目下来，那个远端自动就叫 origin。所有 git push、git pull 默认就是和 origin 通信。一个仓可以有多个远端（origin、upstream、自定义名字...），origin 只是约定俗成的默认名。
+  example: git push origin main 把本地 main 分支推到默认远端。
 
 # --- batch 6: 测试 / 工具链 ---
 
