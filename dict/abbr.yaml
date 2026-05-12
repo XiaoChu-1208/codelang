@@ -73,7 +73,7 @@
   aliases: [Server-Side Rendering]
   category: abbr
   literal: Server-Side Rendering，服务端渲染
-  meaning: 想象去餐厅吃饭：菜直接端上桌（SSR）vs 食材摆桌让你自己炒（CSR）。SSR 是 HTML 在服务器端拼好直接发给浏览器，用户立刻看到内容。优点：首屏快、搜索引擎能爬。Next.js、Nuxt 主推。
+  meaning: 想象去快递站取件——SSR 是工作人员已经把货拼好直接交到你手上（拿了就走），CSR 是给你一堆零件让你回家自己拼。SSR 是 HTML 在服务器端拼好直接发给浏览器，用户立刻看到内容。优点：首屏快、搜索引擎能爬。Next.js、Nuxt 主推。
   example: 公司官网必须 SEO，老的 SPA 改成 SSR 之后百度收录数翻 5 倍。
 
 - term: CSR
@@ -403,7 +403,7 @@
   aliases: [POC, proof of concept]
   category: abbr
   literal: Proof of Concept
-  meaning: 想象做菜前先抓两根菜炒一小盘试味——能不能成事先验证再决定大动作。PoC 就是这种"用最少代码证明技术可行"的尝试，比 MVP 还粗糙、不给用户看、纯内部技术验证。
+  meaning: 想象大装修前先在样板间试一下灯光和墙漆颜色——能不能成事先小成本验证再决定动整间房。PoC 就是这种「用最少代码证明技术可行」的尝试，比 MVP 还粗糙、不给用户看、纯内部技术验证。
   example: 先做个 PoC 看这个新数据库技术能不能扛住业务，再考虑迁移。
 
 - term: SPA

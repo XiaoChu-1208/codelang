@@ -3,7 +3,7 @@
 - term: LangChain
   aliases: [langchain]
   category: devterm
-  meaning: 想象做菜要"切菜→炒锅→装盘"按顺序串联——LangChain 就是 LLM 应用的这种串联框架：把语言模型 + 工具 + 记忆 + 向量库等组件像菜谱一样链式串起来。2023 年 LLM 应用栈的开荒者，特别红，后来生态被吐槽太重。
+  meaning: 想象工厂流水线——传送带上的零件依次经过切割机、焊接机、组装机、检测机，最后出一部成品。LangChain 就是 LLM 应用的这种串联框架：把语言模型 + 工具 + 记忆 + 向量库等组件像流水线一样串起来。2023 年 LLM 应用栈的开荒者，特别红，后来生态被吐槽太重。
   example: 用 LangChain 接公司 PDF + 向量库做一个能问答的客服机器人。
 
 - term: LlamaIndex
@@ -15,13 +15,13 @@
 - term: LangGraph
   aliases: [langgraph]
   category: devterm
-  meaning: 想象 LangChain 像写直线的菜谱"切→炒→装盘"，LangGraph 像画流程图"如果汤淡就加盐重尝、咸了加水重尝"——能有循环、能回头、能根据状态分叉。适合复杂 agent 流程。
+  meaning: 想象 LangChain 是一条单向流水线（A→B→C→出货），LangGraph 是整个工厂园区——可以根据中间检测结果回到某个工位重做、可以分叉走多条路、可以循环测试到合格才放行。适合复杂 agent 流程。
   example: 用 LangGraph 写一个能反复反思修正的 agent，每步看自己上一步对不对。
 
 - term: LangSmith
   aliases: [langsmith]
   category: devterm
-  meaning: 想象给厨房装监控摄像头——回看每一步、看哪步做错了。LangSmith 是 LangChain 团队出的调试+评测平台：记录每次 LLM 调用、可视化整条 agent 链路、跑评测集。线上 agent 出问题不上 LangSmith 就是抓瞎。
+  meaning: 想象工厂每个工位装上摄像头——成品出问题能回放每一步看哪个工位出错。LangSmith 是 LangChain 团队出的调试+评测平台：记录每次 LLM 调用、可视化整条 agent 链路、跑评测集。线上 agent 出问题不上 LangSmith 就是抓瞎。
   example: agent 经常给错答案，上 LangSmith 一看是某个工具调用返回了错数据。
 
 - term: AutoGen
@@ -282,7 +282,7 @@
   aliases: [温度参数]
   category: devterm
   literal: 温度
-  meaning: 想象点菜——温度 0 是"我永远点同一家招牌菜"，温度 2 是"我蒙眼乱戳菜单"。LLM 的 temperature 参数控制输出随机性：0 = 总是答概率最高的（稳定但无聊），高 = 更随机更有创意。代码任务调 0，写诗调 1.0+。
+  meaning: 想象调音台的「创意度」旋钮——拧到 0 永远播放同一个标准答案，开大就加上各种随机效果。LLM 的 temperature 参数控制输出随机性：0 = 总是答概率最高的（稳定但无聊），高 = 更随机更有创意。代码任务调 0，写诗调 1.0+。
   example: 客服 bot temperature 设 0 保证答案一致，作家辅助工具调 0.8 让它脑洞大。
 
 - term: top-p

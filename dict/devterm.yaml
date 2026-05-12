@@ -17,7 +17,7 @@
   aliases: [Backend for Frontend]
   category: devterm
   literal: Backend For Frontend，给前端用的后端
-  meaning: 想象你点外卖：你不会自己跑到三家餐厅各点一道菜，而是让外卖员帮你跑腿，回来时三道菜在一个袋子里。BFF 就是这个外卖员——前端只跟它要数据，它在后端世界里跑去把订单、用户、优惠券问完，整理好一次性递给前端。
+  meaning: 想象公司前台帮你统一收快递——你不用挨家快递柜跑一遍，前台一次性把全部包裹搬给你。BFF 就是前端的「统一收件人」：前端只跟它要数据，它在后端世界里把订单、用户、优惠券问完，整理好一次性递给前端。
   example: 一个商品详情页要订单+物流+评论三种信息，BFF 一次打包返回，前端不用自己跑三趟。
 
 - term: 熔断
@@ -59,14 +59,14 @@
   aliases: [灰度发布, canary, canary release, 金丝雀]
   category: devterm
   literal: 不是全黑也不是全白
-  meaning: 想象新菜上市前，餐厅老板先做十份给老顾客试吃，看反响再决定要不要进菜单。代码上线也是：新版本先放给 1% 的用户试用，没人投诉再放 10%、再放全量。这样万一有 bug，受伤面控制得住。
+  meaning: 想象电影上映流程——先内部试映给员工看、再点映给媒体、再小城市上映、最后全国公映。代码上线也是：新版本先放给 1% 的用户试用，没人投诉再放 10%、再放全量。这样万一有 bug，受伤面控制得住。
   example: 微信改版从来不是全员一起换，先内部、再小城市、再全国，这就是灰度。
 
 - term: A/B test
   aliases: [ABtest, A/B 测试, 分流实验, AB 实验]
   category: devterm
   literal: A 组 vs B 组对比测试
-  meaning: 想象奶茶店纠结"招牌叫'轻享系列'还是'清爽系列'"，于是同一周两家分店挂不同招牌，看哪家进店人多。互联网公司天天干这事：把按钮文案、价格、颜色做两版，各放给一半用户，数据说话决定留哪个。
+  meaning: 想象两家便利店挨着开，门口分别挂「限时 5 折」和「买一送一」——一周后看哪家进店人多。互联网公司天天干这事：把按钮文案、价格、颜色做两版，各放给一半用户，数据说话决定留哪个。
   example: 淘宝把"加入购物车"按钮改成红色和橙色各放一半用户，一周后看谁点的多。
 
 - term: 长尾
@@ -101,7 +101,7 @@
   aliases: [state machine, FSM, 有限状态机]
   category: devterm
   literal: 有限个状态 + 状态间转移规则
-  meaning: 想象一份外卖订单的人生轨迹：待支付 → 已支付 → 商家接单 → 配送中 → 已送达。每一步只能往后走，不能从"已送达"跳回"待支付"，跳了你就免单了。状态机就是把这套"什么状态能变成什么状态"的规则写死，挡掉所有不合法的跳跃。
+  meaning: 想象坐高铁的流程：买票 → 安检 → 候车 → 检票 → 上车 → 到站。每一步只能往后走，不能从「已到站」跳回「候车」，跳了系统直接拦。状态机就是把这套「什么状态能变成什么状态」的规则写死，挡掉所有不合法的跳跃。
   example: 用状态机管订单，避免"已发货"被改回"待支付"这种白拿钱的 bug。
 
 # --- batch 2 expansion: 技术词 ---
@@ -318,7 +318,7 @@
 - term: 协程
   aliases: [coroutine, 协程并发]
   category: devterm
-  meaning: 想象超人厨师——他炒一道菜时如果汤要熬 5 分钟，他放下勺切个菜，菜切完去炒另一锅，期间汤好了立刻回去。协程就是这种"一个人能优雅地同时管很多件事"的并发方式。比开很多个厨师（线程）便宜得多。
+  meaning: 想象一个杂技演员单手转五个盘子——某个盘子稳了他去拨下一个，盘子轮流转着没一个落地。协程就是这种「一个人优雅地同时管很多件事」的并发方式，比每个盘子单独请一个人（线程）省得多。
   example: Go 一个进程轻松开 10 万协程同时处理网络请求，开 10 万线程电脑早死了。
 
 - term: 内存泄漏
@@ -396,7 +396,7 @@
   aliases: [Remote Procedure Call]
   category: devterm
   literal: 远程过程调用
-  meaning: 想象你在自家厨房喊一声"妈，糖给我"，妈在隔壁屋递糖过来——感觉就像伸手就够到。RPC 让程序员调远程服务像调本地函数一样简单：写 user.getName() 框架自动把请求送到那台机器、等回结果。底层网络细节全屏蔽。
+  meaning: 想象工厂里的内部对讲机——按一下问「3 号仓库还剩几箱」，3 号那边按一下就回话，跟当面问差不多简单。RPC 让程序员调远程服务像按对讲机一样：写 user.getName() 框架自动把请求送过去等回结果，底层网络细节全屏蔽。
   example: 微服务之间不写 HTTP 拼 JSON，直接 user.getInfo() 像调本地代码，是 RPC 框架在背后操办。
 
 - term: gRPC
@@ -546,7 +546,7 @@
 - term: 灰度环境
   aliases: [pre 环境, 预发环境]
   category: devterm
-  meaning: 想象新菜上市前的"内部试吃晚宴"——配方、食材、厨师跟正式开业完全一样，但只给员工和老顾客吃。灰度环境就是上线前最后一道关：配置和生产几乎一样，但只放小流量进来验证，发现问题不影响普通用户。
+  meaning: 想象演唱会正式开场前的「彩排夜」——舞台灯光音响全套都和正式演出一样，但只放工作人员和家属进场看。灰度环境就是上线前最后一道关：配置和生产几乎一样，但只放小流量进来验证，发现问题不影响普通用户。
   example: 新版支付链路先上灰度跑两天，没问题再切全量。
 
 - term: 滚动发布
@@ -578,7 +578,7 @@
 - term: popover
   aliases: [Popover, 浮层]
   category: devterm
-  meaning: 想象你在便利店问"这个酸奶过期了吗"，店员凑过来小声告诉你日期——比朋友凑过来贴脸说重，比贴一张海报轻。popover 就是这种悬浮的小卡片：点某个元素旁边浮出来更多信息或操作选项，不像 modal 那样霸屏。
+  meaning: 想象博物馆展品旁的小解说牌——你站到展品前它才浮出来一段说明，走开就收起。popover 就是这种悬浮的小卡片：点某个元素旁边浮出来更多信息或操作选项，不像 modal 那样霸屏。
   example: 头像旁的下拉菜单"设置/退出"，那个小卡片就是 popover。
 
 - term: popup
@@ -603,7 +603,7 @@
 - term: snackbar
   aliases: [Snackbar]
   category: devterm
-  meaning: 想象餐厅吧台递过来的小食——一根薯条配蘸酱，吃完不吃就撤。snackbar 是 Material Design 里底部弹出的短消息条，跟 toast 类似但常带一个操作按钮（"撤销"），让用户有反悔机会。
+  meaning: 想象地铁广播「下一站陆家嘴，请扶好」——讲完就过、不打扰你刷手机，但语音里还附一句「如有延误可在 App 投诉」，你想响应也能响应。snackbar 是 Material Design 里底部弹出的短消息条，跟 toast 类似但常带一个操作按钮（「撤销」），让用户有反悔机会。
   example: 删除了一条消息后弹 snackbar "已删除 [撤销]"，5 秒内点撤销能恢复。
 
 - term: breadcrumb
@@ -855,7 +855,7 @@
   aliases: [hooks, React hook]
   category: devterm
   literal: 钩子
-  meaning: 想象厨房挂钩——平时是空的，需要时挂上一把铲子、一个抹布。代码里的"钩子"就是预留的位置，让你"在某时刻挂上自定义动作"。比如 Git commit 前挂个钩子自动跑 lint。React Hooks 是这个概念的具体应用：useState 让你在函数组件里挂上状态、useEffect 让你挂上副作用。
+  meaning: 想象玄关挂钩——平时空着，需要时挂上钥匙、口罩、外套。代码里的「钩子」就是预留的位置，让你「在某时刻挂上自定义动作」。比如 Git commit 前挂个钩子自动跑 lint。React Hooks 是这个概念的具体应用：useState 让你在函数组件里挂上状态、useEffect 让你挂上副作用。
   example: 这组件用了五个 useState hook，状态太多得拆。
 
 - term: useState
@@ -993,7 +993,7 @@
 - term: decorator
   aliases: [装饰器, "@xxx"]
   category: devterm
-  meaning: 想象你点外卖前服务员问"要不要打包+加双筷子+保温袋？"——这些都是给餐本身加的"装饰服务"，餐没变包装升级。代码 decorator 一样：用 @xxx 在函数上面套一层，加日志/计时/缓存/权限，原函数代码不动只是被包了。
+  meaning: 想象礼品店帮你包装商品——商品本身没变，外面被套上礼品纸、系上丝带、贴张贺卡。代码 decorator 一样：用 @xxx 在函数上面套一层，加日志/计时/缓存/权限，原函数代码不动只是被包了。
   example: 给一个慢函数加 @lru_cache，结果自动缓存，下次同样参数直接取缓存。
 
 - term: generator
@@ -1046,7 +1046,7 @@
 
 - term: asyncio
   category: devterm
-  meaning: 想象一个超人厨师在五口锅之间切换——A 锅炖着汤的间隙去翻 B 锅的肉，B 肉好了切去 C 锅。asyncio 是 Python 的这种"单人多任务高效切换"框架，基于协程，特别适合大量等待 IO 的场景（网络请求、文件读写）。
+  meaning: 想象客服话务员同时挂着十路电话——每路在等顾客回话的间隙他切去回应另一路，整个人没浪费一秒。asyncio 是 Python 的这种「单人多任务高效切换」框架，基于协程，特别适合大量等待 IO 的场景（网络请求、文件读写）。
   example: 写爬虫用 asyncio + aiohttp 同时拉 1000 个网页，比同步快几十倍。
 
 - term: pip
@@ -1092,7 +1092,7 @@
 
 - term: defer
   category: devterm
-  meaning: 想象进餐厅时跟服务员说"等会儿走时记得帮我打包剩菜"——defer 就是这种"提前安排函数结束时的收尾"。文件打开后立刻 defer file.Close()，写到哪里报错都会自动关文件，避免忘记。
+  meaning: 想象出门前在门把手上贴张便签「回来关空调」——到时候手一摸便签就记得。defer 就是这种「提前安排函数结束时的收尾动作」。文件打开后立刻 defer file.Close()，写到哪里报错都会自动关文件，避免忘记。
   example: defer file.Close() 是 Go 程序员的肌肉记忆，写完打开就 defer 关。
 
 - term: panic
@@ -1113,7 +1113,7 @@
 - term: interface
   aliases: [接口]
   category: devterm
-  meaning: 想象工作合同——上面写"会做菜、会洗碗"。任何会做菜+会洗碗的人都符合这份合同，不管他叫什么、长什么样。interface 就是这种"满足一组方法就算实现"的契约。Go 的特别之处：自动判定满足，不用像 Java/TS 显式写 implements。
+  meaning: 想象招聘启事——上面写「要求：会 Python，会写 SQL」。任何符合两项的人都满足这份招聘，不管他叫什么、之前在哪。interface 就是这种「满足一组方法就算实现」的契约。Go 的特别之处：自动判定满足，不用像 Java/TS 显式写 implements。
   example: 任何有 Read() 方法的类型都算 io.Reader，能传给 io.Copy。
 
 # --- batch 6: Git ---
@@ -1165,7 +1165,7 @@
 - term: stash
   category: devterm
   literal: 藏起来
-  meaning: 想象做菜做到一半老板来电话要你立刻去隔壁帮个忙——你不想丢菜也不想留一团乱在锅里，把锅盖上推到一边等会儿回来继续。git stash 就这功能：当前改了一半的代码先临时收起来，工作区干净，切别的分支办急事，回头 stash pop 恢复继续。
+  meaning: 想象写作业写到一半被叫去吃饭——你不想丢草稿也不想留一摊纸笔在桌上，整齐塞进抽屉，桌面干净走人，回来再拿出来继续。git stash 就这功能：当前改了一半的代码先临时收起来，工作区干净，切别的分支办急事，回头 stash pop 恢复继续。
   example: 改 bug 到一半急活儿来了，git stash 收起，切去做急活儿，做完回来 stash pop 接着改。
 
 - term: HEAD
@@ -1409,7 +1409,7 @@
 - term: rollback
   aliases: [回滚]
   category: devterm
-  meaning: 想象新菜上市第二天客人吃了拉肚子——餐厅立刻撤菜回到老菜单。rollback 就是部署新版本出大问题立刻切回上一个稳定版本，止血优先。这是线上事故标准操作。
+  meaning: 想象 App Store 刚上的新版本被用户骂崩——开发者紧急下架，让所有人退回上一个稳定版本。rollback 就是部署新版本出大问题立刻切回上一个稳定版本，止血优先。这是线上事故标准操作。
   example: 新版上线 5 分钟告警全红立刻 rollback，先恢复用户体验。
 
 - term: hotfix
@@ -1657,7 +1657,7 @@
 - term: hardcode
   aliases: [写死, 硬编码]
   category: devterm
-  meaning: 想象菜谱写死"用 3 号锅"——换厨房没 3 号锅就废了。hardcode 就是把本该可配置的值（URL、密钥、阈值）直接写进代码里。改一下就要重新发版、容易漏改、密钥还有安全隐患。
+  meaning: 想象把家门密码用记号笔直接写在门上——好像方便了自己但全世界都看得见，想改还得擦了重写。hardcode 就是把本该可配置的值（URL、密钥、阈值）直接写进代码里。改一下就要重新发版、容易漏改、密钥还有安全隐患。
   example: 别把测试服 IP hardcode 在代码里，改用 env var 不同环境注入。
 
 - term: stdin
@@ -1793,13 +1793,13 @@
 - term: compile
   aliases: [编译]
   category: devterm
-  meaning: 想象把中文菜谱翻译成只有厨师能看的"工业指令"——按多少克、几秒精确动作。compile 就是把人类能读的源代码翻译成计算机能直接跑的低级形式（字节码、机器码）。和 transpile（同级翻译）不同，compile 一般跨抽象级别向下。
+  meaning: 想象把一份英文合同翻译成中文给老人——老人看不懂英文，必须翻译成他的语言才能理解执行。compile 就是把人类能读的源代码翻译成计算机能直接跑的低级形式（字节码、机器码）。和 transpile（同级翻译）不同，compile 一般跨抽象级别向下。
   example: Go 程序 go build 一下 compile 出一个可执行二进制文件直接跑。
 
 - term: build
   aliases: [构建]
   category: devterm
-  meaning: 想象做菜的完整流程：洗、切、煮、装盘——不只是某一步而是整套。build 是从源代码到可部署产物的整个过程：编译、打包、压缩、签名都是 build 的步骤。CI 第一步永远是 build。
+  meaning: 想象工厂流水线把零件组装成一部手机——切割、焊接、贴片、装屏、压壳、包装一整套下来才有成品。build 是从源代码到可部署产物的整个过程：编译、打包、压缩、签名都是 build 的步骤。CI 第一步永远是 build。
   example: 提交代码后 CI 自动跑 build 确保能编过，编不过禁止 merge。
 
 - term: deploy
