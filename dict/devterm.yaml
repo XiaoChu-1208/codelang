@@ -1425,7 +1425,7 @@
   example: 支付服务挂了 5 分钟是 P0 incident，全公司值班人员立刻拉群。
 
 - term: postmortem
-  aliases: [事故复盘, RCA]
+  aliases: [事故复盘]
   category: devterm
   literal: 尸检（医学术语）
   meaning: 想象空难调查报告——飞机失事后查清"几点几分什么环节哪个零件出了什么问题"。postmortem 就是事故的"尸检报告"：根因是什么、时间线如何、影响多大、以后怎么防。互联网公司事故文化基础。
@@ -2287,3 +2287,708 @@
   example: 装了 Python 但命令行找不到，多半是安装路径没加到 PATH 里。
 
 
+
+# ====================
+# K8s / 云原生（细化）
+# ====================
+
+- term: Pod
+  aliases: [k8s pod]
+  category: devterm
+  meaning: Kubernetes 的最小调度单位——一个 Pod 里可以跑一个或多个容器，它们共享网络和存储。常说"上线一个 Pod"就是发布一份服务实例。
+  example: 把这个微服务做成 Pod，扩到 10 个副本扛流量。
+
+- term: Deployment
+  aliases: [k8s deployment]
+  category: devterm
+  meaning: 管 Pod 的"复读机"——你说"我要 5 个 Pod"，Deployment 保证一直有 5 个在跑，挂了自动拉起来、升级时滚动替换。是 k8s 里管无状态服务的最常用方式。
+  example: 用 Deployment 管前端服务，挂了自动重启。
+
+- term: StatefulSet
+  aliases: []
+  category: devterm
+  meaning: 管有状态服务（数据库、Redis 集群）的 Pod 控制器——每个 Pod 有固定名字和固定存储，重启后还是它。区别于 Deployment 把 Pod 当一次性副本。
+  example: Kafka 集群用 StatefulSet 部署，每个节点身份固定。
+
+- term: DaemonSet
+  aliases: []
+  category: devterm
+  meaning: 让每个节点上都跑一个 Pod 的控制器——典型场景：日志收集器、监控 agent、网络插件。新节点加入自动起一个。
+  example: 用 DaemonSet 部署日志采集器到所有节点。
+
+- term: Ingress
+  aliases: [k8s ingress]
+  category: devterm
+  meaning: k8s 集群的"前门保安"——外部流量按域名/路径规则分发到不同服务。配合 Nginx Ingress Controller 用。是 k8s 暴露 HTTP 服务的标准方式。
+  example: 这条 Ingress 把 api.xxx.com 路由到后端服务。
+
+- term: Service Mesh
+  aliases: [服务网格]
+  category: devterm
+  meaning: 微服务之间通信的"中间层"——每个服务旁边塞一个代理（sidecar），所有调用都走代理。代理负责熔断/限流/重试/链路追踪/mTLS。Istio、Linkerd 是代表。
+  example: 上了 service mesh 后业务代码不用关心熔断了。
+
+- term: Istio
+  aliases: []
+  category: platforms
+  meaning: Google 主导的服务网格——k8s 上最知名的 service mesh。配置全在 yaml 里，提供流量管理/安全/可观测性。重量级但功能全。
+  example: 我们的微服务全部接入 Istio 做灰度发布。
+
+- term: Sidecar
+  aliases: [边车模式]
+  category: devterm
+  meaning: 主程序旁边塞一个辅助进程（像摩托车边斗），帮主程序处理日志、监控、网络等横切关注点。Service Mesh 就是 sidecar 模式的代表。
+  example: Envoy 作为 sidecar 注入到每个业务 Pod。
+
+- term: Init Container
+  aliases: [初始化容器]
+  category: devterm
+  meaning: 在主容器启动前先跑的一次性容器——干一些准备工作（拉配置、等依赖就绪、初始化数据）。跑完退出，主容器才开始跑。
+  example: 用 init container 等数据库就绪再启动应用。
+
+- term: ConfigMap
+  aliases: []
+  category: devterm
+  meaning: k8s 里存"非敏感配置"的对象——把环境变量、配置文件抽离出来挂载给 Pod 用。改 ConfigMap 不用重新打镜像。
+  example: 数据库地址放 ConfigMap 里，不同环境注入不同的。
+
+- term: k8s Secret
+  aliases: [k8s secret]
+  category: devterm
+  meaning: k8s 里存"敏感配置"的对象——密码、API key、证书。本质是 base64 编码的 ConfigMap（生产要配 KMS 加密）。
+  example: 数据库密码存 Secret，不写到镜像里。
+
+- term: Operator
+  aliases: [k8s operator]
+  category: devterm
+  meaning: 把"运维知识"代码化的 k8s 扩展——比如 MySQL Operator 知道怎么备份/扩容/做主从切换，你只要 yaml 描述目标状态，它自己执行。
+  example: 用 Prometheus Operator 一键起监控栈。
+
+- term: CRD
+  aliases: [Custom Resource Definition]
+  category: abbr
+  literal: Custom Resource Definition
+  meaning: k8s 自带 Pod/Deployment 等几十种"资源"，CRD 让你自定义新资源类型。Operator 就是基于 CRD 实现的。是 k8s 可扩展性的关键机制。
+  example: 我们定义了一个 CRD 描述"AI 训练任务"。
+
+- term: ArgoCD
+  aliases: [argo cd]
+  category: platforms
+  meaning: GitOps 工具——以 Git 仓库为唯一真相源，自动把 k8s 集群状态同步到 Git 里描述的样子。push 一次 yaml 集群自动更新。
+  example: 我们 k8s 部署全部走 ArgoCD GitOps。
+
+
+- term: eBPF
+  aliases: []
+  category: devterm
+  literal: extended Berkeley Packet Filter
+  meaning: 在 Linux 内核里安全跑用户代码的技术——不改内核源码就能加监控、安全、网络逻辑。Cilium、Falco、Pixie 都靠 eBPF。云原生圈最火的底层技术。
+  example: Cilium 用 eBPF 做网络策略和可观测性。
+
+- term: Envoy
+  aliases: []
+  category: platforms
+  meaning: C++ 写的高性能代理——Service Mesh 的事实标准 sidecar。Istio、Linkerd 都用 Envoy 做数据面。也常单独当反代/负载均衡用。
+  example: API 网关用 Envoy 替代了 Nginx。
+
+- term: Prometheus
+  aliases: [普罗米修斯]
+  category: platforms
+  meaning: 开源监控系统——pull 模式拉指标存时序数据库，用 PromQL 查询。云原生监控的事实标准，配 Grafana 看图。
+  example: 应用指标全打到 Prometheus，告警走 Alertmanager。
+
+- term: Grafana
+  aliases: []
+  category: platforms
+  meaning: 开源可视化平台——把 Prometheus、InfluxDB、Elasticsearch 等数据源的数据画成漂亮的图表大屏。运维/SRE 团队必备。
+  example: 这块业务大屏是用 Grafana 搭的。
+
+- term: Jaeger
+  aliases: []
+  category: platforms
+  meaning: 开源分布式追踪系统——Uber 开源。一个请求经过 N 个微服务，Jaeger 帮你看清整个调用链每段耗时。
+  example: 这个慢请求用 Jaeger 一看是 DB 那一段慢。
+
+- term: OpenTelemetry
+  aliases: [OTel, OTLP]
+  category: platforms
+  meaning: 可观测性的统一标准——把日志/指标/追踪三大支柱统一规范，无关后端用啥。Jaeger、Prometheus、ELK 都在拥抱 OTel。
+  example: 改造成 OpenTelemetry 后能任意切换后端。
+
+# ====================
+# SRE / 事故响应
+# ====================
+
+- term: SLO
+  aliases: [Service Level Objective, 服务水平目标]
+  category: abbr
+  literal: Service Level Objective
+  meaning: SRE 设定的"业务必须达到的可用性"——比如"99.9% 请求 < 500ms"。低于 SLO 触发响应、停发版。Google SRE 体系核心概念。
+  example: 这个服务 SLO 是 99.95%，本月已经用了 70% 错误预算。
+
+- term: SLI
+  aliases: [Service Level Indicator, 服务水平指标]
+  category: abbr
+  literal: Service Level Indicator
+  meaning: 衡量服务质量的具体数字——可用率、错误率、延迟、吞吐量。SLI 是测量、SLO 是目标。"P99 延迟"是典型 SLI。
+  example: 监控大屏列了 5 个 SLI 看这个服务健康度。
+
+- term: error budget
+  aliases: [错误预算]
+  category: devterm
+  literal: error budget
+  meaning: SLO 反过来——"99.9% 可用"=允许 0.1% 出错。这 0.1% 就是错误预算，可以用来"快速迭代发版"。预算花光就要冻结发版、专门做稳定性。
+  example: 这季度错误预算还剩 30%，可以激进发版。
+
+- term: blameless
+  aliases: [blameless postmortem, 无指责复盘]
+  category: devterm
+  meaning: 事故复盘只追根因不追个人责任——避免大家为了不背锅而隐瞒。Google SRE 体系核心文化。"问 What/How 不问 Who"。
+  example: 我们走 blameless postmortem 文化，谁踩的雷不重要，怎么避免重要。
+
+- term: runbook
+  aliases: [操作手册, 应急预案]
+  category: devterm
+  meaning: 一份"按部就班的操作手册"——某个告警/故障来了，谁来响应、第一步看啥、第二步重启啥。on-call 半夜被叫醒时不用动脑就能照着做。
+  example: 这条告警的 runbook 在 wiki 上，直接照着跑。
+
+- term: severity
+  aliases: [事故等级, P0, P1, P2, P3]
+  category: devterm
+  meaning: 事故分级——P0=全站挂、P1=核心功能挂、P2=部分功能挂、P3=轻微影响。决定要不要喊老板、要不要拉群、要不要写公告。
+  example: 这是 P1 事故，立刻拉 war room。
+
+- term: blast radius
+  aliases: [影响范围]
+  category: devterm
+  meaning: 这次故障/操作影响多大——单个用户、一个机房、全公司？"控制 blast radius"=出问题别让所有用户都遭殃。灰度发布、限流降级都是控 blast radius 的手段。
+  example: 全量 rollout 风险太大，先小流量控制 blast radius。
+
+
+
+- term: chaos engineering
+  aliases: [混沌工程]
+  category: devterm
+  meaning: 主动给系统注入故障来验证韧性——随机杀 Pod、断网、CPU 飙满。Netflix 的 Chaos Monkey 是开山祖师。"平时多挨打、真打来不慌"。
+  example: 我们每周跑一次 chaos engineering 演练。
+
+- term: MTTR
+  aliases: [Mean Time To Recover, 平均恢复时间]
+  category: abbr
+  literal: Mean Time To Recover
+  meaning: 故障从发生到恢复的平均时间——SRE 团队核心 KPI。降 MTTR 靠监控告警、自动化 runbook、自动恢复。"5 分钟内恢复"是行业先进水平。
+  example: 这次事故 MTTR 23 分钟，超出 SLA。
+
+- term: MTBF
+  aliases: [Mean Time Between Failures, 平均无故障时间]
+  category: abbr
+  literal: Mean Time Between Failures
+  meaning: 两次故障之间的平均间隔——越长越稳。和 MTTR 互补：故障少（MTBF 大）+ 恢复快（MTTR 小）=高可用。
+  example: 这个组件 MTBF 90 天，算稳定。
+
+- term: toil
+  aliases: [手工苦力活]
+  category: devterm
+  literal: toil (SRE 用语)
+  meaning: 重复、手工、没创造价值的运维活——比如每周手动跑某个脚本、每天看几遍告警是否误报。SRE 信条"消除 toil"，目标 < 50% 工作时间。
+  example: 这周 80% 时间在做 toil，得想办法自动化。
+
+- term: war room
+  aliases: [作战室]
+  category: devterm
+  literal: war room
+  meaning: P0/P1 事故时拉的临时会议——所有相关人在同一个语音里集中处理，直到故障恢复。物理或线上腾讯会议都算。
+  example: 半夜 2 点全站挂，立刻拉 war room。
+
+- term: RCA
+  aliases: [Root Cause Analysis, 根因分析]
+  category: abbr
+  literal: Root Cause Analysis
+  meaning: 事故后写一份"到底咋回事"的分析——五个为什么追根因，不停"再问一层为什么"。结尾给改进项防止再犯。
+  example: RCA 写完发现根因是配置中心限流参数错了。
+
+
+- term: pager
+  aliases: [pagerduty, 寻呼]
+  category: devterm
+  meaning: 告警系统给 on-call 的人发的"叫醒消息"——电话、短信、企业微信轮着轰炸到你接为止。PagerDuty 是最有名的 pager 工具。"被 page 了"=被告警叫醒了。
+  example: 凌晨 3 点被 page，磁盘满了。
+
+# ====================
+# 加密与身份认证
+# ====================
+
+- term: salt
+  aliases: [盐]
+  category: devterm
+  literal: salt (加盐)
+  meaning: 给密码哈希前混入的随机字符串——同一个密码加不同 salt 哈希结果完全不同。防止彩虹表攻击。"加盐"是密码存储最低要求。
+  example: 密码存的是 bcrypt(password + salt)。
+
+- term: HMAC
+  aliases: [Hash-based Message Authentication Code]
+  category: abbr
+  literal: Hash-based Message Authentication Code
+  meaning: 带密钥的哈希——证明消息没被篡改且确实是你发的。API 签名（AWS Signature、微信支付回调）几乎都用 HMAC-SHA256。
+  example: 这个 API 用 HMAC-SHA256 签名验证。
+
+- term: AES
+  aliases: [Advanced Encryption Standard]
+  category: abbr
+  literal: Advanced Encryption Standard
+  meaning: 当代最主流的对称加密算法——加密和解密用同一个密钥。AES-256 是事实标准，被各国政府和银行使用。
+  example: 数据库字段用 AES-256-GCM 加密存储。
+
+- term: RSA
+  aliases: []
+  category: abbr
+  literal: Rivest-Shamir-Adleman
+  meaning: 经典非对称加密——加密用公钥、解密用私钥。HTTPS 早期握手、SSH 密钥认证、数字签名都用 RSA。现在逐步被 ECC 替代（同等安全下密钥更短）。
+  example: SSH 公钥用 RSA 2048 位生成。
+
+- term: ECC
+  aliases: [椭圆曲线加密]
+  category: abbr
+  literal: Elliptic Curve Cryptography
+  meaning: 基于椭圆曲线数学的非对称加密——和 RSA 同类但密钥短得多（ECC-256 ≈ RSA-3072 强度）。手机、IoT 设备常用。比特币、TLS 1.3 都用 ECC。
+  example: 新证书用 ECC P-256 替代 RSA。
+
+- term: 公钥
+  aliases: [public key]
+  category: devterm
+  meaning: 非对称加密里"公开给所有人"的钥匙——别人用它加密的东西只有你（用私钥）能解。也用来验证你的数字签名。
+  example: 把公钥放在 GitHub 上，让任何人能加密给你。
+
+- term: 私钥
+  aliases: [private key]
+  category: devterm
+  meaning: 非对称加密里"只有你自己有"的钥匙——千万别泄露。私钥能解密发给你的东西、签署你的身份。SSH 私钥泄露=别人能登你所有服务器。
+  example: 私钥放在 ~/.ssh/id_rsa 权限 600。
+
+- term: CA
+  aliases: [Certificate Authority, 证书颁发机构]
+  category: abbr
+  literal: Certificate Authority
+  meaning: 数字证书的"权威发证机构"——浏览器内置信任的 CA 列表（DigiCert、Let's Encrypt 等），CA 签的证书浏览器才认。HTTPS 信任链的根基。
+  example: 用 Let's Encrypt 免费 CA 签证书。
+
+- term: X.509
+  aliases: [x509 证书]
+  category: devterm
+  literal: X.509 certificate
+  meaning: 数字证书的标准格式——HTTPS 证书、SSH 证书、邮件签名证书都遵守这个标准。包含公钥、所有者、有效期、CA 签名。
+  example: 这个 .pem 文件就是个 X.509 证书。
+
+- term: SSO
+  aliases: [Single Sign-On, 单点登录]
+  category: abbr
+  literal: Single Sign-On
+  meaning: 登一次到处通——公司 OA 登录后，邮件、Slack、GitHub Enterprise 都自动登上。靠 SAML 或 OIDC 协议实现。企业 IT 必备。
+  example: 公司接入 SSO 后，几十个内部系统统一用一套账号。
+
+- term: SAML
+  aliases: [Security Assertion Markup Language]
+  category: abbr
+  literal: Security Assertion Markup Language
+  meaning: 企业 SSO 的老牌协议——基于 XML，主要用在企业内部应用。和 OIDC 是两大 SSO 协议。SaaS 企业版几乎都支持 SAML SSO。
+  example: 客户要求 SAML SSO 接入，得做企业版。
+
+- term: OIDC
+  aliases: [OpenID Connect]
+  category: abbr
+  literal: OpenID Connect
+  meaning: 基于 OAuth 2.0 的现代 SSO 协议——比 SAML 简单。"用 Google 登录"、"用微信登录"背后协议就是 OIDC。
+  example: 用 Auth0 接入 OIDC 实现"用 Google 登录"。
+
+- term: MFA
+  aliases: [Multi-Factor Authentication, 多因素认证]
+  category: abbr
+  literal: Multi-Factor Authentication
+  meaning: 除了密码还要一个东西验证身份——手机短信码、Authenticator 6 位码、硬件 key。"密码+二次验证"。2FA 是 MFA 的特例（恰好两个因素）。
+  example: 公司强制开 MFA 才能登 VPN。
+
+- term: 2FA
+  aliases: [Two-Factor Authentication, 二次验证]
+  category: abbr
+  literal: Two-Factor Authentication
+  meaning: 两个因素的 MFA——通常"密码 + 手机验证码/Authenticator 6 位动态码"。互联网账号被盗后第一件事是开 2FA。
+  example: GitHub 强制开 2FA，不开不让 push。
+
+- term: passkey
+  aliases: [通行密钥]
+  category: devterm
+  meaning: 替代密码的下一代认证方案——基于 WebAuthn 标准，用设备生物识别（指纹、人脸）+ 公私钥代替密码。不怕钓鱼、不怕拖库。苹果/Google/微软都在推。
+  example: Apple ID 现在主推 passkey，不用记密码。
+
+- term: 数字签名
+  aliases: [digital signature]
+  category: devterm
+  meaning: 用私钥对内容做的"签名"——任何人用对应公钥能验证"这是某某签的、内容没被改过"。代码签名、合同签名、Git commit 签名都用。
+  example: 这个 binary 必须有公司数字签名才能安装。
+
+# ====================
+# 测试工具链
+# ====================
+
+- term: BDD
+  aliases: [Behavior-Driven Development, 行为驱动开发]
+  category: abbr
+  literal: Behavior-Driven Development
+  meaning: TDD 的升级版——用自然语言（Given-When-Then 三段）描述行为，再写测试。Cucumber、Gherkin 语法是代表。意图让产品经理也能读测试用例。
+  example: 用 BDD 写测试，产品也能看懂用例。
+
+- term: Jest
+  aliases: []
+  category: platforms
+  meaning: Facebook 开源的 JS 测试框架——前端测试事实标准。零配置、自带 mock、快照测试。React 项目几乎都用 Jest。
+  example: 单元测试全套用 Jest，覆盖率要求 80%。
+
+- term: Vitest
+  aliases: []
+  category: platforms
+  meaning: Vite 时代的 Jest 替代品——和 Vite 完美集成、用 ESM、启动比 Jest 快很多。新项目首选。
+  example: 新项目从 Jest 迁到 Vitest，测试速度快 5 倍。
+
+- term: Playwright
+  aliases: [pw]
+  category: platforms
+  meaning: 微软开源的 E2E 测试框架——一份代码跑 Chromium/Firefox/WebKit 三个浏览器。比 Cypress 更现代、跨浏览器更全。新项目首选。
+  example: E2E 测试用 Playwright 跑三大浏览器。
+
+- term: Cypress
+  aliases: []
+  category: platforms
+  meaning: 现代 E2E 测试框架——开发者体验极好（时间旅行调试、自动等待）。早年红极一时，现在和 Playwright 平分秋色。仅支持 Chrome 系是弱点。
+  example: Cypress 跑 E2E 调试体验比 Selenium 好太多。
+
+- term: Selenium
+  aliases: []
+  category: platforms
+  meaning: E2E 测试老大哥——支持几乎所有浏览器和语言。WebDriver 协议奠基者。现在被 Playwright/Cypress 抢风头但企业级遗产项目还在大量用。
+  example: 旧项目 Selenium 测试套 1 万条，迁移成本太高。
+
+- term: Puppeteer
+  aliases: []
+  category: platforms
+  meaning: Google 开源的 Chrome 自动化库——专注 Chrome/Chromium。Playwright 是它的进化版（前 Puppeteer 团队做的，加了多浏览器支持）。爬虫和测试都用。
+  example: 爬动态网页用 Puppeteer 渲染后取数据。
+
+- term: mutation testing
+  aliases: [变异测试]
+  category: devterm
+  meaning: 故意往代码里塞 bug（变异）看测试能不能抓到——抓不到说明你的测试覆盖率虽然 100% 但实际没真正断言。比覆盖率更严格的质量指标。
+  example: mutation testing 跑出来分数 60%，测试质量不够硬。
+
+- term: property-based testing
+  aliases: [属性测试]
+  category: devterm
+  meaning: 不写"输入 3 输出 6"这种死例子，而是写"对任意正整数 N，结果是 2N"，框架自动生成几百种 N 来验证。Haskell 的 QuickCheck 鼻祖，JS 有 fast-check、Python 有 Hypothesis。
+  example: 这个排序函数用 property-based testing 跑了 1000 种输入。
+
+- term: contract testing
+  aliases: [契约测试]
+  category: devterm
+  meaning: 微服务间的"接口契约"测试——A 服务消费 B 服务，先把 B 的接口期望写成契约，B 改动违反契约就报错。Pact 是代表工具。避免 B 改了 A 不知道。
+  example: 上 contract testing 后接口破坏性变更立刻被发现。
+
+- term: golden test
+  aliases: [golden file test]
+  category: devterm
+  meaning: 把第一次正确运行的输出存成"金本位"文件，之后每次运行和金本位比对——一致就过、不一致就报警。常用于编译器/格式化器/序列化器测试。
+  example: 这个 SQL 生成器用 golden file test，输出变化要 review。
+
+- term: AAA 模式
+  aliases: [Arrange-Act-Assert]
+  category: devterm
+  meaning: 写测试的标准结构——Arrange（准备数据）、Act（执行被测代码）、Assert（断言结果）。让别人看你的测试一秒读懂。
+  example: 测试代码全部按 AAA 模式组织。
+
+# ====================
+# 前端构建工具链
+# ====================
+
+- term: webpack
+  aliases: []
+  category: platforms
+  meaning: 前端构建器老大哥——把几百个 JS/CSS/图片文件打包成几个 bundle。React/Vue 时代的事实标准。配置复杂是缺点。
+  example: 老项目用 webpack，build 一次 5 分钟。
+
+- term: vite
+  aliases: []
+  category: platforms
+  literal: 法语"快"
+  meaning: 新一代前端构建器——尤雨溪（Vue 作者）做的。开发模式用 ESM 原生加载，秒级启动。生产打包用 Rollup。新项目首选，碾压 webpack。
+  example: 新项目用 vite，启动从 30 秒变 1 秒。
+
+- term: esbuild
+  aliases: []
+  category: platforms
+  meaning: Go 写的超快前端打包器——比 webpack 快 10-100 倍。vite 开发模式底层用它。也常作为压缩器/转译器单独用。
+  example: TS 编译用 esbuild，比 tsc 快 50 倍。
+
+- term: rollup
+  aliases: []
+  category: platforms
+  meaning: 库作者最爱的打包器——擅长打 JS 库（tree-shaking 极好、产物小）。React、Vue 自己的库都用 rollup 打。Vite 生产打包底层也是 rollup。
+  example: 写组件库用 rollup 打成 ESM/CJS 两份。
+
+- term: babel
+  aliases: []
+  category: platforms
+  meaning: JavaScript 编译器——把新版 JS 语法（ES2020）翻译成老浏览器能跑的老语法。React JSX、TypeScript 早期也靠 babel 转。现在 swc/esbuild 抢市场。
+  example: 项目用 babel 配 preset-env 兼容 IE11。
+
+- term: swc
+  aliases: []
+  category: platforms
+  literal: Speedy Web Compiler
+  meaning: Rust 写的 babel 替代品——快 20-70 倍。Next.js 默认编译器是 swc。
+  example: Next 升级后默认用 swc，编译速度起飞。
+
+- term: turbopack
+  aliases: []
+  category: platforms
+  meaning: Vercel 在做的 webpack 继任者（webpack 作者跳槽到 Vercel 后写的）——Rust 实现、号称比 vite 还快。Next.js 14 起内置。
+  example: Next 14 用 Turbopack 后 HMR 快得离谱。
+
+- term: parcel
+  aliases: []
+  category: platforms
+  meaning: 零配置前端打包器——开箱即用、自动处理 TS/CSS/图片。简单项目用着爽，复杂场景不如 webpack/vite 灵活。
+  example: 小工具页面用 parcel 起手，省事。
+
+- term: pnpm
+  aliases: []
+  category: platforms
+  meaning: 新一代 Node 包管理器——硬链接共享依赖，磁盘省 80%、安装快 2 倍。monorepo 场景下完爆 npm/yarn。前端社区主流选择。
+  example: 全公司前端项目统一用 pnpm。
+
+
+- term: Turborepo
+  aliases: [turbo]
+  category: platforms
+  meaning: Vercel 出的 monorepo 工具——增量构建+智能缓存。改一个包只跑相关 task。前端 monorepo 现在很多团队选它。
+  example: 用 Turborepo 后 CI 从 20 分钟降到 4 分钟。
+
+- term: Nx
+  aliases: []
+  category: platforms
+  meaning: 老牌 monorepo 工具（Angular 团队出身）——功能比 Turborepo 重一些但更成熟。大企业 monorepo 常用。
+  example: 团队用 Nx 管 50 多个前端项目。
+
+- term: husky
+  aliases: []
+  category: platforms
+  meaning: 给 git hooks 加配置的工具——commit 前自动跑 lint、push 前自动跑测试。前端项目 99% 都用。和 lint-staged 配合。
+  example: husky 拦截 commit，跑完 lint 才允许提交。
+
+- term: lint-staged
+  aliases: []
+  category: platforms
+  meaning: 只对"暂存区"的文件跑 lint——配 husky 用，commit 时只检查这次改的文件，不用全项目跑一遍。
+  example: husky + lint-staged 自动格式化提交的文件。
+
+- term: stylelint
+  aliases: []
+  category: platforms
+  meaning: CSS 版的 ESLint——检查 CSS/SCSS/Less 的代码风格和潜在错误。复杂项目能避免一堆样式冲突。
+  example: 项目接入 stylelint 强制规范命名。
+
+# ====================
+# Apple 生态
+# ====================
+
+- term: Xcode
+  aliases: []
+  category: platforms
+  meaning: 苹果官方 IDE——开发 iOS/macOS/iPadOS/watchOS 应用唯一选择。打包/签名/上架 App Store 都得用它。运行只能在 Mac 上。
+  example: Xcode 这次更新又把 build 弄崩了。
+
+- term: Swift
+  aliases: []
+  category: devterm
+  meaning: 苹果 2014 年推的现代编程语言——替代 Objective-C 做 iOS/macOS 开发。语法干净、性能接近 C。开源且跨平台（Linux 也能跑）。
+  example: 新 App 用 Swift 5 写，比 OC 简洁太多。
+
+- term: SwiftUI
+  aliases: []
+  category: platforms
+  meaning: 苹果 2019 年推的声明式 UI 框架——类似 React，写一遍 UI 跑遍 iOS/iPadOS/macOS/watchOS。代替老的 UIKit/AppKit。新项目首选。
+  example: 整个 App 用 SwiftUI 写，少写一半代码。
+
+- term: TestFlight
+  aliases: []
+  category: platforms
+  meaning: 苹果官方的 iOS 内测分发平台——上传 build 后给最多 1 万测试者装。绕过 App Store 审核但有人数和有效期限制。
+  example: 通过 TestFlight 分发 beta 给 500 个测试者。
+
+- term: App Store Connect
+  aliases: [ASC]
+  category: platforms
+  meaning: 上架 iOS App 的管理后台——传包、写描述、上截图、提审核、看销售数据都在这里。开发者后台。
+  example: 周五提交版本到 App Store Connect 审核。
+
+- term: Keychain
+  aliases: [钥匙串]
+  category: devterm
+  meaning: macOS/iOS 的系统级密码保管箱——保存账号密码、证书、密钥。受设备硬件加密保护。App 用 Keychain API 安全存敏感信息。
+  example: App 把 token 存 Keychain，比 UserDefaults 安全。
+
+- term: Sandbox
+  aliases: [沙箱, iOS sandbox]
+  category: devterm
+  meaning: iOS/macOS 应用都跑在沙箱里——只能访问自己的目录，碰别的 App 要走系统授权。安全模型基石，让一个 App 出问题不影响其他。
+  example: iOS App 全跑在 sandbox 里，文件互相隔离。
+
+- term: entitlement
+  aliases: [权限能力]
+  category: devterm
+  meaning: iOS/macOS App 声明自己需要什么系统能力——iCloud、推送、HealthKit 等。打包时签到 binary 里。
+  example: 加 Push Notification 要在 entitlement 里开。
+
+- term: Apple Silicon
+  aliases: [M1, M2, M3, M4, 苹果芯片]
+  category: devterm
+  meaning: 苹果自研的 ARM 架构 CPU——M1 起替代 Intel x86。性能强、功耗低。导致整个 macOS 生态从 Intel 迁移到 ARM。
+  example: 这台 MacBook 是 M3 芯，跑 AI 模型本地化。
+
+- term: provisioning profile
+  aliases: [描述文件]
+  category: devterm
+  meaning: iOS 开发者签名身份+设备列表+权限的"打包"——装到设备上让 App 能被信任运行。开发、测试、上架阶段各种 provisioning profile 让人头大。
+  example: provisioning profile 过期，IPA 装不上。
+
+# ====================
+# 微软 / .NET 生态
+# ====================
+
+- term: .NET
+  aliases: [dotnet, Dot Net]
+  category: platforms
+  meaning: 微软的开发平台——主要写 C#，可以做桌面、Web（ASP.NET）、移动（MAUI）。.NET Core 后开源跨平台，能跑 Linux/macOS。企业级应用大量用。
+  example: 银行核心系统全套 .NET 8 + C#。
+
+- term: ASP.NET
+  aliases: [ASP.NET Core]
+  category: platforms
+  meaning: 微软的 Web 后端框架——和 Spring/Django/Rails 同类。ASP.NET Core 是现代版，跨平台、性能强（TechEmpower 跑分常年前列）。
+  example: 这个 API 用 ASP.NET Core 写的，性能比 Node 强。
+
+- term: Visual Studio
+  aliases: [VS]
+  category: platforms
+  meaning: 微软重型 IDE——主要写 C#、C++、F#。Windows 上开发 .NET/Win32 桌面应用的事实标准。和轻量的 VS Code 是两个产品。
+  example: 写 WinUI 桌面应用还得用 Visual Studio。
+
+- term: Windows Terminal
+  aliases: [wt]
+  category: system
+  meaning: 微软新一代终端——一个窗口管 PowerShell/CMD/WSL/SSH 多 tab。比传统 cmd.exe 现代得多。Windows 11 默认终端。
+  example: 装好 Windows Terminal 后再也不用 cmd.exe。
+
+- term: winget
+  aliases: [Windows Package Manager]
+  category: system
+  meaning: 微软官方包管理器——类似 macOS 的 brew、Linux 的 apt。一行 winget install vscode 装应用。Windows 10+ 内置。
+  example: 重装系统后用 winget 批量装常用软件。
+
+- term: MSI
+  aliases: []
+  category: system
+  meaning: Windows 安装包格式——.msi 文件。比 setup.exe 更标准化，企业域环境批量部署常用。
+  example: 公司软件统一打成 MSI 通过域策略分发。
+
+- term: Active Directory
+  aliases: [AD, 活动目录]
+  category: platforms
+  meaning: 微软的企业账号/权限管理系统——一台域服务器管全公司账号、电脑、权限。员工电脑加域=统一登录、统一策略。传统企业 IT 基石。
+  example: 全公司账号都在 AD 里管，离职自动禁用。
+
+- term: Azure AD
+  aliases: [Entra ID, Microsoft Entra]
+  category: platforms
+  meaning: Active Directory 的云版本——微软改名叫 Entra ID。云时代的企业身份管理，Office 365、Azure 全靠它做 SSO。
+  example: 公司接 Azure AD SSO 后所有 SaaS 自动登录。
+
+- term: Hyper-V
+  aliases: []
+  category: platforms
+  meaning: 微软的虚拟化平台——Windows 自带的 VM Hypervisor。装 WSL2、Docker Desktop 都依赖它。也能直接跑 Windows Server 虚拟机。
+  example: 开 WSL2 前要先在 Windows 功能里开启 Hyper-V。
+
+- term: NuGet
+  aliases: []
+  category: platforms
+  meaning: .NET 生态的包管理器——相当于 Node 的 npm、Python 的 pip。安装 .NET 库都从 NuGet 仓库拉。
+  example: 加日志库 nuget install Serilog。
+
+# ====================
+# 协作 / 项目管理工具
+# ====================
+
+- term: Jira
+  aliases: [JIRA]
+  category: platforms
+  meaning: 程序员最爱恨的项目管理工具——Atlassian 出，几乎所有大公司都用。提 bug、跟 task、做 sprint 都在 Jira 上。出名是慢和复杂。
+  example: 这个 bug 在 Jira 上挂了三周没人接。
+
+- term: Confluence
+  aliases: []
+  category: platforms
+  meaning: Atlassian 的企业 wiki——存技术文档、设计文档、会议纪要的地方。和 Jira 配套。"看 Confluence"=去内部 wiki 找资料。
+  example: 部署流程在 Confluence 上有文档。
+
+- term: Linear
+  aliases: []
+  category: platforms
+  meaning: 现代 Jira 替代品——硅谷 startup 新宠。极简、快速、键盘友好。"用 Linear 不用 Jira"是新公司的清流选择。
+  example: 我们切到 Linear 后效率翻倍，老板再也不用看 Jira。
+
+- term: Asana
+  aliases: []
+  category: platforms
+  meaning: 任务协作工具——比 Jira 轻、比 Trello 重。市场主要面向产品/运营/市场团队。早期 Facebook 联合创始人创立。
+  example: 市场部用 Asana 跟项目。
+
+- term: Trello
+  aliases: []
+  category: platforms
+  meaning: 看板式任务管理工具——卡片在 To Do / Doing / Done 列里拖。极简单。个人 todo、小团队协作友好。Atlassian 旗下。
+  example: 个人项目用 Trello 看板管。
+
+- term: ClickUp
+  aliases: []
+  category: platforms
+  meaning: 一站式工作管理工具——任务+文档+表格+目标+聊天什么都做。功能堆得太多被吐槽"啥都有但啥都不精"。
+  example: ClickUp 想取代 Jira+Notion+Slack 三件套。
+
+- term: Monday
+  aliases: [monday.com]
+  category: platforms
+  meaning: 项目管理 SaaS——表格视图见长，颜色鲜艳。市场推广猛。市值百亿美金。和 Asana/ClickUp 是同类竞品。
+  example: 市场团队用 Monday 管几十个活动项目。
+
+- term: Loom
+  aliases: []
+  category: platforms
+  meaning: 录屏 + 摄像头同步录制工具——一键录下你的屏幕和脸，发链接给同事。"用 Loom 替代会议"。海外远程团队火爆。Atlassian 收购。
+  example: 演示新功能录个 Loom 发到群里，省了会议。
+
+- term: Miro
+  aliases: []
+  category: platforms
+  meaning: 在线白板工具——团队远程头脑风暴、画用户旅程、画流程图。便利贴+画笔+模板。和 FigJam 是竞品。
+  example: 周会用 Miro 画了用户旅程图。
+
+
+- term: 禅道
+  aliases: [zentao]
+  category: platforms
+  meaning: 中国开源项目管理工具——传统软件公司用得多。覆盖产品/项目/测试全流程。开源版免费、企业版收费。
+  example: 这家国企用禅道管项目。
+
+- term: TAPD
+  aliases: []
+  category: platforms
+  meaning: 腾讯的项目管理 SaaS——免费+收费。功能类似 Jira+禅道，主要在中国互联网中小公司流行。
+  example: 这家公司全套腾讯系，TAPD + 企业微信。

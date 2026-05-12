@@ -762,3 +762,79 @@
   category: devterm
   meaning: LLM 对话太长后"记性变差"——开头说过的事到后面忘了或弄混。即使在 context window 内也会发生，是注意力机制的固有问题。Sub-agent 设计就是为解决它。
   example: 这个 agent 跑了两小时上下文腐烂，把 user 名字记错了。
+
+# ====================
+# 新一代 AI 编程工具（2024-2026）
+# ====================
+
+- term: Cline
+  aliases: [cline]
+  category: ai
+  meaning: VS Code 上最火的开源 AI 编程 agent 插件——能自己读代码、改代码、跑命令。完全开源，配各种 LLM 用。Claude Code/Cursor 的开源平替。
+  example: 装 Cline 插件后 VS Code 也能用 Claude 做 agent 编程。
+
+- term: Aider
+  aliases: []
+  category: ai
+  meaning: 命令行 AI 编程工具——开源、跑在终端里、和 git 深度集成。改完自动提 commit。极客圈口碑很高的轻量级 Claude Code 平替。
+  example: 用 Aider 在终端里跟 GPT-4 结对编程。
+
+- term: Continue
+  aliases: [continue.dev]
+  category: ai
+  meaning: 开源的 VS Code/JetBrains AI 编程插件——Cursor 的开源替代。可以配置任意 LLM（包括本地模型）。企业自部署友好。
+  example: 公司不让用 Cursor，装 Continue 配自家模型。
+
+- term: Codex
+  aliases: [OpenAI Codex, codex CLI]
+  category: ai
+  meaning: OpenAI 早年训的代码模型（已弃），2025 年 OpenAI 重新发了 Codex CLI——和 Claude Code 同类的命令行 agent。
+  example: OpenAI 推 Codex CLI 对标 Claude Code。
+
+- term: Tabnine
+  aliases: []
+  category: ai
+  meaning: 最早的 AI 代码补全工具之一——比 Copilot 早。企业级私有部署友好，安全合规向。被 Copilot 抢了大部分市场。
+  example: 这家金融公司装 Tabnine 私有化，不让用 Copilot。
+
+- term: Codeium
+  aliases: []
+  category: ai
+  meaning: 免费 AI 代码补全工具——Copilot 的免费替代品。后来出了 Windsurf IDE。个人开发者用得多。
+  example: 自己玩玩用 Codeium，不用花 Copilot 订阅费。
+
+- term: Replit Agent
+  aliases: []
+  category: ai
+  meaning: Replit 推的网页版 AI 编程 agent——你描述需求，它在浏览器里直接帮你建项目、写代码、部署。零环境配置就能上手做小项目。
+  example: 用 Replit Agent 一句话搭出了个小工具部署。
+
+- term: Trae
+  aliases: []
+  category: ai
+  meaning: 字节跳动 2024 年底推的 AI IDE——对标 Cursor。免费、内置豆包大模型、中文环境友好。国内开发者用得多。
+  example: 国内用 Trae 替代 Cursor 没法支付的问题。
+
+- term: Zed
+  aliases: []
+  category: platforms
+  meaning: Rust 写的现代代码编辑器——前 Atom/GitHub 团队做的。原生快、对协作和 AI 支持好。VS Code 之外的另一条路线。
+  example: 试了下 Zed，启动快得离谱。
+
+- term: Junie
+  aliases: []
+  category: ai
+  meaning: JetBrains 自家 2025 年推的 AI 编程 agent——内置到 IntelliJ/PyCharm 等全家桶。对标 Cursor 但专注 JetBrains 用户。
+  example: 用 Junie 在 IntelliJ 里写 Java，比 Copilot 更懂项目结构。
+
+- term: RooCode
+  aliases: [Roo Code]
+  category: ai
+  meaning: Cline 的一个流行 fork——加了更多模式（架构师/代码/问答），可自定义 prompt。开源 agent 圈活跃项目。
+  example: 用 RooCode 配 Claude 做大型重构。
+
+- term: Augment
+  aliases: [Augment Code]
+  category: ai
+  meaning: 企业级 AI 编程平台——主打"理解超大代码库"。融了几亿美金，硅谷新星。卖给大公司。
+  example: Augment 主打能吃下 Google 量级的 monorepo。

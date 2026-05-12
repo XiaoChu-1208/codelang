@@ -1,0 +1,483 @@
+# 数据工程 / 机器学习 / 数据库底层 术语
+# —— 数据栈、ML 基础、数据库内核三大块
+# 风格：比喻 + 真实场景 + 具体例句
+
+# ====================
+# 一、数据工程 / 大数据栈
+# ====================
+
+- term: Spark
+  aliases: [Apache Spark]
+  category: platforms
+  literal: Apache Spark
+  meaning: 大数据界的瑞士军刀——把一份 100GB 的数据切成几百块分发到几十台机器同时算，秒级返回结果。Hadoop MapReduce 的继任者，比它快 100 倍。批处理、流处理、ML 都能干。
+  example: 我们用 Spark 跑全量用户画像，10 亿行 30 分钟出结果。
+
+- term: Flink
+  aliases: [Apache Flink]
+  category: platforms
+  literal: Apache Flink
+  meaning: 流式计算引擎——数据来一条算一条，秒级延迟。和 Spark 的"小批处理"对比，Flink 是真正的"逐条流式"。实时风控、实时大屏的首选。阿里双 11 大屏背后是 Flink。
+  example: 实时风控用 Flink 做，2 秒内决策。
+
+- term: Kafka
+  aliases: [Apache Kafka]
+  category: platforms
+  literal: Apache Kafka
+  meaning: 数据界的高速传送带——生产者往传送带上扔消息、消费者从传送带上拿，能扛百万级 QPS。互联网公司日志/订单/事件总线几乎全用 Kafka。LinkedIn 开源的，业界标准。
+  example: 用户行为日志全打到 Kafka，下游各业务自取。
+
+- term: Airflow
+  aliases: [Apache Airflow]
+  category: platforms
+  literal: Apache Airflow
+  meaning: 数据任务的"日程表"——你画一张图说"先跑 A 再跑 B 然后并行跑 CD，每天凌晨 2 点开始"，它就按图调度。数据团队最常用的工作流编排工具，Airbnb 开源。
+  example: 每天的 ETL 链路用 Airflow 调度，失败了自动重试。
+
+- term: dbt
+  aliases: [data build tool]
+  category: platforms
+  literal: data build tool
+  meaning: 数据库里的 git+npm——用 SQL 写转换逻辑，dbt 帮你管依赖、版本、测试、文档。把数据分析师变成"软件工程师"。现代数据栈的明星工具。
+  example: 数仓建模全迁到 dbt，分析师能像写代码一样写 SQL。
+
+- term: Snowflake 数据库
+  aliases: [雪花数据库]
+  category: platforms
+  literal: Snowflake
+  meaning: 云原生数据仓库——存储和计算分离，按使用量付费，秒级扩容到几百台。海外大厂数据栈标配，市值一度过千亿美金。
+  example: 我们公司海外业务数据放 Snowflake 上。
+
+- term: BigQuery
+  aliases: [BQ]
+  category: platforms
+  literal: Google BigQuery
+  meaning: Google 云的 SQL 数据仓库——上传 1TB 数据丢 SQL 进去，秒级返回结果。无需管运维。海外 SaaS 公司常用。
+  example: 这份用户分析报告跑在 BigQuery 上，1 分钟出来。
+
+- term: Databricks
+  aliases: [DB, 砖头]
+  category: platforms
+  literal: Databricks
+  meaning: Spark 的商业化公司——做了个云平台把 Spark+数据湖+ML 整合成一套体验。估值数百亿美金。海外数据团队大量用它。Lakehouse 概念主推者。
+  example: 我们 ML 训练全在 Databricks 上跑。
+
+- term: Iceberg
+  aliases: [Apache Iceberg]
+  category: platforms
+  literal: Apache Iceberg
+  meaning: 给数据湖加"事务"的格式——以前数据湖只是一堆 parquet 文件不能改，Iceberg 让它支持 ACID、时间旅行、schema 演化。Netflix 开源，业界数据湖标准之一。
+  example: 数仓从 Hive 切到 Iceberg，能做 schema 演化了。
+
+- term: Delta Lake
+  aliases: [Delta]
+  category: platforms
+  literal: Delta Lake
+  meaning: Databricks 推的"湖仓"格式——和 Iceberg、Hudi 是同一类东西，给数据湖加事务/版本/时间旅行能力。三家在抢同一个生态位。
+  example: 数据湖用 Delta Lake，能直接 upsert。
+
+- term: Parquet
+  aliases: []
+  category: platforms
+  literal: Apache Parquet
+  meaning: 列存格式文件——把表按"列"存而不是按"行"存。查"所有人的年龄"只读年龄列，比 CSV 快几十倍、压缩省 80% 空间。数据湖事实标准。
+  example: 日志全部落 Parquet，查询提速 10 倍。
+
+- term: Avro
+  aliases: [Apache Avro]
+  category: platforms
+  literal: Apache Avro
+  meaning: 行存的二进制格式——和 Parquet 对应。Kafka 消息常用 Avro（自带 schema 演化）。批处理读 Parquet、流处理写 Avro 是常见组合。
+  example: Kafka 消息用 Avro 编码，配合 schema registry。
+
+
+- term: 数仓
+  aliases: [数据仓库, data warehouse, DW, DWH]
+  category: devterm
+  literal: data warehouse
+  meaning: 把业务系统数据抽过来集中存的"分析专用库"——业务库（MySQL）干交易，数仓干分析。常分 ODS/DWD/DWS/ADS 四层。Hive、Snowflake、ClickHouse 都属于数仓技术栈。
+  example: 公司用 ClickHouse 搭了数仓，BI 报表都从这查。
+
+- term: 数据湖
+  aliases: [data lake]
+  category: devterm
+  literal: data lake
+  meaning: 把所有原始数据（结构化/非结构化、日志/图片/JSON）一股脑扔进去的大仓库——先存了再说，要用时再处理。数仓是"先建模再入库"，数据湖是"先入库再建模"。
+  example: 原始日志/图片/视频全进数据湖，按需取用。
+
+- term: 湖仓一体
+  aliases: [lakehouse]
+  category: devterm
+  literal: lakehouse
+  meaning: 数据湖+数仓的融合——既能存原始数据又能像数仓那样事务查询。Databricks 主推的概念。Iceberg/Delta/Hudi 是底层格式，让数据湖具备数仓能力。
+  example: 我们走湖仓一体架构，存算分离更便宜。
+
+- term: 实时数仓
+  aliases: [real-time data warehouse]
+  category: devterm
+  literal: real-time data warehouse
+  meaning: 传统数仓是 T+1（昨天的数据今天看），实时数仓是秒级更新——下单 5 秒后老板大屏就能看到。技术栈常是 Kafka+Flink+ClickHouse/Doris。
+  example: 双 11 实时数仓秒级更新 GMV 大屏。
+
+- term: ClickHouse
+  aliases: [CK]
+  category: platforms
+  literal: ClickHouse
+  meaning: 俄罗斯 Yandex 开源的列存 OLAP 数据库——查 100 亿行秒级返回。中国互联网公司大规模采用，做实时分析、日志、监控的首选之一。
+  example: 用户行为分析全在 ClickHouse 上，秒级出报表。
+
+
+- term: ELT
+  aliases: [Extract Load Transform]
+  category: abbr
+  literal: Extract Load Transform
+  meaning: ETL 的新版本——抽出来直接装进数仓，"转"在数仓里用 SQL 做。云数仓性能强了所以能这样。dbt 是 ELT 思路的代表。
+  example: 新数据栈走 ELT，先全量灌进 Snowflake 再用 dbt 转。
+
+
+- term: schema 演化
+  aliases: [schema evolution]
+  category: devterm
+  literal: schema evolution
+  meaning: 数据格式怎么从老版本平滑过渡到新版本。加字段、改类型不能让旧数据爆掉。Avro/Parquet/Iceberg 内置 schema evolution 能力，是其卖点之一。
+  example: 上线新字段时 Iceberg 自动做了 schema 演化。
+
+- term: 物化视图
+  aliases: [materialized view]
+  category: devterm
+  literal: materialized view
+  meaning: 普通 view 是"每次查都临时算"，物化视图是"提前算好存盘，查时直接读"。代价是数据有延迟、要维护。慢查询神器。
+  example: 这个看板用物化视图后从 30 秒变成 0.5 秒。
+
+# ====================
+# 二、机器学习经典（非 LLM）
+# ====================
+
+- term: 监督学习
+  aliases: [supervised learning]
+  category: devterm
+  literal: supervised learning
+  meaning: 给模型看一堆"题目+标准答案"，让它学规律。"这是猫、这是狗"喂 1 万张图它就能认。ML 三大类（监督/无监督/强化）里最常见、最实用的一类。
+  example: 这个垃圾邮件分类器是经典监督学习。
+
+- term: 无监督学习
+  aliases: [unsupervised learning]
+  category: devterm
+  literal: unsupervised learning
+  meaning: 不给答案，让模型自己发现数据里的规律——"这堆用户分成几群"。聚类、降维、异常检测都属于这类。数据没人工标注时用它。
+  example: 用 K-means 做无监督聚类，发现了 5 个用户群体。
+
+- term: 强化学习
+  aliases: [reinforcement learning, RL]
+  category: devterm
+  literal: reinforcement learning
+  meaning: 像训狗——做对了给奖励、做错了惩罚，模型自己学最优策略。AlphaGo 下围棋、机器人走路、ChatGPT 的 RLHF 都用了 RL。
+  example: 这游戏 AI 用强化学习训了 100 万局自我对弈。
+
+- term: 梯度下降
+  aliases: [gradient descent, GD]
+  category: devterm
+  literal: gradient descent
+  meaning: 训练模型的核心算法——想象你在山顶蒙着眼下山，每步往最陡的方向迈一脚。模型的"loss"就是山高，梯度=山势方向，反复迈步就走到了山谷（最优解）。
+  example: 损失函数沿梯度下降逐步收敛。
+
+- term: 反向传播
+  aliases: [backpropagation, backprop, BP]
+  category: devterm
+  literal: backpropagation
+  meaning: 神经网络训练的"功劳归因"算法——预测错了 0.3，从输出端逆推每一层每个参数"该负多少责"，然后调整。所有现代深度学习模型训练都靠这个。
+  example: 反向传播算出每个参数的梯度，再用 SGD 更新。
+
+- term: 过拟合
+  aliases: [overfitting]
+  category: devterm
+  literal: overfitting
+  meaning: 模型把训练数据"背下来了"——考试原题 100 分，遇到没见过的题就拉胯。表现：训练集准确率 99%、测试集 60%。解决：加数据、正则化、Dropout、Early Stop。
+  example: 训练准确率 99% 但测试 60%——典型过拟合。
+
+- term: 欠拟合
+  aliases: [underfitting]
+  category: devterm
+  literal: underfitting
+  meaning: 模型连训练数据都没学好——训练集准确率 60%、测试集也 60%。说明模型太简单或训得不够。解决：换更大的模型、训更久、加特征。
+  example: 模型欠拟合，明天换个深一点的网络重训。
+
+- term: 正则化
+  aliases: [regularization]
+  category: devterm
+  literal: regularization
+  meaning: 给模型"加约束"防过拟合——L1 让权重稀疏（很多变 0）、L2 让权重小、weight decay 让权重不张狂。本质是让模型"别太自信"。
+  example: 加 L2 正则后过拟合压住了。
+
+- term: Dropout
+  aliases: [丢弃法]
+  category: devterm
+  literal: dropout
+  meaning: 训练时随机"装瘸子"——每次随机关掉一部分神经元逼它不依赖单一神经元，等于一个网络里训出多个小网络。最经典的防过拟合招。
+  example: 加 Dropout 0.5 后泛化能力明显提升。
+
+- term: batch normalization
+  aliases: [BN, batch norm]
+  category: devterm
+  literal: batch normalization
+  meaning: 让每一批数据进神经网络前先标准化（均值 0 方差 1），让训练更稳更快。深度学习训练加速神器，2015 年提出后几乎所有 CNN 都用。
+  example: 加了 BatchNorm 后训练速度快了 3 倍。
+
+- term: 迁移学习
+  aliases: [transfer learning]
+  category: devterm
+  literal: transfer learning
+  meaning: 拿别人在大数据集上训好的模型当起点，再在你自己小数据集上微调——比从零训快几百倍。预训练大模型时代的核心打法，"站在巨人肩膀上"。
+  example: 用 ResNet 预训练权重做迁移学习，只需 500 张图。
+
+- term: 交叉验证
+  aliases: [cross validation, k-fold, CV]
+  category: devterm
+  literal: cross validation
+  meaning: 把数据切成 K 份，轮流拿其中一份当测试集、剩下当训练集，跑 K 次取平均。比单次划分更可靠，小数据集训模型必备。
+  example: 用 5 折交叉验证选超参数。
+
+- term: k-means
+  aliases: [K 均值聚类]
+  category: devterm
+  literal: k-means clustering
+  meaning: 把一堆点聚成 K 团——随机放 K 个中心点，把每个点归到最近的中心，再用每团平均位置更新中心，反复直到稳定。最经典的无监督聚类算法。
+  example: 用户分群用 k-means 分了 5 群。
+
+- term: 决策树
+  aliases: [decision tree]
+  category: devterm
+  literal: decision tree
+  meaning: 像玩"二十个问题"猜动物——"是哺乳动物吗？是。会飞吗？不会。..."一层层问下去到叶子节点给答案。可解释性最强的 ML 模型。XGBoost 之类都是决策树的进化版。
+  example: 这个风控模型用决策树，规则全可解释。
+
+- term: 随机森林
+  aliases: [random forest, RF]
+  category: devterm
+  literal: random forest
+  meaning: 一堆决策树投票——每棵树看到不同数据子集，最后取多数票或平均值。比单棵决策树准很多，简单粗暴泛化强，工业界几十年的常青藤。
+  example: 这个特征重要性分析用随机森林做。
+
+- term: XGBoost
+  aliases: [XGB]
+  category: platforms
+  literal: eXtreme Gradient Boosting
+  meaning: Kaggle 比赛 7-8 年的"作弊神器"——一种梯度提升决策树（GBDT）的工程化实现，又快又准。深度学习火之前 Kaggle 表格数据冠军方案几乎全是 XGBoost。陈天奇开发。
+  example: 表格类预测先上 XGBoost 当基线。
+
+- term: LightGBM
+  aliases: [LGBM, LGB]
+  category: platforms
+  literal: Light Gradient Boosting Machine
+  meaning: 微软开源的 GBDT 实现——和 XGBoost 同类但更快、更省内存。工业界大数据量场景常用。Kaggle 比赛标配三件套之一。
+  example: 10 亿样本训得用 LightGBM，XGBoost 跑不动。
+
+- term: SVM
+  aliases: [Support Vector Machine, 支持向量机]
+  category: abbr
+  literal: Support Vector Machine
+  meaning: 经典 ML 算法——在数据里画一条"最宽的分界线"区分两类。深度学习火起来前是文本/图像分类的主力。现在小数据场景还能用。
+  example: 老论文里这个分类器是 SVM 做的。
+
+- term: PCA
+  aliases: [Principal Component Analysis, 主成分分析]
+  category: abbr
+  literal: Principal Component Analysis
+  meaning: 降维神器——把 100 维特征压缩到 10 维，尽量保留信息。可视化高维数据、给模型瘦身、压缩存储都用 PCA。统计学和 ML 必学。
+  example: 用 PCA 把 1000 维降到 50 维再训练。
+
+- term: F1
+  aliases: [F1 score, F1 分数]
+  category: devterm
+  literal: F1 score
+  meaning: 衡量分类好坏的综合指标——精确率（找出来的对不对）和召回率（该找的找全了没）的调和平均。两者必须都高 F1 才高。0-1 之间，越高越好。
+  example: 模型 F1 0.85，达标了。
+
+- term: AUC
+  aliases: [Area Under Curve, ROC-AUC]
+  category: abbr
+  literal: Area Under the ROC Curve
+  meaning: 0.5 是瞎猜、1.0 是完美。衡量"模型把正样本排在负样本前面的能力"。0.8 以上算好。风控/CTR 预估场景最常看 AUC。
+  example: CTR 模型上线前 AUC 要过 0.75。
+
+
+- term: 精确率
+  aliases: [precision, 准确率]
+  category: devterm
+  literal: precision
+  meaning: 你说"这是垃圾邮件"的那些里真的是垃圾的比例。说 100 封是垃圾真的 90 封是 = 精确率 90%。"误报"少 = 精确率高。
+  example: 模型精确率 0.9，召回率 0.6。
+
+- term: 混淆矩阵
+  aliases: [confusion matrix]
+  category: devterm
+  literal: confusion matrix
+  meaning: 把"预测对的/错的"按真假正负分四格画出来——TP/FP/FN/TN。所有分类评估指标都从这张表算出来。模型 debug 必看。
+  example: 看混淆矩阵发现负样本误判特别多。
+
+- term: 特征工程
+  aliases: [feature engineering, FE]
+  category: devterm
+  literal: feature engineering
+  meaning: 把原始数据变成模型能用的特征——比如用户年龄不直接用 35，而是分桶成"青年/中年/老年"。深度学习火之前 ML 80% 时间花在 FE 上。
+  example: 这次比赛特征工程比模型重要。
+
+- term: 超参数
+  aliases: [hyperparameter]
+  category: devterm
+  literal: hyperparameter
+  meaning: 模型训练前要人工设的参数——学习率、batch size、网络层数。和"模型自己学的参数"区分。"调超参"是 ML 工程师日常。
+  example: 这组超参数跑出来 AUC 高 2 个点。
+
+- term: 网格搜索
+  aliases: [grid search]
+  category: devterm
+  literal: grid search
+  meaning: 调超参的笨办法——把每个参数列几个候选值，组合起来全跑一遍。学习率 [0.01, 0.001]、深度 [3, 5]=4 种组合都试。简单暴力。
+  example: 这次实验用网格搜索调了 100 组超参。
+
+- term: 早停
+  aliases: [early stopping]
+  category: devterm
+  literal: early stopping
+  meaning: 训练时盯着验证集 loss，如果连续 N 轮不降反升就立刻停——避免过拟合的简单粗暴办法。几乎所有深度学习任务的默认操作。
+  example: 设了 early stopping patience=5，提前停在第 30 epoch。
+
+# ====================
+# 三、数据库底层概念
+# ====================
+
+- term: MVCC
+  aliases: [Multi-Version Concurrency Control, 多版本并发控制]
+  category: abbr
+  literal: Multi-Version Concurrency Control
+  meaning: 数据库的"多版本快照"机制——读不阻塞写、写不阻塞读，每个事务看到的是开始时刻的数据快照。MySQL InnoDB、PostgreSQL 都靠 MVCC 实现高并发读写。
+  example: InnoDB 用 MVCC 让大量读查询不被写堵住。
+
+- term: 隔离级别
+  aliases: [isolation level, transaction isolation]
+  category: devterm
+  literal: transaction isolation level
+  meaning: 数据库事务之间"看不看得见对方"的级别——读未提交、读已提交、可重复读、串行化四级。级别越高越安全、并发越差。MySQL 默认 RR，PG 默认 RC。
+  example: 这个数据库设成了 RR 隔离级别，避免脏读。
+
+- term: 脏读
+  aliases: [dirty read]
+  category: devterm
+  literal: dirty read
+  meaning: 你读到了另一个事务还没提交的数据——结果对方回滚了，你刚读的就是"幽灵数据"。读未提交隔离级别才会发生，主流数据库默认都避免。
+  example: 隔离级别太低导致脏读，账户余额读错了。
+
+- term: 幻读
+  aliases: [phantom read]
+  category: devterm
+  literal: phantom read
+  meaning: 同一个事务里你执行两次"查所有订单"——第二次多了几条，像见了鬼。是因为另一个事务在你查询期间插入了新数据。串行化级别才能完全避免。
+  example: 这里有幻读风险，要升到 SERIALIZABLE 或加间隙锁。
+
+- term: 不可重复读
+  aliases: [non-repeatable read]
+  category: devterm
+  literal: non-repeatable read
+  meaning: 同一个事务里读同一行两次，两次结果不一样——因为期间被别人改并提交了。可重复读级别（RR）解决这个问题。
+  example: 这个统计逻辑不能用 RC，会出现不可重复读。
+
+- term: 两阶段提交
+  aliases: [2PC, two-phase commit]
+  category: devterm
+  literal: two-phase commit
+  meaning: 多个数据库节点一起提交事务的协议——先各自"准备好了吗"，全部 OK 再"一起提交"。任何一方不行就全部回滚。分布式事务的经典解法，缺点是慢且容易卡死。
+  example: 分布式事务走 2PC，但性能差，改用 TCC 了。
+
+
+
+- term: 慢查询
+  aliases: [slow query]
+  category: devterm
+  literal: slow query
+  meaning: 执行时间超过阈值的 SQL——比如 >1 秒。慢查询日志会自动记录下来，DBA 日常工作就是看慢查询日志、改 SQL 或加索引。
+  example: 这条 SQL 上了慢查询，缺索引扫全表了。
+
+- term: 执行计划
+  aliases: [query plan, execution plan]
+  category: devterm
+  literal: query plan
+  meaning: 数据库准备怎么跑你这条 SQL——先走哪个索引、怎么 join、估算扫多少行。看执行计划是 SQL 调优的第一步。MySQL 用 EXPLAIN 查。
+  example: EXPLAIN 一看执行计划，type 是 ALL，扫全表了。
+
+- term: EXPLAIN
+  aliases: []
+  category: devterm
+  literal: EXPLAIN
+  meaning: MySQL/PostgreSQL 的命令——在 SQL 前加 EXPLAIN，告诉你数据库会怎么跑这条查询。是 DBA 和后端调优 SQL 的必备工具。
+  example: EXPLAIN SELECT ... 一看果然没走索引。
+
+- term: 死锁检测
+  aliases: [deadlock detection]
+  category: devterm
+  literal: deadlock detection
+  meaning: 数据库会自动发现"A 等 B、B 等 A"这种死循环，强制把其中一个事务回滚来打破僵局。MySQL InnoDB 每秒扫一次。被回滚的事务报"Deadlock found"错。
+  example: 日志里 Deadlock found，回滚后重试就好了。
+
+- term: WAL
+  aliases: [Write-Ahead Log, 预写日志]
+  category: abbr
+  literal: Write-Ahead Log
+  meaning: 改数据前先把"我要改成啥"写到日志里，再改实际数据。万一崩了，重启时按日志重做就能恢复。所有现代数据库的标配，PostgreSQL 写的最经典。
+  example: PG 靠 WAL 实现崩溃恢复和流复制。
+
+- term: redo log
+  aliases: [重做日志]
+  category: devterm
+  literal: redo log
+  meaning: InnoDB 的 WAL——崩溃后用它把还没刷盘的修改"重做"一遍恢复数据。物理日志，记的是"在 X 页 Y 位置写 Z"。
+  example: redo log 写满了，事务暂停等刷盘。
+
+- term: binlog
+  aliases: [binary log, 二进制日志]
+  category: devterm
+  literal: MySQL binary log
+  meaning: MySQL 服务层的"所有改动流水"——记录每条改数据的 SQL。主从复制靠它把主库变化同步到从库。备份和数据订阅（如 canal、debezium）也靠它。
+  example: 用 canal 订阅 binlog 同步到 ES。
+
+- term: undo log
+  aliases: [回滚日志]
+  category: devterm
+  literal: undo log
+  meaning: 事务回滚和 MVCC 的依赖——改数据前把"原来是啥"记下来。回滚时反向操作，读旧版本快照时从这里取。
+  example: 长事务把 undo log 撑爆了，磁盘满了。
+
+- term: 索引下推
+  aliases: [Index Condition Pushdown, ICP]
+  category: devterm
+  literal: Index Condition Pushdown
+  meaning: MySQL 优化——把能在索引里做的过滤先做掉，避免回表（再去主键索引取完整行）。原来要拉 1 万行回表，下推后只回 100 行。
+  example: 升级 MySQL 后这条 SQL 走了索引下推，快 100 倍。
+
+- term: 回表
+  aliases: []
+  category: devterm
+  literal: index lookup back to row
+  meaning: 用非主键索引（二级索引）找到了行的主键，再拿主键去主键索引里找完整行——这"再去一次"叫回表。回表多的查询慢，所以建索引要"覆盖"避免回表。
+  example: SELECT * 触发回表，改成只查需要的列。
+
+- term: 覆盖索引
+  aliases: [covering index]
+  category: devterm
+  literal: covering index
+  meaning: 查询要的所有字段都在索引里 → 不用回表，直接从索引拿数据返回。神器，能让慢查询变快 10 倍。设计索引时优先考虑。
+  example: 给 (user_id, status, created_at) 建联合索引做覆盖索引。
+
+- term: 联合索引
+  aliases: [composite index, 复合索引]
+  category: devterm
+  literal: composite index
+  meaning: 一个索引里包含多个字段，按定义顺序排序。查 (user_id, status) 能用 (user_id, status, time) 索引，但查 (status) 单独不能用——遵循"最左前缀"原则。
+  example: 加联合索引 (user_id, created_at)，列表查询提速 50 倍。
+
+- term: 最左前缀
+  aliases: [leftmost prefix]
+  category: devterm
+  literal: leftmost prefix
+  meaning: 联合索引 (a, b, c) 只能加速查 a / a+b / a+b+c，不能加速查 b 或 c 单独。原因是索引按 a→b→c 顺序排序。建联合索引前必须确认查询条件的"打头字段"是啥。
+  example: 联合索引最左前缀是 user_id，查 status 用不上。

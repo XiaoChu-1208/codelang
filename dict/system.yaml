@@ -412,11 +412,6 @@
   meaning: Mozilla 2010 起开发的系统级语言——"内存安全 + 高性能"。Firefox 内核部分代码、Discord 后端都用 Rust。学习曲线陡但安全性收益大。
   example: 这个加密工具用 Rust 写，性能逼近 C 又不会内存泄漏。
 
-- term: Swift
-  aliases: [swift]
-  category: devterm
-  meaning: 苹果 2014 出的语言——给 iOS/macOS 开发用，替代老的 Objective-C。开发苹果 App 几乎必学。
-  example: 想做 iPhone App 学 Swift + Xcode 是标配。
 
 - term: Kotlin
   aliases: [kotlin]

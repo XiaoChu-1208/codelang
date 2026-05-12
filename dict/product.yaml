@@ -375,3 +375,136 @@
   category: abbr
   meaning: 周活跃用户数——一周内访问过的去重用户数。介于日活（DAU）和月活（MAU）之间。"WAU 占 MAU 比例"反映用户活跃强度。注：英文缩写 WAU 已在 DAU 词条里收录。
   example: 这款 App 周活 1000 万，月活 1500 万，活跃强度还行。
+
+# ====================
+# 数据分析 / 统计向
+# ====================
+
+
+- term: p-value
+  aliases: [p 值]
+  category: product
+  meaning: A/B 测试结果"是不是真的、还是碰运气"的概率——p < 0.05 一般认为"显著"（不是巧合）。0.05 是行业惯例阈值。
+  example: B 版提升 5%，p-value 0.02，可以发版。
+
+- term: 置信区间
+  aliases: [confidence interval]
+  category: product
+  meaning: 给一个估计值一个"区间范围"——比如 95% CI 是 [3%, 7%]=有 95% 把握真实提升在这区间。比一个点估计更靠谱。
+  example: CTR 提升 5%，95% 置信区间 [2%, 8%]。
+
+- term: 显著性
+  aliases: [statistical significance, 统计显著]
+  category: product
+  meaning: 结果"不是随机巧合"的程度。"显著"=p 值小于阈值（通常 0.05）。"不显著"=数据看着有差异但可能只是噪音。
+  example: B 版表面提升 2% 但不显著，再跑两周。
+
+- term: effect size
+  aliases: [效应量]
+  category: product
+  meaning: 差异的"实际大小"——不只问"是不是真的提升"（显著性），也问"提升了多少"（实际意义）。1 亿用户提 0.1% 显著但效应量小。
+  example: p-value 显著但 effect size 太小，不值得上。
+
+- term: 统计功效
+  aliases: [statistical power]
+  category: product
+  meaning: A/B test"能不能检测出真实差异"的能力——样本不够大时即使有差异也测不出（功效低）。设计实验前要算出"至少跑多少样本"才有 80% 功效。
+  example: 这实验样本太小，统计功效不足。
+
+- term: 贝叶斯
+  aliases: [Bayesian]
+  category: product
+  meaning: 一种统计学派——核心是"用先验+数据更新认知"。和频率派对立。Bayesian A/B 测试能给你"B 比 A 好的概率是 90%"这种直观结果。
+  example: 我们的 A/B 测试平台改成 Bayesian 框架了。
+
+- term: 频率派
+  aliases: [Frequentist]
+  category: product
+  meaning: 经典统计学派——基于"假设检验+p 值"。和 Bayesian 对立。互联网 A/B 测试大多还是用频率派（p < 0.05 拍板）。
+  example: 频率派 p-value 卡 0.05 太机械，老板天天问含义。
+
+- term: multi-armed bandit
+  aliases: [多臂老虎机, MAB]
+  category: product
+  meaning: A/B test 升级版——边测边调整流量分配，赢家慢慢拿到更多流量。比传统 A/B 探索-利用平衡更好。推荐系统、广告投放常用。
+  example: 推荐策略用 multi-armed bandit，自动倾斜流量到表现好的。
+
+- term: 因果推断
+  aliases: [causal inference]
+  category: product
+  meaning: 不只看"相关"还看"是不是真因果"——A 涨 B 涨可能只是相关。因果推断用 DID、PSM、IV 等方法尽量逼近因果。互联网公司高级数据科学家核心技能。
+  example: 这个增长归因要用因果推断方法，不能简单看相关。
+
+- term: DID
+  aliases: [Difference-in-Differences, 双重差分]
+  category: product
+  meaning: 因果推断经典方法——比较"实验组前后变化"和"对照组前后变化"的差。剔除时间趋势影响。常用于无法做 A/B 的政策评估。
+  example: 涨价对销量影响用 DID 评估，对照组是没涨价的城市。
+
+- term: RCT
+  aliases: [Randomized Controlled Trial, 随机对照试验]
+  category: product
+  meaning: 医学和社会学的"金标准"——随机分组+对照。A/B test 本质就是互联网版的 RCT。能给出真因果。
+  example: 这次研究做 RCT，1 万人随机分组。
+
+- term: 辛普森悖论
+  aliases: [Simpson's paradox]
+  category: product
+  meaning: 整体趋势和分组趋势相反——A 公司每个学院录取率都比 B 高，但总录取率 B 比 A 高。背后是分组比例不一样。数据分析陷阱必知。
+  example: 别只看总转化率，可能掉进辛普森悖论。
+
+- term: 幸存者偏差
+  aliases: [survivorship bias]
+  category: product
+  meaning: 只看"活下来的"忽略"挂掉的"——分析"成功创业者特质"时漏掉失败的几万人。结论看似有理但完全偏。"取样偏差"的经典例子。
+  example: 这调研只采访了在职员工，幸存者偏差严重。
+
+- term: 一类错误
+  aliases: [Type I error, 假阳性, 弃真]
+  category: product
+  meaning: 假阳性——本来没差异你错说有差异。p < 0.05 含义就是"一类错误概率 < 5%"。
+  example: 一类错误率 5% 意味着 100 个"显著"结果有 5 个是假的。
+
+- term: 二类错误
+  aliases: [Type II error, 假阴性, 取伪]
+  category: product
+  meaning: 假阴性——本来有差异你没测出来。一类二类此消彼长。统计功效=1 - 二类错误率。
+  example: 样本不够大二类错误率高，错过真改进。
+
+
+
+
+
+- term: 留存曲线
+  aliases: [retention curve]
+  category: product
+  meaning: 把"D1 留存、D7 留存、D30 留存"画成曲线——好产品曲线平、差产品曲线断崖。SaaS/App 健康度核心。
+  example: 这版本留存曲线 D7 后变平，说明真留下了一批粉。
+
+- term: LTV/CAC
+  aliases: [LTV CAC 比]
+  category: product
+  meaning: 用户终身价值除以获客成本——> 3 是健康 SaaS、< 1 烧钱模式。投资人尽调必问的核心比率。
+  example: LTV/CAC 1.5，离 3 还远，需要降 CAC 或提 LTV。
+
+- term: payback period
+  aliases: [回本周期]
+  category: product
+  meaning: 花 100 块拉一个客需要多少个月赚回来——12 个月内回本是 SaaS 健康线。24 个月 + 看 LTV 撑不撑得住。
+  example: payback period 18 个月，给融资讲故事时还行。
+
+- term: NPS
+  aliases: [Net Promoter Score, 净推荐值]
+  category: abbr
+  literal: Net Promoter Score
+  meaning: 用户调研问一题"你会推荐给朋友吗 0-10 分"——9-10 是推荐者、0-6 是诋毁者。% 推荐者 - % 诋毁者 = NPS。互联网产品健康度常用指标。
+  example: 这版本 NPS 从 30 涨到 45，推荐意愿明显上升。
+
+- term: CSAT
+  aliases: [Customer Satisfaction]
+  category: abbr
+  literal: Customer Satisfaction Score
+  meaning: 客户满意度——通常问"这次服务你打几分（1-5）"，算 4-5 分比例。客服/售后场景常用。和 NPS 互补，CSAT 看具体一次体验。
+  example: 客服 CSAT 这季度 92%，达标。
+
+

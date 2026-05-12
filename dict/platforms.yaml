@@ -429,3 +429,98 @@
   category: devterm
   meaning: 交互式编程环境——把代码、结果、图表、Markdown 笔记混在一个文件（.ipynb）。数据分析、ML 实验、教学的事实标准。
   example: AI 工程师本地实验首选 Jupyter，写一段跑一段。
+
+# ====================
+# 区块链 / Web3
+# ====================
+
+- term: blockchain
+  aliases: [区块链]
+  category: devterm
+  meaning: 一条不能修改的"账本"——所有人共同维护，每一笔交易记到一个"区块"里，区块按时间顺序连成链。改任何一笔要重写后续所有区块。比特币、以太坊都是区块链。
+  example: 区块链解决"不靠中心机构怎么记账"的问题。
+
+- term: 智能合约
+  aliases: [smart contract]
+  category: devterm
+  meaning: 跑在区块链上的代码——条件触发就自动执行（"A 转给我 100 块就把房子的所有权转给 A"）。以太坊主打就是智能合约。代码即法律但代码有 bug 也得认。
+  example: 这个 DeFi 协议的智能合约被薅了 6000 万美金。
+
+- term: 钱包
+  aliases: [wallet, 数字钱包, crypto wallet]
+  category: devterm
+  meaning: 区块链的"账户"——本质是一对公私钥+地址。MetaMask、imToken、Phantom 都是钱包软件。私钥丢=钱没了，不像银行能找回。
+  example: 我那 MetaMask 钱包早就清空了。
+
+- term: NFT
+  aliases: [Non-Fungible Token, 非同质化代币]
+  category: abbr
+  literal: Non-Fungible Token
+  meaning: 区块链上"独一无二的数字物品"——和钱（同质化、随便换）不一样，每个 NFT 都不同。2021 数字藏品大热，无聊猿、CryptoPunks 卖出天价。现在泡沫破了大半。
+  example: 当年 6 位数买的 NFT，现在卖几百块都没人接。
+
+- term: DeFi
+  aliases: [Decentralized Finance, 去中心化金融]
+  category: abbr
+  literal: Decentralized Finance
+  meaning: 不靠银行/券商，用智能合约实现借贷、交易、理财——Aave、Uniswap 是代表。优点是无许可、24×7，缺点是被黑客薅常态化。
+  example: 这家 DeFi 协议锁仓量 50 亿美金。
+
+
+- term: gas fee
+  aliases: [gas, 矿工费, 链上手续费]
+  category: devterm
+  meaning: 在区块链上做任何操作（转账、调用合约）要付的"过路费"——给矿工/验证者的报酬。以太坊主网繁忙时一笔几十刀，俗称"被 gas 劝退"。
+  example: 周末 gas fee 飙到 80 gwei，一笔 NFT 交易 100 刀。
+
+- term: L1
+  aliases: [Layer 1, 一层]
+  category: devterm
+  meaning: 底层主链——比特币、以太坊主网、Solana 是 L1。直接在 L1 上交易最安全但慢、贵。所有"扩容方案"都是在 L1 之上加东西。
+  example: 以太坊 L1 单链 TPS 上不去，必须靠 L2。
+
+- term: L2
+  aliases: [Layer 2, 二层]
+  category: devterm
+  meaning: 跑在 L1 之上的"扩容层"——把大量交易在 L2 处理完，只把结果汇总到 L1。又快又便宜。Arbitrum、Optimism、Base、zkSync 都是以太坊 L2。
+  example: 现在大家都在 L2 上玩 DeFi，gas 便宜 100 倍。
+
+
+- term: zk-SNARK
+  aliases: [ZK, 零知识证明]
+  category: devterm
+  literal: Zero-Knowledge Succinct Non-Interactive Argument of Knowledge
+  meaning: 不暴露内容就能证明"我确实知道某个秘密"的密码学魔法——你能验证一个事实但看不到底层数据。隐私币（Zcash）和 ZK Rollup（zkSync）的核心。
+  example: 用 zk-SNARK 证明年龄 > 18 但不暴露生日。
+
+- term: MEV
+  aliases: [Maximal Extractable Value]
+  category: abbr
+  literal: Maximal Extractable Value
+  meaning: 矿工/验证者通过调整交易顺序能"抢到"的额外利润——抢跑你的 DEX 大单、夹三明治攻击。链上灰色但合法的赚钱方式，每年几亿美金规模。
+  example: MEV 机器人天天抢跑普通用户的交易。
+
+- term: staking
+  aliases: [质押]
+  category: devterm
+  meaning: 把代币锁在链上"打工"换利息——PoS 链的核心机制。以太坊 staking 给你年化几个点。流动性质押（Lido）让锁着的钱也能用。
+  example: 把 ETH 拿去 staking，年化 4%。
+
+- term: 助记词
+  aliases: [mnemonic phrase, seed phrase]
+  category: devterm
+  meaning: 12 或 24 个英文单词组成的"主钥匙"——能恢复你所有钱包。绝对不能截图、不能发任何人。被人骗了助记词等于钱包被洗劫。
+  example: 助记词写纸上锁保险柜里，电子设备一律不存。
+
+- term: EVM
+  aliases: [Ethereum Virtual Machine, 以太坊虚拟机]
+  category: abbr
+  literal: Ethereum Virtual Machine
+  meaning: 以太坊的"计算引擎"——智能合约都跑在 EVM 上。BSC、Polygon、Arbitrum 等大量公链都"兼容 EVM"，意味着以太坊的合约能直接搬过去。
+  example: 这条新公链 EVM 兼容，能跑 Solidity 合约。
+
+- term: Solidity
+  aliases: []
+  category: devterm
+  meaning: 写以太坊智能合约的主流语言——语法像 JS+C++。所有 EVM 兼容链都用 Solidity。新手写出来的合约容易有漏洞，被薅是日常。
+  example: 这个 DeFi 协议核心是 5000 行 Solidity 代码。

@@ -19,10 +19,10 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1088 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1460 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
-    "1088 条人工撰写词条 / 2410 个查询键",
+    "1460 条人工撰写词条 / 3228 个查询键",
     "覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语",
     "100% 本地查询，无网络请求，无隐私泄露",
     "可选 LLM 兜底（Anthropic Claude / OpenAI）",
@@ -49,7 +49,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 </p>
 
 <p align="center">
-  <img alt="词条数" src="https://img.shields.io/badge/词条-1088-blue">
+  <img alt="词条数" src="https://img.shields.io/badge/词条-1460-blue">
   <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
@@ -69,7 +69,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1088 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1460 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -88,7 +88,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>1088 条精校词条 · 2410 个查询键 · 9 大类 · 207 条通用翻译兜底</td>
+    <td>1460 条精校词条 · 3228 个查询键 · 12 大类 · 207 条通用翻译兜底</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -211,21 +211,26 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**1088 条精校词条 / 2410 个查询键 + 207 条通用翻译兜底**，覆盖九大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**1460 条精校词条 / 3228 个查询键 + 207 条通用翻译兜底**，覆盖十二大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
-| `devterm.yaml` | **开发/工程概念** | ~330 | 锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 安全/XSS/CSRF · 微服务/容器/k8s · 设计模式 · 数据结构（B+树/红黑树/跳表/字典树）· UI 组件（tooltip/modal/dropdown/skeleton 等 22 个）· JS/TS（closure/hoisting/Promise/async）· React/Vue（Hook/JSX/composable）· Python（ctypes/decorator/asyncio/GIL）· Go（goroutine/channel/defer）· Git（rebase/cherry-pick/stash）· 测试（mock/stub/fuzz/snapshot）· DevOps（pipeline/canary/rollback）· 文件后缀 · 编程动词 | 幂等 / CAS / 熔断 / 缓存击穿 / 死锁 / 微服务 / Docker / closure / useState / goroutine / rebase / race condition |
-| `ai.yaml` | **AI / LLM / 大模型** | ~120 | 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/Agent Skills）· 概念（Transformer/attention/MoE）· 训练（SFT/RLHF/DPO/LoRA/QLoRA/PEFT）· 量化（INT4/FP16/BF16）· 推理（temperature/KV cache/TTFT）· Prompt（CoT/ToT/few-shot/in-context learning）· Agent（Sub-agent/Computer Use/Browser Use/Deep Research）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· 产品（Cursor/Devin/Manus/v0/Bolt/Lovable）· 概念（vibe coding/agentic/上下文工程/思考预算/test-time compute）· 安全（jailbreak/red team/guardrail/幻觉） | Transformer / RLHF / LoRA / RAG / LangChain / ReAct / MCP / 幻觉 / 思考预算 / 智能体 / DeepSeek |
-| `platforms.yaml` | **平台 / 框架 / 数据库 / 云** | ~70 | 中文技术社区（CSDN/掘金/知乎/B 站/思否/V2EX/少数派/即刻/微信公众号/小红书）· 海外（Stack Overflow/Reddit/Hacker News/Medium/Dev.to/Twitter/Discord）· 代码托管（GitHub/GitLab/Gitee/npm/PyPI）· 前端框架/UI 库（React/Vue/Angular/Svelte/Next.js/Tailwind/Ant Design）· 后端框架（Express/NestJS/FastAPI/Django/Spring/Gin）· 数据库（MySQL/PostgreSQL/MongoDB/Redis/Elasticsearch）· 云（AWS/GCP/Azure/阿里云/腾讯云/火山引擎/Vercel/Cloudflare）· ML（TensorFlow/PyTorch/pandas/Jupyter） | CSDN / 掘金 / GitHub / Tailwind / Next.js / FastAPI / Redis / AWS / Vercel |
-| `system.yaml` | **操作系统 / 硬件 / 办公软件** | ~70 | 操作系统（Windows/macOS/Linux/Ubuntu/iOS/Android）· 硬件（CPU/RAM/SSD/HDD/USB/Type-C/HDMI/BIOS/UEFI）· 浏览器（Chrome/Edge/Firefox/Safari）· 办公（Office/Word/Excel/PPT/Outlook/Notion/Figma/Photoshop）· 通讯（Teams/Slack/钉钉/飞书/企业微信）· 系统概念（内核/shell/终端/桌面/任务栏/注册表/系统托盘/进程/任务管理器）· 网络基础（URL/域名/局域网/IP）· 编程语言（Python/Java/JavaScript/C++/C#/Go/Rust/Swift/Kotlin/PHP/Ruby） | Windows / macOS / CPU / Chrome / Word / 钉钉 / 飞书 / Notion / Figma / 内核 / Python |
-| `basics.yaml` | **基础英文词** | ~47 | "看似简单但选中就懵"的通用词：system / platform / application / server / client / data / format / schema · 数据结构（list/array/object/string/number/boolean/null/true/false）· 元素（entry/item/element/index/name/title/label/tag/type/category）· I/O（input/output/request/response/query/command）· 函数（function/method/variable/constant/parameter/argument）· 模块（module/package/library/framework/runtime） | system / platform / format / function / parameter / module / library |
-| `jargon.yaml` | **互联网公司黑话** | ~155 | 会议室高频词：对齐/颗粒度/抓手/赋能/闭环/沉淀/拉通/对标 · 业务：复盘/打法/破圈/中台/包装/红利 · 大厂概念：链路/痛点/爽点/痒点/公域/私域/上游/下游/壁垒 · 策略：玩家/玩法/调性/认知/心力/战役/锚点/标杆 · 流量：拉新/留存/促活/转化/获客/裂变/增长/曝光/激活/导流 | 对齐 / 颗粒度 / 抓手 / 赋能 / 闭环 / 中台 / 复盘 / 拉通 / 卷王 / 躺平 |
-| `abbr.yaml` | **缩写** | ~95 | 职场指标（OKR/KPI/ROI/PMF/MVP/SLA/P99/QPS/CRUD/DDD）· 用户数据（DAU/GMV）· 商业模式（B2B/B2C/C2C/O2O）· 营销（PV/UV/CTR/CVR/CPC/CPM/KOL/KOC）· 协议（HTTP/TLS/SSH/VPN/NAT/VPC）· 数据（ETL/OLAP/OLTP/RBAC）· 前端（SPA/PWA）· 通用（TTL/UUID/JSON/YAML）· 代码注释（TODO/FIXME/HACK/XXX/WIP/LGTM/NIT）· 聊天（ETA/TBD/IMO/BTW/FYI/AKA/ROFL/TIL）· AI（SOTA/LLM/RAG/AGI/GPU/TPU/NPU）· 区块链（PoW/PoS） | OKR / KPI / GMV / DAU / QPS / SSR / LGTM / FYI / TODO / SOTA / RAG |
-| `slang.yaml` | **网络流行语 / 职场俚语 / 编程口语** | ~105 | 职场（996/007/大小周/福报/PUA/HR/N+1/被优化/毕业/福利）· 大厂层级（P 几/T 几/BG/BU/HC/内推/转正/试用期）· 新人状态（八股/卷/润/大厂/螺丝钉/35 岁危机）· 2024-2025 流行语（班味/牛马/上岸/显眼包/含金量/搞抽象/偷感/红温/摆烂/情绪价值/大冤种/蚌埠住了/yyds/老六/上桌/I 人/E 人/emo）· 生活方式（citywalk/多巴胺穿搭/数字游民/电子榨菜/电子布洛芬）· 编程口语（slang/jargon/glossary/meme/viral/newbie/guru/ship/hype/vibe/lit/based/cringe/vanilla/stack/opinionated） | 996 / 被优化 / 班味 / 牛马 / 上岸 / yyds / I 人 / emo / citywalk / vibe / ship |
-| `product.yaml` | **产品 / 运营 / 增长** | ~57 | 用户经济（LTV/CAC/ARPU/ARPPU/ROAS/CPL/客单价/复购率）· 留存（留存率/次日留存/D7/D30/流失率/召回率）· 流量（流量池/流量入口/自然流量/付费流量）· 转化（转化漏斗/跳出率/完播率/停留时长/互动率/触达率）· 用户（用户画像/persona/用户分层/分群/RFM/同期群/归因/北极星指标）· 增长（增长黑客/病毒系数/K 因子）· 内容/社群（种草/拔草/平替/避雷/红人/达人/社群运营/内容运营）· 通用（feature/case/use case/用户故事/用户旅程）· 产品岗（产品经理/PRD/BRD/MRD） | LTV / CAC / 客单价 / 复购率 / 北极星指标 / 种草 / 拔草 / 平替 / feature / case / PRD |
+| `devterm.yaml` | **开发/工程概念** | ~520 | 锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 微服务/容器/k8s 全套（Pod/Deployment/Ingress/Sidecar/Operator/CRD/ArgoCD/eBPF/Envoy/Prometheus/Grafana/OTel）· SRE 体系（SLO/SLI/error budget/blameless/runbook/canary/blue-green/chaos engineering/MTTR/RCA/postmortem/on-call）· 加密身份（salt/HMAC/AES/RSA/ECC/CA/X.509/SSO/SAML/OIDC/MFA/passkey）· 测试链路（Jest/Vitest/Playwright/Cypress/BDD/mutation/contract testing）· 前端构建（webpack/vite/esbuild/turbopack/swc/pnpm/Turborepo/Nx/husky）· Apple 生态（Xcode/Swift/SwiftUI/Keychain/Apple Silicon）· 微软（.NET/Visual Studio/winget/Hyper-V）· 协作工具（Jira/Confluence/Linear/Loom/Miro） | 幂等 / CAS / 熔断 / Pod / SLO / canary / chaos / RSA / passkey / vite / SwiftUI |
+| `ai.yaml` | **AI / LLM / 大模型** | ~135 | 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/Agent Skills）· 概念（Transformer/attention/MoE）· 训练（SFT/RLHF/DPO/LoRA/QLoRA/PEFT）· 量化推理（INT4/FP16/temperature/KV cache/TTFT）· Prompt（CoT/ToT/few-shot/in-context）· Agent（Sub-agent/Computer Use/Browser Use/Deep Research）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· **新一代 AI 编程工具**（Cursor/Cline/Aider/Continue/Codex CLI/Tabnine/Codeium/Replit Agent/Trae/Zed/Junie/RooCode/Augment）· 概念（vibe coding/agentic/上下文工程/思考预算） | Transformer / RLHF / LoRA / RAG / LangChain / ReAct / MCP / Cline / Aider / Codex |
+| `platforms.yaml` | **平台 / 框架 / 数据库 / 云 / Web3** | ~85 | 中文技术社区（CSDN/掘金/知乎/B 站/V2EX/少数派）· 海外（Stack Overflow/Reddit/Hacker News/Medium）· 代码托管（GitHub/GitLab/Gitee/npm/PyPI）· 前后端框架（React/Vue/Next.js/Tailwind/Express/NestJS/FastAPI/Spring）· 数据库（MySQL/PostgreSQL/MongoDB/Redis/Elasticsearch）· 云（AWS/GCP/Azure/阿里云/腾讯云/火山引擎/Vercel/Cloudflare）· **区块链/Web3**（blockchain/智能合约/钱包/NFT/DeFi/DAO/gas fee/L1/L2/rollup/zk-SNARK/MEV/staking/EVM/Solidity） | CSDN / GitHub / Vercel / NFT / DeFi / DAO / Solidity / zk-SNARK |
+| `system.yaml` | **操作系统 / 硬件 / 办公软件** | ~70 | 操作系统（Windows/macOS/Linux/Ubuntu/iOS/Android）· 硬件（CPU/RAM/SSD/HDD/USB/Type-C/HDMI/BIOS/UEFI）· 浏览器（Chrome/Edge/Firefox/Safari）· 办公（Office/Word/Excel/PPT/Outlook/Notion/Figma/Photoshop）· 通讯（Teams/Slack/钉钉/飞书/企业微信）· 系统概念（内核/shell/终端/任务栏/注册表）· 编程语言（Python/Java/JavaScript/C++/Go/Rust/Swift） | Windows / macOS / CPU / Chrome / Word / 钉钉 / 飞书 / Notion / 内核 |
+| `basics.yaml` | **基础英文词** | ~47 | "看似简单但选中就懵"的通用词：system / platform / application / server / client / data / format / schema · 数据结构（list/array/object/string/number/boolean/null/true/false）· 元素（entry/item/element/index/name/title/label）· I/O（input/output/request/response/query）· 函数（function/method/variable/parameter）· 模块（module/package/library/framework） | system / platform / format / function / parameter / module / library |
+| `jargon.yaml` | **互联网公司黑话 + 设计圈** | ~180 | 会议室高频词：对齐/颗粒度/抓手/赋能/闭环/沉淀/拉通/对标 · 业务：复盘/打法/破圈/中台/包装/红利 · 大厂概念：链路/痛点/爽点/痒点/公域/私域 · 流量：拉新/留存/促活/转化/获客 · **设计圈**（栅格/留白/视觉锤/字号字重/kerning/leading/design system/atomic design/design token/wireframe/mockup/prototype/Material/Flat/Glassmorphism/Sketch/Lottie/视觉一致性） | 对齐 / 颗粒度 / 抓手 / 中台 / 复盘 / 栅格 / 留白 / 视觉锤 / design system / wireframe |
+| `abbr.yaml` | **缩写 + 法律合规** | ~115 | 职场指标（OKR/KPI/ROI/PMF/MVP/SLA/P99/QPS/CRUD/DDD）· 用户数据（DAU/GMV）· 商业模式（B2B/B2C/C2C/O2O）· 营销（PV/UV/CTR/CVR/CPC/CPM/KOL/KOC）· 协议（HTTP/TLS/SSH/VPN/NAT/VPC）· 数据（ETL/OLAP/OLTP/RBAC）· 前端（SPA/PWA）· AI（SOTA/LLM/RAG/AGI/GPU/TPU/NPU）· 区块链（PoW/PoS）· **法律合规/开源协议**（SOC2/GDPR/CCPA/HIPAA/ISO27001/KYC/AML/ToS/EULA/copyleft/Apache 2.0/GPL/LGPL/AGPL/BSD/CC0/MIT/NDA/商标/专利/著作权） | OKR / KPI / GMV / DAU / SOTA / GDPR / SOC2 / Apache 2.0 / GPL / 著作权 |
+| `slang.yaml` | **网络流行语 / 职场俚语** | ~120 | 职场（996/007/大小周/福报/PUA/HR/N+1/被优化/毕业）· 大厂层级（P 几/T 几/BG/HC/内推/转正/试用期）· 2024-2025 流行语（班味/牛马/上岸/显眼包/含金量/搞抽象/偷感/红温/摆烂/yyds/老六/上桌/I 人/E 人/emo）· **2025 新词**（老登/媚男/男大/那咋了/我嘞个豆/已老实求放过/清醒梦/发疯文学/City 不 City/普却信/拽姐/鼠人/哈基米/反向 X）· 生活方式（citywalk/多巴胺穿搭/数字游民/电子榨菜） | 996 / 被优化 / 班味 / 牛马 / 上岸 / yyds / 老登 / 媚男 / 那咋了 / 哈基米 |
+| `product.yaml` | **产品 / 运营 / 增长 + 数据分析** | ~80 | 用户经济（LTV/CAC/ARPU/ARPPU/客单价/复购率）· 留存（次日留存/D7/D30/流失率/同期群）· 流量（流量池/转化漏斗/跳出率/完播率/停留时长）· 用户（用户画像/persona/RFM/归因/北极星指标）· 内容/社群（种草/拔草/平替/避雷/红人/PRD/BRD/MRD）· **数据分析/统计**（A/B test/p-value/置信区间/显著性/effect size/统计功效/贝叶斯/MAB/因果推断/DID/RCT/辛普森悖论/幸存者偏差/一类二类错误/NPS/CSAT） | LTV / CAC / 北极星指标 / 种草 / A/B test / p-value / 因果推断 / NPS |
+| **`security.yaml`** ✨ | **网络安全 / Cybersecurity** | ~55 | 漏洞类型（0day/CVE/CWE/RCE/SSRF/XXE/SSTI/提权/横向移动/沙箱逃逸/供应链攻击/投毒/撞库/拖库/钓鱼/鱼叉/社工）· 攻击（APT 攻击/勒索软件/木马/后门/webshell）· 攻防（红队/蓝队/紫队/渗透测试/零信任/CTF/白帽子/漏洞赏金）· 防护（WAF/IDS/SIEM/EDR/HIDS）· 框架（OWASP Top 10/MITRE ATT&CK/CVSS）· 加固（弱口令/爆破/撒网） | 0day / CVE / RCE / 红队 / 钓鱼 / APT 攻击 / OWASP / SIEM / EDR |
+| **`mlops.yaml`** ✨ | **数据工程 / 机器学习 / 数据库底层** | ~75 | 大数据栈（Spark/Flink/Kafka/Airflow/dbt/Snowflake 数据库/BigQuery/Databricks/Iceberg/Delta Lake/Parquet/Avro/ClickHouse/数仓/数据湖/湖仓一体/ETL/ELT）· **经典 ML**（监督/无监督/强化学习/梯度下降/反向传播/过拟合/正则化/Dropout/BatchNorm/迁移学习/交叉验证/k-means/决策树/随机森林/XGBoost/LightGBM/SVM/PCA/F1/AUC/混淆矩阵/特征工程/超参数/早停）· **数据库底层**（MVCC/隔离级别/脏读/幻读/两阶段提交/慢查询/EXPLAIN/WAL/redo log/binlog/undo log/索引下推/回表/覆盖索引/联合索引/最左前缀） | Spark / Kafka / Airflow / 数据湖 / 梯度下降 / 过拟合 / XGBoost / AUC / MVCC / WAL |
+| **`finance.yaml`** ✨ | **HR / 招聘 / 创投 / 财务** | ~65 | **HR/招聘**（JD/HC/OC/校招/社招/内推/PIP 绩效/试用期/转正/2N/竞业/NDA/sign-on/RSU/vesting/cliff/股权/期权/调岗/绩效/360 评估/calibration/1:1/skip level）· **创投**（ARR/MRR/TAM/SAM/SOM/burn rate/runway/term sheet/cap table/稀释/反稀释/A 轮 B 轮/Pre-IPO/IPO/估值/独角兽/对赌/FA/LP/GP/尽调/退出/M&A/MOIC/IRR/carry/估值倍数/现金流/烧钱/现金奶牛/PMF） | JD / HC / PIP / RSU / vesting / cliff / ARR / runway / TAM / 独角兽 / LP GP |
 | **额外兜底** | **`ecdict.json` 通用翻译** | 207 | 字典里 miss 的常见编程英文：namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept ... | namespace / primitive / assertion / adapter / singleton |
-| | **合计** | **1088 条** | **2410 查询键** | **覆盖你日常 99% 看到的术语** |
+| | **合计** | **1460 条** | **3228 查询键** | **覆盖你日常 99% 看到的术语** |
+
+> ✨ = v2 新增板块。本次新增 **3 个 yaml 文件 + 372 条词条**，重点补全：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析。
 
 **风格统一**：所有词条都是「比喻 + 真实场景 + 具体例句」三段式。例如：
 
@@ -397,16 +402,19 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                       词库源文件（YAML 格式，1088 条 / 9 个文件）
-│   ├── devterm.yaml            开发/工程概念 ~330（锁/数据库/网络/微服务/UI/JS-TS/React/Python/Go/Git/测试/DevOps）
-│   ├── ai.yaml                 AI/LLM/Agent ~120（Transformer/RLHF/LoRA/RAG/LangChain/MCP/智能体）
-│   ├── platforms.yaml          社区/框架/数据库/云 ~70（CSDN/掘金/GitHub/Tailwind/MySQL/AWS/Vercel）
+├── dict/                       词库源文件（YAML 格式，1460 条 / 12 个文件）
+│   ├── devterm.yaml            开发/工程概念 ~520（锁/数据库/网络/微服务/K8s/SRE/加密/测试/前端构建/Apple/微软/协作工具）
+│   ├── ai.yaml                 AI/LLM/Agent ~135（Transformer/RLHF/LoRA/RAG/LangChain/MCP/Cline/Aider/Codex 等新一代 AI 编程工具）
+│   ├── platforms.yaml          社区/框架/数据库/云/Web3 ~85（CSDN/GitHub/Vercel/NFT/DeFi/DAO/智能合约/Solidity/zk-SNARK）
 │   ├── system.yaml             OS/硬件/办公 ~70（Windows/macOS/CPU/RAM/Chrome/Office/钉钉/飞书）
 │   ├── basics.yaml             基础英文 ~47（system/platform/format/function/module/library）
-│   ├── jargon.yaml             互联网黑话 ~155（对齐/颗粒度/抓手/赋能/闭环/中台/复盘/拉通）
-│   ├── abbr.yaml               缩写 ~95（OKR/KPI/GMV/DAU/QPS/SSR/LGTM/TODO/SOTA/RAG）
-│   ├── slang.yaml              流行语/职场俚语 ~105（996/班味/牛马/上岸/yyds/I 人/emo/citywalk）
-│   ├── product.yaml            产品/运营/增长 ~57（LTV/CAC/复购率/北极星指标/种草/拔草/平替/PRD）
+│   ├── jargon.yaml             互联网黑话+设计圈 ~180（对齐/颗粒度/抓手/赋能/栅格/留白/视觉锤/design system/wireframe）
+│   ├── abbr.yaml               缩写+法律合规 ~115（OKR/KPI/GMV/DAU/SOTA/GDPR/SOC2/Apache 2.0/GPL/MIT）
+│   ├── slang.yaml              流行语/职场俚语 ~120（996/班味/牛马/上岸/yyds/老登/媚男/那咋了/哈基米）
+│   ├── product.yaml            产品/运营/数据分析 ~80（LTV/CAC/北极星指标/种草/A/B test/p-value/因果推断/NPS）
+│   ├── security.yaml       ✨ 网络安全 ~55（0day/CVE/RCE/SSRF/红队蓝队/APT/钓鱼/OWASP/SIEM/EDR）
+│   ├── mlops.yaml          ✨ 数据工程/经典 ML/数据库底层 ~75（Spark/Kafka/dbt/XGBoost/MVCC/WAL/binlog）
+│   ├── finance.yaml        ✨ HR/招聘/创投/财务 ~65（JD/HC/PIP/RSU/vesting/ARR/runway/独角兽/LP GP/PMF）
 │   └── user.yaml               你录入的词（运行时自动追加）
 ├── desktop/                    桌面应用（Alt+划词触发）
 │   ├── app.py                  主入口

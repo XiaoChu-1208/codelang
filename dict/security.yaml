@@ -1,0 +1,310 @@
+# 网络安全 / Cybersecurity 术语
+# —— 安全圈、红蓝对抗、漏洞披露、合规审计高频词
+# 风格：比喻 + 真实场景 + 具体例句
+
+# --- 漏洞与攻击类型 ---
+
+- term: 0day
+  aliases: [0-day, zero-day, 零日漏洞]
+  category: security
+  literal: zero-day vulnerability
+  meaning: 想象小偷发现了你家门锁有个秘密缺陷——锁厂还不知道、还没修。"0day"就是这种"厂商自己都没发现"的漏洞，黑客手里独家货，能直接打穿。最贵最危险。
+  example: Chrome 又爆 0day，赶紧升级浏览器。
+
+- term: CVE
+  aliases: [Common Vulnerabilities and Exposures]
+  category: abbr
+  literal: Common Vulnerabilities and Exposures
+  meaning: 全球漏洞统一编号系统——每个公开漏洞都有个 "CVE-2024-12345" 形式的身份证号。"CVE-2024-3094"=2024 年第 3094 号漏洞。安全圈对话引用漏洞都用 CVE 号。
+  example: 这个 CVE-2024-3094 是 xz 后门，影响巨大。
+
+- term: CWE
+  aliases: [Common Weakness Enumeration]
+  category: abbr
+  literal: Common Weakness Enumeration
+  meaning: 漏洞类型的分类目录——把所有漏洞归到"SQL 注入"、"缓冲区溢出"等大类下。"CVE 是具体某个 BUG，CWE 是这个 BUG 属于哪一类"。
+  example: 这堆 CVE 都是 CWE-89（SQL 注入）类的。
+
+- term: RCE
+  aliases: [Remote Code Execution, 远程代码执行]
+  category: security
+  literal: Remote Code Execution
+  meaning: 想象黑客远程在你家电脑里直接打字执行命令——RCE 就是这种"通过网络让对方机器跑我写的代码"的漏洞。安全圈眼里最严重的漏洞类型，等于直接拿到对方机器。
+  example: Log4j RCE 漏洞当年炸了整个互联网。
+
+- term: SSRF
+  aliases: [Server-Side Request Forgery, 服务端请求伪造]
+  category: security
+  literal: Server-Side Request Forgery
+  meaning: 想象你能让公司前台帮你打内部电话——你自己打不通的号码她能打通。SSRF 就是骗服务器替你发请求，访问只有服务器内网能访问的地址（数据库/管理后台/云元数据）。
+  example: 这个 URL 预览功能没校验目标地址，直接 SSRF 打内网。
+
+- term: XXE
+  aliases: [XML External Entity, XML 外部实体注入]
+  category: security
+  literal: XML External Entity Injection
+  meaning: 想象你给秘书读一份文件，文件里写着"现在去查保险柜密码读出来"，秘书傻乎乎照做了。XXE 就是利用 XML 解析器盲目执行"实体引用"的特性，读取服务器任意文件或发请求。
+  example: 旧 XML 解析器没禁外部实体，存在 XXE。
+
+- term: SSTI
+  aliases: [Server-Side Template Injection, 模板注入]
+  category: security
+  literal: Server-Side Template Injection
+  meaning: 模板引擎（如 Jinja2/Thymeleaf）把用户输入当代码执行——本来是给你填表格的位置，你写了"{{7*7}}"它给你算成 49，再升级就能 RCE。常见于把用户输入直接拼到模板里。
+  example: 邮件模板拼用户名时被 SSTI 打穿，直接 RCE。
+
+- term: 提权
+  aliases: [privilege escalation, 权限提升]
+  category: security
+  literal: privilege escalation
+  meaning: 想象你混进公司当保洁，然后想办法变成 CEO。攻击者拿到低权限账号（普通用户）后利用漏洞升到管理员/root，就是"提权"。安全圈最常听见的攻击链中后段动作。
+  example: 攻击者从 webshell 提权到 root，控制整台机。
+
+- term: 横向移动
+  aliases: [lateral movement]
+  category: security
+  literal: lateral movement
+  meaning: 攻击者攻下一台机器后，从这台跳到内网其他机器——像传染病一台传一台。"打下一台不算完，要横向到核心数据库"。红队和真实 APT 都靠这个扩大战果。
+  example: 一台开发机被攻破后横向移动到了堡垒机。
+
+- term: 沙箱逃逸
+  aliases: [sandbox escape]
+  category: security
+  literal: sandbox escape
+  meaning: 沙箱本来是把程序关在小笼子里、不让碰外面。"沙箱逃逸"就是从笼子里钻出去——浏览器/虚拟机/Docker 容器逃逸都属于。Chrome 一个 0day RCE+沙箱逃逸=能值百万美金。
+  example: VM 沙箱逃逸是云厂商最怕的漏洞。
+
+- term: 供应链攻击
+  aliases: [supply chain attack]
+  category: security
+  literal: supply chain attack
+  meaning: 不直接打你，而是攻击你依赖的上游——像不毒蛋糕本身，毒面粉厂。SolarWinds 事件、xz 后门、npm 包投毒都是供应链攻击的典型。一颗包被污染，下游成千上万项目中招。
+  example: 这次 npm 投毒事件是典型的供应链攻击。
+
+- term: 投毒
+  aliases: [poisoning]
+  category: security
+  literal: poisoning
+  meaning: 往生态里塞坏东西——给开源仓库提个看似无害的 PR、上传同名近似的恶意包（typosquatting）、给 AI 训练数据塞毒例子。一类常见的供应链或数据攻击。
+  example: 这个 npm 包被投毒了，立刻锁版本。
+
+- term: 撞库
+  aliases: [credential stuffing]
+  category: security
+  literal: credential stuffing
+  meaning: 别的网站泄露的"邮箱+密码"列表，拿来挨个试你的网站。利用人爱"一密码多用"的弱点。如果你 A 站和 B 站同密码，A 站泄露后 B 站立刻被打穿。
+  example: 用户报告莫名被登录——多半是撞库攻击。
+
+- term: 拖库
+  aliases: [database breach]
+  category: security
+  literal: database breach
+  meaning: 黑客把数据库整个偷走——"拖"就是搬走的意思。一旦被拖库就是大新闻：账号、密码哈希、手机号、身份证全在攻击者手里。后续会做撞库/勒索/卖数据。
+  example: 这家公司去年被拖库 10 亿条数据。
+
+- term: 钓鱼
+  aliases: [phishing]
+  category: security
+  literal: phishing
+  meaning: 伪装成可信对象（银行/HR/老板）发邮件骗你点链接、输密码。鱼饵=链接和话术，钩子=假登录页。企业最容易被钓的不是技术员，是财务和高管。
+  example: 这封"老板让转账"的钓鱼邮件，差点骗到财务。
+
+- term: 鱼叉攻击
+  aliases: [spear phishing]
+  category: security
+  literal: spear phishing
+  meaning: 钓鱼里的高级款——不是群发，而是针对特定个人精心定制。先做侦察（你叫啥、在哪上班、最近关注啥），再发只对你有效的话术。APT 组织常用。
+  example: 高管收到"我是 X 律师，紧急合同"——典型鱼叉攻击。
+
+- term: 社工
+  aliases: [social engineering, 社会工程学]
+  category: security
+  literal: social engineering
+  meaning: 不打技术，骗人。装运维打电话给前台问 IT 主管手机号，伪造工牌混进公司，假装猎头加你 LinkedIn——一切利用人性弱点绕过技术防御的手段都叫社工。
+  example: 攻防演练里红队靠社工拿到了 90% 的初始访问。
+
+- term: APT 攻击
+  aliases: [Advanced Persistent Threat, 高级持续性威胁]
+  category: abbr
+  literal: Advanced Persistent Threat
+  meaning: 国家级或大型团伙发起的、长期潜伏的攻击——目标不是赚快钱，是偷情报或基础设施破坏，能在你网里蹲一年不被发现。区别于普通黑客的"打了就走"。
+  example: 这个攻击组织是典型 APT，行踪持续 18 个月。
+
+- term: 勒索软件
+  aliases: [ransomware]
+  category: security
+  literal: ransomware
+  meaning: 黑客把你电脑上所有文件加密，然后留个赎金条说"打 10 个比特币就给钥匙"。医院/学校/市政府最常中招。WannaCry、LockBit 都是代表。
+  example: 这家工厂被勒索软件打瘫，停产三天。
+
+- term: 木马
+  aliases: [Trojan, Trojan Horse, 特洛伊木马]
+  category: security
+  literal: Trojan Horse
+  meaning: 表面是个正常软件（破解版/小工具/游戏外挂），背地里偷偷干坏事——回传密码、挖矿、当跳板。"特洛伊木马"典故来自希腊神话。
+  example: 这个破解版 Office 装完电脑就慢了——典型木马。
+
+- term: 后门
+  aliases: [backdoor]
+  category: security
+  literal: backdoor
+  meaning: 程序里悄悄留一道"只有我知道的小门"，绕过正常登录直接进。可以是开发者留的（方便调试忘删）、可以是攻击者植入的。xz 后门事件就是上游被插了后门。
+  example: 安全审计发现这版固件有硬编码后门密码。
+
+- term: webshell
+  aliases: [web shell]
+  category: security
+  literal: web shell
+  meaning: 攻击者打下网站后，往服务器塞个"看起来像正常网页"的脚本（cmd.php 之类），通过浏览器访问它就能执行任意命令——等于把服务器的命令行搬到了浏览器里。
+  example: 排查发现网站根目录多了个 1.php，是 webshell。
+
+# --- 攻防角色 ---
+
+
+- term: 蓝队
+  aliases: [blue team]
+  category: security
+  literal: blue team
+  meaning: 防守方——监控告警、阻断攻击、响应事件的安全运营团队。和红队对抗中提升能力。日常工作=看 SIEM 告警、写检测规则、做应急响应。
+  example: 蓝队从昨晚 3 点的告警里发现了入侵迹象。
+
+- term: 紫队
+  aliases: [purple team]
+  category: security
+  literal: purple team
+  meaning: 红+蓝合体——不是单纯对抗，而是红队边打边把战术告诉蓝队，蓝队边防边改检测规则。比纯红队对抗更高效，目标是共同提升整体安全水位。
+  example: 我们做紫队演练，红队每打一招立刻教蓝队怎么检测。
+
+- term: 渗透测试
+  aliases: [penetration testing, pentest]
+  category: security
+  literal: penetration testing
+  meaning: 授权下尝试攻击一个系统找漏洞——"我是合法的，但要打得跟坏人一样"。范围、时间、能不能拖数据都白纸黑字写在合同里。完事出报告。区别红队的"持续对抗"。
+  example: 这个新系统上线前做了一次渗透测试，修了 12 个高危。
+
+- term: 零信任
+  aliases: [zero trust]
+  category: security
+  literal: zero trust
+  meaning: 默认谁都不信——不管你是不是公司内网、是不是登过的设备，每次操作都重新验证。打破"内网就是安全"的旧思路。Google BeyondCorp 是代表实现。
+  example: 公司搞零信任改造，员工 VPN 全砍了。
+
+# --- 防护设施 ---
+
+- term: WAF
+  aliases: [Web Application Firewall, Web 应用防火墙]
+  category: abbr
+  literal: Web Application Firewall
+  meaning: 网站前面挡的一道智能保安——按规则拦截"看起来像 SQL 注入/XSS/扫描器"的请求。云厂商都提供 WAF 服务。优点是省事，缺点是绕过姿势多。
+  example: 开了 WAF 后扫描器流量被挡掉 90%。
+
+- term: IDS
+  aliases: [Intrusion Detection System, 入侵检测系统]
+  category: abbr
+  literal: Intrusion Detection System
+  meaning: 网络里的监控摄像头——只看不拦，发现可疑流量就告警。IPS 比它狠一级（看到就拦）。配合 SIEM 用，是蓝队的"眼睛"。
+  example: IDS 半夜告警有人扫 SSH 弱口令。
+
+- term: SIEM
+  aliases: [Security Information and Event Management]
+  category: abbr
+  literal: Security Information and Event Management
+  meaning: 安全告警的总指挥部——把全公司所有日志（防火墙、终端、应用、云）汇到一起，用规则关联出真正的入侵。Splunk、QRadar、ELK 都属于 SIEM 范畴。
+  example: SIEM 把 5 条单看正常的日志关联出了攻击链。
+
+- term: EDR
+  aliases: [Endpoint Detection and Response, 终端检测与响应]
+  category: abbr
+  literal: Endpoint Detection and Response
+  meaning: 装在每台员工电脑/服务器上的"杀毒升级版"——不光查病毒，还记录每个进程做了啥，能回溯攻击轨迹。CrowdStrike、SentinelOne、Microsoft Defender for Endpoint 都是 EDR。
+  example: EDR 检测到 PowerShell 加载可疑 DLL，自动隔离。
+
+- term: HIDS
+  aliases: [Host Intrusion Detection System, 主机入侵检测]
+  category: abbr
+  literal: Host Intrusion Detection System
+  meaning: 装在服务器上的入侵检测——监控本机的文件改动、异常进程、可疑连接。EDR 是它的现代演化版。开源代表：OSSEC、Wazuh。
+  example: HIDS 报警 /etc/passwd 被改动，立刻排查。
+
+# --- 框架与合规 ---
+
+- term: OWASP
+  aliases: [Open Web Application Security Project]
+  category: abbr
+  literal: Open Web Application Security Project
+  meaning: 全球最有名的 Web 安全组织，最出名的产出是"OWASP Top 10"——每几年发一次"Web 应用最常被打的十种漏洞"清单。安全圈入门必读。
+  example: 我们按 OWASP Top 10 给后端做了安全审计。
+
+- term: OWASP Top 10
+  aliases: [OWASP TOP10, OWASP 十大]
+  category: security
+  literal: OWASP Top 10
+  meaning: OWASP 出的"Web 应用最常出问题的十大类漏洞"——注入、失效身份验证、敏感数据泄露等。每三四年更新一次。开发面试和安全审计的"圣经"。
+  example: 这次安全测试按 OWASP Top 10 逐项过。
+
+- term: MITRE ATT&CK
+  aliases: [ATT&CK, MITRE]
+  category: security
+  literal: MITRE Adversarial Tactics, Techniques, and Common Knowledge
+  meaning: 把"攻击者会用的所有招式"做成一张大表——初始访问/横向移动/持久化/数据外泄等阶段下挂具体技术编号。蓝队画"防御覆盖度"、红队设计攻击链都参考它。
+  example: 我们按 ATT&CK 矩阵盘点了一遍检测覆盖率。
+
+- term: CVSS
+  aliases: [Common Vulnerability Scoring System]
+  category: abbr
+  literal: Common Vulnerability Scoring System
+  meaning: 给漏洞打分的标准——0 到 10 分，越高越严重。9.8 分=快修，5 分以下可以慢慢来。"CVSS 9.8" 是安全圈的红色警报。
+  example: 这个漏洞 CVSS 9.8，今晚必须打补丁。
+
+# --- 加固与漏洞挖掘 ---
+
+- term: 加固
+  aliases: [hardening, 安全加固]
+  category: security
+  literal: hardening
+  meaning: 把"默认装好"的系统变得更难打——关闭无用端口、改默认密码、删示例账号、最小权限化。新装服务器上线前必做的事。
+  example: 这台服务器上线前要按基线做加固。
+
+- term: 漏洞赏金
+  aliases: [bug bounty, bounty]
+  category: security
+  literal: bug bounty
+  meaning: 公司公开悬赏"谁能找到我家漏洞我就付钱"——白帽子合法挖洞拿奖金。Google、苹果、字节、阿里都有自家平台。一个严重漏洞能值十几万到上百万。
+  example: 这个 RCE 报到 Google 漏洞赏金，拿了 3 万刀。
+
+- term: 白帽子
+  aliases: [white hat, 道德黑客]
+  category: security
+  literal: white hat hacker
+  meaning: 有技术、走合法路径的黑客——挖漏洞了报给厂商或赏金平台，不利用、不卖数据。和黑帽（坏人）、灰帽（介于两者）相对。
+  example: 这个 0day 是白帽子负责披露的。
+
+- term: CTF
+  aliases: [Capture The Flag, 夺旗赛]
+  category: abbr
+  literal: Capture The Flag
+  meaning: 安全圈的"奥赛"——比赛里给你一堆题（Web/逆向/密码/Pwn），找出隐藏的 flag 字符串提交得分。是入门安全、练手实战、招聘筛人的主要途径。DEFCON 是最有名的 CTF。
+  example: 大学时打 CTF 拿过国赛三等奖。
+
+# --- 密码与口令攻击 ---
+
+- term: 弱口令
+  aliases: [weak password, 弱密码]
+  category: security
+  literal: weak password
+  meaning: 太容易猜的密码——123456、admin、qwerty、公司名+年份。漏洞扫描器一秒一千次往里灌。安全事故里至少 30% 是弱口令导致。
+  example: 这台运维机居然还用弱口令 admin/admin。
+
+- term: 爆破
+  aliases: [brute force, 暴力破解]
+  category: security
+  literal: brute force attack
+  meaning: 不动脑子的攻击——把所有可能的密码挨个试。配合字典（常见密码列表）叫"字典攻击"。挡爆破靠强密码+登录限速+二步验证。
+  example: 攻击者爆破 SSH 一晚上几十万次。
+
+- term: 撒网
+  aliases: [password spraying]
+  category: security
+  literal: password spraying
+  meaning: 撞库的变种——拿一个常见密码（如 Welcome2024）去试一万个用户名。比传统爆破隐蔽（每个账号只试少量次数，绕过锁定）。
+  example: 这次入侵是密码撒网，从 Welcome2024 撞中了 3 个账号。

@@ -181,18 +181,7 @@
   meaning: 后入职的同事工资比早入职的老员工高。校招新人薪资涨太快经常导致倒挂。
   example: 新人比我多 2000，倒挂了。
 
-- term: 内推
-  aliases: [内推码]
-  category: slang
-  meaning: 公司内员工推荐应聘者投简历。简历直接到 HR 桌上、不被系统筛掉，过 HR 关概率大幅提升。
-  example: 别在官网投，找个朋友内推。
 
-- term: HC
-  aliases: [hc, headcount]
-  category: slang
-  literal: Headcount，人头编制
-  meaning: 一个岗位的招聘名额。"还有 HC 吗"=还能招人吗。
-  example: 这季度我们组没 HC，明年再说。
 
 - term: P 几
   aliases: [P7, P8, 阿里 P 级]
@@ -232,17 +221,7 @@
   meaning: 国内法定节假日的反人类发明：放假前后挪周末凑出长假。"国庆放 8 天但前后要连上 6 天班"。
   example: 这个国庆调休调得人想骂人。
 
-- term: 转正
-  aliases: [转正答辩]
-  category: slang
-  meaning: 试用期结束变正式员工。一般 3-6 个月，需要走个转正答辩。
-  example: 我下周转正答辩，PPT 还没准备好。
 
-- term: 试用期
-  aliases: [probation]
-  category: slang
-  meaning: 入职头 3-6 个月，公司和员工互相试。试用期工资一般打 80%。期间被开补偿少。
-  example: 试用期被劝退，赔了一个月走人。
 
 - term: 跳槽
   aliases: [换工作]
@@ -677,3 +656,103 @@
   literal: 叠在一起的一摞
   meaning: 程序员说"stack"通常指"技术栈"——你这个项目用的所有技术加一起。"My stack is React + Node + MongoDB"=我用这套技术。
   example: 这家公司的 stack 是全套阿里系，主要技术是 Java + Spring + MySQL。
+
+# ====================
+# 2024-2025 新流行语补遗
+# ====================
+
+
+- term: 媚男
+  aliases: [媚男文学]
+  category: slang
+  meaning: 女性主义讨论里指"讨好男性、迎合男性凝视"的言论或作品——女德书、传统女性美德文章常被批"媚男"。豆瓣小组高频词。
+  example: 这本书媚男气息太重，看不下去。
+
+- term: 男大
+  aliases: [男大学生]
+  category: slang
+  meaning: 字面"男大学生"——但小红书/微博语境里特指"幼稚、不成熟、自我感觉良好的年轻男性"。"男大思维"是吐槽。
+  example: 25 岁了还一身男大味。
+
+- term: 那咋了
+  aliases: [那咋啦]
+  category: slang
+  meaning: 2024 年抖音爆火的赵小棠口头禅——配着不在乎的表情。"我已读不回怎么了？那咋了！"用来表达"不在乎、就这样、爱咋咋地"的反抗态度。
+  example: 老板说我加班少。那咋了？
+
+- term: 我嘞个豆
+  aliases: [我勒个豆]
+  category: slang
+  meaning: 2024 年"郭言郭语"火出圈的口头禅——惊讶/无语时说。"我嘞个豆，这都行？"既无奈又荒诞。配抽象表情包用。
+  example: 我嘞个豆，加班到 11 点还要写周报。
+
+- term: 已老实求放过
+  aliases: [已老实]
+  category: slang
+  meaning: 2024 年流行语——表达"我认怂了别再玩了"的求饶态度。源自一些恶搞视频里被整完瘫坐说的"已老实"。微博/小红书评论高频出现。
+  example: 这季度 KPI 翻倍？已老实求放过。
+
+- term: 清醒梦
+  aliases: [lucid dream]
+  category: slang
+  meaning: 字面是"做梦时知道自己在做梦"的睡眠现象——2024 年成网络梗指"脱离现实但又清醒的感觉"。常吐槽"上班如清醒梦"。
+  example: 这周末加班三天，整个人像清醒梦。
+
+- term: 发疯文学
+  aliases: [发疯]
+  category: slang
+  meaning: 一种夸张戏剧的表达方式——遇到不爽的事用"啊啊啊我不想活了"、"妈我成神了"这种夸张语气表达。微博/小红书评论区主流之一。是 emo 的进化版。
+  example: 又被甲方改第八版，立刻发疯文学。
+
+- term: City 不 City
+  aliases: [city 不 city]
+  category: slang
+  meaning: 2024 年外国博主在中国旅游问"这里 city 吗？"火出圈——中国人解读为"洋气不洋气、城市感强不强"。后泛化为问"够不够好玩/酷"。
+  example: 这家咖啡店 city 不 city？
+
+- term: 厝内厝外
+  aliases: [家里家外]
+  category: slang
+  meaning: 2024 年闽南语网红词——"厝"=家。本是闽南家庭概念，被网友用来调侃"显眼包"或区分"内向场合 vs 外向人设"。
+  example: 厝内是社恐，厝外是显眼包。
+
+- term: 那么普通却那么自信
+  aliases: [普却信]
+  category: slang
+  meaning: 2024 年流行话——杨笠脱口秀名句。讽刺有些男性能力一般但自信爆棚。后泛用于吐槽各种"实力配不上自信"的人。
+  example: 这人代码写得稀烂，演讲贼自信，那么普通却那么自信。
+
+
+
+- term: 上 班
+  aliases: []
+  category: slang
+  meaning: 2024-2025 间隔加空格的反讽写法——"上班"加间隔表达"上 班 但只剩躯壳"的抽象感。打工人 emo 表达方式。
+  example: 又要 上 班 了，没动力。
+
+- term: 拽姐
+  aliases: []
+  category: slang
+  meaning: 2024 年流行人设——"不在乎别人眼光、独立自我、有钱花得也潇洒"的女性。小红书人设标签。和"女王"同类但更年轻气。
+  example: 这身穿搭拽姐 vibe 拉满。
+
+
+
+
+- term: 反向 X
+  aliases: [反向操作]
+  category: slang
+  meaning: 一种构词法——"反向带货"=博主推荐一个东西反而让人不想买；"反向通勤"=高峰期反方向人少；"反向 PUA"=被领导 PUA 反过来 PUA 领导。
+  example: 这博主推啥啥不火，纯反向带货。
+
+- term: 鼠人
+  aliases: [鼠鼠]
+  category: slang
+  meaning: 网络自嘲——形容自己像老鼠一样卑微、努力但不被看见。豆瓣"鼠鼠我啊"=自降身份的卖萌+诉苦。
+  example: 鼠鼠我啊，又被退稿了。
+
+- term: 哈基米
+  aliases: []
+  category: slang
+  meaning: 2024 年抖音爆梗——某猫咪叫"哈基米"，本是日语"蜂蜜"。后被各种鬼畜配音玩坏，泛用表达"萌、可爱、无脑欢乐"。
+  example: 看猫视频哈基米一晚上。

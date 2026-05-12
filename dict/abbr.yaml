@@ -659,3 +659,158 @@
   literal: Server-Sent Events
   meaning: 想象单向广播——电台主播只播不听。SSE 就是服务端单向推送给浏览器的协议，基于 HTTP。比 WebSocket 简单一半（不能双向），但单向场景够用。ChatGPT 的"打字机"流式输出底层就是 SSE。
   example: 实现 ChatGPT 那种边生成边显示的效果，最简单方案是 SSE。
+
+# ====================
+# 法律 / 合规 / 开源协议
+# ====================
+
+- term: SOC2
+  aliases: [SOC 2, SOC II]
+  category: abbr
+  literal: System and Organization Controls 2
+  meaning: 美国会计师协会出的"企业数据安全审计标准"——给客户证明"我们公司是安全的"。Type 1 看制度、Type 2 看 6-12 个月真实执行。SaaS 卖给海外企业必备。
+  example: 客户要求 SOC2 Type 2 报告，得花半年准备。
+
+- term: GDPR
+  aliases: [General Data Protection Regulation]
+  category: abbr
+  literal: General Data Protection Regulation
+  meaning: 欧盟 2018 年的"个人数据保护法"——任何处理欧洲用户数据的公司必须遵守。违反最高罚全球年营收 4%。"被 GDPR 罚款"是国际新闻常见。
+  example: 在欧洲运营要 GDPR 合规，做了 cookie 同意弹窗。
+
+- term: CCPA
+  aliases: [California Consumer Privacy Act]
+  category: abbr
+  literal: California Consumer Privacy Act
+  meaning: 美国加州的个人隐私保护法——比 GDPR 弱一些但加州本身是大市场，所以全美 SaaS 都得合规。"用户能查/删除/不卖自己数据的权利"。
+  example: 在美国上线先做 CCPA 合规，加 Do Not Sell 链接。
+
+- term: HIPAA
+  aliases: [Health Insurance Portability and Accountability Act]
+  category: abbr
+  literal: Health Insurance Portability and Accountability Act
+  meaning: 美国医疗信息隐私法——任何接触美国患者健康数据的系统都得遵守。罚款重。医疗 SaaS、电子病历厂商必懂。
+  example: 我们医疗产品要 HIPAA 合规，PHI 全加密。
+
+- term: ISO 27001
+  aliases: [ISO27001]
+  category: abbr
+  literal: ISO/IEC 27001
+  meaning: 国际信息安全管理标准——和 SOC2 同类的"安全认证"。亚洲/欧洲企业更看 ISO 27001、北美企业更看 SOC2。SaaS 卖给大客户常被要求两个都有。
+  example: 客户尽调要求 ISO 27001 + SOC2 双证。
+
+- term: KYC
+  aliases: [Know Your Customer]
+  category: abbr
+  literal: Know Your Customer
+  meaning: 金融行业"了解你的客户"反洗钱要求——开户前要验证身份、查背景。证券、银行、加密货币交易所开户都要做 KYC。
+  example: 这家交易所 KYC 要传护照+视频自拍。
+
+- term: AML
+  aliases: [Anti-Money Laundering]
+  category: abbr
+  literal: Anti-Money Laundering
+  meaning: 反洗钱合规——金融机构监测可疑交易、向监管报告。和 KYC 配套。互联网金融、加密货币、跨境支付公司核心合规岗。
+  example: 这笔大额跨境付款触发 AML 审查。
+
+- term: ToS
+  aliases: [Terms of Service, 用户协议, 服务条款]
+  category: abbr
+  literal: Terms of Service
+  meaning: 你注册任何服务必勾选的那份长协议——双方权利义务、免责条款。99% 用户不看直接同意。但出事打官司全靠这份。
+  example: 用户协议 ToS 里写了不能爬虫，否则封号。
+
+- term: EULA
+  aliases: [End User License Agreement]
+  category: abbr
+  literal: End User License Agreement
+  meaning: 软件安装时弹的"我同意"协议——授权条款、免责声明。和 ToS 类似但更针对单机软件/桌面 App。Windows/Office 装时都有 EULA。
+  example: 用户必须同意 EULA 才能装这个 App。
+
+- term: copyleft
+  aliases: [著作传左]
+  category: abbr
+  literal: copyleft
+  meaning: GPL 协议的核心思想——用了我的开源代码，你的代码也必须开源。"传染性"协议。和"宽松开源协议"（MIT、Apache）对立。
+  example: GPL 是 copyleft 协议，商业产品慎用。
+
+- term: fair use
+  aliases: [合理使用]
+  category: abbr
+  literal: fair use
+  meaning: 美国版权法的概念——在评论、教育、新闻、戏仿等场景下使用他人作品不算侵权。AI 训练数据是否算 fair use 是当前争议焦点。
+  example: AI 训练用版权数据算不算 fair use 正在打官司。
+
+- term: Apache 2.0
+  aliases: [Apache License 2.0, Apache License]
+  category: abbr
+  literal: Apache License 2.0
+  meaning: 宽松开源协议——比 MIT 多了"专利授权条款"。Google、Apache 基金会项目主推。商业用友好。Kafka、k8s 等都用 Apache 2.0。
+  example: 这个项目 Apache 2.0 协议，商用没问题。
+
+- term: GPL
+  aliases: [GNU General Public License]
+  category: abbr
+  literal: GNU General Public License
+  meaning: 最知名的 copyleft 协议——你用了 GPL 代码，整个产品也得开源。Linux 内核就是 GPLv2。商业产品集成 GPL 库要极其谨慎。
+  example: 这个库是 GPL，闭源产品不能直接引。
+
+- term: LGPL
+  aliases: [Lesser GPL]
+  category: abbr
+  literal: Lesser GNU General Public License
+  meaning: GPL 的温和版——动态链接你的代码不传染、静态链接才传染。让闭源软件能合法使用 LGPL 库（动态链接方式）。
+  example: Qt 是 LGPL，闭源软件可以动态链接它。
+
+- term: AGPL
+  aliases: [Affero GPL]
+  category: abbr
+  literal: GNU Affero General Public License
+  meaning: GPL 的"云时代"加强版——堵住"SaaS 化绕过 GPL"的漏洞。用了 AGPL 代码，哪怕只是云服务对外提供也要开源。MongoDB、Grafana 早期都用过。
+  example: MongoDB 用 AGPL，云厂商想白嫖必须改协议。
+
+- term: BSD
+  aliases: [BSD License]
+  category: abbr
+  literal: Berkeley Software Distribution License
+  meaning: 老牌宽松开源协议——和 MIT 几乎一样宽松。FreeBSD、Nginx 等用 BSD。当代新项目大多用 MIT/Apache 2.0，BSD 是历史遗产。
+  example: 这个老库是 BSD 协议，无传染性可商用。
+
+- term: CC0
+  aliases: [Creative Commons Zero, 公有领域贡献]
+  category: abbr
+  literal: Creative Commons Zero
+  meaning: 创作共用协议里最宽松的——"放弃一切权利、随便用"。素材库（Unsplash 早期、SVG 库等）常用。比 MIT 还宽松，连署名要求都没。
+  example: 这套图标 CC0 协议，商用无需署名。
+
+- term: MIT
+  aliases: [MIT License]
+  category: abbr
+  literal: MIT License
+  meaning: 最宽松最流行的开源协议——可商用、可改、可分发，只要保留版权声明。React、Vue、Tailwind、TypeScript 全套主流前端项目都用 MIT。
+  example: 这个项目 MIT 协议，公司商用零障碍。
+
+- term: NDA
+  aliases: [Non-Disclosure Agreement, 保密协议]
+  category: abbr
+  literal: Non-Disclosure Agreement
+  meaning: 双方约定"互相不泄露对方机密"的协议——和合作伙伴谈技术细节前先签 NDA。也用于员工入职。和"竞业"是两回事。
+  example: 谈合作前先签 NDA 才能讲细节。
+
+- term: 商标
+  aliases: [trademark, TM, ®]
+  category: jargon
+  meaning: 品牌名/logo 的法律保护——注册后别人不能用同名同形。®=已注册商标、™=声称商标。"商标侵权"是中小公司常见法律纠纷。
+  example: 这名字商标已被注册，得改 logo。
+
+- term: 专利
+  aliases: [patent]
+  category: jargon
+  meaning: 发明的法律垄断权——20 年内只有你能用。中国的"专利大战"是大厂互相起诉对方侵权用来打击竞品的工具。技术公司必备专利池。
+  example: 这家公司 5000 件专利护城河深。
+
+- term: 著作权
+  aliases: [版权, copyright]
+  category: jargon
+  meaning: 创作内容的法律权利——你写的代码、文章、画的图自动有著作权。"代码版权属于雇主"是大多数雇佣合同的条款。
+  example: 离职时把著作权交接清楚，自己业余项目除外。

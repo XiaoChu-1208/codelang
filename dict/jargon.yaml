@@ -1000,3 +1000,160 @@
   meaning: 接手别人留下的烂摊子。比"接手"多一层"已经是坑了"。
   example: 上家走了，我接坑这个项目。
 
+
+# ====================
+# 设计圈黑话
+# ====================
+
+- term: 栅格
+  aliases: [grid, 栅格系统, 网格系统]
+  category: jargon
+  meaning: 设计师画 UI 时用的"隐形坐标网"——通常 12 列。所有元素对齐到栅格上，页面看起来工整有秩序。Bootstrap 默认 12 列栅格是事实标准。
+  example: 这版设计完全没走栅格，元素东倒西歪。
+
+- term: 留白
+  aliases: [whitespace, 负空间]
+  category: jargon
+  meaning: 设计里"故意空着"的空间——不是浪费，是给眼睛喘息。苹果设计哲学核心。"加一倍 padding"是最常用的留白手段。
+  example: 这页信息太挤了，加点留白。
+
+- term: 视觉锤
+  aliases: [visual hammer]
+  category: jargon
+  meaning: 品牌设计里"一眼就让你记住"的核心符号——可口可乐红、苹果咬一口、麦当劳金拱门。营销和品牌专家常说"找到你的视觉锤"。
+  example: 这个品牌缺视觉锤，logo 太普通了。
+
+- term: 字号
+  aliases: [font size]
+  category: jargon
+  meaning: 字的大小——12px、14px、16px、24px。Web 设计正文默认 16px、移动端 14-16px。字号系统是设计系统基础。
+  example: 这个按钮字号太小，点起来费劲。
+
+- term: 字重
+  aliases: [font weight]
+  category: jargon
+  meaning: 字的粗细——Regular 400、Medium 500、Bold 700。同一字体不同字重做层次。比改字号更细腻地建立视觉层级。
+  example: 标题用 Semibold 600，副标题用 Regular。
+
+- term: kerning
+  aliases: [字距, 字间距微调]
+  category: jargon
+  meaning: 字母之间的微调间距——同样字号下"AV"中间间距和"MM"中间间距不一样。LOGO 设计师抠 kerning 抠到死。
+  example: 这个 logo 的 kerning 调了三天。
+
+- term: leading
+  aliases: [行距, line height]
+  category: jargon
+  literal: 印刷术语，铅字之间垫的"铅条"
+  meaning: 行与行之间的距离——通常字号的 1.4-1.6 倍。leading 太挤密集像论文、太松散漫像幼儿园。
+  example: 把 leading 调到 1.6，阅读体验立刻好了。
+
+- term: design system
+  aliases: [设计系统]
+  category: jargon
+  meaning: 一套品牌统一的设计语言+组件库——颜色、字体、按钮样式、图标都规范化。设计师只画结构，工程师从组件库拼。Material Design、Ant Design 是代表。
+  example: 公司搭了 design system 后，设计稿一致性高多了。
+
+- term: atomic design
+  aliases: [原子设计]
+  category: jargon
+  meaning: Brad Frost 提出的设计方法——把 UI 分成原子（按钮/输入框）→ 分子（搜索框=输入框+按钮）→ 组织 → 模板 → 页面。设计系统的主流组织思路。
+  example: 组件库按原子设计组织，复用性强。
+
+- term: design token
+  aliases: [设计令牌]
+  category: jargon
+  meaning: 设计系统里的"原子级变量"——颜色 #1890FF 起个名字叫 primary-blue-500，字号 16px 叫 font-base。改一处全站生效。Figma 现在原生支持。
+  example: 改主题色只动一个 design token，全 App 跟着变。
+
+- term: wireframe
+  aliases: [线框图, 低保真原型]
+  category: jargon
+  meaning: 灰白色块的草图——只画结构和布局，不画细节和颜色。产品经理/UX 设计师早期阶段画的。让大家先讨论"页面长什么样、放什么"。
+  example: 周一交 wireframe 评审布局。
+
+- term: mockup
+  aliases: [视觉稿, 高保真稿]
+  category: jargon
+  meaning: 像真的一样的设计稿——颜色、字体、图片都到位。比 wireframe 高保真。给老板看、给开发参考。Figma 里产出的多是 mockup。
+  example: mockup 周三给老板汇报。
+
+
+- term: Material Design
+  aliases: [Material, MD3]
+  category: jargon
+  meaning: Google 2014 年推的设计语言——卡片、阴影、扁平+轻拟物。Android、Google 全家桶视觉基础。当前版本是 MD3。
+  example: Android App 跟随 Material Design 3 规范设计。
+
+- term: Flat Design
+  aliases: [扁平设计]
+  category: jargon
+  meaning: 2013 年 iOS 7 起带火的设计风潮——去掉拟物的阴影渐变，只剩纯色块和文字。直到今天仍是主流。
+  example: 这版 logo 改成 flat design，看着更现代了。
+
+- term: Neumorphism
+  aliases: [新拟物]
+  category: jargon
+  meaning: 2020 年小火的设计风格——按钮像从背景里"挤出来"的，柔和阴影。看起来很酷但可访问性差（按钮和背景对比度低），没成为主流。
+  example: 这版界面玩 neumorphism，好看但盲人模式过不了。
+
+- term: Glassmorphism
+  aliases: [毛玻璃, 玻璃拟物]
+  category: jargon
+  meaning: 半透明+模糊+边框的设计风格——iOS 控制中心、macOS Big Sur 是代表。Apple 2024 vision OS 的"液态玻璃"是新进化。
+  example: 这个登录页背景毛玻璃 + Glassmorphism 卡片。
+
+- term: 信息架构
+  aliases: [IA, Information Architecture]
+  category: jargon
+  meaning: 把信息按逻辑分类和组织——网站怎么分菜单、电商怎么分品类、文档怎么分目录都属于 IA。用户体验设计的基础工作之一。
+  example: 这个 App 信息架构混乱，找不到设置在哪。
+
+
+- term: 可用性
+  aliases: [usability]
+  category: jargon
+  meaning: 产品"好不好用"——能不能完成任务、效率高不高、学起来累不累。可用性测试就是请真用户来用，看哪里卡壳。
+  example: 可用性测试发现 30% 用户找不到"导出"按钮。
+
+- term: FigJam
+  aliases: []
+  category: platforms
+  meaning: Figma 旗下的在线白板工具——头脑风暴、流程图、便利贴。和 Miro 是直接竞品。设计师团队配 Figma 用着顺手。
+  example: 周会用 FigJam 拉个白板画用户流程。
+
+- term: Sketch
+  aliases: []
+  category: platforms
+  meaning: 早年最火的 UI 设计工具——仅 macOS。Figma 出来后被抢了大量用户。还有一群老设计师在用。
+  example: 老项目设计稿在 Sketch 里，逐步迁到 Figma。
+
+- term: Lottie
+  aliases: []
+  category: platforms
+  meaning: Airbnb 开源的"代码级动画"格式——设计师在 AE 做动画，导出 JSON，App/网页直接渲染。比 GIF 清晰、比视频小、可交互。
+  example: 这个 loading 用 Lottie 实现，清晰还能换色。
+
+- term: Adobe XD
+  aliases: [XD]
+  category: platforms
+  meaning: Adobe 的 UI 设计工具——和 Figma 直接竞争。被 Figma 抢市场后 Adobe 想收购 Figma 但失败。现在小众化。
+  example: 老团队还在用 Adobe XD，新人都迁 Figma。
+
+- term: design critique
+  aliases: [设计评审]
+  category: jargon
+  meaning: 设计师之间互相评图——找问题、给建议。和工程师 code review 同理。健康团队定期 critique 保证质量。
+  example: 周三下午 design critique，把这版稿拿去过一遍。
+
+- term: 视觉规范
+  aliases: [style guide]
+  category: jargon
+  meaning: 一份"我们品牌怎么用"的设计文档——颜色、字体、logo 使用规则、留白原则。是 design system 的简化版。新设计师入职第一份要看的文件。
+  example: 这份视觉规范 PDF 30 页，挑重点看。
+
+- term: 视觉一致性
+  aliases: [visual consistency]
+  category: jargon
+  meaning: 全产品所有页面的"视觉风格统一"——按钮长一样、字号系统一致、颜色不乱用。视觉一致性差用户感觉像"几个不同的产品拼凑起来的"。
+  example: 这次走查发现按钮有 6 种圆角，视觉一致性差。

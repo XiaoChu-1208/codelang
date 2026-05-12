@@ -1,0 +1,393 @@
+# HR / 招聘 / 创投 / 财务 术语
+# —— 找工作、谈薪、看融资新闻、和老板谈 offer 都要懂的词
+# 风格：比喻 + 真实场景 + 具体例句
+
+# ====================
+# 一、招聘 / HR
+# ====================
+
+- term: JD
+  aliases: [job description, 岗位描述]
+  category: abbr
+  literal: Job Description
+  meaning: 招聘启事——岗位职责、任职要求、薪资范围一张纸。"看 JD 投简历"是求职第一步。HR 写 JD 是日常工作。
+  example: 这份 JD 写得很模糊，问 HR 要具体职责。
+
+- term: HC
+  aliases: [Headcount, 编制]
+  category: abbr
+  literal: Headcount
+  meaning: 招聘指标/编制名额——"今年这个组有 5 个 HC"=能招 5 个人。HC 关了就是不能再招了。互联网寒冬最常听见的词是"HC 冻了"。
+  example: 今年 Q1 HC 砍半，扩张计划暂停。
+
+- term: OC
+  aliases: [Offer Call]
+  category: abbr
+  literal: Offer Call
+  meaning: HR 打电话告诉你"录用了，明天发 offer"——这通电话叫 OC。校招生收到 OC 等于稳了。从面试结束到 OC 中间还有审批环节。
+  example: 终面三天后接到 OC，下周入职。
+
+- term: 校招
+  aliases: [校园招聘, campus recruiting]
+  category: jargon
+  literal: campus recruiting
+  meaning: 应届毕业生专属招聘通道——通常 9 月开始、流程长、批量招、培训体系完整。和"社招"相对。互联网公司"校招生"待遇通常比同等级社招好。
+  example: 她是 22 届校招进字节的。
+
+- term: 社招
+  aliases: [社会招聘]
+  category: jargon
+  literal: experienced hire
+  meaning: 招在职/有经验的人——和校招相对。流程短、按岗位需求一个个招。社招看简历看项目经验、谈薪资。
+  example: 我们组急招高级开发，走社招通道。
+
+- term: 内推
+  aliases: [referral, employee referral]
+  category: jargon
+  literal: employee referral
+  meaning: 公司里的人给你推简历，绕过海投。优势：HR 优先看、有时候有内推奖金、入职后还能找推你的人吃饭问情况。"找个内推码"是求职社群高频词。
+  example: 这岗位我帮你内推，下午就能进系统。
+
+- term: PIP 绩效
+  aliases: [Performance Improvement Plan, 绩效改进计划]
+  category: abbr
+  literal: Performance Improvement Plan
+  meaning: HR 把"你表现不行该走人"包装成"我们给你改进计划"——通常持续 30/60/90 天，过不了就走。本质是合规裁员前置流程。外企里听见 PIP 基本就是劝退信号。
+  example: 上 PIP 等于一只脚跨出门了。
+
+- term: 试用期
+  aliases: [probation period]
+  category: jargon
+  literal: probation period
+  meaning: 入职头 3-6 个月的考察期——双方互相挑刺，公司容易解雇（试用期不通过）、员工容易跳走（短期内辞职不太影响下次跳槽）。
+  example: 试用期最后一周被通知不通过。
+
+- term: 转正
+  aliases: [confirmed full-time]
+  category: jargon
+  literal: probation passed / converted to regular
+  meaning: 试用期通过=转正。互联网公司转正考核常要"述职+ leader 评分"。校招生在公司里第一年最重要的事就是转正。
+  example: 答辩三天后通知她转正了。
+
+- term: 2N
+  aliases: []
+  category: abbr
+  literal: 2 × N (severance)
+  meaning: 裁员补偿的"高配版"——每工作一年补 2 个月工资。劳动法标准是 N（一年一个月），N+1=多加一个月代通知金，2N=违法解除按 N 双倍赔。
+  example: 这次裁员按 2N 赔的，待遇还行。
+
+- term: 竞业
+  aliases: [竞业限制, 竞业协议, non-compete]
+  category: jargon
+  literal: non-compete agreement
+  meaning: 离职后一段时间（半年到两年）不能去对家工作的协议——公司每月给你一笔补偿费。违约要赔大钱。技术核心岗、产品总监级常签。
+  example: 我有半年竞业，跳槽得等到明年 6 月。
+
+
+- term: sign-on
+  aliases: [sign-on bonus, 签字费, 签约奖金]
+  category: jargon
+  literal: sign-on bonus
+  meaning: 入职就给的一笔钱——大厂为了挖高级人才常给。通常有"服务期"：12 个月内走要按比例退。互联网寒冬时 sign-on 比例增加（替代加薪）。
+  example: 这家给了 30 万 sign-on，但要求服务两年。
+
+- term: RSU
+  aliases: [Restricted Stock Unit, 限制性股票单位]
+  category: abbr
+  literal: Restricted Stock Unit
+  meaning: 公司给你股票，但要分几年才"归属"到你账户——常见 4 年期、每年解锁 25%。海外大厂、上市公司标配。RSU 价值随股价波动。
+  example: 这家 base 100w + RSU 50w 一年。
+
+- term: vesting
+  aliases: [归属]
+  category: jargon
+  literal: vesting
+  meaning: 期权/RSU 按时间慢慢"解锁"到你手里。典型 4 年 vesting + 1 年 cliff——头 12 个月没拿到任何股，之后每月解锁一点。
+  example: 我 RSU 还有 2 年才 vest 完。
+
+- term: cliff
+  aliases: [悬崖, 锁定期]
+  category: jargon
+  literal: cliff (vesting cliff)
+  meaning: 期权 vesting 的"门槛期"——通常 1 年。1 年前走，一股都没有；1 年后立刻拿到 25%。专门用来防止入职几个月就拿股票跑路。
+  example: 入职 11 个月就走，cliff 没过一股没拿到。
+
+- term: 股权
+  aliases: [equity]
+  category: jargon
+  literal: equity
+  meaning: 公司给你"持有公司份额"的权利——可能是股票（RSU）、期权（option）或限制性股票。创业公司常用 equity 补 base 不够的部分。"画饼"很多时候指 equity。
+  example: 这家给 base 偏低但给 1% 股权。
+
+- term: 期权
+  aliases: [stock option, option]
+  category: jargon
+  literal: stock option
+  meaning: 字面是"未来用低价买公司股票"的权利——比如行权价一刀，公司股价涨到十刀你赚九刀。和 RSU 区别：option 要花钱行权，RSU 自动给你。早期创业公司常用 option。
+  example: 这家给 5 万股期权，行权价 $0.5。
+
+- term: 调岗
+  aliases: [transfer, internal move]
+  category: jargon
+  literal: internal transfer
+  meaning: 公司内部从 A 组调到 B 组——有主动（自己申请）和被动（业务调整）两种。被动调岗通常是裁员前奏（变相劝退）。
+  example: 业务收缩，把我从 C 端调到 B 端去了。
+
+- term: 绩效
+  aliases: [performance, 考核]
+  category: jargon
+  literal: performance review
+  meaning: 公司给你打分——通常半年/一年一次，决定加薪、晋升、奖金、能不能保住饭碗。打分常分 ABC 三档或 1-5 分。绩效差等于走人前置流程。
+  example: 这次绩效拿了 A，年终奖翻倍。
+
+- term: 360 评估
+  aliases: [360 review, 360 反馈]
+  category: jargon
+  literal: 360-degree feedback
+  meaning: 不止你领导给你打分，下属、平级、跨部门合作方都给你打分——绕一圈反馈。比较公平但容易"互相维护"。互联网大厂常用。
+  example: 这次 360 评估里跨部门反馈说我推动力不够。
+
+
+- term: calibration
+  aliases: []
+  category: jargon
+  literal: calibration
+  meaning: 各组 leader 给完绩效后，HR 拉所有 leader 一起开会"校准"——为啥你组 80% 都 A、人家组只有 20%？目的是公平。结果你的绩效可能被拉下来。
+  example: 我的绩效在 calibration 阶段被拉到 B。
+
+- term: 1:1
+  aliases: [one-on-one, 1on1]
+  category: jargon
+  literal: one-on-one meeting
+  meaning: 你和你直属 leader 的一对一私聊——每周/双周固定时间。聊进展、聊困难、聊职业发展、提需求。是 IC 和 manager 关系的核心载体。
+  example: 周五 1:1 跟老板提了想做 X 项目。
+
+- term: skip level
+  aliases: [跳级会, 隔级会]
+  category: jargon
+  literal: skip-level meeting
+  meaning: 跳过你直接领导，直接跟他/她的领导开会。一般 leader 主动安排来听一线情况。普通员工自己约 skip 比较敏感。
+  example: 大老板每季度做一次 skip level 听一线声音。
+
+# ====================
+# 二、创投 / 财务
+# ====================
+
+- term: ARR
+  aliases: [Annual Recurring Revenue, 年度经常性收入]
+  category: abbr
+  literal: Annual Recurring Revenue
+  meaning: 订阅制公司的核心指标——一年能从订阅里收多少钱（不算一次性收入）。SaaS 公司估值常按 ARR 倍数算。"ARR 1000 万美金"是 SaaS 公司里程碑。
+  example: 这家 SaaS 公司 ARR 突破 1 亿美金。
+
+- term: MRR
+  aliases: [Monthly Recurring Revenue, 月度经常性收入]
+  category: abbr
+  literal: Monthly Recurring Revenue
+  meaning: ARR 的月度版——这个月订阅总收入。SaaS/会员制业务的核心健康指标。新订阅、续费、退订都影响 MRR。MRR×12 ≈ ARR。
+  example: 这季度 MRR 月环比涨 8%。
+
+
+- term: TAM
+  aliases: [Total Addressable Market, 总可触达市场]
+  category: abbr
+  literal: Total Addressable Market
+  meaning: 你这门生意理论上的"最大盘子"——所有可能成为客户的人乘以单价。和 SAM（你能拿下的细分）、SOM（短期内实际能抓的）配套用。融资 PPT 必出现。
+  example: 这赛道 TAM 1000 亿，但我们短期 SOM 只是 5 亿。
+
+- term: SAM
+  aliases: [Serviceable Addressable Market]
+  category: abbr
+  literal: Serviceable Addressable Market
+  meaning: TAM 里你产品/能力实际能服务的部分——不是所有人都符合你定位。中国 SaaS 创业公司 TAM 可能是全球但 SAM 仅中国互联网公司。
+  example: SAM 在中国大概 100 亿。
+
+- term: SOM
+  aliases: [Serviceable Obtainable Market]
+  category: abbr
+  literal: Serviceable Obtainable Market
+  meaning: 短期内你切实能拿下的市场——SAM 里减去对手已占的、扣除你触达能力。融资 deck 里 SOM 应当是个"踮脚能摸到"的数字。
+  example: 3 年内 SOM 目标做到 10 亿。
+
+- term: burn rate
+  aliases: [烧钱速度]
+  category: jargon
+  literal: burn rate
+  meaning: 创业公司每月净亏钱多少——账上每月少多少。月 burn 200 万 / 账上 4000 万 = runway 20 个月。所有早期公司都盯这两数字。
+  example: 砍掉部分团队后 burn rate 从 300 万降到 150 万。
+
+- term: runway
+  aliases: [现金跑道]
+  category: jargon
+  literal: runway
+  meaning: 创业公司"还能撑几个月"——账上现金除以 burn rate。runway < 6 个月是危险信号、必须立刻融资或砍成本。
+  example: 现在 runway 14 个月，下半年得搞定 A 轮。
+
+- term: term sheet
+  aliases: [投资意向书]
+  category: jargon
+  literal: term sheet
+  meaning: 投资人和创业者谈完后签的"框架协议"——写明估值、投多少、占多少股、反稀释、清算优先权等核心条款。后面正式协议在 TS 基础上展开。
+  example: 上周拿到红杉的 TS，估值 5000 万美金。
+
+- term: cap table
+  aliases: [股权结构表]
+  category: jargon
+  literal: capitalization table
+  meaning: 公司所有股东持股一览表——创始人多少、员工期权池多少、A 轮投资人多少。每轮融资完都要更新 cap table。投资人尽调必看。
+  example: 看了下 cap table 创始人股权稀释到 30% 了。
+
+- term: 稀释
+  aliases: [dilution]
+  category: jargon
+  literal: dilution
+  meaning: 公司新发股票（融资或发期权），老股东持股比例被"摊薄"。原来你占 10%，融资后变 8%——稀释了 2 个点。所有融资都会稀释，创始人在意"稀释多少换多少钱"。
+  example: 这轮稀释了 15%，估值翻 3 倍。
+
+- term: 反稀释
+  aliases: [anti-dilution]
+  category: jargon
+  literal: anti-dilution protection
+  meaning: 投资人的护身符——如果下一轮估值低于这轮（down round），他们可以按特殊公式追加股份保护自己。"完全棘轮"最狠、"加权平均"是常见。
+  example: 上轮带了棘轮反稀释，down round 时投资人吃饱。
+
+- term: A 轮
+  aliases: [Series A]
+  category: jargon
+  literal: Series A funding
+  meaning: 创业公司融资的"第二大节点"（前面有种子轮/天使）——产品验证后规模化的资金。规模通常 500 万到 2000 万美金。投资人开始算账、谈条件。
+  example: 拿了 A 轮 1500 万美金，估值 6000 万。
+
+- term: B 轮
+  aliases: [Series B]
+  category: jargon
+  literal: Series B funding
+  meaning: A 轮之后再融——证明商业模式 work 后"加大投入做规模"。常规模 2000 万到 1 亿美金。中国互联网公司能到 B 轮就过了大半死亡线。
+  example: B 轮 5000 万美金，估值 3 亿，开始铺销售。
+
+- term: Pre-IPO
+  aliases: [上市前轮]
+  category: jargon
+  literal: Pre-IPO round
+  meaning: IPO 前最后一轮融资——通常 1-2 年内要上市。投资人能赚"上市套现差价"，但风险也大（IPO 延期/破发就套牢）。
+  example: 这家做 Pre-IPO 轮，估值 50 亿美金。
+
+- term: IPO
+  aliases: [Initial Public Offering, 首次公开募股, 上市]
+  category: abbr
+  literal: Initial Public Offering
+  meaning: 公司股票首次公开在交易所上卖——成功上市等于变现+品牌+融更多钱。员工的期权可以解锁套现。中国公司常去美股、港股、A 股上市。
+  example: 这家计划明年港股 IPO。
+
+- term: 估值
+  aliases: [valuation]
+  category: jargon
+  literal: valuation
+  meaning: 公司"现在值多少钱"——投资人按这个数字算他投的钱占多少股。估值多少不等于公司账上有这么多钱。早期估值靠故事+赛道，后期看 ARR、用户、利润。
+  example: 上轮估值 10 亿美金，独角兽门槛刚踩到。
+
+- term: 独角兽
+  aliases: [unicorn]
+  category: jargon
+  literal: unicorn
+  meaning: 估值超过 10 亿美金的非上市创业公司——本来很罕见所以叫独角兽。中国移动互联网时代独角兽满地跑，AI 时代又出一批（OpenAI、Anthropic 是十角兽）。
+  example: 这家 AI 公司一年估值翻 5 倍变独角兽。
+
+- term: 对赌
+  aliases: [对赌协议, VAM, Valuation Adjustment Mechanism]
+  category: jargon
+  literal: valuation adjustment mechanism
+  meaning: 投资人和创业者约定"达到 X 业绩我多给股、达不到你赔我"——本质是估值调整机制。完不成赌约创始人可能丢公司控制权。中国创投常用，海外少见。
+  example: 上轮对赌没完成，创始人股权稀释到 20%。
+
+- term: FA
+  aliases: [Financial Advisor, 财务顾问]
+  category: abbr
+  literal: Financial Advisor
+  meaning: 帮创业公司融资的中介——撮合投资人、做 deck、帮谈判，成功后收 2-5% 财务顾问费。早期项目自己跑投资人多，B 轮以后 FA 帮忙更有效率。
+  example: 这次 B 轮请了华兴当 FA。
+
+- term: LP
+  aliases: [Limited Partner, 有限合伙人]
+  category: abbr
+  literal: Limited Partner
+  meaning: 出钱给基金的人——保险公司、大学基金会、富豪家族办公室。基金赚了 LP 分钱。LP 出钱不管事，GP（管基金的人）出力。
+  example: 这只基金 LP 全是欧洲家族办。
+
+- term: GP
+  aliases: [General Partner, 普通合伙人]
+  category: abbr
+  literal: General Partner
+  meaning: 基金的管理人——找项目、做投资决策、运营。和 LP（出钱方）对应。GP 拿"管理费 2% + carry 20%"。基金里你看见的合伙人都是 GP。
+  example: 这家基金 GP 团队是从红杉出来的。
+
+- term: 尽调
+  aliases: [DD, due diligence]
+  category: jargon
+  literal: due diligence
+  meaning: 投资前的"全身体检"——审财务、查法律、看代码、和客户访谈、查创始人背景。一轮投资能跑两三个月就是耗在尽调。
+  example: 红杉尽调到第 4 周了，下周给最终答复。
+
+- term: 退出
+  aliases: []
+  category: jargon
+  literal: exit
+  meaning: 投资人拿回钱+利润——主要靠 IPO（上市套现）和并购（被大厂收购）。早期投资人 5-10 年才能退出。一只基金的"退出回报"决定 GP 能不能再募下一只。
+  example: 这只基金平均退出周期 7 年。
+
+- term: 并购
+  aliases: [M&A, merger and acquisition]
+  category: jargon
+  literal: merger and acquisition
+  meaning: 大公司买小公司或两家合并——M=合并、A=收购。Google 收购 DeepMind、字节收购 Pico 都是 M&A。员工通常拿到收购方股票或现金。
+  example: 字节并购了那家 AR 公司，估值 5 亿。
+
+- term: 退出回报
+  aliases: [IRR, MOIC]
+  category: jargon
+  literal: return on exit
+  meaning: 投了 1000 万、退出时拿回 5000 万 → 5 倍回报（MOIC=Multiple Of Invested Capital）。IRR 加时间维度算年化。这两个数决定基金能不能继续融下一只。
+  example: 这笔投资 MOIC 8 倍 / IRR 35%，超出 LP 预期。
+
+- term: carry
+  aliases: [carried interest, 业绩分成]
+  category: jargon
+  literal: carried interest
+  meaning: 基金赚了钱后 GP 分到的提成——通常 20%。LP 拿 80%、GP 拿 20%，是 GP 主要收入。"2 and 20"=2% 管理费+20% carry，行业标准。
+  example: 这只基金退出后 carry 给 GP 团队分了 5000 万。
+
+- term: 估值倍数
+  aliases: [valuation multiple]
+  category: jargon
+  literal: valuation multiple
+  meaning: 估值是营收/利润的几倍——SaaS 公司常 10-30 倍 ARR、传统行业 5-15 倍利润。AI 公司近两年炒到 50-100 倍营收。看泡沫看这数字。
+  example: 这家 AI 公司估值 50 倍 ARR，明显有泡沫。
+
+- term: 现金流
+  aliases: [cash flow]
+  category: jargon
+  literal: cash flow
+  meaning: 公司账上"钱进钱出"——和"利润"不一样。利润可能账面好看但收不到现金。早期创业公司"现金流是命"，账面利润是其次。
+  example: 利润正但现金流负，应收账款 6 个月才收回。
+
+- term: 烧钱
+  aliases: [burning cash]
+  category: jargon
+  literal: burning cash
+  meaning: 创业公司收入还覆盖不了成本，靠融资的钱补——"烧"得像柴堆。中国互联网早期补贴大战时各家月烧上亿。烧钱不可怕，烧不出市场份额才可怕。
+  example: 美团/滴滴当年都靠烧钱抢市场。
+
+- term: 现金奶牛
+  aliases: [cash cow]
+  category: jargon
+  literal: cash cow
+  meaning: 业务成熟稳定持续产现金的——不增长但能源源不断造血。苹果 iPhone、微软 Office、腾讯游戏对各自公司都是现金奶牛。养着它去赌新业务。
+  example: 微信是腾讯的现金奶牛，养着所有创新业务。
+
+- term: 烧钱换增长
+  aliases: [growth at all costs]
+  category: jargon
+  literal: growth at all costs
+  meaning: 不计成本地补贴+投放抢用户和市场份额——经典互联网打法。WeWork、Uber 早期、瑞幸都靠这个起步。资本寒冬来了"烧钱换增长"成贬义词。
+  example: 现在还在烧钱换增长的公司投资人都不敢碰。
+
