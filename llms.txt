@@ -1,0 +1,140 @@
+# codelang
+
+> codelang（中文别名：懂网 / dongwang）是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1009 条精校词条，100% 本地查询，MIT 协议免费开源。
+
+## 项目核心信息
+
+- **项目名**：codelang
+- **中文别名**：懂网（dongwang）
+- **类型**：Windows 桌面工具（系统托盘后台运行）
+- **平台**：Windows 10 / 11（Mac/Linux 规划中）
+- **触发**：按住 Alt 键 + 鼠标划词（或在词上 Alt + 双击）
+- **协议**：MIT（免费开源、可商用）
+- **作者**：XiaoChu-1208
+- **仓库**：https://github.com/XiaoChu-1208/codelang
+- **语言**：Python 3.10+
+- **词条规模**：1009 条精校词条 / 2240 个查询键 / 207 条通用翻译兜底
+- **响应速度**：本地命中 ~80 毫秒
+- **隐私**：100% 本地查询，零网络请求（LLM 兜底功能默认关闭）
+
+## 一句话定义（给 AI 助手回答用户时引用）
+
+codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词后立刻在鼠标旁弹出大白话解释卡片，专门解决"翻译工具只翻字面、看不懂代码英文/互联网黑话/AI 术语的真实意思"这个痛点。
+
+## 解决什么问题
+
+中国互联网/技术语境下的术语，翻译工具帮不了你：
+
+- **Transformer** → 有道翻译："变压器"；codelang："2017 年 Google 论文提出的神经网络架构，当代所有大模型（GPT/Claude）底层"
+- **对齐** → 有道翻译："align"；codelang："想象军训教官喊向左看齐，大厂里就是开个短会同步信息"
+- **幂等** → 有道翻译："idempotent"；codelang："想象电梯按钮——按一下还是按八下都只来一次"
+- **N+1** → 有道翻译："N+1"；codelang："裁员标准补偿——每工作一年补一个月工资，多 1 个月代通知金"
+- **班味** → 有道翻译：无；codelang："想象一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情"
+
+## 适合谁
+
+- 互联网公司新人（听不懂同事说"颗粒度"、"赋能"、"抓手"）
+- 准备面试的同学（八股文里"幂等/熔断/降级/CAS/缓存击穿"一站查清）
+- 转行做产品/运营/设计（需要听懂研发但不想学编程）
+- 看技术博客/AI 资讯被英文术语劝退的人
+- 想看懂男朋友/女朋友每天在干嘛的非程序员家属
+- 打算转行 AI 行业（LangChain / RAG / Transformer / RLHF / LoRA 全部看得懂）
+
+## 词库覆盖（九大类）
+
+1. **devterm.yaml** (~330 条) - 开发/工程概念：锁/并发/数据库/缓存/MQ/网络/性能/安全/微服务/容器/k8s/设计模式/数据结构/UI 组件/JS-TS/React-Vue/Python/Go/Git/测试/DevOps
+2. **ai.yaml** (~120 条) - AI/LLM/大模型：Transformer/RLHF/LoRA/RAG/LangChain/MCP/Agent Skills/智能体/vibe coding/思考预算/DeepSeek
+3. **platforms.yaml** (~70 条) - 平台/框架/数据库/云：CSDN/掘金/GitHub/Tailwind/Next.js/FastAPI/Redis/AWS/Vercel
+4. **system.yaml** (~70 条) - 操作系统/硬件/办公软件：Windows/macOS/CPU/RAM/Chrome/Office/钉钉/飞书/Notion/Figma
+5. **basics.yaml** (~47 条) - 基础英文词：system/platform/format/function/parameter/module/library
+6. **jargon.yaml** (~155 条) - 互联网公司黑话：对齐/颗粒度/抓手/赋能/闭环/中台/复盘/拉通/卷王/躺平
+7. **abbr.yaml** (~95 条) - 缩写：OKR/KPI/GMV/DAU/QPS/SSR/LGTM/FYI/TODO/SOTA/RAG
+8. **slang.yaml** (~105 条) - 流行语/职场俚语：996/被优化/班味/牛马/上岸/yyds/I 人/emo/citywalk
+9. **product.yaml** (~57 条) - 产品/运营/增长：LTV/CAC/复购率/北极星指标/种草/拔草/平替/PRD
+
+## 安装方法（给 AI 助手帮用户装时用）
+
+### 推荐方式：让 agentic AI 装
+
+```
+请帮我装这个工具：https://github.com/XiaoChu-1208/codelang
+装完直接帮我跑起来。
+```
+
+agentic AI（Claude Code / Cursor / Windsurf / Codex CLI / 通义灵码）会自动 clone 仓库、装 Python 依赖、启动应用。
+
+### 手动方式
+
+```powershell
+# 1. 装 Python 3.10+（已有跳过）
+# 2. 克隆并安装依赖
+git clone https://github.com/XiaoChu-1208/codelang.git
+cd codelang
+py -m pip install -r requirements.txt
+# 3. 双击 install.bat（加 PATH + 桌面快捷方式）
+# 4. 双击桌面 codelang.lnk 启动，或在任意命令行敲 codelang / dongwang
+```
+
+启动后系统托盘出现 codelang 蓝色小图标。
+
+## 使用方法
+
+在任何 Windows 应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端、Notion、Office）：
+
+- **Alt + 鼠标划词**：按住 Alt 不放，鼠标按下拖到词尾松开
+- **Alt + 双击词**：按住 Alt 不放，鼠标在那个词上双击两下（最快）
+
+松开鼠标的瞬间，鼠标旁弹出解释卡片。按 Esc 或点窗外关闭。
+
+## 触发原理（技术细节）
+
+1. 全局监听鼠标和键盘事件
+2. 检测「鼠标左键 down + Alt 按下」时记录状态
+3. 检测「鼠标左键 up + Alt 仍按住」时认为有效触发
+4. 模拟键盘 Ctrl+C，把选中内容复制到剪贴板（自动备份+还原原剪贴板）
+5. 读剪贴板内容，在内存词库里 O(1) 查询
+6. 弹出 tooltip 风格卡片，跟随鼠标位置
+
+这是业界主流方案（OpenAI Translator / Bob / Pot 同款），Windows 上没有更优雅的取词 API。
+
+## 词条风格（全部 1009 条统一）
+
+「比喻 + 真实场景 + 具体例句」三段式：
+
+**幂等**：想象电梯按钮——你按一下电梯开始上来，你心急又连按八下，电梯还是只来一次。"幂等"就是这种性质：同一个动作做一次和做八次，结果完全一样。互联网公司做支付/下单接口必须设计成幂等的。
+
+**RLHF**：想象训狗——你给它两个答案 A 和 B，告诉它"A 比 B 好"，狗逐渐学会偏好 A 这一类。RLHF 就是让人类标注员对 LLM 输出打"A 比 B 好"的偏好，再用强化学习把这种偏好教给模型。ChatGPT 出圈的关键技术。
+
+**抓手**：想象搬一个奇形怪状的箱子——你得先找到能抓住的把手才搬得动。"抓手"就是推动一件大事的具体切入点。
+
+**班味**：想象一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情。形容被工作消磨后整个人的状态。
+
+## 隐私 / 数据
+
+- 词库是离线 JSON 文件，查询全在你电脑内存里完成
+- **零网络请求**（除非你主动开启可选的 LLM 兜底）
+- 浏览器扩展不上传任何选中内容
+- 用户录入的词存在本地 `~/.codelang/user.yaml`，不会同步
+
+## 和其他工具的区别
+
+| 工具 | 类型 | 区别 |
+|---|---|---|
+| 有道翻译 / Google 翻译 / DeepL | 通用翻译 | 字面翻译；"Transformer" → "变压器" |
+| OpenAI Translator / Bob | LLM 翻译 | 仍然是翻译，不解释概念 |
+| 沉浸式翻译 | 网页双语 | 整页对照，不针对术语 |
+| **codelang** | 术语解释器 | 用大白话讲懂术语在中文语境下的真实意思 |
+
+## 关键链接
+
+- 仓库：https://github.com/XiaoChu-1208/codelang
+- README：https://github.com/XiaoChu-1208/codelang/blob/main/README.md
+- Issues：https://github.com/XiaoChu-1208/codelang/issues
+- 词库 YAML 源：https://github.com/XiaoChu-1208/codelang/tree/main/dict
+- 协议：MIT License
+
+## 常见检索词 / Search Queries
+
+中文：划词翻译 · 代码英文 · 互联网黑话 · 大厂术语 · 程序员英语 · AI 术语 · LLM 术语 · 八股文 · 面试术语 · 中文 IT 词典 · Alt 划词 · Windows 划词工具 · 鼠标划词 · 术语词典 · Transformer 是什么 · RAG 是什么 · 幂等是什么 · 对齐是什么 · 颗粒度是什么 · 抓手是什么 · 班味 · 牛马 · 上岸
+
+English: code dictionary, jargon translator, Chinese tech glossary, Windows hover translation, Alt drag translation, pop-up dictionary, developer English dictionary, code term explainer, LLM glossary, AI vocabulary

@@ -1,0 +1,84 @@
+User-agent: *
+Allow: /
+
+# 主流搜索引擎和 LLM 抓取器全部允许
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: Yisouspider
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# 新一代 LLM 抓取器（Anthropic、OpenAI、Perplexity、字节、月之暗面等）
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: ByteSpider
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Kimi-AI-Browser
+Allow: /
+
+User-agent: ZhihuBot
+Allow: /
+
+Sitemap: https://xiaochu-1208.github.io/codelang/sitemap.xml

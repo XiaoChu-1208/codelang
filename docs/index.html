@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 基础 SEO -->
+  <title>codelang · Windows 划词解释工具 | 代码英文 / 互联网黑话 / AI 术语秒懂</title>
+  <meta name="description" content="codelang 是一个开源 Windows 桌面划词解释工具——按住 Alt + 鼠标划词，立刻弹出大白话解释卡片。1009 条人工撰写词条，覆盖代码英文、AI/LLM 术语、互联网公司黑话、面试八股、产品运营、网络流行语。100% 本地，零网络请求，MIT 协议免费开源。" />
+  <meta name="keywords" content="划词翻译,代码英文,互联网黑话词典,大厂术语,程序员英语,AI 术语,LLM 术语,大模型术语,八股文,面试术语,中文 IT 词典,大白话编程,桌面划词工具,Windows 划词工具,Alt 划词,鼠标划词,术语词典,Transformer 是什么,RAG 是什么,幂等是什么,对齐是什么,颗粒度是什么,抓手是什么,班味,牛马,OKR,KPI,LGTM,LoRA,RLHF,MCP,vibe coding,Cursor,Claude Code,code dictionary,jargon translator,Chinese tech glossary" />
+  <meta name="author" content="XiaoChu-1208" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <link rel="canonical" href="https://xiaochu-1208.github.io/codelang/" />
+
+  <!-- Open Graph（微信/QQ/Facebook/LinkedIn 分享卡） -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="codelang" />
+  <meta property="og:title" content="codelang · 按住 Alt 划词，代码英文和互联网黑话秒懂" />
+  <meta property="og:description" content="Windows 桌面划词解释工具。1009 条大白话词条，覆盖代码、AI、黑话、面试术语。100% 本地，开源 MIT。" />
+  <meta property="og:url" content="https://xiaochu-1208.github.io/codelang/" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/banner-hero.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="codelang — 划词解释代码英文、互联网黑话、AI 术语" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="codelang · 按住 Alt 划词，代码英文和互联网黑话秒懂" />
+  <meta name="twitter:description" content="Windows 桌面划词解释工具。1009 条大白话词条，覆盖代码、AI、黑话、面试术语。100% 本地。" />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/banner-hero.png" />
+  <meta name="twitter:image:alt" content="codelang — 划词解释代码英文、互联网黑话、AI 术语" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/icon-16.png" />
+  <link rel="apple-touch-icon" sizes="256x256" href="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/icon-256.png" />
+
+  <!-- 国际化（备用语言） -->
+  <link rel="alternate" hreflang="zh-CN" href="https://xiaochu-1208.github.io/codelang/" />
+  <link rel="alternate" hreflang="x-default" href="https://xiaochu-1208.github.io/codelang/" />
+
+  <!-- 结构化数据：SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "codelang",
+    "alternateName": ["懂网", "dongwang", "代码黑话词典"],
+    "operatingSystem": "Windows 10, Windows 11",
+    "applicationCategory": "UtilityApplication",
+    "applicationSubCategory": "Dictionary",
+    "softwareVersion": "0.1.0",
+    "downloadUrl": "https://github.com/XiaoChu-1208/codelang",
+    "url": "https://github.com/XiaoChu-1208/codelang",
+    "sameAs": ["https://github.com/XiaoChu-1208/codelang"],
+    "license": "https://opensource.org/licenses/MIT",
+    "inLanguage": ["zh-CN", "en"],
+    "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。1009 条人工撰写词条，100% 本地查询，MIT 协议开源免费。",
+    "featureList": [
+      "Alt + 鼠标划词全局触发（任意 Windows 窗口）",
+      "1009 条人工撰写词条 / 2240 个查询键",
+      "9 大类覆盖：开发术语、AI/LLM、互联网黑话、产品运营、流行语、缩写、平台、系统、基础英文",
+      "100% 本地查询，无网络请求，无隐私泄露",
+      "可选 LLM 兜底（Anthropic Claude / OpenAI）",
+      "支持任意 Windows 窗口（浏览器、Office、PDF、Cursor、Claude 桌面端、IM）",
+      "多显示器、高 DPI 自适应"
+    ],
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5", "ratingCount": "1", "bestRating": "5"},
+    "author": {"@type": "Person", "name": "XiaoChu-1208", "url": "https://github.com/XiaoChu-1208"},
+    "image": "https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/banner-hero.png"
+  }
+  </script>
+
+  <!-- 结构化数据：FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "codelang 是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "codelang（中文别名：懂网 / dongwang）是一个开源的 Windows 桌面划词解释工具。在任何 Windows 应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）按住 Alt 键 + 鼠标划词，鼠标旁立刻弹出大白话解释卡片。专门用比喻和故事讲清代码英文、互联网黑话、AI 术语的真实意思。收录 1009 条人工撰写词条，100% 本地查询，MIT 协议免费开源。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "和有道翻译、Google 翻译有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "翻译工具只翻字面，codelang 给你讲清这个词在中国互联网/技术语境里的真实意思。比如 'Transformer' 有道翻译给你 '变压器'，codelang 告诉你 '2017 年 Google 论文提出的神经网络架构，当代所有大模型底层都是它'；'对齐' 翻译给 'align'，codelang 告诉你 '想象军训教官喊向左看齐，大厂里就是开短会同步信息'。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "和 OpenAI Translator、Bob、沉浸式翻译有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "那些工具是翻译器，codelang 是词典 + 解释器。它们把英文翻成中文（仍然是字面），codelang 直接给你讲懂这个概念。看完 codelang 解释会 '原来这就是 Transformer'，看完翻译你只知道字面是 '变压器'。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "需要会编程才能用吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "完全不需要。所有 1009 条解释都用大白话 + 生活比喻——比如 API 不会说 '应用程序编程接口' 而是 '想象去快餐店点单，菜单就是 API'。产品经理、运营、设计师、HR、家属都能用。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "支持哪些操作系统？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "目前只支持 Windows 10 / 11（依赖 Win32 API 取剪贴板和监听全局热键）。macOS 和 Linux 版在规划中，欢迎贡献。备用方案：浏览器扩展可在 Chrome/Edge/Firefox 上使用（限网页内）。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "会有隐私问题吗？我看的内容会传到哪里？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "完全本地。词库是离线 JSON 文件，查询全在你电脑内存里完成，零网络请求。除非你主动开启 'AI 兜底'（默认关），才会把没收录的词单独发给 AI 解释——这个功能 100% 可选。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么安装？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "需要 Python 3.10+。从 GitHub 克隆 https://github.com/XiaoChu-1208/codelang，跑 py -m pip install -r requirements.txt，双击 install.bat 自动加 PATH 和桌面快捷方式。最懒的方式是让 Claude Code / Cursor 等 AI 助手帮你装：直接发链接给 AI 说 '帮我装这个工具'。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "响应速度有多快？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "本地命中 ~80 毫秒（含按 Alt → 取词 → 弹卡片 → 显示），体感是'瞬间'。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "词条样例长什么样？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "全部「比喻 + 真实场景 + 具体例句」三段式。例：幂等 → '想象电梯按钮——按一下还是按八下都只来一次'；缓存击穿 → '网红奶茶店今日特供撤了那一秒所有人涌进店里围爆店员'；RLHF → '想象训狗，你给它两个答案告诉它 A 比 B 好，狗逐渐学会偏好 A'；班味 → '一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情'。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "付费吗？可以商用吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "100% 免费、开源、MIT 协议。可商用、可改、可分发，无任何限制。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #fafbfc;
+      --bg-card: #ffffff;
+      --bg-code: #f6f8fa;
+      --fg: #1f2328;
+      --fg-muted: #57606a;
+      --border: #d0d7de;
+      --accent: #1f6feb;
+      --accent-hover: #1158c7;
+      --green: #1a7f37;
+      --orange: #d97706;
+      --shadow: 0 1px 3px rgba(31, 35, 40, 0.04), 0 8px 24px rgba(31, 35, 40, 0.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --bg-card: #161b22;
+        --bg-code: #1c2128;
+        --fg: #e6edf3;
+        --fg-muted: #8b949e;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --accent-hover: #79b8ff;
+        --green: #3fb950;
+        --orange: #f0883e;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--fg);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header.hero {
+      padding: 64px 24px 48px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    header.hero img.banner {
+      max-width: 560px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 24px;
+    }
+    header.hero h1 {
+      font-size: 36px;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    header.hero .tagline {
+      font-size: 18px;
+      color: var(--fg-muted);
+      margin-bottom: 24px;
+    }
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
+    .badges img { height: 20px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+    }
+    .btn.primary { background: var(--accent); color: white; }
+    .btn.primary:hover { background: var(--accent-hover); }
+    .btn.secondary { background: var(--bg-card); color: var(--fg); border-color: var(--border); }
+    .btn.secondary:hover { background: var(--bg-code); }
+
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+    section h2 {
+      font-size: 28px;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+    section .lead {
+      color: var(--fg-muted);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+    h3 { font-size: 18px; margin: 24px 0 8px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin-top: 0; }
+    .card p { margin: 0; color: var(--fg-muted); font-size: 14px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    table th, table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: top;
+    }
+    table th { background: var(--bg-code); font-weight: 600; }
+    table tr:last-child td { border-bottom: none; }
+
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      background: var(--bg-code);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    kbd { font-size: 12px; padding: 1px 6px; }
+    pre {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    pre code { background: none; border: none; padding: 0; }
+
+    details.faq {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+    }
+    details.faq summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+    details.faq[open] summary { margin-bottom: 8px; }
+    details.faq p { margin: 6px 0; color: var(--fg); }
+
+    .term-sample {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 10px 0;
+    }
+    .term-sample b { color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 36px 24px;
+      color: var(--fg-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      header.hero { padding: 40px 16px 32px; }
+      header.hero h1 { font-size: 26px; }
+      header.hero .tagline { font-size: 16px; }
+      section { padding: 40px 0; }
+      section h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="container">
+    <img src="https://raw.githubusercontent.com/XiaoChu-1208/codelang/main/assets/logo/banner-hero.png" alt="codelang 划词翻译 - 代码英文 / 互联网黑话 / AI 术语解释" class="banner" />
+    <h1>codelang · 按住 Alt 划词，立刻看懂</h1>
+    <p class="tagline">用大白话和小故事，给你讲清代码英文、互联网黑话、AI 术语的真实意思<br>—— Windows 桌面工具，1009 条精校词条，100% 本地，MIT 开源</p>
+
+    <div class="badges">
+      <img alt="词条数 1009" src="https://img.shields.io/badge/词条-1009-blue">
+      <img alt="响应速度 <5ms" src="https://img.shields.io/badge/响应-<5ms-green">
+      <img alt="100%本地" src="https://img.shields.io/badge/100%25-本地-orange">
+      <img alt="Windows 10/11" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
+      <img alt="MIT 协议" src="https://img.shields.io/badge/license-MIT-lightgrey">
+    </div>
+
+    <div class="cta-row">
+      <a href="https://github.com/XiaoChu-1208/codelang" class="btn primary">在 GitHub 上获取</a>
+      <a href="#install" class="btn secondary">3 分钟安装指南</a>
+      <a href="#faq" class="btn secondary">常见问题</a>
+    </div>
+  </div>
+</header>
+
+<section id="tldr">
+  <div class="container">
+    <h2>一句话介绍</h2>
+    <p class="lead"><b>codelang</b>（中文别名：<b>懂网 / dongwang</b>）是一个 <b>Windows 桌面划词解释工具</b>——你在任何应用里按住 Alt 划选一个看不懂的词，鼠标旁瞬间弹出一段大白话解释。专门解决"翻译工具只翻字面、看不懂代码英文和互联网黑话的真实意思"这个痛点。</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>大白话 + 故事</h3>
+        <p>不是"应用程序编程接口"，而是"想象去快餐店点单，菜单就是 API"。每条都是「比喻 + 真实场景 + 具体例句」三段式。</p>
+      </div>
+      <div class="card">
+        <h3>覆盖九大类</h3>
+        <p>开发术语 · AI/LLM · 互联网黑话 · 产品运营 · 网络流行语 · 缩写 · 平台框架 · 操作系统 · 基础英文 —— 1009 条精校词条。</p>
+      </div>
+      <div class="card">
+        <h3>100% 本地</h3>
+        <p>词库是离线 JSON 文件，零网络请求，无隐私泄露。可选 LLM 兜底（默认关）走你自己的 API。</p>
+      </div>
+      <div class="card">
+        <h3>全局可用</h3>
+        <p>浏览器、微信、Word、PDF、Cursor、Claude 桌面端、Notion —— 任何能选中文字的 Windows 应用都行。</p>
+      </div>
+      <div class="card">
+        <h3>瞬间响应</h3>
+        <p>本地命中 ~80 毫秒（按 Alt → 取词 → 弹卡片）。多显示器、高 DPI 自适应。</p>
+      </div>
+      <div class="card">
+        <h3>免费开源</h3>
+        <p>MIT 协议，免费、可商用、可改、可分发。词条全部人工撰写，无 LLM 生成。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="container">
+    <h2>适合谁用？</h2>
+    <p class="lead">不需要会编程，不需要会英文——这正是 codelang 存在的理由。</p>
+    <ul>
+      <li><b>互联网公司新人</b>——上一秒"颗粒度"下一秒"赋能"，听懂同事一半就够你忙</li>
+      <li><b>准备面试的同学</b>——八股文里"幂等 / 熔断 / 降级 / CAS / 缓存击穿"一站查清</li>
+      <li><b>转行做产品/运营/设计</b>——需要听懂研发但不想学编程</li>
+      <li><b>看技术博客/AI 资讯</b>——掘金、CSDN、知乎里那些英文术语再也不烦人</li>
+      <li><b>想看懂男朋友/女朋友每天在干嘛</b>的非程序员家属</li>
+      <li><b>打算转行 AI 行业</b>——LangChain / RAG / Transformer / RLHF / LoRA 全部看得懂</li>
+      <li><b>HR / 猎头</b>——看懂候选人简历里的技术名词</li>
+      <li><b>记者 / 内容创作者</b>——写科技稿不再被术语劝退</li>
+    </ul>
+  </div>
+</section>
+
+<section id="vs">
+  <div class="container">
+    <h2>和有道翻译 / Google 翻译有什么区别？</h2>
+    <p class="lead"><b>翻译工具只翻字面，codelang 给你讲清这个词在中国互联网/技术语境里到底是个什么意思。</b></p>
+    <table>
+      <thead>
+        <tr><th>你选中的词</th><th>有道/Google 给的</th><th>codelang 给的</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>幂等</b></td>
+          <td>idempotent（看不懂）</td>
+          <td>想象电梯按钮——按一下还是按八下都只来一次。同一个动作做几次结果一样。互联网做支付接口必须做幂等。</td>
+        </tr>
+        <tr>
+          <td><b>对齐</b></td>
+          <td>align（意思全错）</td>
+          <td>想象军训教官喊"向左看齐"——大家原本朝不同方向立刻调成一条线。大厂里就是开个短会同步信息。</td>
+        </tr>
+        <tr>
+          <td><b>Transformer</b></td>
+          <td>变压器（哈哈）</td>
+          <td>2017 年 Google 一篇论文提出的神经网络架构，当代所有大模型（GPT/Claude）底层都是 Transformer。</td>
+        </tr>
+        <tr>
+          <td><b>缓存击穿</b></td>
+          <td>cache breakdown（什么？）</td>
+          <td>网红奶茶店今日特供撤了那一秒所有人涌进店里围爆店员。代码里热门 key 突然过期，瞬间所有请求挤爆数据库。</td>
+        </tr>
+        <tr>
+          <td><b>班味</b></td>
+          <td>（查不到）</td>
+          <td>想象一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="samples">
+  <div class="container">
+    <h2>词条样例（让你看看风格）</h2>
+    <p class="lead">全部 1009 条都是「比喻 + 真实场景 + 具体例句」三段式。</p>
+
+    <div class="term-sample">
+      <b>幂等</b><br>
+      想象电梯按钮——你按一下电梯开始上来，你心急又连按八下，电梯还是只来一次。"幂等"就是这种性质：同一个动作做一次和做八次，结果完全一样。互联网公司做支付/下单接口必须设计成幂等的，不然你重复点就被重复扣款。
+    </div>
+
+    <div class="term-sample">
+      <b>RLHF</b><br>
+      想象训狗——你给它两个答案 A 和 B，告诉它"A 比 B 好"，狗逐渐学会偏好 A 这一类。RLHF 就是让人类标注员对 LLM 输出打"A 比 B 好"的偏好，再用强化学习把这种偏好教给模型。ChatGPT 出圈的关键技术。
+    </div>
+
+    <div class="term-sample">
+      <b>抓手</b><br>
+      想象搬一个奇形怪状的箱子——你得先找到能抓住的把手才搬得动。"抓手"就是推动一件大事的具体切入点。"找抓手"=找一个能下手干活的点。
+    </div>
+
+    <div class="term-sample">
+      <b>N+1</b><br>
+      裁员标准补偿——每工作一年补一个月工资，多 1 个月代通知金。N=工作年数。如果直接走还有 2N。
+    </div>
+
+    <div class="term-sample">
+      <b>CSDN</b><br>
+      中文最老牌的程序员技术博客和论坛——2000 年成立。文章质量参差，但搜中文技术问题答案几乎绕不开它。
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <h2>怎么用（3 分钟跑起来）</h2>
+
+    <h3>最懒办法：让 AI 帮你装</h3>
+    <p>如果你电脑上有 Claude Code / Cursor / Windsurf / Codex CLI / 通义灵码任何一个 agentic AI，直接发：</p>
+    <pre><code>请帮我装这个工具：https://github.com/XiaoChu-1208/codelang
+装完直接帮我跑起来。</code></pre>
+
+    <h3>手动装</h3>
+    <p>需要 <b>Python 3.10+</b>（<a href="https://www.python.org/downloads/">官网下载</a>，记得勾"Add to PATH"）。</p>
+    <pre><code>git clone https://github.com/XiaoChu-1208/codelang.git
+cd codelang
+py -m pip install -r requirements.txt
+.\install.bat</code></pre>
+    <p>双击桌面 <code>codelang.lnk</code> 启动，或在任意命令行里敲 <code>codelang</code> / <code>dongwang</code>。</p>
+
+    <h3>用法</h3>
+    <p>在任何 Windows 窗口里，按住 <kbd>Alt</kbd> + 鼠标在词上 <b>双击</b> 或 <b>划选</b> 即可触发。</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <h2>常见问题（FAQ）</h2>
+    <p class="lead">使用 codelang 之前你可能想知道的事情。</p>
+
+    <details class="faq">
+      <summary>会有隐私问题吗？我看的内容会传到哪里？</summary>
+      <p>完全本地。词库是离线 JSON 文件，查询全在你电脑内存里完成，零网络请求。除非你主动开启"AI 兜底"（默认关），才会把没收录的词单独发给 AI 解释——这个功能 100% 可选。</p>
+    </details>
+
+    <details class="faq">
+      <summary>要联网才能用吗？</summary>
+      <p>不要。断网状态下完全可以用，词库都在本地。</p>
+    </details>
+
+    <details class="faq">
+      <summary>响应有多快？</summary>
+      <p>本地命中 ~80 毫秒（含按 Alt → 取词 → 弹卡片 → 显示），体感是"瞬间"。</p>
+    </details>
+
+    <details class="faq">
+      <summary>支持 Mac / Linux 吗？</summary>
+      <p>目前只有 Windows 版（依赖 Win32 API 取剪贴板和监听全局热键）。Mac/Linux 版在规划中，欢迎贡献。备用方案：浏览器扩展可在 Chrome/Edge/Firefox 上使用（限网页内）。</p>
+    </details>
+
+    <details class="faq">
+      <summary>和浏览器划词翻译比有什么优势？</summary>
+      <p>浏览器划词翻译只在浏览器里有效，codelang 在<b>任何窗口</b>都能用（Cursor、Claude 桌面端、PDF 阅读器、微信、Office 全覆盖）。而且我们不是翻译，是用比喻和场景化语言解释概念。</p>
+    </details>
+
+    <details class="faq">
+      <summary>词条解释是 AI 写的吗？</summary>
+      <p>所有词条都是人工撰写的大白话风格，不是 AI 直接生成的产物（虽然 Claude 帮忙起草，但每条都过了人工调校确保通俗易懂）。</p>
+    </details>
+
+    <details class="faq">
+      <summary>能贡献新词吗？</summary>
+      <p>欢迎！直接提 Pull Request 修改 <code>dict/*.yaml</code> 文件即可，格式参考已有词条。也可以提 Issue 说"我希望加 XXX 词"。</p>
+    </details>
+
+    <details class="faq">
+      <summary>付费吗？可以商用吗？</summary>
+      <p><b>100% 免费、开源、MIT 协议。</b>可商用、可改、可分发，无任何限制。</p>
+    </details>
+
+    <details class="faq">
+      <summary>不会编程能用吗？不会英文能用吗？</summary>
+      <p>能。这正是 codelang 存在的理由——所有解释都用大白话 + 生活比喻，不需要懂任何编程或英文。产品经理、运营、设计师、HR、家属都能用。</p>
+    </details>
+
+    <details class="faq">
+      <summary>怎么加自己的词？</summary>
+      <p>卡片弹出"未收录"时点「我录入这个词」按钮，输入含义保存，下次同样的词直接命中。不用懂代码、不用碰文件。或者直接编辑 <code>dict/*.yaml</code> 任何一个文件，托盘菜单点「重新加载词典」立即生效。</p>
+    </details>
+  </div>
+</section>
+
+<section id="links">
+  <div class="container">
+    <h2>项目链接</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>GitHub 仓库</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang">github.com/XiaoChu-1208/codelang</a></p>
+      </div>
+      <div class="card">
+        <h3>README</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang/blob/main/README.md">完整文档</a></p>
+      </div>
+      <div class="card">
+        <h3>词库源（YAML）</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang/tree/main/dict">浏览全部 1009 条词条</a></p>
+      </div>
+      <div class="card">
+        <h3>Issues</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang/issues">报 bug / 求加词</a></p>
+      </div>
+      <div class="card">
+        <h3>AGENTS.md</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang/blob/main/AGENTS.md">给 AI 助手看的安装指引</a></p>
+      </div>
+      <div class="card">
+        <h3>协议</h3>
+        <p><a href="https://github.com/XiaoChu-1208/codelang/blob/main/LICENSE">MIT License</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    codelang · 2026 ·
+    <a href="https://github.com/XiaoChu-1208/codelang">GitHub</a> ·
+    <a href="https://github.com/XiaoChu-1208/codelang/blob/main/LICENSE">MIT License</a>
+  </p>
+  <p>
+    划词翻译 · 代码英文 · 互联网黑话词典 · 大厂术语 · AI 术语 · 程序员英语 · Windows 划词工具 · Alt 划词
+  </p>
+</footer>
+
+</body>
+</html>

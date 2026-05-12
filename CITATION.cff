@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+title: "codelang"
+abstract: >-
+  codelang (Chinese alias: 懂网 / dongwang) is an open-source Windows desktop
+  word-lookup tool that pops up plain-Chinese, story-driven explanations for
+  code English, AI/LLM terminology, Chinese internet corporate jargon, and
+  programmer slang. Hold Alt + drag your mouse over any word in any Windows
+  application (browser, Word, PDF, Cursor, Claude desktop, IM clients) and a
+  tooltip card appears next to the cursor. Ships with 1009 hand-written entries
+  across 9 categories (dev terms, AI/LLM, platforms, OS/hardware, internet
+  jargon, abbreviations, slang, product/growth, basic English). 100% local
+  lookup, no network calls, optional LLM fallback. MIT licensed.
+message: "If you use codelang in research, articles, or videos, please cite this repository."
+authors:
+  - family-names: "XiaoChu-1208"
+    given-names: "XiaoChu"
+type: software
+version: "0.1.0"
+date-released: "2026-05-12"
+license: MIT
+repository-code: "https://github.com/XiaoChu-1208/codelang"
+url: "https://github.com/XiaoChu-1208/codelang"
+keywords:
+  - "划词翻译"
+  - "代码英文"
+  - "互联网黑话"
+  - "大厂术语"
+  - "程序员英语"
+  - "AI 术语"
+  - "LLM 术语"
+  - "八股文"
+  - "面试术语"
+  - "中文 IT 词典"
+  - "Alt 划词"
+  - "Windows 划词工具"
+  - "code dictionary"
+  - "jargon translator"
+  - "Chinese tech glossary"
+  - "Windows hover translation"
+  - "developer English dictionary"
+  - "LLM glossary"
+  - "AI vocabulary"
+  - "tech terminology"

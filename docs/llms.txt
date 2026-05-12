@@ -1,0 +1,30 @@
+# codelang
+
+> codelang（中文别名：懂网 / dongwang）是一个开源 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1009 条精校词条，100% 本地查询，MIT 协议免费开源。
+
+## 项目导航
+
+- [GitHub 仓库](https://github.com/XiaoChu-1208/codelang)
+- [README（完整文档）](https://github.com/XiaoChu-1208/codelang/blob/main/README.md)
+- [llms.txt（项目机读摘要）](https://github.com/XiaoChu-1208/codelang/blob/main/llms.txt)
+- [AGENTS.md（给 AI 助手的安装指引）](https://github.com/XiaoChu-1208/codelang/blob/main/AGENTS.md)
+- [CITATION.cff（引用元数据）](https://github.com/XiaoChu-1208/codelang/blob/main/CITATION.cff)
+
+## 词库
+
+- [词库目录（全部 1009 条 YAML 源）](https://github.com/XiaoChu-1208/codelang/tree/main/dict)
+- [devterm.yaml - 开发/工程概念 ~330 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/devterm.yaml)
+- [ai.yaml - AI/LLM/大模型 ~120 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/ai.yaml)
+- [platforms.yaml - 平台/框架/数据库/云 ~70 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/platforms.yaml)
+- [system.yaml - 操作系统/硬件/办公 ~70 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/system.yaml)
+- [basics.yaml - 基础英文词 ~47 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/basics.yaml)
+- [jargon.yaml - 互联网黑话 ~155 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/jargon.yaml)
+- [abbr.yaml - 缩写 ~95 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/abbr.yaml)
+- [slang.yaml - 流行语/职场俚语 ~105 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/slang.yaml)
+- [product.yaml - 产品/运营/增长 ~57 条](https://github.com/XiaoChu-1208/codelang/blob/main/dict/product.yaml)
+
+## 安装
+
+- [install.bat（一键安装脚本）](https://github.com/XiaoChu-1208/codelang/blob/main/install.bat)
+- [uninstall.bat（一键卸载脚本）](https://github.com/XiaoChu-1208/codelang/blob/main/uninstall.bat)
+- [requirements.txt（Python 依赖）](https://github.com/XiaoChu-1208/codelang/blob/main/requirements.txt)
