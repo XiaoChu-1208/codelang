@@ -21,6 +21,7 @@ import mouse
 import pyperclip
 
 from . import config, win as winhelp
+from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
     DictIndex,
     Entry,
@@ -83,6 +84,7 @@ def is_reasonable(text: str, max_len: int) -> bool:
 
 class App:
     def __init__(self):
+        setup_logging()
         winhelp.set_dpi_aware()
         self.cfg = config.load_config()
         self.dict = DictIndex()
@@ -301,6 +303,24 @@ class App:
             winhelp.force_release_alt()
             print("[codelang] forced Alt release", file=sys.stderr)
 
+        def on_open_logs(icon, item):
+            import subprocess
+            try:
+                # Create file if missing so notepad doesn't bark
+                if not LOG_FILE.exists():
+                    LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+                    LOG_FILE.touch()
+                subprocess.Popen(["notepad.exe", str(LOG_FILE)])
+            except Exception as e:
+                print(f"[codelang] open-logs failed: {e}", file=sys.stderr)
+
+        def on_open_log_folder(icon, item):
+            import subprocess
+            try:
+                subprocess.Popen(["explorer.exe", str(LOG_FILE.parent)])
+            except Exception as e:
+                print(f"[codelang] open-folder failed: {e}", file=sys.stderr)
+
         def on_quit(icon, item):
             icon.stop()
             self.queue.put(("quit",))
@@ -308,8 +328,13 @@ class App:
         menu = pystray.Menu(
             pystray.MenuItem("codelang", lambda *_: None, enabled=False),
             pystray.MenuItem(lambda item: f"词库: {self.dict.count} 条", lambda *_: None, enabled=False),
+            pystray.Menu.SEPARATOR,
+            pystray.MenuItem("查看日志", on_open_logs),
+            pystray.MenuItem("打开配置目录", on_open_log_folder),
+            pystray.Menu.SEPARATOR,
             pystray.MenuItem("重新加载词典", on_reload),
             pystray.MenuItem("释放卡住的 Alt", on_release_alt),
+            pystray.Menu.SEPARATOR,
             pystray.MenuItem("退出", on_quit),
         )
         icon = pystray.Icon("codelang", img, "codelang (Alt+划词)", menu)

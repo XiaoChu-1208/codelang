@@ -112,16 +112,13 @@ py -m pip install -r requirements.txt
 
 ### 2. 启动
 
-最简单：双击 `desktop\run.bat`（带控制台看日志）。
+**最简单**：双击 `desktop\run.bat` —— 后台静默启动，**不会有任何黑窗口**。启动成功你会在屏幕右下角系统托盘看到一个 codelang 蓝色小图标。
 
-或者在 PowerShell 里：
-```powershell
-py -m desktop.app
-```
+排查问题想看实时日志？两种办法：
+- **托盘菜单点「查看日志」**：自动用记事本打开 `~/.codelang/codelang.log`
+- 或双击 `desktop\run_console.bat`：保留 cmd 黑窗显示实时输出（仅调试时用）
 
-启动成功你会在屏幕右下角系统托盘看到一个 codelang 蓝色小图标。
-
-想让它每次开机自动启动？双击 `desktop\run_silent.vbs` 是后台静默启动版本，把这个 vbs 文件的快捷方式拖进 Windows 启动文件夹（`Win+R` → `shell:startup`）就行。
+想开机自启？把 `run.bat` 的快捷方式拖进 Windows 启动文件夹（`Win+R` → `shell:startup`）即可。
 
 ### 3. 用
 
