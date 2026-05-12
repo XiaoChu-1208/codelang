@@ -1,0 +1,431 @@
+# 平台 / 框架 / 工具名词 —— 程序员日常对话里高频出现的专有名词
+
+# --- 中文技术社区 / 平台 ---
+
+- term: CSDN
+  aliases: [csdn]
+  category: devterm
+  meaning: 中文最老牌的程序员技术博客和论坛——2000 年成立。文章质量参差（"复制粘贴"博客多），但搜中文技术问题答案几乎绕不开它。常被吐槽"答非所问"和"广告满天飞"。
+  example: 搜 Java 错误最先弹出的多半是 CSDN 文章。
+
+- term: 掘金
+  aliases: [juejin, 掘金社区, Juejin]
+  category: devterm
+  literal: 字节跳动旗下"掘金"技术社区
+  meaning: 字节跳动出的中文技术博客社区。比 CSDN 新，前端/AI 内容多，年轻化、设计现代。是中文程序员发技术文/找资源的另一主阵地。
+  example: 看 React 19 新特性的中文解读上掘金。
+
+- term: 知乎
+  aliases: [Zhihu, zhihu]
+  category: devterm
+  literal: 中文问答社区
+  meaning: 中文版的 Quora——主打"严肃问答"。技术问题、行业内幕、八卦、政治讨论无所不包。程序员经常在这看大佬怎么聊技术、看行业风向。
+  example: 想了解某公司面试经验，先去知乎搜一遍。
+
+- term: 简书
+  aliases: [jianshu]
+  category: devterm
+  meaning: 中文写作社区，技术类内容也多但定位更"轻"。曾经红火过，现在被掘金/小红书分流。
+  example: 早年很多前端教程发在简书。
+
+- term: 博客园
+  aliases: [cnblogs]
+  category: devterm
+  meaning: 中文老牌技术博客平台（2004 年）。专业感强，.NET / Java 老程序员聚集地。和 CSDN 是中文技术博客两大老牌。
+  example: 想看深度的 .NET 技术文章，博客园文章质量比 CSDN 稳。
+
+- term: 思否
+  aliases: [SegmentFault, segmentfault]
+  category: devterm
+  meaning: 中文版 Stack Overflow——以问答为主的技术社区。比 CSDN 专业但流量小很多。
+  example: 这个 bug 思否上有解答，比 CSDN 答案靠谱。
+
+- term: V2EX
+  aliases: [v2ex, V2]
+  category: devterm
+  meaning: 程序员/创意工作者的小众中文论坛。氛围像早期豆瓣——精英、毒舌、八卦满天。互联网热点先在 V2EX 发酵再扩散。
+  example: 看某公司是不是要裁员了，先翻 V2EX。
+
+- term: 少数派
+  aliases: [sspai]
+  category: devterm
+  meaning: 中文数码/效率/App 推荐社区——主打"高品质内容 + 付费阅读"。Mac、iOS、效率工具爱好者聚集地。
+  example: 找 Mac 优秀 App 推荐先看少数派。
+
+- term: 即刻
+  aliases: [jike, 即刻 App]
+  category: devterm
+  meaning: 中文小众社交+兴趣社区 App——文青、产品经理、设计师聚集。被称为"国产 Twitter"。
+  example: 互联网圈八卦先在即刻发酵。
+
+- term: 小红书
+  aliases: [xhs, 小红薯, RED, Xiaohongshu]
+  category: devterm
+  meaning: 中国最火的生活方式/种草社区——女性用户为主，覆盖美妆、穿搭、旅游、美食。2024 年起内容范围扩张，技术分享、副业、AI 工具推荐也越来越多。
+  example: 现在 AI 工具推荐都得做小红书内容，单条爆文涨粉一万。
+
+- term: B站
+  aliases: [Bilibili, bilibili, 哔哩哔哩]
+  category: devterm
+  meaning: 中国最大的视频/弹幕社区——原本是二次元/动漫起家，现在覆盖学习教程、技术分享、游戏直播全品类。程序员看技术教程的主要阵地之一。
+  example: 想学某技术先去 B 站搜入门视频。
+
+- term: 微信公众号
+  aliases: [公众号]
+  category: devterm
+  meaning: 微信平台的"自媒体文章发布"系统。技术大 V 写长文的主要载体，深度技术文章很多在公众号。劣势：搜索不到、传播靠转发。
+  example: 这个深度好文是 XX 公众号发的，关注收藏。
+
+- term: 知识星球
+  aliases: []
+  category: devterm
+  meaning: 付费社群工具——大 V 建群收年费（几百到几千），分享独家内容/答疑。AI、独立开发、副业领域用得多。
+  example: 加了某 AI 大佬的知识星球，每天看他分享一手信息。
+
+# --- 海外技术社区 ---
+
+- term: Stack Overflow
+  aliases: [stackoverflow, SO]
+  category: devterm
+  meaning: 全球最大的程序员技术问答社区（2008 年）。一个技术问题搜出来 80% 答案在这。但 ChatGPT 出现后流量下滑严重——大家不再去翻问答，直接问 AI。
+  example: 遇到不会的 bug，以前先 Google → Stack Overflow，现在直接问 Claude。
+
+- term: Reddit
+  aliases: [reddit]
+  category: devterm
+  meaning: 美国最大的兴趣/讨论社区——按 subreddit 分版块。r/programming、r/MachineLearning、r/LocalLLaMA 是技术圈高频版块。AI 圈新动态通常在这先爆。
+  example: AI 模型新发布要看反馈，去 Reddit r/LocalLLaMA。
+
+- term: Hacker News
+  aliases: [HN, hackernews, ycombinator]
+  category: devterm
+  meaning: Y Combinator（硅谷孵化器）旗下的极简新闻聚合站。硅谷创业圈、程序员的"精英早报"。一个产品上 HN 首页相当于免费爆款流量。
+  example: 这个开源项目今早冲上 HN 首页，Star 数一天涨了一万。
+
+- term: Medium
+  aliases: [medium.com]
+  category: devterm
+  meaning: 英文版的"高质量博客平台"——技术、商业、设计文章都在这发。订阅会员制（$5/月）。中文圈对应大约是简书 + 公众号的组合。
+  example: 这篇 AI 综述文章是 Medium 上 7000 字的爆文。
+
+- term: Dev.to
+  aliases: [dev.to, devto]
+  category: devterm
+  meaning: 程序员专属的开放博客平台。比 Medium 更聚焦技术、氛围更友好。
+  example: 想发英文技术文章引流，Dev.to 是不错选择。
+
+- term: Twitter
+  aliases: [twitter, X, X.com, tweet]
+  category: devterm
+  meaning: 全球最大的实时社交平台（2023 年被马斯克改名 X）。AI 圈/硅谷创业圈/独立开发者一线信息源——OpenAI 发布、Anthropic 公告、新工具发布都先在 Twitter。
+  example: AI 进展最快渠道是 Twitter，订阅几十个研究员的账号比看新闻快。
+
+- term: Discord
+  aliases: [discord]
+  category: devterm
+  meaning: 游戏社区起家的实时聊天工具，现在变成开源项目/AI 社群的标配——比 Slack 灵活、有语音、免费。Hugging Face、Anthropic、各开源项目都有自己的 Discord 服务器。
+  example: 想参与某开源项目讨论先加他们的 Discord。
+
+# --- 代码托管 ---
+
+- term: GitHub
+  aliases: [github]
+  category: devterm
+  meaning: 全球最大的代码托管平台（2008，2018 被微软收购）。开源项目几乎都在这。"放 GitHub"=开源；GitHub Star 数=项目热度。程序员的 LinkedIn——简历附 GitHub 链接证明实力。
+  example: 把项目放 GitHub 攒 100 Star 就能写简历上。
+
+- term: GitLab
+  aliases: [gitlab]
+  category: devterm
+  meaning: 和 GitHub 同类的代码托管，主打"私有部署"和"全套 DevOps 工具链"。企业内部代码服务器多用 GitLab 自建。
+  example: 公司代码全在自建 GitLab，外部访问不了。
+
+- term: Bitbucket
+  aliases: [bitbucket]
+  category: devterm
+  meaning: Atlassian 出的代码托管（Jira 同公司）。和 GitHub/GitLab 三足鼎立，私有仓库免费曾是它的卖点。现在用的人少了。
+  example: 我们公司用 Bitbucket 因为已经买了 Jira。
+
+- term: Gitee
+  aliases: [码云, gitee]
+  category: devterm
+  meaning: 中国版 GitHub——开源中国出品。国内访问快、不用翻墙。一些不能放 GitHub 的项目放 Gitee。
+  example: 国内访问 GitHub 太慢，把项目同步一份到 Gitee。
+
+- term: npm
+  aliases: [NPM, npm registry]
+  category: devterm
+  literal: Node Package Manager
+  meaning: JavaScript 世界的"应用商店"——所有前端/Node.js 第三方库都通过 `npm install xxx` 安装。仓库 npmjs.com 是世界最大的开源软件包源。
+  example: 想用 React，npm install react 就装好。
+
+- term: PyPI
+  aliases: [pypi, pip index]
+  category: devterm
+  literal: Python Package Index
+  meaning: Python 的"应用商店"——pip install xxx 装的就是 PyPI 上的包。和 npm 是各自语言的官方包源。
+  example: 想用 requests 库，pip install requests 自动从 PyPI 下载。
+
+# --- 前端框架 / UI 库 ---
+
+- term: React.js
+  aliases: [React 框架, ReactJS, React JS]
+  category: devterm
+  meaning: Meta（Facebook）出的前端框架（2013）。组件化思想 + 虚拟 DOM + JSX 语法。和 Vue / Angular 三大主流前端框架，市占率最高。注意：和 AI 圈的 ReAct（推理 + 行动 agent 范式）不是一回事。
+  example: 大厂前端基本都是 React，社区生态最丰富。
+
+- term: Vue
+  aliases: [vue, Vue.js, VueJS]
+  category: devterm
+  meaning: 尤雨溪（华人）创立的前端框架（2014）。比 React 更"上手友好"，中文文档好，国内用得多（饿了么、阿里部分项目都是 Vue）。
+  example: 国内中小公司前端首选 Vue，学习曲线平缓。
+
+- term: Angular
+  aliases: [angular]
+  category: devterm
+  meaning: Google 出的前端框架。"重型"——自带路由、状态管理、依赖注入全套。学习曲线陡，但大厂企业级应用用得多。
+  example: 银行/保险这种企业项目偏爱 Angular，体系完整。
+
+- term: Svelte
+  aliases: [svelte, SvelteKit]
+  category: devterm
+  meaning: 新一代前端框架——"编译时框架"，不需要运行时库，包体积超小。开发者满意度连年第一。前端进阶选择。
+  example: 个人项目用 Svelte 写，包小、跑得快。
+
+- term: Solid
+  aliases: [SolidJS, solid-js]
+  category: devterm
+  meaning: 新前端框架，主打"React API + 极致性能"——比 React 快好几倍，但生态小。
+  example: 性能敏感场景选 Solid，但找招聘的人不容易。
+
+- term: Next.js
+  aliases: [nextjs, Next, next.js]
+  category: devterm
+  meaning: 基于 React 的"全栈框架"——Vercel 出品。提供路由、SSR、SSG、API 路由全套。当代 React 项目首选脚手架。
+  example: 新 React 项目都用 Next.js，省去配置烦恼。
+
+- term: Nuxt
+  aliases: [nuxt, Nuxt.js, nuxtjs]
+  category: devterm
+  meaning: 基于 Vue 的"全栈框架"——对标 Next.js。SSR、SSG、API 一站式。
+  example: Vue 全栈项目选 Nuxt 就对了。
+
+- term: Remix
+  aliases: [remix.run]
+  category: devterm
+  meaning: React 阵营的另一个全栈框架——主打"接近 Web 原生"。后被 Shopify 收购，2024 年合并进 React Router。
+  example: Remix 强调用 Web API 而不是 React 特化的方式。
+
+- term: Astro
+  aliases: [astro.build]
+  category: devterm
+  meaning: 主打"内容站点"的前端框架——博客、文档、营销页首选。JS 体积小、加载快。多框架混用（同站可同时有 React + Vue 组件）。
+  example: 个人博客用 Astro 写，比 Next.js 更适合纯内容。
+
+- term: Tailwind
+  aliases: [TailwindCSS, tailwind, tailwindcss]
+  category: devterm
+  meaning: 当下最流行的 CSS 工具——"原子化"思路：不写 class，直接在 HTML 上拼 `bg-blue-500 px-4 py-2 rounded`。开发快、设计统一。
+  example: 这个站全用 Tailwind 写，CSS 文件几乎没有。
+
+- term: Bootstrap
+  aliases: [bootstrap]
+  category: devterm
+  meaning: Twitter 出的 CSS 框架（2011）——曾经的统治者，"丑但能用"的代名词。现在被 Tailwind / Material UI 等取代，但企业老项目还很多。
+  example: 后台管理系统老的多半是 Bootstrap，新的多半 Tailwind 或 Ant Design。
+
+- term: Ant Design
+  aliases: [antd, AntDesign, antdesign]
+  category: devterm
+  meaning: 蚂蚁集团出的企业级 UI 组件库（基于 React）。国内 B 端后台系统几乎都用 Ant Design。
+  example: 写一个后台管理系统，Ant Design + React 半天搭好框架。
+
+- term: Material UI
+  aliases: [MUI, material-ui, Material-UI]
+  category: devterm
+  meaning: Google Material Design 风格的 React 组件库。国外项目用得多，国内偏 Ant Design。
+  example: 海外用户群体的产品用 MUI，更符合他们的视觉习惯。
+
+# --- 后端框架 ---
+
+- term: Express
+  aliases: [express, Express.js]
+  category: devterm
+  meaning: Node.js 的元老级 Web 框架（2010）。极简、轻量、中间件设计。当 Node.js Web 项目讲"经典"就指 Express。
+  example: 学 Node 写 API 服务，先学 Express 框架。
+
+- term: Koa
+  aliases: [koa, koa.js]
+  category: devterm
+  meaning: Express 原作者写的"下一代"框架——更现代（基于 async/await）但生态没 Express 大。国内淘宝阿里偏好 Koa。
+  example: 阿里系前端工程师后端基本都用 Koa。
+
+- term: NestJS
+  aliases: [Nest, nestjs, nest.js]
+  category: devterm
+  meaning: Node.js 的"企业级"框架——TypeScript 优先 + 大量 Java Spring 风格的设计。结构化强，适合中大型项目。
+  example: 团队从 Java 转 Node，用 NestJS 过渡最舒服。
+
+- term: FastAPI
+  aliases: [fastapi]
+  category: devterm
+  meaning: Python 现代 Web 框架（2018）——速度快、自动生成 API 文档、类型提示原生支持。Python 写 API 服务的当代首选。
+  example: 写一个 LLM 后端 API，用 FastAPI 几十行就能跑。
+
+- term: Flask
+  aliases: [flask]
+  category: devterm
+  meaning: Python 老牌轻量 Web 框架——比 Django 简单很多，适合小型项目、原型、API 服务。FastAPI 出现后份额下降。
+  example: 想写一个小爬虫接口，Flask 比 Django 省心。
+
+- term: Django
+  aliases: [django]
+  category: devterm
+  meaning: Python 的"重型"Web 框架——自带 ORM、admin 后台、用户系统全套。豆瓣、Instagram 早期都是 Django。
+  example: 想快速做一个带后台的内容站，Django + 几个插件几天就上线。
+
+- term: Spring
+  aliases: [Spring Boot, spring boot, SpringBoot]
+  category: devterm
+  meaning: Java 世界最主流的 Web 框架。Spring Boot 是它的"开箱即用"版。中国 Java 程序员的看家本事。
+  example: 国内 Java 招聘，Spring Boot 是默认必会。
+
+- term: Gin
+  aliases: [gin, gin-gonic]
+  category: devterm
+  meaning: Go 语言最流行的 Web 框架——极简、快。Go 写 API 服务的默认选择。
+  example: 用 Go 写微服务，Gin 框架几行起一个 HTTP 服务。
+
+# --- 数据库 ---
+
+- term: MySQL
+  aliases: [mysql]
+  category: devterm
+  meaning: 全世界最普及的开源关系型数据库（1995 年，2009 年被 Oracle 收购）。互联网公司核心业务库基本都是 MySQL。
+  example: 用户表、订单表存哪里？默认 MySQL。
+
+- term: PostgreSQL
+  aliases: [Postgres, postgres, postgresql, pg]
+  category: devterm
+  meaning: 开源关系型数据库——比 MySQL 功能强（JSON、地理、全文搜全内建）但用的公司没 MySQL 多。近几年因 AI/向量扩展（pgvector）回潮。
+  example: 复杂查询和地理位置查询用 PostgreSQL 比 MySQL 强。
+
+- term: MongoDB
+  aliases: [mongodb, mongo]
+  category: devterm
+  meaning: 最流行的开源 NoSQL 文档数据库——存的不是表行，是 JSON 文档。Schema 灵活、易扩展，但事务支持弱。
+  example: 内容/日志这种结构不固定的数据用 MongoDB 比 MySQL 顺手。
+
+- term: SQLite
+  aliases: [sqlite]
+  category: devterm
+  meaning: 文件型嵌入式关系数据库——整个数据库就是一个 .db 文件。零配置、无需服务器。手机 App、桌面工具、小程序的本地数据存储几乎都是 SQLite。
+  example: 这个 Electron App 的本地数据存在 SQLite 文件里。
+
+- term: Elasticsearch
+  aliases: [ES, es, elastic, Elastic]
+  category: devterm
+  meaning: 开源全文搜索引擎+分析数据库。日志检索、商品搜索、监控聚合都用它。"模糊搜文本"几乎绕不开 ES。
+  example: 全站搜索改 ES 后响应速度从 3 秒变 30 毫秒。
+
+- term: Redis
+  aliases: [redis]
+  category: devterm
+  meaning: 内存键值数据库——超快、支持丰富数据结构（字符串/列表/哈希/集合/有序集合）。缓存、会话、排行榜、限流的瑞士军刀。
+  example: 用户登录态放 Redis，过期时间 1 小时。
+
+# --- 云平台 ---
+
+- term: AWS
+  aliases: [Amazon Web Services]
+  category: devterm
+  literal: Amazon Web Services
+  meaning: 亚马逊云服务——全球第一大云厂商。EC2（虚拟机）、S3（存储）、RDS（数据库）、Lambda（函数计算）是核心产品。互联网公司部署在云上的，AWS 概率最大。
+  example: 公司海外业务都跑在 AWS 上。
+
+- term: GCP
+  aliases: [Google Cloud Platform, Google Cloud]
+  category: devterm
+  literal: Google Cloud Platform
+  meaning: Google 云服务——第三大云厂商。Vertex AI、BigQuery、Kubernetes 是强项。
+  example: AI 公司很多选 GCP，因为它能租 TPU。
+
+- term: Azure
+  aliases: [azure, Microsoft Azure]
+  category: devterm
+  meaning: 微软云服务——第二大云厂商。企业客户多（因为微软生态）。
+  example: 大型企业 IT 转云优先选 Azure，因为已有 Windows / O365 合同。
+
+- term: 阿里云
+  aliases: [Alibaba Cloud, AliCloud]
+  category: devterm
+  meaning: 阿里巴巴出的云服务——中国第一大云厂商。国内互联网公司过半数在阿里云。
+  example: 双 11 期间淘宝自己就跑在阿里云上。
+
+- term: 腾讯云
+  aliases: [Tencent Cloud]
+  category: devterm
+  meaning: 腾讯出的云服务——中国第二大。游戏、视频、社交业务的客户多。
+  example: 微信、王者荣耀都跑在腾讯云上。
+
+- term: 火山引擎
+  aliases: [字节云]
+  category: devterm
+  meaning: 字节跳动出的云服务（2021 起对外）。AI 算力、视频转码、推荐系统是强项。豆包大模型的算力底座。
+  example: 抖音的推荐算力跑在火山引擎上。
+
+- term: Vercel
+  aliases: [vercel]
+  category: devterm
+  meaning: 前端部署平台——专为 Next.js 优化（Vercel 是 Next.js 母公司）。Push 代码到 GitHub 自动部署 + 全球 CDN。个人和初创首选。
+  example: 个人博客部署到 Vercel，免费 + 一行配置 + 全球加速。
+
+- term: Cloudflare
+  aliases: [cloudflare]
+  category: devterm
+  meaning: 全球最大 CDN + DNS + 安全防护服务。后期产品线扩到 Workers（边缘计算）、Pages（静态部署）、R2（对象存储）。
+  example: 全球 30% 互联网流量经过 Cloudflare。
+
+- term: Netlify
+  aliases: [netlify]
+  category: devterm
+  meaning: 和 Vercel 同类的静态网站/Jamstack 部署平台。出现得比 Vercel 早。
+  example: 早期静态博客部署用 Netlify 多，现在 Vercel 抢了不少用户。
+
+# --- 数据科学 / ML ---
+
+- term: TensorFlow
+  aliases: [tensorflow, TensorFlow 框架]
+  category: devterm
+  meaning: Google 出的深度学习框架（2015）——曾经的霸主，因 API 频繁变动+使用复杂被 PyTorch 反超。但工业部署还有市场。
+  example: 老的 ML 项目多半是 TensorFlow，新项目基本 PyTorch。
+
+- term: PyTorch
+  aliases: [pytorch]
+  category: devterm
+  meaning: Meta 出的深度学习框架——API 优雅、调试方便，研究界主流。所有 AI 论文几乎都用 PyTorch。
+  example: 复现一篇 paper 第一步 git clone，看代码必然是 PyTorch。
+
+- term: scikit-learn
+  aliases: [sklearn, scikit, scikit learn]
+  category: devterm
+  meaning: Python 经典机器学习库——分类、回归、聚类等传统 ML 算法应有尽有。深度学习用 PyTorch，传统 ML 用 sklearn。
+  example: 用 sklearn 几行代码训一个随机森林分类器。
+
+- term: pandas
+  aliases: [Pandas]
+  category: devterm
+  meaning: Python 数据分析库——DataFrame（数据表格）的事实标准。处理 Excel/CSV/SQL 数据都用它。数据分析师的 SQL。
+  example: 把 CSV 读进 DataFrame 用 pandas，再做统计分析。
+
+- term: NumPy
+  aliases: [numpy, np]
+  category: devterm
+  meaning: Python 数值计算库——多维数组（ndarray）的事实标准。所有 Python 科学计算/ML 库底层都依赖 NumPy。
+  example: 矩阵运算、向量化操作必用 NumPy。
+
+- term: Jupyter
+  aliases: [Jupyter Notebook, jupyter, ipynb]
+  category: devterm
+  meaning: 交互式编程环境——把代码、结果、图表、Markdown 笔记混在一个文件（.ipynb）。数据分析、ML 实验、教学的事实标准。
+  example: AI 工程师本地实验首选 Jupyter，写一段跑一段。

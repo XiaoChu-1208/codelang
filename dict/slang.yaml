@@ -536,3 +536,144 @@
   category: slang
   meaning: 一种商业模式认知——用户的注意力比时间更稀缺，App 都在抢你的注意力。抖音、小红书、新闻 App 都是注意力经济产物。
   example: 短视频 App 设计成 infinite scroll 就是吃定了注意力经济。
+
+# --- batch 9: 程序员/AI 圈对话里夹的基础英文词 ---
+
+- term: slang
+  aliases: [俚语]
+  category: slang
+  literal: 俚语
+  meaning: 英文里"非正式的、圈内人才懂的说法"。比如本词典里的"互联网黑话"对应英文就是 internet slang。中文程序员/AI 讨论里常夹这个词。
+  example: codelang 的 slang.yaml 文件就是收"俚语类词条"的。
+
+- term: jargon
+  aliases: [行话, 术语]
+  category: slang
+  literal: 行话
+  meaning: 某个行业/圈子内部专用、外人听不懂的词汇。"互联网黑话"在英文里就是 internet jargon。和 slang 区别：jargon 偏专业术语，slang 偏俚语口语。
+  example: This is industry jargon = 这是行话。
+
+- term: glossary
+  aliases: [术语表, 词汇表]
+  category: slang
+  literal: 术语表
+  meaning: 一份"专门解释某领域术语的词汇表"。技术文档结尾常有 glossary 解释生词。codelang 这个工具本质就是一个可悬浮查询的 glossary。
+  example: 论文最后附的 Glossary 解释了文中所有 AI 术语。
+
+- term: vocabulary
+  aliases: [vocab, 词汇量]
+  category: slang
+  literal: 词汇量
+  meaning: 你认识的词的总集合。"build vocabulary"=积累词汇。中文圈也会说"扩充 vocab"。
+  example: 学英文先扩 vocabulary，再练语法。
+
+- term: idiom
+  aliases: [习语, 成语]
+  category: slang
+  literal: 习语
+  meaning: 字面意思不等于实际意思的固定搭配。中文的"画蛇添足"、英文的"break the ice"都是 idiom。学外语最难记的那部分。
+  example: 英文里"Hit the ground running"是个 idiom，意思是开局就快速进入状态。
+
+- term: buzzword
+  aliases: [流行词, 热门词]
+  category: slang
+  literal: 嗡嗡作响的词（暗喻被讨论得很热闹）
+  meaning: 一段时间内被滥用、人人都在说但很多人其实没搞懂的词。互联网"中台"、AI "agentic"都是 buzzword。常带轻微贬义——"It's just a buzzword"=就是个噱头。
+  example: AI Agent is the buzzword of 2025 = AI Agent 是 2025 的年度热词。
+
+- term: meme
+  aliases: [梗, 表情包]
+  category: slang
+  literal: 模因（生物学概念）
+  meaning: 网络上病毒式传播的图片、视频、说法。中文圈说"玩梗"对应英文 meme。Dawkins 最早提出，但现在 99% 用法都是"网络上那个图"。
+  example: This is a classic meme = 这是个经典梗。
+
+- term: viral
+  aliases: [病毒式传播, 爆款]
+  category: slang
+  literal: 像病毒一样传播
+  meaning: 内容快速大范围传播。"go viral"=火爆出圈。和"破圈""引爆"同义。
+  example: 这条 tweet went viral，转发破百万。
+
+- term: trending
+  aliases: [上热搜, 热门趋势]
+  category: slang
+  literal: 趋势中的
+  meaning: 当下正热门的话题/内容。Twitter trending、GitHub trending、抖音热搜都是这个概念。
+  example: 这个开源项目今天上 GitHub trending，star 数涨了一千。
+
+- term: newbie
+  aliases: [noob, 新人, 萌新]
+  category: slang
+  literal: 新手
+  meaning: 行业新人/某技术初学者。比"beginner"更口语化，带点亲切意。"noob"是它的更口语版（游戏圈常用）。
+  example: I'm a newbie to Rust = 我是 Rust 新手。
+
+- term: guru
+  aliases: [大佬, 高手]
+  category: slang
+  literal: 印度教/瑜伽里的"导师"
+  meaning: 某领域顶级专家。"Linux guru"=Linux 大神。带敬意，不像"大佬"那么口语化。
+  example: He's a Python guru = 他是 Python 大神。
+
+- term: ship
+  aliases: [shipping]
+  category: slang
+  literal: 装船发运
+  meaning: 程序员圈把"上线/发布产品"叫 ship。"ship it"=发了！"shipping fast"=快速迭代上线。来自硅谷文化"做不出来不算，发出来才算"。
+  example: We need to ship this feature by Friday = 这功能周五前必须上线。
+
+- term: hype
+  aliases: [炒作, 热捧]
+  category: slang
+  literal: 炒作
+  meaning: 某事被吹得太厉害、过度热捧。"AI is overhyped"=AI 被吹过头了。和 buzzword 近义但 hype 更强调"被炒作的过程"。
+  example: Don't believe the hype = 别信吹的那一套。
+
+- term: opinionated
+  aliases: [有主张的]
+  category: slang
+  literal: 有强烈主见的
+  meaning: 形容工具/框架"自带强烈使用偏好"——比如 Rails / Prettier 是 opinionated（强制规则、不让你配）。和"unopinionated"（怎么用都行）相对。
+  example: Prettier is opinionated by design = Prettier 设计上就是 opinionated 的，不让你瞎配。
+
+- term: vibe
+  aliases: [氛围, 感觉]
+  category: slang
+  literal: 氛围/感觉
+  meaning: 一种说不清的整体感觉。"good vibes"=感觉很好；"weird vibe"=气场怪怪的。"vibe check"=测一下氛围。vibe coding 就借了这词的"凭感觉"意思。
+  example: This cafe has good vibes = 这家咖啡店氛围好。
+
+- term: lit
+  aliases: [牛, 炸裂]
+  category: slang
+  literal: 字面"被点燃"
+  meaning: 美国年轻人的"超棒""炸裂"。"This party is lit"=这派对牛炸了。
+  example: That new model is lit = 那个新模型炸裂。
+
+- term: based
+  aliases: []
+  category: slang
+  meaning: Twitter/Reddit 圈表态用语——"基于事实/真实/不在乎别人怎么想"。"That's based"=这就对了/这才是真。略带反主流意味。
+  example: His take is based = 他这观点很到位。
+
+- term: cringe
+  aliases: [尴尬到脚趾抠地]
+  category: slang
+  literal: 退缩、畏缩
+  meaning: 看了让人尴尬到脚趾抠地。和"social embarrassment"近义。中国互联网也直接用 cringe，意思接近"拉胯"+"社死"的尴尬版。
+  example: That video is so cringe = 那视频太尴尬了看不下去。
+
+- term: vanilla
+  aliases: [原版, 不加修饰]
+  category: slang
+  literal: 香草口味（最普通）
+  meaning: 不加任何修饰/插件/魔改的原始版本。"vanilla JavaScript"=不用框架的原生 JS；"vanilla Linux"=未定制的 Linux 发行版。
+  example: 写个 demo 用 vanilla JS 就行，不用 React。
+
+- term: stack
+  aliases: [技术栈, tech stack]
+  category: slang
+  literal: 叠在一起的一摞
+  meaning: 程序员说"stack"通常指"技术栈"——你这个项目用的所有技术加一起。"My stack is React + Node + MongoDB"=我用这套技术。
+  example: 这家公司的 stack 是全套阿里系，主要技术是 Java + Spring + MySQL。

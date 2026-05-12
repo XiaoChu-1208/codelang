@@ -1,6 +1,6 @@
 {
-  "version": "2026-05-12T08:50:34+00:00",
-  "count": 749,
+  "version": "2026-05-12T08:56:28+00:00",
+  "count": 837,
   "entries": [
     {
       "term": "OKR",
@@ -6912,6 +6912,744 @@
       "example": "上家走了，我接坑这个项目。"
     },
     {
+      "term": "CSDN",
+      "aliases": [
+        "csdn"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文最老牌的程序员技术博客和论坛——2000 年成立。文章质量参差（\"复制粘贴\"博客多），但搜中文技术问题答案几乎绕不开它。常被吐槽\"答非所问\"和\"广告满天飞\"。",
+      "example": "搜 Java 错误最先弹出的多半是 CSDN 文章。"
+    },
+    {
+      "term": "掘金",
+      "aliases": [
+        "juejin",
+        "掘金社区",
+        "Juejin"
+      ],
+      "category": "devterm",
+      "literal": "字节跳动旗下\"掘金\"技术社区",
+      "meaning": "字节跳动出的中文技术博客社区。比 CSDN 新，前端/AI 内容多，年轻化、设计现代。是中文程序员发技术文/找资源的另一主阵地。",
+      "example": "看 React 19 新特性的中文解读上掘金。"
+    },
+    {
+      "term": "知乎",
+      "aliases": [
+        "Zhihu",
+        "zhihu"
+      ],
+      "category": "devterm",
+      "literal": "中文问答社区",
+      "meaning": "中文版的 Quora——主打\"严肃问答\"。技术问题、行业内幕、八卦、政治讨论无所不包。程序员经常在这看大佬怎么聊技术、看行业风向。",
+      "example": "想了解某公司面试经验，先去知乎搜一遍。"
+    },
+    {
+      "term": "简书",
+      "aliases": [
+        "jianshu"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文写作社区，技术类内容也多但定位更\"轻\"。曾经红火过，现在被掘金/小红书分流。",
+      "example": "早年很多前端教程发在简书。"
+    },
+    {
+      "term": "博客园",
+      "aliases": [
+        "cnblogs"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文老牌技术博客平台（2004 年）。专业感强，.NET / Java 老程序员聚集地。和 CSDN 是中文技术博客两大老牌。",
+      "example": "想看深度的 .NET 技术文章，博客园文章质量比 CSDN 稳。"
+    },
+    {
+      "term": "思否",
+      "aliases": [
+        "SegmentFault",
+        "segmentfault"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文版 Stack Overflow——以问答为主的技术社区。比 CSDN 专业但流量小很多。",
+      "example": "这个 bug 思否上有解答，比 CSDN 答案靠谱。"
+    },
+    {
+      "term": "V2EX",
+      "aliases": [
+        "v2ex",
+        "V2"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "程序员/创意工作者的小众中文论坛。氛围像早期豆瓣——精英、毒舌、八卦满天。互联网热点先在 V2EX 发酵再扩散。",
+      "example": "看某公司是不是要裁员了，先翻 V2EX。"
+    },
+    {
+      "term": "少数派",
+      "aliases": [
+        "sspai"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文数码/效率/App 推荐社区——主打\"高品质内容 + 付费阅读\"。Mac、iOS、效率工具爱好者聚集地。",
+      "example": "找 Mac 优秀 App 推荐先看少数派。"
+    },
+    {
+      "term": "即刻",
+      "aliases": [
+        "jike",
+        "即刻 App"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中文小众社交+兴趣社区 App——文青、产品经理、设计师聚集。被称为\"国产 Twitter\"。",
+      "example": "互联网圈八卦先在即刻发酵。"
+    },
+    {
+      "term": "小红书",
+      "aliases": [
+        "xhs",
+        "小红薯",
+        "RED",
+        "Xiaohongshu"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中国最火的生活方式/种草社区——女性用户为主，覆盖美妆、穿搭、旅游、美食。2024 年起内容范围扩张，技术分享、副业、AI 工具推荐也越来越多。",
+      "example": "现在 AI 工具推荐都得做小红书内容，单条爆文涨粉一万。"
+    },
+    {
+      "term": "B站",
+      "aliases": [
+        "Bilibili",
+        "bilibili",
+        "哔哩哔哩"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中国最大的视频/弹幕社区——原本是二次元/动漫起家，现在覆盖学习教程、技术分享、游戏直播全品类。程序员看技术教程的主要阵地之一。",
+      "example": "想学某技术先去 B 站搜入门视频。"
+    },
+    {
+      "term": "微信公众号",
+      "aliases": [
+        "公众号"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "微信平台的\"自媒体文章发布\"系统。技术大 V 写长文的主要载体，深度技术文章很多在公众号。劣势：搜索不到、传播靠转发。",
+      "example": "这个深度好文是 XX 公众号发的，关注收藏。"
+    },
+    {
+      "term": "知识星球",
+      "aliases": [],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "付费社群工具——大 V 建群收年费（几百到几千），分享独家内容/答疑。AI、独立开发、副业领域用得多。",
+      "example": "加了某 AI 大佬的知识星球，每天看他分享一手信息。"
+    },
+    {
+      "term": "Stack Overflow",
+      "aliases": [
+        "stackoverflow",
+        "SO"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "全球最大的程序员技术问答社区（2008 年）。一个技术问题搜出来 80% 答案在这。但 ChatGPT 出现后流量下滑严重——大家不再去翻问答，直接问 AI。",
+      "example": "遇到不会的 bug，以前先 Google → Stack Overflow，现在直接问 Claude。"
+    },
+    {
+      "term": "Reddit",
+      "aliases": [
+        "reddit"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "美国最大的兴趣/讨论社区——按 subreddit 分版块。r/programming、r/MachineLearning、r/LocalLLaMA 是技术圈高频版块。AI 圈新动态通常在这先爆。",
+      "example": "AI 模型新发布要看反馈，去 Reddit r/LocalLLaMA。"
+    },
+    {
+      "term": "Hacker News",
+      "aliases": [
+        "HN",
+        "hackernews",
+        "ycombinator"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Y Combinator（硅谷孵化器）旗下的极简新闻聚合站。硅谷创业圈、程序员的\"精英早报\"。一个产品上 HN 首页相当于免费爆款流量。",
+      "example": "这个开源项目今早冲上 HN 首页，Star 数一天涨了一万。"
+    },
+    {
+      "term": "Medium",
+      "aliases": [
+        "medium.com"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "英文版的\"高质量博客平台\"——技术、商业、设计文章都在这发。订阅会员制（$5/月）。中文圈对应大约是简书 + 公众号的组合。",
+      "example": "这篇 AI 综述文章是 Medium 上 7000 字的爆文。"
+    },
+    {
+      "term": "Dev.to",
+      "aliases": [
+        "dev.to",
+        "devto"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "程序员专属的开放博客平台。比 Medium 更聚焦技术、氛围更友好。",
+      "example": "想发英文技术文章引流，Dev.to 是不错选择。"
+    },
+    {
+      "term": "Twitter",
+      "aliases": [
+        "twitter",
+        "X",
+        "X.com",
+        "tweet"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "全球最大的实时社交平台（2023 年被马斯克改名 X）。AI 圈/硅谷创业圈/独立开发者一线信息源——OpenAI 发布、Anthropic 公告、新工具发布都先在 Twitter。",
+      "example": "AI 进展最快渠道是 Twitter，订阅几十个研究员的账号比看新闻快。"
+    },
+    {
+      "term": "Discord",
+      "aliases": [
+        "discord"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "游戏社区起家的实时聊天工具，现在变成开源项目/AI 社群的标配——比 Slack 灵活、有语音、免费。Hugging Face、Anthropic、各开源项目都有自己的 Discord 服务器。",
+      "example": "想参与某开源项目讨论先加他们的 Discord。"
+    },
+    {
+      "term": "GitHub",
+      "aliases": [
+        "github"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "全球最大的代码托管平台（2008，2018 被微软收购）。开源项目几乎都在这。\"放 GitHub\"=开源；GitHub Star 数=项目热度。程序员的 LinkedIn——简历附 GitHub 链接证明实力。",
+      "example": "把项目放 GitHub 攒 100 Star 就能写简历上。"
+    },
+    {
+      "term": "GitLab",
+      "aliases": [
+        "gitlab"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "和 GitHub 同类的代码托管，主打\"私有部署\"和\"全套 DevOps 工具链\"。企业内部代码服务器多用 GitLab 自建。",
+      "example": "公司代码全在自建 GitLab，外部访问不了。"
+    },
+    {
+      "term": "Bitbucket",
+      "aliases": [
+        "bitbucket"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Atlassian 出的代码托管（Jira 同公司）。和 GitHub/GitLab 三足鼎立，私有仓库免费曾是它的卖点。现在用的人少了。",
+      "example": "我们公司用 Bitbucket 因为已经买了 Jira。"
+    },
+    {
+      "term": "Gitee",
+      "aliases": [
+        "码云",
+        "gitee"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "中国版 GitHub——开源中国出品。国内访问快、不用翻墙。一些不能放 GitHub 的项目放 Gitee。",
+      "example": "国内访问 GitHub 太慢，把项目同步一份到 Gitee。"
+    },
+    {
+      "term": "npm",
+      "aliases": [
+        "NPM",
+        "npm registry"
+      ],
+      "category": "devterm",
+      "literal": "Node Package Manager",
+      "meaning": "JavaScript 世界的\"应用商店\"——所有前端/Node.js 第三方库都通过 `npm install xxx` 安装。仓库 npmjs.com 是世界最大的开源软件包源。",
+      "example": "想用 React，npm install react 就装好。"
+    },
+    {
+      "term": "PyPI",
+      "aliases": [
+        "pypi",
+        "pip index"
+      ],
+      "category": "devterm",
+      "literal": "Python Package Index",
+      "meaning": "Python 的\"应用商店\"——pip install xxx 装的就是 PyPI 上的包。和 npm 是各自语言的官方包源。",
+      "example": "想用 requests 库，pip install requests 自动从 PyPI 下载。"
+    },
+    {
+      "term": "React.js",
+      "aliases": [
+        "React 框架",
+        "ReactJS",
+        "React JS"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Meta（Facebook）出的前端框架（2013）。组件化思想 + 虚拟 DOM + JSX 语法。和 Vue / Angular 三大主流前端框架，市占率最高。注意：和 AI 圈的 ReAct（推理 + 行动 agent 范式）不是一回事。",
+      "example": "大厂前端基本都是 React，社区生态最丰富。"
+    },
+    {
+      "term": "Vue",
+      "aliases": [
+        "vue",
+        "Vue.js",
+        "VueJS"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "尤雨溪（华人）创立的前端框架（2014）。比 React 更\"上手友好\"，中文文档好，国内用得多（饿了么、阿里部分项目都是 Vue）。",
+      "example": "国内中小公司前端首选 Vue，学习曲线平缓。"
+    },
+    {
+      "term": "Angular",
+      "aliases": [
+        "angular"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Google 出的前端框架。\"重型\"——自带路由、状态管理、依赖注入全套。学习曲线陡，但大厂企业级应用用得多。",
+      "example": "银行/保险这种企业项目偏爱 Angular，体系完整。"
+    },
+    {
+      "term": "Svelte",
+      "aliases": [
+        "svelte",
+        "SvelteKit"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "新一代前端框架——\"编译时框架\"，不需要运行时库，包体积超小。开发者满意度连年第一。前端进阶选择。",
+      "example": "个人项目用 Svelte 写，包小、跑得快。"
+    },
+    {
+      "term": "Solid",
+      "aliases": [
+        "SolidJS",
+        "solid-js"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "新前端框架，主打\"React API + 极致性能\"——比 React 快好几倍，但生态小。",
+      "example": "性能敏感场景选 Solid，但找招聘的人不容易。"
+    },
+    {
+      "term": "Next.js",
+      "aliases": [
+        "nextjs",
+        "Next",
+        "next.js"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "基于 React 的\"全栈框架\"——Vercel 出品。提供路由、SSR、SSG、API 路由全套。当代 React 项目首选脚手架。",
+      "example": "新 React 项目都用 Next.js，省去配置烦恼。"
+    },
+    {
+      "term": "Nuxt",
+      "aliases": [
+        "nuxt",
+        "Nuxt.js",
+        "nuxtjs"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "基于 Vue 的\"全栈框架\"——对标 Next.js。SSR、SSG、API 一站式。",
+      "example": "Vue 全栈项目选 Nuxt 就对了。"
+    },
+    {
+      "term": "Remix",
+      "aliases": [
+        "remix.run"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "React 阵营的另一个全栈框架——主打\"接近 Web 原生\"。后被 Shopify 收购，2024 年合并进 React Router。",
+      "example": "Remix 强调用 Web API 而不是 React 特化的方式。"
+    },
+    {
+      "term": "Astro",
+      "aliases": [
+        "astro.build"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "主打\"内容站点\"的前端框架——博客、文档、营销页首选。JS 体积小、加载快。多框架混用（同站可同时有 React + Vue 组件）。",
+      "example": "个人博客用 Astro 写，比 Next.js 更适合纯内容。"
+    },
+    {
+      "term": "Tailwind",
+      "aliases": [
+        "TailwindCSS",
+        "tailwind",
+        "tailwindcss"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "当下最流行的 CSS 工具——\"原子化\"思路：不写 class，直接在 HTML 上拼 `bg-blue-500 px-4 py-2 rounded`。开发快、设计统一。",
+      "example": "这个站全用 Tailwind 写，CSS 文件几乎没有。"
+    },
+    {
+      "term": "Bootstrap",
+      "aliases": [
+        "bootstrap"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Twitter 出的 CSS 框架（2011）——曾经的统治者，\"丑但能用\"的代名词。现在被 Tailwind / Material UI 等取代，但企业老项目还很多。",
+      "example": "后台管理系统老的多半是 Bootstrap，新的多半 Tailwind 或 Ant Design。"
+    },
+    {
+      "term": "Ant Design",
+      "aliases": [
+        "antd",
+        "AntDesign",
+        "antdesign"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "蚂蚁集团出的企业级 UI 组件库（基于 React）。国内 B 端后台系统几乎都用 Ant Design。",
+      "example": "写一个后台管理系统，Ant Design + React 半天搭好框架。"
+    },
+    {
+      "term": "Material UI",
+      "aliases": [
+        "MUI",
+        "material-ui",
+        "Material-UI"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Google Material Design 风格的 React 组件库。国外项目用得多，国内偏 Ant Design。",
+      "example": "海外用户群体的产品用 MUI，更符合他们的视觉习惯。"
+    },
+    {
+      "term": "Express",
+      "aliases": [
+        "express",
+        "Express.js"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Node.js 的元老级 Web 框架（2010）。极简、轻量、中间件设计。当 Node.js Web 项目讲\"经典\"就指 Express。",
+      "example": "学 Node 写 API 服务，先学 Express 框架。"
+    },
+    {
+      "term": "Koa",
+      "aliases": [
+        "koa",
+        "koa.js"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Express 原作者写的\"下一代\"框架——更现代（基于 async/await）但生态没 Express 大。国内淘宝阿里偏好 Koa。",
+      "example": "阿里系前端工程师后端基本都用 Koa。"
+    },
+    {
+      "term": "NestJS",
+      "aliases": [
+        "Nest",
+        "nestjs",
+        "nest.js"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Node.js 的\"企业级\"框架——TypeScript 优先 + 大量 Java Spring 风格的设计。结构化强，适合中大型项目。",
+      "example": "团队从 Java 转 Node，用 NestJS 过渡最舒服。"
+    },
+    {
+      "term": "FastAPI",
+      "aliases": [
+        "fastapi"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 现代 Web 框架（2018）——速度快、自动生成 API 文档、类型提示原生支持。Python 写 API 服务的当代首选。",
+      "example": "写一个 LLM 后端 API，用 FastAPI 几十行就能跑。"
+    },
+    {
+      "term": "Flask",
+      "aliases": [
+        "flask"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 老牌轻量 Web 框架——比 Django 简单很多，适合小型项目、原型、API 服务。FastAPI 出现后份额下降。",
+      "example": "想写一个小爬虫接口，Flask 比 Django 省心。"
+    },
+    {
+      "term": "Django",
+      "aliases": [
+        "django"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 的\"重型\"Web 框架——自带 ORM、admin 后台、用户系统全套。豆瓣、Instagram 早期都是 Django。",
+      "example": "想快速做一个带后台的内容站，Django + 几个插件几天就上线。"
+    },
+    {
+      "term": "Spring",
+      "aliases": [
+        "Spring Boot",
+        "spring boot",
+        "SpringBoot"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Java 世界最主流的 Web 框架。Spring Boot 是它的\"开箱即用\"版。中国 Java 程序员的看家本事。",
+      "example": "国内 Java 招聘，Spring Boot 是默认必会。"
+    },
+    {
+      "term": "Gin",
+      "aliases": [
+        "gin",
+        "gin-gonic"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Go 语言最流行的 Web 框架——极简、快。Go 写 API 服务的默认选择。",
+      "example": "用 Go 写微服务，Gin 框架几行起一个 HTTP 服务。"
+    },
+    {
+      "term": "MySQL",
+      "aliases": [
+        "mysql"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "全世界最普及的开源关系型数据库（1995 年，2009 年被 Oracle 收购）。互联网公司核心业务库基本都是 MySQL。",
+      "example": "用户表、订单表存哪里？默认 MySQL。"
+    },
+    {
+      "term": "PostgreSQL",
+      "aliases": [
+        "Postgres",
+        "postgres",
+        "postgresql",
+        "pg"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "开源关系型数据库——比 MySQL 功能强（JSON、地理、全文搜全内建）但用的公司没 MySQL 多。近几年因 AI/向量扩展（pgvector）回潮。",
+      "example": "复杂查询和地理位置查询用 PostgreSQL 比 MySQL 强。"
+    },
+    {
+      "term": "MongoDB",
+      "aliases": [
+        "mongodb",
+        "mongo"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "最流行的开源 NoSQL 文档数据库——存的不是表行，是 JSON 文档。Schema 灵活、易扩展，但事务支持弱。",
+      "example": "内容/日志这种结构不固定的数据用 MongoDB 比 MySQL 顺手。"
+    },
+    {
+      "term": "SQLite",
+      "aliases": [
+        "sqlite"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "文件型嵌入式关系数据库——整个数据库就是一个 .db 文件。零配置、无需服务器。手机 App、桌面工具、小程序的本地数据存储几乎都是 SQLite。",
+      "example": "这个 Electron App 的本地数据存在 SQLite 文件里。"
+    },
+    {
+      "term": "Elasticsearch",
+      "aliases": [
+        "ES",
+        "es",
+        "elastic",
+        "Elastic"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "开源全文搜索引擎+分析数据库。日志检索、商品搜索、监控聚合都用它。\"模糊搜文本\"几乎绕不开 ES。",
+      "example": "全站搜索改 ES 后响应速度从 3 秒变 30 毫秒。"
+    },
+    {
+      "term": "Redis",
+      "aliases": [
+        "redis"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "内存键值数据库——超快、支持丰富数据结构（字符串/列表/哈希/集合/有序集合）。缓存、会话、排行榜、限流的瑞士军刀。",
+      "example": "用户登录态放 Redis，过期时间 1 小时。"
+    },
+    {
+      "term": "AWS",
+      "aliases": [
+        "Amazon Web Services"
+      ],
+      "category": "devterm",
+      "literal": "Amazon Web Services",
+      "meaning": "亚马逊云服务——全球第一大云厂商。EC2（虚拟机）、S3（存储）、RDS（数据库）、Lambda（函数计算）是核心产品。互联网公司部署在云上的，AWS 概率最大。",
+      "example": "公司海外业务都跑在 AWS 上。"
+    },
+    {
+      "term": "GCP",
+      "aliases": [
+        "Google Cloud Platform",
+        "Google Cloud"
+      ],
+      "category": "devterm",
+      "literal": "Google Cloud Platform",
+      "meaning": "Google 云服务——第三大云厂商。Vertex AI、BigQuery、Kubernetes 是强项。",
+      "example": "AI 公司很多选 GCP，因为它能租 TPU。"
+    },
+    {
+      "term": "Azure",
+      "aliases": [
+        "azure",
+        "Microsoft Azure"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "微软云服务——第二大云厂商。企业客户多（因为微软生态）。",
+      "example": "大型企业 IT 转云优先选 Azure，因为已有 Windows / O365 合同。"
+    },
+    {
+      "term": "阿里云",
+      "aliases": [
+        "Alibaba Cloud",
+        "AliCloud"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "阿里巴巴出的云服务——中国第一大云厂商。国内互联网公司过半数在阿里云。",
+      "example": "双 11 期间淘宝自己就跑在阿里云上。"
+    },
+    {
+      "term": "腾讯云",
+      "aliases": [
+        "Tencent Cloud"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "腾讯出的云服务——中国第二大。游戏、视频、社交业务的客户多。",
+      "example": "微信、王者荣耀都跑在腾讯云上。"
+    },
+    {
+      "term": "火山引擎",
+      "aliases": [
+        "字节云"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "字节跳动出的云服务（2021 起对外）。AI 算力、视频转码、推荐系统是强项。豆包大模型的算力底座。",
+      "example": "抖音的推荐算力跑在火山引擎上。"
+    },
+    {
+      "term": "Vercel",
+      "aliases": [
+        "vercel"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "前端部署平台——专为 Next.js 优化（Vercel 是 Next.js 母公司）。Push 代码到 GitHub 自动部署 + 全球 CDN。个人和初创首选。",
+      "example": "个人博客部署到 Vercel，免费 + 一行配置 + 全球加速。"
+    },
+    {
+      "term": "Cloudflare",
+      "aliases": [
+        "cloudflare"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "全球最大 CDN + DNS + 安全防护服务。后期产品线扩到 Workers（边缘计算）、Pages（静态部署）、R2（对象存储）。",
+      "example": "全球 30% 互联网流量经过 Cloudflare。"
+    },
+    {
+      "term": "Netlify",
+      "aliases": [
+        "netlify"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "和 Vercel 同类的静态网站/Jamstack 部署平台。出现得比 Vercel 早。",
+      "example": "早期静态博客部署用 Netlify 多，现在 Vercel 抢了不少用户。"
+    },
+    {
+      "term": "TensorFlow",
+      "aliases": [
+        "tensorflow",
+        "TensorFlow 框架"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Google 出的深度学习框架（2015）——曾经的霸主，因 API 频繁变动+使用复杂被 PyTorch 反超。但工业部署还有市场。",
+      "example": "老的 ML 项目多半是 TensorFlow，新项目基本 PyTorch。"
+    },
+    {
+      "term": "PyTorch",
+      "aliases": [
+        "pytorch"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Meta 出的深度学习框架——API 优雅、调试方便，研究界主流。所有 AI 论文几乎都用 PyTorch。",
+      "example": "复现一篇 paper 第一步 git clone，看代码必然是 PyTorch。"
+    },
+    {
+      "term": "scikit-learn",
+      "aliases": [
+        "sklearn",
+        "scikit",
+        "scikit learn"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 经典机器学习库——分类、回归、聚类等传统 ML 算法应有尽有。深度学习用 PyTorch，传统 ML 用 sklearn。",
+      "example": "用 sklearn 几行代码训一个随机森林分类器。"
+    },
+    {
+      "term": "pandas",
+      "aliases": [
+        "Pandas"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 数据分析库——DataFrame（数据表格）的事实标准。处理 Excel/CSV/SQL 数据都用它。数据分析师的 SQL。",
+      "example": "把 CSV 读进 DataFrame 用 pandas，再做统计分析。"
+    },
+    {
+      "term": "NumPy",
+      "aliases": [
+        "numpy",
+        "np"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "Python 数值计算库——多维数组（ndarray）的事实标准。所有 Python 科学计算/ML 库底层都依赖 NumPy。",
+      "example": "矩阵运算、向量化操作必用 NumPy。"
+    },
+    {
+      "term": "Jupyter",
+      "aliases": [
+        "Jupyter Notebook",
+        "jupyter",
+        "ipynb"
+      ],
+      "category": "devterm",
+      "literal": "",
+      "meaning": "交互式编程环境——把代码、结果、图表、Markdown 笔记混在一个文件（.ipynb）。数据分析、ML 实验、教学的事实标准。",
+      "example": "AI 工程师本地实验首选 Jupyter，写一段跑一段。"
+    },
+    {
       "term": "八股",
       "aliases": [
         "八股文",
@@ -7776,6 +8514,220 @@
       "literal": "",
       "meaning": "一种商业模式认知——用户的注意力比时间更稀缺，App 都在抢你的注意力。抖音、小红书、新闻 App 都是注意力经济产物。",
       "example": "短视频 App 设计成 infinite scroll 就是吃定了注意力经济。"
+    },
+    {
+      "term": "slang",
+      "aliases": [
+        "俚语"
+      ],
+      "category": "slang",
+      "literal": "俚语",
+      "meaning": "英文里\"非正式的、圈内人才懂的说法\"。比如本词典里的\"互联网黑话\"对应英文就是 internet slang。中文程序员/AI 讨论里常夹这个词。",
+      "example": "codelang 的 slang.yaml 文件就是收\"俚语类词条\"的。"
+    },
+    {
+      "term": "jargon",
+      "aliases": [
+        "行话",
+        "术语"
+      ],
+      "category": "slang",
+      "literal": "行话",
+      "meaning": "某个行业/圈子内部专用、外人听不懂的词汇。\"互联网黑话\"在英文里就是 internet jargon。和 slang 区别：jargon 偏专业术语，slang 偏俚语口语。",
+      "example": "This is industry jargon = 这是行话。"
+    },
+    {
+      "term": "glossary",
+      "aliases": [
+        "术语表",
+        "词汇表"
+      ],
+      "category": "slang",
+      "literal": "术语表",
+      "meaning": "一份\"专门解释某领域术语的词汇表\"。技术文档结尾常有 glossary 解释生词。codelang 这个工具本质就是一个可悬浮查询的 glossary。",
+      "example": "论文最后附的 Glossary 解释了文中所有 AI 术语。"
+    },
+    {
+      "term": "vocabulary",
+      "aliases": [
+        "vocab",
+        "词汇量"
+      ],
+      "category": "slang",
+      "literal": "词汇量",
+      "meaning": "你认识的词的总集合。\"build vocabulary\"=积累词汇。中文圈也会说\"扩充 vocab\"。",
+      "example": "学英文先扩 vocabulary，再练语法。"
+    },
+    {
+      "term": "idiom",
+      "aliases": [
+        "习语",
+        "成语"
+      ],
+      "category": "slang",
+      "literal": "习语",
+      "meaning": "字面意思不等于实际意思的固定搭配。中文的\"画蛇添足\"、英文的\"break the ice\"都是 idiom。学外语最难记的那部分。",
+      "example": "英文里\"Hit the ground running\"是个 idiom，意思是开局就快速进入状态。"
+    },
+    {
+      "term": "buzzword",
+      "aliases": [
+        "流行词",
+        "热门词"
+      ],
+      "category": "slang",
+      "literal": "嗡嗡作响的词（暗喻被讨论得很热闹）",
+      "meaning": "一段时间内被滥用、人人都在说但很多人其实没搞懂的词。互联网\"中台\"、AI \"agentic\"都是 buzzword。常带轻微贬义——\"It's just a buzzword\"=就是个噱头。",
+      "example": "AI Agent is the buzzword of 2025 = AI Agent 是 2025 的年度热词。"
+    },
+    {
+      "term": "meme",
+      "aliases": [
+        "梗",
+        "表情包"
+      ],
+      "category": "slang",
+      "literal": "模因（生物学概念）",
+      "meaning": "网络上病毒式传播的图片、视频、说法。中文圈说\"玩梗\"对应英文 meme。Dawkins 最早提出，但现在 99% 用法都是\"网络上那个图\"。",
+      "example": "This is a classic meme = 这是个经典梗。"
+    },
+    {
+      "term": "viral",
+      "aliases": [
+        "病毒式传播",
+        "爆款"
+      ],
+      "category": "slang",
+      "literal": "像病毒一样传播",
+      "meaning": "内容快速大范围传播。\"go viral\"=火爆出圈。和\"破圈\"\"引爆\"同义。",
+      "example": "这条 tweet went viral，转发破百万。"
+    },
+    {
+      "term": "trending",
+      "aliases": [
+        "上热搜",
+        "热门趋势"
+      ],
+      "category": "slang",
+      "literal": "趋势中的",
+      "meaning": "当下正热门的话题/内容。Twitter trending、GitHub trending、抖音热搜都是这个概念。",
+      "example": "这个开源项目今天上 GitHub trending，star 数涨了一千。"
+    },
+    {
+      "term": "newbie",
+      "aliases": [
+        "noob",
+        "新人",
+        "萌新"
+      ],
+      "category": "slang",
+      "literal": "新手",
+      "meaning": "行业新人/某技术初学者。比\"beginner\"更口语化，带点亲切意。\"noob\"是它的更口语版（游戏圈常用）。",
+      "example": "I'm a newbie to Rust = 我是 Rust 新手。"
+    },
+    {
+      "term": "guru",
+      "aliases": [
+        "大佬",
+        "高手"
+      ],
+      "category": "slang",
+      "literal": "印度教/瑜伽里的\"导师\"",
+      "meaning": "某领域顶级专家。\"Linux guru\"=Linux 大神。带敬意，不像\"大佬\"那么口语化。",
+      "example": "He's a Python guru = 他是 Python 大神。"
+    },
+    {
+      "term": "ship",
+      "aliases": [
+        "shipping"
+      ],
+      "category": "slang",
+      "literal": "装船发运",
+      "meaning": "程序员圈把\"上线/发布产品\"叫 ship。\"ship it\"=发了！\"shipping fast\"=快速迭代上线。来自硅谷文化\"做不出来不算，发出来才算\"。",
+      "example": "We need to ship this feature by Friday = 这功能周五前必须上线。"
+    },
+    {
+      "term": "hype",
+      "aliases": [
+        "炒作",
+        "热捧"
+      ],
+      "category": "slang",
+      "literal": "炒作",
+      "meaning": "某事被吹得太厉害、过度热捧。\"AI is overhyped\"=AI 被吹过头了。和 buzzword 近义但 hype 更强调\"被炒作的过程\"。",
+      "example": "Don't believe the hype = 别信吹的那一套。"
+    },
+    {
+      "term": "opinionated",
+      "aliases": [
+        "有主张的"
+      ],
+      "category": "slang",
+      "literal": "有强烈主见的",
+      "meaning": "形容工具/框架\"自带强烈使用偏好\"——比如 Rails / Prettier 是 opinionated（强制规则、不让你配）。和\"unopinionated\"（怎么用都行）相对。",
+      "example": "Prettier is opinionated by design = Prettier 设计上就是 opinionated 的，不让你瞎配。"
+    },
+    {
+      "term": "vibe",
+      "aliases": [
+        "氛围",
+        "感觉"
+      ],
+      "category": "slang",
+      "literal": "氛围/感觉",
+      "meaning": "一种说不清的整体感觉。\"good vibes\"=感觉很好；\"weird vibe\"=气场怪怪的。\"vibe check\"=测一下氛围。vibe coding 就借了这词的\"凭感觉\"意思。",
+      "example": "This cafe has good vibes = 这家咖啡店氛围好。"
+    },
+    {
+      "term": "lit",
+      "aliases": [
+        "牛",
+        "炸裂"
+      ],
+      "category": "slang",
+      "literal": "字面\"被点燃\"",
+      "meaning": "美国年轻人的\"超棒\"\"炸裂\"。\"This party is lit\"=这派对牛炸了。",
+      "example": "That new model is lit = 那个新模型炸裂。"
+    },
+    {
+      "term": "based",
+      "aliases": [],
+      "category": "slang",
+      "literal": "",
+      "meaning": "Twitter/Reddit 圈表态用语——\"基于事实/真实/不在乎别人怎么想\"。\"That's based\"=这就对了/这才是真。略带反主流意味。",
+      "example": "His take is based = 他这观点很到位。"
+    },
+    {
+      "term": "cringe",
+      "aliases": [
+        "尴尬到脚趾抠地"
+      ],
+      "category": "slang",
+      "literal": "退缩、畏缩",
+      "meaning": "看了让人尴尬到脚趾抠地。和\"social embarrassment\"近义。中国互联网也直接用 cringe，意思接近\"拉胯\"+\"社死\"的尴尬版。",
+      "example": "That video is so cringe = 那视频太尴尬了看不下去。"
+    },
+    {
+      "term": "vanilla",
+      "aliases": [
+        "原版",
+        "不加修饰"
+      ],
+      "category": "slang",
+      "literal": "香草口味（最普通）",
+      "meaning": "不加任何修饰/插件/魔改的原始版本。\"vanilla JavaScript\"=不用框架的原生 JS；\"vanilla Linux\"=未定制的 Linux 发行版。",
+      "example": "写个 demo 用 vanilla JS 就行，不用 React。"
+    },
+    {
+      "term": "stack",
+      "aliases": [
+        "技术栈",
+        "tech stack"
+      ],
+      "category": "slang",
+      "literal": "叠在一起的一摞",
+      "meaning": "程序员说\"stack\"通常指\"技术栈\"——你这个项目用的所有技术加一起。\"My stack is React + Node + MongoDB\"=我用这套技术。",
+      "example": "这家公司的 stack 是全套阿里系，主要技术是 Java + Spring + MySQL。"
     },
     {
       "term": "codelang",
@@ -9231,207 +10183,398 @@
     "反向pua": 664,
     "接坑": 665,
     "接锅": 665,
-    "八股": 666,
-    "八股文": 666,
-    "背八股": 666,
-    "卷": 667,
-    "内卷": 667,
-    "太卷了": 667,
-    "润": 668,
-    "润了": 668,
-    "跑路": 668,
-    "大厂": 669,
-    "互联网大厂": 669,
-    "螺丝钉": 670,
-    "拧螺丝": 670,
-    "拧螺丝钉": 670,
-    "业务": 671,
-    "做业务": 671,
-    "业务方": 671,
-    "35岁危机": 672,
-    "35岁": 672,
-    "晋升答辩": 673,
-    "述职": 673,
-    "晋升评审": 673,
-    "ddl": 674,
-    "deadline": 674,
-    "摸鱼": 675,
-    "划水": 675,
-    "996": 676,
-    "7": 677,
-    "大小周": 678,
-    "大周": 678,
-    "小周": 678,
-    "福报": 679,
-    "996福报": 679,
-    "pua": 680,
-    "职场pua": 680,
-    "大饼": 681,
-    "大饼ppt": 681,
-    "hr": 682,
-    "优化": 683,
-    "被优化": 683,
-    "n+1": 684,
-    "n加1": 684,
-    "n+1补偿": 684,
-    "毕业": 685,
-    "毕业了": 685,
-    "突然毕业": 685,
-    "福利": 686,
-    "大厂福利": 686,
-    "leader": 687,
-    "直属leader": 687,
-    "tl": 688,
-    "techlead": 688,
-    "teamleader": 688,
-    "一线": 689,
-    "一线大厂": 689,
-    "二线": 690,
-    "二线公司": 690,
-    "二三线": 690,
-    "三本": 691,
-    "民办": 691,
-    "双非": 691,
-    "简历倒挂": 692,
-    "倒挂": 692,
-    "内推": 693,
-    "内推码": 693,
-    "hc": 694,
-    "headcount": 694,
-    "p几": 695,
-    "p7": 695,
-    "p8": 695,
-    "阿里p级": 695,
-    "t几": 696,
-    "t3": 696,
-    "t4": 696,
-    "bg": 697,
-    "事业群": 697,
-    "bu": 698,
-    "事业部": 698,
-    "鄙视链": 699,
-    "技术鄙视链": 699,
-    "调休": 700,
-    "周末调休": 700,
-    "转正": 701,
-    "转正答辩": 701,
-    "试用期": 702,
-    "probation": 702,
-    "跳槽": 703,
-    "换工作": 703,
-    "背调": 704,
-    "背景调查": 704,
-    "backgroundcheck": 704,
-    "卡学历": 705,
-    "学历门槛": 705,
-    "老板": 706,
-    "我老板": 706,
-    "一号位": 707,
-    "一号位负责人": 707,
-    "大头兵": 708,
-    "小兵": 708,
-    "老白男": 709,
-    "老白": 709,
-    "班味": 710,
-    "去班味": 710,
-    "牛马": 711,
-    "我是牛马": 711,
-    "牛马npc": 711,
-    "牛马一头": 711,
-    "上岸": 712,
-    "上岸了": 712,
-    "顺利上岸": 712,
-    "显眼包": 713,
-    "含金量": 714,
-    "含金量很高": 714,
-    "含金量上升": 714,
-    "搞抽象": 715,
-    "抽象艺术家": 715,
-    "抽象工坊": 715,
-    "玩抽象": 715,
-    "偷感": 716,
-    "偷感很重": 716,
-    "偷感拉满": 716,
-    "红温": 717,
-    "红温了": 717,
-    "红温了哥": 717,
-    "摆烂": 718,
-    "开摆": 718,
-    "摆了": 718,
-    "我摆了": 718,
-    "整顿职场": 719,
-    "00后整顿职场": 719,
-    "情绪价值": 720,
-    "提供情绪价值": 720,
-    "情绪价值拉满": 720,
-    "情绪稳定": 721,
-    "情绪稳定的成年人": 721,
-    "大冤种": 722,
-    "冤种": 722,
-    "我又是大冤种": 722,
-    "蚌埠住了": 723,
-    "绷不住了": 723,
-    "我蚌埠住了": 723,
-    "我绷不住": 723,
-    "离谱": 724,
-    "离大谱": 724,
-    "离谱他妈给离谱开门": 724,
-    "太离谱了": 724,
-    "yyds": 725,
-    "永远的神": 725,
-    "玩梗": 726,
-    "接梗": 726,
-    "整梗": 726,
-    "玩烂梗": 726,
-    "整活": 727,
-    "整个大活": 727,
-    "整活儿": 727,
-    "上价值": 728,
-    "开始上价值": 728,
-    "别上价值": 728,
-    "i人": 729,
-    "i型": 729,
-    "e人": 730,
-    "e型": 730,
-    "emo": 731,
-    "emo了": 731,
-    "我emo了": 731,
-    "有点emo": 731,
-    "老六": 732,
-    "上桌": 733,
-    "终于上桌了": 733,
-    "上桌吃饭": 733,
-    "信息差": 734,
-    "赚信息差": 734,
-    "信息差红利": 734,
-    "浪浪山小妖怪": 735,
-    "浪浪山": 735,
-    "小妖怪": 735,
-    "多巴胺穿搭": 736,
-    "多巴胺": 736,
-    "citywalk": 737,
-    "城市漫步": 737,
-    "城市散步": 737,
-    "数字游民": 738,
-    "digitalnomad": 738,
-    "副业刚需": 739,
-    "搞副业": 739,
-    "副业必须有": 739,
-    "团建": 740,
-    "公司团建": 740,
-    "部门团建": 740,
-    "出海": 741,
-    "出海业务": 741,
-    "全球化": 741,
-    "电子榨菜": 742,
-    "电子布洛芬": 743,
-    "电子木鱼": 744,
-    "赛博木鱼": 744,
-    "ai焦虑": 745,
-    "ai取代焦虑": 745,
-    "价值密度": 746,
-    "信息价值密度": 746,
-    "注意力经济": 747,
-    "codelang": 748
+    "csdn": 666,
+    "掘金": 667,
+    "juejin": 667,
+    "掘金社区": 667,
+    "知乎": 668,
+    "zhihu": 668,
+    "简书": 669,
+    "jianshu": 669,
+    "博客园": 670,
+    "cnblogs": 670,
+    "思否": 671,
+    "segmentfault": 671,
+    "v2ex": 672,
+    "v2": 672,
+    "少数派": 673,
+    "sspai": 673,
+    "即刻": 674,
+    "jike": 674,
+    "即刻app": 674,
+    "小红书": 675,
+    "xhs": 675,
+    "小红薯": 675,
+    "red": 675,
+    "xiaohongshu": 675,
+    "b站": 676,
+    "bilibili": 676,
+    "哔哩哔哩": 676,
+    "微信公众号": 677,
+    "公众号": 677,
+    "知识星球": 678,
+    "stackoverflow": 679,
+    "so": 679,
+    "reddit": 680,
+    "hackernews": 681,
+    "hn": 681,
+    "ycombinator": 681,
+    "medium": 682,
+    "medium.com": 682,
+    "dev.to": 683,
+    "devto": 683,
+    "twitter": 684,
+    "x": 684,
+    "x.com": 684,
+    "tweet": 684,
+    "discord": 685,
+    "github": 686,
+    "gitlab": 687,
+    "bitbucket": 688,
+    "gitee": 689,
+    "码云": 689,
+    "npm": 690,
+    "npmregistry": 690,
+    "pypi": 691,
+    "pipindex": 691,
+    "react.js": 692,
+    "react框架": 692,
+    "reactjs": 692,
+    "vue": 693,
+    "vue.js": 693,
+    "vuejs": 693,
+    "angular": 694,
+    "svelte": 695,
+    "sveltekit": 695,
+    "solid": 696,
+    "solidjs": 696,
+    "next.js": 697,
+    "nextjs": 697,
+    "next": 697,
+    "nuxt": 698,
+    "nuxt.js": 698,
+    "nuxtjs": 698,
+    "remix": 699,
+    "remix.run": 699,
+    "astro": 700,
+    "astro.build": 700,
+    "tailwind": 701,
+    "tailwindcss": 701,
+    "bootstrap": 702,
+    "antdesign": 703,
+    "antd": 703,
+    "materialui": 704,
+    "mui": 704,
+    "express": 705,
+    "express.js": 705,
+    "koa": 706,
+    "koa.js": 706,
+    "nestjs": 707,
+    "nest": 707,
+    "nest.js": 707,
+    "fastapi": 708,
+    "flask": 709,
+    "django": 710,
+    "spring": 711,
+    "springboot": 711,
+    "gin": 712,
+    "gingonic": 712,
+    "mysql": 713,
+    "postgresql": 714,
+    "postgres": 714,
+    "pg": 714,
+    "mongodb": 715,
+    "mongo": 715,
+    "sqlite": 716,
+    "elasticsearch": 717,
+    "es": 717,
+    "elastic": 717,
+    "redis": 718,
+    "aws": 719,
+    "amazonwebservices": 719,
+    "gcp": 720,
+    "googlecloudplatform": 720,
+    "googlecloud": 720,
+    "azure": 721,
+    "microsoftazure": 721,
+    "阿里云": 722,
+    "alibabacloud": 722,
+    "alicloud": 722,
+    "腾讯云": 723,
+    "tencentcloud": 723,
+    "火山引擎": 724,
+    "字节云": 724,
+    "vercel": 725,
+    "cloudflare": 726,
+    "netlify": 727,
+    "tensorflow": 728,
+    "tensorflow框架": 728,
+    "pytorch": 729,
+    "scikitlearn": 730,
+    "sklearn": 730,
+    "scikit": 730,
+    "pandas": 731,
+    "numpy": 732,
+    "np": 732,
+    "jupyter": 733,
+    "jupyternotebook": 733,
+    "ipynb": 733,
+    "八股": 734,
+    "八股文": 734,
+    "背八股": 734,
+    "卷": 735,
+    "内卷": 735,
+    "太卷了": 735,
+    "润": 736,
+    "润了": 736,
+    "跑路": 736,
+    "大厂": 737,
+    "互联网大厂": 737,
+    "螺丝钉": 738,
+    "拧螺丝": 738,
+    "拧螺丝钉": 738,
+    "业务": 739,
+    "做业务": 739,
+    "业务方": 739,
+    "35岁危机": 740,
+    "35岁": 740,
+    "晋升答辩": 741,
+    "述职": 741,
+    "晋升评审": 741,
+    "ddl": 742,
+    "deadline": 742,
+    "摸鱼": 743,
+    "划水": 743,
+    "996": 744,
+    "7": 745,
+    "大小周": 746,
+    "大周": 746,
+    "小周": 746,
+    "福报": 747,
+    "996福报": 747,
+    "pua": 748,
+    "职场pua": 748,
+    "大饼": 749,
+    "大饼ppt": 749,
+    "hr": 750,
+    "优化": 751,
+    "被优化": 751,
+    "n+1": 752,
+    "n加1": 752,
+    "n+1补偿": 752,
+    "毕业": 753,
+    "毕业了": 753,
+    "突然毕业": 753,
+    "福利": 754,
+    "大厂福利": 754,
+    "leader": 755,
+    "直属leader": 755,
+    "tl": 756,
+    "techlead": 756,
+    "teamleader": 756,
+    "一线": 757,
+    "一线大厂": 757,
+    "二线": 758,
+    "二线公司": 758,
+    "二三线": 758,
+    "三本": 759,
+    "民办": 759,
+    "双非": 759,
+    "简历倒挂": 760,
+    "倒挂": 760,
+    "内推": 761,
+    "内推码": 761,
+    "hc": 762,
+    "headcount": 762,
+    "p几": 763,
+    "p7": 763,
+    "p8": 763,
+    "阿里p级": 763,
+    "t几": 764,
+    "t3": 764,
+    "t4": 764,
+    "bg": 765,
+    "事业群": 765,
+    "bu": 766,
+    "事业部": 766,
+    "鄙视链": 767,
+    "技术鄙视链": 767,
+    "调休": 768,
+    "周末调休": 768,
+    "转正": 769,
+    "转正答辩": 769,
+    "试用期": 770,
+    "probation": 770,
+    "跳槽": 771,
+    "换工作": 771,
+    "背调": 772,
+    "背景调查": 772,
+    "backgroundcheck": 772,
+    "卡学历": 773,
+    "学历门槛": 773,
+    "老板": 774,
+    "我老板": 774,
+    "一号位": 775,
+    "一号位负责人": 775,
+    "大头兵": 776,
+    "小兵": 776,
+    "老白男": 777,
+    "老白": 777,
+    "班味": 778,
+    "去班味": 778,
+    "牛马": 779,
+    "我是牛马": 779,
+    "牛马npc": 779,
+    "牛马一头": 779,
+    "上岸": 780,
+    "上岸了": 780,
+    "顺利上岸": 780,
+    "显眼包": 781,
+    "含金量": 782,
+    "含金量很高": 782,
+    "含金量上升": 782,
+    "搞抽象": 783,
+    "抽象艺术家": 783,
+    "抽象工坊": 783,
+    "玩抽象": 783,
+    "偷感": 784,
+    "偷感很重": 784,
+    "偷感拉满": 784,
+    "红温": 785,
+    "红温了": 785,
+    "红温了哥": 785,
+    "摆烂": 786,
+    "开摆": 786,
+    "摆了": 786,
+    "我摆了": 786,
+    "整顿职场": 787,
+    "00后整顿职场": 787,
+    "情绪价值": 788,
+    "提供情绪价值": 788,
+    "情绪价值拉满": 788,
+    "情绪稳定": 789,
+    "情绪稳定的成年人": 789,
+    "大冤种": 790,
+    "冤种": 790,
+    "我又是大冤种": 790,
+    "蚌埠住了": 791,
+    "绷不住了": 791,
+    "我蚌埠住了": 791,
+    "我绷不住": 791,
+    "离谱": 792,
+    "离大谱": 792,
+    "离谱他妈给离谱开门": 792,
+    "太离谱了": 792,
+    "yyds": 793,
+    "永远的神": 793,
+    "玩梗": 794,
+    "接梗": 794,
+    "整梗": 794,
+    "玩烂梗": 794,
+    "整活": 795,
+    "整个大活": 795,
+    "整活儿": 795,
+    "上价值": 796,
+    "开始上价值": 796,
+    "别上价值": 796,
+    "i人": 797,
+    "i型": 797,
+    "e人": 798,
+    "e型": 798,
+    "emo": 799,
+    "emo了": 799,
+    "我emo了": 799,
+    "有点emo": 799,
+    "老六": 800,
+    "上桌": 801,
+    "终于上桌了": 801,
+    "上桌吃饭": 801,
+    "信息差": 802,
+    "赚信息差": 802,
+    "信息差红利": 802,
+    "浪浪山小妖怪": 803,
+    "浪浪山": 803,
+    "小妖怪": 803,
+    "多巴胺穿搭": 804,
+    "多巴胺": 804,
+    "citywalk": 805,
+    "城市漫步": 805,
+    "城市散步": 805,
+    "数字游民": 806,
+    "digitalnomad": 806,
+    "副业刚需": 807,
+    "搞副业": 807,
+    "副业必须有": 807,
+    "团建": 808,
+    "公司团建": 808,
+    "部门团建": 808,
+    "出海": 809,
+    "出海业务": 809,
+    "全球化": 809,
+    "电子榨菜": 810,
+    "电子布洛芬": 811,
+    "电子木鱼": 812,
+    "赛博木鱼": 812,
+    "ai焦虑": 813,
+    "ai取代焦虑": 813,
+    "价值密度": 814,
+    "信息价值密度": 814,
+    "注意力经济": 815,
+    "slang": 816,
+    "俚语": 816,
+    "jargon": 817,
+    "行话": 817,
+    "术语": 817,
+    "glossary": 818,
+    "术语表": 818,
+    "词汇表": 818,
+    "vocabulary": 819,
+    "vocab": 819,
+    "词汇量": 819,
+    "idiom": 820,
+    "习语": 820,
+    "成语": 820,
+    "buzzword": 821,
+    "流行词": 821,
+    "热门词": 821,
+    "meme": 822,
+    "梗": 822,
+    "表情包": 822,
+    "viral": 823,
+    "病毒式传播": 823,
+    "爆款": 823,
+    "trending": 824,
+    "上热搜": 824,
+    "热门趋势": 824,
+    "newbie": 825,
+    "noob": 825,
+    "新人": 825,
+    "萌新": 825,
+    "guru": 826,
+    "大佬": 826,
+    "高手": 826,
+    "ship": 827,
+    "shipping": 827,
+    "hype": 828,
+    "炒作": 828,
+    "热捧": 828,
+    "opinionated": 829,
+    "有主张的": 829,
+    "vibe": 830,
+    "氛围": 830,
+    "感觉": 830,
+    "lit": 831,
+    "牛": 831,
+    "炸裂": 831,
+    "based": 832,
+    "cringe": 833,
+    "尴尬到脚趾抠地": 833,
+    "vanilla": 834,
+    "原版": 834,
+    "不加修饰": 834,
+    "stack": 835,
+    "技术栈": 835,
+    "techstack": 835,
+    "codelang": 836
   }
 }
