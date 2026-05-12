@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "codelang",
+  "version": "0.1.0",
+  "description": "划词解释代码英文、开发术语、互联网黑话、面试缩写",
+  "permissions": ["storage", "contextMenus"],
+  "host_permissions": ["https://api.anthropic.com/*", "https://api.openai.com/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["card.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "codelang"
+  },
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["dict.json"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

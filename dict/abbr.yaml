@@ -1,0 +1,661 @@
+# 缩写 —— 职场 / 工程常见
+- term: OKR
+  aliases: [Objectives and Key Results]
+  category: abbr
+  literal: Objectives and Key Results，目标 + 关键结果
+  meaning: 想象老板新年规划"今年公司要成北方第一咖啡品牌"——这是 O（目标）。再细化"新开 100 家店、月销破亿、品牌指数进前五"——这是 KR（关键结果）。OKR 就是这种目标管理法：1 个有野心的目标 + 3-5 个可量化的关键结果。和 KPI 区别：OKR 鼓励挑战不直接挂绩效，KPI 是底线必须完成。
+  example: 我这季度 OKR 是"提升搜索体验"，KR 是点击率 +5%、首屏耗时 -200ms。
+
+- term: KPI
+  aliases: [Key Performance Indicator]
+  category: abbr
+  literal: Key Performance Indicator，关键绩效指标
+  meaning: 想象足球前锋的合同条款"赛季进 20 球加奖金 100 万"——目标硬性、奖罚分明。KPI 就是公司/团队/个人的考核硬指标，直接挂工资、绩效、晋升。和 OKR 不同：OKR 是"理想山顶"，KPI 是"必须翻过的山"。
+  example: 销售岗位 KPI 是季度成交额 500 万，完不成奖金减半。
+
+- term: ROI
+  aliases: [Return On Investment]
+  category: abbr
+  literal: Return On Investment，投入产出比
+  meaning: 想象买股票——10 块买进 15 块卖，ROI 50%。ROI 就是花了多少 vs 收回多少的比值。互联网公司天天算："这个广告投入 100 万换来多少订单？" "这个项目占了 5 个人一个月值不值？"
+  example: 这波投放花 100 万换来 30 万销售额，ROI 才 30% 太低，下次别投了。
+
+- term: PMF
+  aliases: [Product Market Fit]
+  category: abbr
+  literal: Product-Market Fit，产品-市场契合
+  meaning: 想象做了一道菜端给食客——食客吃完不仅说"好"还主动叫朋友来吃、刷朋友圈。PMF 就是产品真正解决了某个痛点，用户主动用、主动传播、用了不愿走。创业最重要的里程碑，没找到 PMF 砸再多营销钱都白搭。
+  example: 早期产品没找到 PMF 前别砸钱投放，先打磨产品。
+
+- term: MVP
+  aliases: [Minimum Viable Product, 最小可行产品]
+  category: abbr
+  literal: Minimum Viable Product，最小可行产品
+  meaning: 想象开餐厅前不该装修豪华大店开业看人气——先在路边推个小车卖几道菜，验证有人愿意吃再扩大。MVP 就是这种"砍到不能再砍的最简版本"——先扔给用户验证想法对不对，再投资源完善。避免做了一年发现没人要。
+  example: 先做个 MVP 上架两周看用户反应，有兴趣再投人力做完整版。
+
+- term: SLA
+  aliases: [Service Level Agreement]
+  category: abbr
+  literal: Service Level Agreement，服务等级协议
+  meaning: 想象快递公司合同："24 小时内必送达，超时赔运费 3 倍"——白纸黑字承诺服务质量+违约罚则。SLA 就是给服务方下的紧箍咒：可用性必须 99.9%、响应必须 200ms 内……达不到要赔钱或扣分。云服务、付费 API 几乎都有 SLA。
+  example: 我们对客户承诺 SLA 月度可用性 99.95%，挂超 21 分钟要按合同退款。
+
+- term: P99
+  aliases: [p99, P95, P50, 百分位, percentile]
+  category: abbr
+  literal: 99 分位数
+  meaning: 想象 100 个顾客排队点餐，按等待时间从快到慢排——第 99 个人的等待时间就是 P99。99% 的人都比他快，只有最慢的 1% 比他慢。比"平均耗时"更能反映"最糟体验"，互联网公司监控接口的标准指标。
+  example: 接口 P99 耗时 800ms 说明最慢 1% 用户要等近 1 秒——这部分用户最容易流失。
+
+- term: QPS
+  aliases: [TPS, queries per second]
+  category: abbr
+  literal: Queries Per Second，每秒查询数
+  meaning: 想象餐厅每秒能接多少桌客人——就是它的"翻台能力"。QPS 就是系统的每秒处理能力。面试必问"你这系统扛多少 QPS"。TPS（每秒事务数）类似但偏指完整事务（多步组成一个）。
+  example: 大促峰值 QPS 50 万，平时 5 万，要预扩容 10 倍才扛得住。
+
+- term: CRUD
+  aliases: [crud, 增删改查]
+  category: abbr
+  literal: Create Read Update Delete
+  meaning: 数据的"四大基本操作"——增（新建）、查（读取）、改（更新）、删（删除）。任何信息系统都离不开这四件事。"CRUD 仔"是程序员自嘲：只会写增删改查接口、没碰过架构和算法。
+  example: 这个后台系统就是堆 CRUD，每个表配几个接口、没啥技术含量。
+
+- term: DDD
+  aliases: [Domain-Driven Design, 领域驱动设计]
+  category: abbr
+  literal: Domain-Driven Design
+  meaning: 想象盖大楼——传统做法从地基（数据库表）一砖一砖往上堆，可能盖到一半发现户型不合理；DDD 像先和客户聊清楚"你家几口人怎么生活"再画图。DDD 是"以业务建模为核心"的设计思想：聚合根/实体/值对象/限界上下文一套黑话，适合复杂业务。
+  example: 订单履约系统业务太复杂，团队决定用 DDD 重构。
+
+- term: SSR
+  aliases: [Server-Side Rendering]
+  category: abbr
+  literal: Server-Side Rendering，服务端渲染
+  meaning: 想象去餐厅吃饭：菜直接端上桌（SSR）vs 食材摆桌让你自己炒（CSR）。SSR 是 HTML 在服务器端拼好直接发给浏览器，用户立刻看到内容。优点：首屏快、搜索引擎能爬。Next.js、Nuxt 主推。
+  example: 公司官网必须 SEO，老的 SPA 改成 SSR 之后百度收录数翻 5 倍。
+
+- term: CSR
+  aliases: [Client-Side Rendering]
+  category: abbr
+  literal: Client-Side Rendering，客户端渲染
+  meaning: 和 SSR 相对——浏览器拿到的是空 HTML + 一大坨 JS，前端跑起来才渲染出页面。优点：交互超流畅、像 App；缺点：首屏白屏、爬虫看不到内容。React/Vue 默认 CSR。
+  example: 后台管理系统不在乎 SEO 用 CSR 就行，用户体验更顺滑。
+
+- term: DAU
+  aliases: [MAU, WAU, 日活, 月活]
+  category: abbr
+  literal: Daily Active Users，日活跃用户
+  meaning: 想象统计食堂"今天有多少不同的人来过"——同一个人来 3 次也只算 1。DAU 就是当天去重活跃用户数。MAU=月活、WAU=周活。互联网产品最常报的核心数字，比 PV 更能反映真实用户基数。
+  example: 这个 App DAU 5000 万、MAU 1.5 亿，已经是头部应用。
+
+- term: GMV
+  aliases: [Gross Merchandise Volume]
+  category: abbr
+  literal: Gross Merchandise Volume，商品交易总额
+  meaning: 想象超市一天卖出去的所有商品总价（不管有没退货、有没结账）——这就是 GMV。电商最常报的数字，看起来吓人但实际净收入要打折：扣掉退货、未付款、平台抽成才是真到手钱。
+  example: 双 11 当天 GMV 破千亿，但实际净收入大概打 3-5 折。
+
+# --- batch 3 expansion: 缩写 ---
+
+- term: API
+  aliases: [api, 应用接口]
+  category: abbr
+  literal: Application Programming Interface
+  meaning: 想象去餐厅——你不进厨房做菜，而是看菜单点菜让厨房做。API 就是软件之间的"菜单"：调用方按规定格式发请求，对方按规定格式回结果，互相不用知道内部怎么实现。HTTP API、SDK API、操作系统 API 都是这套思想。
+  example: 接微信支付 API 就能在自己 App 里收钱，不用懂支付背后多复杂。
+
+- term: REST
+  aliases: [RESTful, RESTful API]
+  category: abbr
+  literal: Representational State Transfer
+  meaning: 一种 HTTP API 设计规范——把所有数据当"资源"，URL 表示资源（/users/123），动词（GET 查 / POST 增 / PUT 改 / DELETE 删）表示操作。简洁好理解，互联网 API 的事实标准。
+  example: 这套接口是 RESTful 的，GET /users/123 拿用户、DELETE /users/123 删用户。
+
+- term: GraphQL
+  aliases: [graphql]
+  category: abbr
+  meaning: Facebook 出的 API 查询语言——REST 像菜单点菜（厨师按菜单给固定份量），GraphQL 像自助餐（你想吃啥拿啥）。前端按需声明要哪些字段，服务端按需返回。优点：避免传输浪费；代价：服务端实现复杂、缓存难。
+  example: 移动端字段需求多变、前后端协同复杂的场景，上 GraphQL 比 REST 省事。
+
+- term: SOAP
+  aliases: [soap]
+  category: abbr
+  literal: Simple Object Access Protocol
+  meaning: 老式 XML 格式 RPC 协议——上世纪 90 年代的"重型 API 标准"，规矩多、格式严、性能差。互联网公司基本扔了，但银行、电信、政府这些"古董系统"里还残留很多。
+  example: 对接老银行接口经常还是 SOAP，得用 XML 拼一长串请求。
+
+- term: ORM
+  aliases: [orm]
+  category: abbr
+  literal: Object-Relational Mapping
+  meaning: 想象翻译官——一边是中文（代码里的对象），一边是英文（数据库表）。ORM 就是这翻译官，把"修改 user 对象"自动翻成 SQL 写库。免得程序员手写 SQL。Hibernate / MyBatis / Sequelize / Prisma 都是。复杂查询性能不如手写 SQL。
+  example: 用 ORM 不写 SQL 写起来快，但复杂关联查询性能差，得手写优化。
+
+- term: MVC
+  aliases: [mvc]
+  category: abbr
+  literal: Model-View-Controller
+  meaning: 想象演戏：演员（Model 数据）+ 舞台（View 视图）+ 导演（Controller 控制）——三方各司其职。MVC 就是把代码分成数据/视图/控制三层，每层只管自己的事，互不污染。Spring / Rails / Django 都受 MVC 影响。
+  example: 这个老 Java 项目经典 MVC 三层架构，model、view、controller 目录分得清清楚楚。
+
+- term: MVVM
+  aliases: [mvvm]
+  category: abbr
+  literal: Model-View-ViewModel
+  meaning: MVC 的进化——多了个 ViewModel 中间层，让数据和视图自动双向绑定。你改数据视图自动变，你改视图数据自动变，省去大量手写绑定。Vue 是 MVVM 思想代表。
+  example: Vue 写表单跟 jQuery 时代比真是天堂——数据视图自动同步，MVVM 的力量。
+
+- term: AOP
+  aliases: [aop]
+  category: abbr
+  literal: Aspect-Oriented Programming，面向切面编程
+  meaning: 想象学校广播——每节课开始结束都自动响铃，老师不用操心。AOP 就是把日志、鉴权、事务、性能监控这种"每个方法都要做但和业务无关"的事抽出来，用注解 / 切面统一挂上。不污染业务代码。
+  example: 用 AOP 给所有 Service 方法自动打日志，业务代码不用写一行 log。
+
+- term: SDK
+  aliases: [sdk]
+  category: abbr
+  literal: Software Development Kit
+  meaning: 想象买宜家家具——别人已经把零件和说明书装在一个盒子里，你照着拼就行。SDK 就是别人帮你封装好的客户端库，import 进项目几行代码就能调用对方服务，比裸调 HTTP 接口省一万倍力。
+  example: 接 OSS 上传文件，用阿里云 SDK 写 3 行代码搞定，自己拼 HTTP 要 50 行。
+
+- term: CLI
+  aliases: [cli, 命令行]
+  category: abbr
+  literal: Command Line Interface
+  meaning: 黑屏白字打命令的那种界面——`ls`、`cd`、`git push` 这些都是 CLI。和 GUI（鼠标点点点）相对。CLI 入门门槛高但效率高、能脚本化批量。
+  example: 我习惯 CLI 操作 Git，commit、push、rebase 几个命令比 GUI 点来点去快。
+
+- term: GUI
+  aliases: [gui]
+  category: abbr
+  literal: Graphical User Interface
+  meaning: 图形界面——窗口、按钮、菜单、鼠标点点点的那种。Windows、Mac、所有手机 App 都是 GUI。和 CLI 相对。
+  example: 这工具有 GUI 版给新手用、CLI 版给老手脚本化，两不耽误。
+
+- term: IDE
+  aliases: [ide]
+  category: abbr
+  literal: Integrated Development Environment，集成开发环境
+  meaning: 想象写代码的"瑞士军刀"——编辑、自动补全、调试、重构、Git 集成、调试器全在一个软件里。IDE 比纯文本编辑器（VIM、记事本）功能多得多。VS Code、IntelliJ、PyCharm、Cursor 都是。
+  example: 写 Java 用 IntelliJ 这种 IDE，重构改名一键就把全项目相关引用都改了。
+
+- term: TDD
+  aliases: [tdd, 测试驱动开发]
+  category: abbr
+  literal: Test-Driven Development
+  meaning: 倒着写代码的方法——先写一个失败的测试（红），再写代码让它通过（绿），最后整理代码（重构）。理论很美好，实际团队里能坚持的很少，多数只在核心算法或库代码里这么做。
+  example: 严格 TDD 写业务代码太慢，我们只在核心计算逻辑用。
+
+- term: DRY
+  aliases: [dry]
+  category: abbr
+  literal: Don't Repeat Yourself
+  meaning: 直译"别重复你自己"——同样的代码不要复制粘贴 3 次以上，该抽函数/类。代码风格基本原则。但也别走极端过度抽象。
+  example: 这三处逻辑一模一样了，DRY 一下抽个公共函数出来。
+
+- term: KISS
+  aliases: [kiss]
+  category: abbr
+  literal: Keep It Simple, Stupid
+  meaning: 别整复杂的——能 30 行解决就别上设计模式凑 300 行。"Stupid"是"傻子也能看懂"的意思，强调简单优于巧妙。和过度设计相对。
+  example: 这功能 30 行就能搞定，别 KISS 不起就硬上工厂 + 策略模式。
+
+- term: YAGNI
+  aliases: [yagni]
+  category: abbr
+  literal: You Aren't Gonna Need It
+  meaning: 直译"你不会用到的"——别提前写你预计将来"可能要"的功能。XP 编程原则，反对过度设计。多数预想的扩展性都用不上，反而拖累现在。
+  example: 这个扩展点先别加 YAGNI，等真需要时再加，三个月内大概率用不到。
+
+- term: PaaS
+  aliases: [paas]
+  category: abbr
+  literal: Platform as a Service
+  meaning: 想象租"精装公寓"——家具、水电、网络、保洁全包，你只管住。PaaS 是云服务里的"精装版"：你只写代码 push 上去，运行环境、数据库、负载均衡、扩缩容平台全管。Heroku、Vercel、Railway 都是。
+  example: 个人小项目部署到 Vercel 几分钟上线，全自动 SSL + CDN——典型 PaaS 体验。
+
+- term: SaaS
+  aliases: [saas]
+  category: abbr
+  literal: Software as a Service
+  meaning: 想象租车 vs 买车——SaaS 就是租软件。你不下载不安装不维护，按月付费打开网页就用。Notion、飞书、Salesforce、ChatGPT Plus 都是 SaaS。20 年互联网最赚钱的商业模式。
+  example: 公司财务用的金蝶云、HR 用的北森，都是 SaaS——按月付费即开即用。
+
+- term: IaaS
+  aliases: [iaas]
+  category: abbr
+  literal: Infrastructure as a Service
+  meaning: 想象云服务三档楼盘：IaaS 是毛坯房（你拿到光秃秃的机房资源——虚拟机/存储/网络，操作系统以上你装）、PaaS 是精装公寓、SaaS 是酒店式公寓。AWS EC2、阿里云 ECS 都是 IaaS。
+  example: 公司自建 Kubernetes 集群一般跑在 IaaS 上，机器要自己管。
+
+- term: I18N
+  aliases: [i18n, 国际化]
+  category: abbr
+  literal: Internationalization，I 和 N 中间 18 个字母
+  meaning: 想象一座专门设计成"换不同房子门牌就能用"的房——能挂中文牌也能挂英文牌。i18n 就是让软件具备这种"能切语言/货币/日期格式"的能力。代码里所有显示文字不写死，统一从语言包里读。
+  example: 出海产品上线前必须做 i18n，否则换一国就重写一遍。
+
+- term: L10N
+  aliases: [l10n, 本地化]
+  category: abbr
+  literal: Localization，L 和 N 中间 10 个字母
+  meaning: i18n 提供框架，l10n 是把它填满具体内容——翻译每句文案、按当地习惯调日期格式、改图标颜色、甚至调整按钮位置（阿拉伯语从右到左）。
+  example: 法语 l10n 不只是翻译，连按钮位置都得动——他们更习惯从右往左布局。
+
+- term: B2B
+  aliases: [b2b]
+  category: abbr
+  literal: Business to Business
+  meaning: 企业卖给企业的生意——阿里巴巴帮工厂找经销商、钉钉卖给公司当 OA、广告平台卖给品牌方。客户决策慢但单价高、续约率高。
+  example: 钉钉是 B2B 产品，卖给公司不是卖给个人。
+
+- term: B2C
+  aliases: [b2c]
+  category: abbr
+  literal: Business to Consumer
+  meaning: 企业卖给个人消费者的生意——京东、亚马逊、苹果官方店都是。决策快单价低，靠规模赚钱。
+  example: 淘宝是 C2C 和 B2C 混合，京东主打 B2C 自营。
+
+- term: C2C
+  aliases: [c2c]
+  category: abbr
+  literal: Consumer to Consumer
+  meaning: 个人卖给个人，平台只搭桥不卖货——咸鱼上你卖二手手机给我，淘宝早年也是。平台抽佣或收广告费。
+  example: 闲鱼是典型 C2C，平台只负责搭桥不参与买卖。
+
+- term: O2O
+  aliases: [o2o]
+  category: abbr
+  literal: Online to Offline
+  meaning: 线上下单 + 线下消费/服务的模式——美团点外卖（线下吃）、滴滴叫车（线下坐车）、淘宝团购（线下用）。2014 年带火的概念，本质就是用 App 调度线下服务。
+  example: 美团外卖是 O2O 鼻祖之一，开启了到家经济。
+
+- term: PV
+  aliases: [pv, page view]
+  category: abbr
+  literal: Page View，页面访问量
+  meaning: 想象书店统计"今天这本书被翻开了多少次"——同一个人翻 5 次算 5 次。PV 就是页面被打开的总次数，反映流量大小但不能区分"几个人看的"。
+  example: 这页面日 PV 500 万，但可能只有 80 万个不同的人。
+
+- term: UV
+  aliases: [uv, unique visitor]
+  category: abbr
+  literal: Unique Visitor，独立访客
+  meaning: 想象书店统计"今天有多少不同的人进来"——同一人来 5 次只算 1。UV 是去重后真实用户数。PV/UV 一起看才能判断"用户多还是回访多"。
+  example: PV 500 万但 UV 只有 80 万，平均每人访问 6 次，说明回访率高。
+
+- term: CTR
+  aliases: [ctr]
+  category: abbr
+  literal: Click-Through Rate，点击率
+  meaning: 想象路边发传单 1000 张，进店看的有 10 个——CTR = 1%。看到广告/链接的人里有多少真点击了。CTR 低=文案不吸引人；CTR 高但购买率低=标题党。
+  example: 这个 banner CTR 才 0.5%，文案得换，正常应该有 2%。
+
+- term: CVR
+  aliases: [cvr, 转化率]
+  category: abbr
+  literal: Conversion Rate
+  meaning: 想象进店看的 10 个人里有 1 个真买——CVR = 10%。点了链接的人里最终完成目标（下单/注册）的比例。和 CTR 互补：CTR 看"吸引点击"、CVR 看"留得住人"。
+  example: CTR 高但 CVR 低=骗点进去但落地页留不住人，文案诱饵但产品不行。
+
+- term: CPC
+  aliases: [cpc]
+  category: abbr
+  literal: Cost Per Click
+  meaning: 想象按"进店人头"付广告费——10 个人点进来付 10 份钱。CPC 是一次点击花多少广告费。搜索广告（百度/Google）常按 CPC 计费，热词被几家品牌互相抬价就贵。
+  example: 像「减肥」这种关键词 CPC 飙到 30 块一次点击，竞争太激烈。
+
+- term: CPM
+  aliases: [cpm]
+  category: abbr
+  literal: Cost Per Mille，每千次曝光成本
+  meaning: 按"曝光多少次"付钱——展示 1000 次付固定费用，不管点没点。品牌广告（增加知名度）常用 CPM。
+  example: 信息流 CPM 50 元——这条广告每展示 1000 次品牌方付 50 元。
+
+- term: KOL
+  aliases: [kol]
+  category: abbr
+  literal: Key Opinion Leader，关键意见领袖
+  meaning: 想象村里"村长"——他说哪家米好，全村跟着买。KOL 是某领域有影响力、能带货的人：百万粉美妆博主、千万粉电竞主播。粉丝多、专业度被认可，单条广告几十万起。
+  example: 这款新口红投了 3 个百万粉 KOL 种草，预算 200 万。
+
+- term: KOC
+  aliases: [koc]
+  category: abbr
+  literal: Key Opinion Consumer
+  meaning: 比 KOL 小一号——"邻居推荐"那种感觉。KOC 粉丝几千到几万，看起来更像真实素人，更可信。品牌现在喜欢同时铺几百个 KOC 而不是一个 KOL，覆盖广转化好。
+  example: 现在品牌投放转向 KOC 矩阵——铺 200 个素人比投 1 个大 V 转化好。
+
+- term: HTTP
+  aliases: [http]
+  category: abbr
+  literal: HyperText Transfer Protocol
+  meaning: 互联网的"通用语"——浏览器请求网页、App 调接口全靠它。一问一答："给我这个 URL 的内容"→"给你"。HTTP/1.1 是最常见版本，HTTP/2 后能复用连接更快。
+  example: 浏览器看网页发的是 HTTP 请求，服务器按 HTTP 协议回 HTML 内容。
+
+- term: TLS
+  aliases: [tls, SSL]
+  category: abbr
+  literal: Transport Layer Security
+  meaning: 互联网世界的"加密信封"——本来 HTTP 是明信片（路上都能看），套上 TLS 就成密封信封。HTTPS = HTTP + TLS。SSL 是 TLS 的老名字，现在 SSL 也指 TLS 但技术上已经被弃用。
+  example: 这域名 TLS 证书过期，浏览器立刻打"不安全"红牌。
+
+- term: SSH
+  aliases: [ssh]
+  category: abbr
+  literal: Secure Shell
+  meaning: 想象一条加密的远程电话线——你从家里安全连接到办公室服务器，敲命令在那台机器上跑。SSH 是运维登服务器的标准方式，必须有密钥或密码授权。
+  example: ssh root@1.2.3.4 -i key.pem 用密钥登某服务器排查问题。
+
+- term: VPN
+  aliases: [vpn]
+  category: abbr
+  literal: Virtual Private Network
+  meaning: 想象在公共网络上挖一条专属隧道——别人看不到隧道里跑的内容，但你能像在公司内网一样办事。两种用途：(1) 在家连公司内网（远程办公）；(2) 翻墙。本质都是"加密隧道把你伪装成另一个网络的人"。
+  example: 在家连公司 VPN 才能访问只对内网开放的工单系统。
+
+- term: NAT
+  aliases: [nat]
+  category: abbr
+  literal: Network Address Translation
+  meaning: 想象公司一个总机号对外，内部分机若干——外面打总机由前台转分机。NAT 就这思路：内网很多设备共用一个公网 IP 出门，路由器记得每个出去的连接是谁发的，回来时正确路由回内网。
+  example: 家里 Wi-Fi 路由器做 NAT，全家手机/电脑共用一个公网 IP。
+
+- term: VPC
+  aliases: [vpc]
+  category: abbr
+  literal: Virtual Private Cloud
+  meaning: 想象租云上的"独立小区"——里面的机器互相能串门，外面进不来。VPC 是云厂商让你在共享的物理基础设施上划自己的私有网络空间，安全隔离。生产业务必放 VPC 里。
+  example: 生产环境跑在专门的 VPC 里，开发测试用另一个 VPC 隔开。
+
+- term: ETL
+  aliases: [etl]
+  category: abbr
+  literal: Extract Transform Load
+  meaning: 想象快递分拣中心——从全国仓库抽包裹（Extract）、按目的地分类打包（Transform）、装上对应卡车发出（Load）。ETL 就是数据"搬运 + 加工"流程：从源头数据库抽数、清洗合并、灌进数据仓库。数据工程师每天的活。
+  example: 凌晨 2 点定时跑 ETL 把白天业务库数据同步到数仓做次日报表。
+
+- term: OLAP
+  aliases: [olap]
+  category: abbr
+  literal: Online Analytical Processing
+  meaning: 想象图书馆和报告厅区别——图书馆（OLTP）忙着借还（一次一两本快）、报告厅（OLAP）开几百人大会做分析。OLAP 是"面向分析"的数据库使用：跑大查询、聚合、报表。ClickHouse、Snowflake 是典型 OLAP 引擎。
+  example: 公司报表系统跑在 ClickHouse，做 OLAP 大查询，比 MySQL 快 100 倍。
+
+- term: OLTP
+  aliases: [oltp]
+  category: abbr
+  literal: Online Transaction Processing
+  meaning: OLAP 的对立面——"面向交易"的数据库使用：每秒处理海量的"查某人余额、扣某用户库存"这种单条快速操作，对延迟和准确性要求极高。MySQL/PostgreSQL 是 OLTP 主力。
+  example: 业务库（用户/订单/支付）走 OLTP，数仓（报表/分析）走 OLAP，两套别混着用。
+
+- term: RBAC
+  aliases: [rbac]
+  category: abbr
+  literal: Role-Based Access Control
+  meaning: 想象公司发工卡——不是给每个人单独配"能开哪些门"，而是分"普通员工/经理/财务/CTO"几种角色，每个角色配一组权限，员工挂上对应角色就行。RBAC 比"一人一组权限"好维护得多，是后台权限的标准做法。
+  example: 后台权限用 RBAC：定义"管理员/运营/客服/读者"四种角色，新增员工挂角色就完事。
+
+- term: PoC
+  aliases: [POC, proof of concept]
+  category: abbr
+  literal: Proof of Concept
+  meaning: 想象做菜前先抓两根菜炒一小盘试味——能不能成事先验证再决定大动作。PoC 就是这种"用最少代码证明技术可行"的尝试，比 MVP 还粗糙、不给用户看、纯内部技术验证。
+  example: 先做个 PoC 看这个新数据库技术能不能扛住业务，再考虑迁移。
+
+- term: SPA
+  aliases: [spa, 单页应用]
+  category: abbr
+  literal: Single Page Application
+  meaning: 想象传统网站像一本书（翻页就换一张纸），SPA 像 App（一直在同一界面，点哪里只换局部内容）。SPA 整站只加载一次 HTML，后续路由切换靠 JS 局部更新，体验丝滑。React/Vue 默认产出 SPA。
+  example: 公司后台是 SPA，切菜单不刷整页只换右侧内容，体验比传统多页面好。
+
+- term: PWA
+  aliases: [pwa]
+  category: abbr
+  literal: Progressive Web App
+  meaning: 介于网页和原生 App 之间的形态——能加到桌面像 App、能离线用、能推送通知，但本质还是 Web。Twitter、Starbucks 都做了 PWA。一次开发跨所有平台，省事。
+  example: 推特做了 PWA，手机能像装 App 一样加到桌面，断网也能看缓存的推文。
+
+- term: TTL
+  aliases: [ttl]
+  category: abbr
+  literal: Time To Live
+  meaning: 想象超市冷藏食品贴的"保质期 7 天"——到点自动下架。TTL 就是数据的保质期：Redis 缓存设 1 小时 TTL、DNS 解析设 10 分钟 TTL、Session 设 30 分钟 TTL。过期自动删，不用手动清。
+  example: 登录 token 设 TTL 30 分钟，超时自动失效，要重新登录。
+
+- term: UUID
+  aliases: [uuid]
+  category: abbr
+  literal: Universally Unique Identifier
+  meaning: 想象给每个新生婴儿生成一串 32 位的全球唯一编号——理论上全宇宙不会重复。UUID 就是这种 128 位长字符串，生成时不需要任何中心服务，本地随机就能保证唯一。常用作分布式系统的主键。
+  example: 没法用数据库自增 ID 时（分布式场景）用 UUID，比如 550e8400-e29b-41d4-a716-446655440000。
+
+- term: JSON
+  aliases: [json]
+  category: abbr
+  literal: JavaScript Object Notation
+  meaning: 互联网上"数据传输的塑料袋"——轻便、通用、人类能读、机器能解析。前后端传数据、API 接口几乎全用 JSON。比老的 XML 简单一半。
+  example: 后端接口返回 JSON 格式 `{"name":"张三","age":18}`，前端解析直接用。
+
+- term: YAML
+  aliases: [yaml, yml]
+  category: abbr
+  literal: YAML Ain't Markup Language（递归命名梗）
+  meaning: 比 JSON 更"人友好"的配置文件格式——不用大括号、不用引号、靠缩进表达层级，读起来像写大纲。Kubernetes、Docker Compose、GitHub Actions 配置全用 YAML。
+  example: k8s 部署一个应用就是写一段 deployment.yaml 描述：要几个副本、用什么镜像、怎么暴露端口。
+
+- term: VS Code
+  aliases: [vscode, VSCode]
+  category: abbr
+  literal: Visual Studio Code
+  meaning: 微软出的免费跨平台代码编辑器——市占率第一，几乎所有程序员都用过。开源 + 插件生态丰富 + 跨 Windows/Mac/Linux。Cursor、Windsurf 都是基于 VS Code fork 的。
+  example: 我所有项目都在 VS Code 里写——不管什么语言它都有对应插件。
+
+# --- batch 7: 代码注释/PR/聊天里常见缩写 ---
+
+- term: TODO
+  aliases: [todo, // TODO]
+  category: abbr
+  meaning: 想象笔记本边角写的"明天再做"贴纸——TODO 就是程序员留在代码里的"待办事项"标记。IDE 通常能扫一遍项目把所有 TODO 列出来，方便回头处理。
+  example: // TODO 这里要加错误处理，但今天 deadline 急先放着。
+
+- term: FIXME
+  aliases: [fixme]
+  category: abbr
+  meaning: 比 TODO 更紧迫——FIXME 表示"这里有 bug 或临时方案，必须修"。前者是"可以做"，后者是"必须做"。
+  example: // FIXME 这个并发竞态偶发崩溃，下个迭代必须修。
+
+- term: HACK
+  aliases: [// HACK]
+  category: abbr
+  meaning: 想象桌脚垫了张报纸——能用但丑陋。HACK 注释就是诚实告诉后人"我知道这写法不好但暂时管用，谁有时间重写一下"。是技术债的自首书。
+  example: // HACK 临时硬编码等接口好了再改正经版本。
+
+- term: XXX
+  aliases: [// XXX]
+  category: abbr
+  meaning: 介于 TODO 和 HACK 中间的注释——"这里有问题但我不知道怎么改"。中性、警示性、不紧迫。
+  example: // XXX 这逻辑很奇怪，但改了又出别的 bug，保留观察。
+
+- term: WIP
+  aliases: [wip, Work In Progress]
+  category: abbr
+  literal: Work In Progress，进行中
+  meaning: 想象贴在仓库门上的"施工中"牌子——告诉别人"还没完，先别看"。PR/分支名加 WIP 表示"我还在做，先别 review 也别合"。
+  example: 提了个 WIP PR 等设计稿定稿，先占个坑。
+
+- term: LGTM
+  aliases: [lgtm, Looks Good To Me]
+  category: abbr
+  literal: Looks Good To Me
+  meaning: code review 时的"我看过了没问题"——直白短小，表示同意合代码。和"approve"按钮等价。
+  example: 看完代码 diff 没毛病直接回 LGTM，PR 就能合了。
+
+- term: NIT
+  aliases: [nit, nitpick]
+  category: abbr
+  literal: nitpick，挑小毛病
+  meaning: code review 评论开头加 nit 表示"这是吹毛求疵，不改也能合"——一种礼貌的"我有点不爽但不阻塞"。区别于真正的阻塞性评论。
+  example: "nit: 变量名 d 可以改成 distance 更清晰，可改可不改。"
+
+- term: ETA
+  aliases: [eta]
+  category: abbr
+  literal: Estimated Time of Arrival，预计到达时间
+  meaning: 想象快递员说"你的包裹 ETA 14:30"——大概什么时候到。代码圈里 ETA 是"预计完成时间"，老板问"啥时候搞完"你回个 ETA。
+  example: 说「需求 ETA 下周三」就是预计周三能交。
+
+- term: TBD
+  aliases: [tbd, To Be Determined]
+  category: abbr
+  literal: To Be Determined
+  meaning: 想象菜单上"今日特价：TBD"——还没定下来。文档/需求里标 TBD 表示"这块没定、先空着、回头确认"。
+  example: 价格 TBD 等老板拍板，先把架子搭起来。
+
+- term: AKA
+  aliases: [aka, Also Known As]
+  category: abbr
+  literal: Also Known As
+  meaning: 直译"也叫"——介绍某个东西的别名。"X aka Y"=X 也叫 Y。聊天/文章里很常见。
+  example: Claude，aka Anthropic 出的 AI 助手，写代码很强。
+
+- term: IMO
+  aliases: [imo, IMHO]
+  category: abbr
+  literal: In My Opinion / In My Humble Opinion（谦虚版）
+  meaning: 据我之见——讨论里表态时的开场白。IMHO 多一个 Humble（谦虚）表示"个人看法不一定对"。
+  example: IMO 这个方案有性能隐患，得加缓存。
+
+- term: BTW
+  aliases: [btw, By The Way]
+  category: abbr
+  literal: By The Way
+  meaning: 顺便说一句——聊天里临时插入一个无关的事的开场。
+  example: BTW 我下周休假，找我有事提前说。
+
+- term: FYI
+  aliases: [fyi, For Your Information]
+  category: abbr
+  literal: For Your Information
+  meaning: 供你参考——把信息转给别人但不要求他立刻回应。邮件、群里转发常用。
+  example: FYI，老板刚发了新差旅政策，记得改报销流程。
+
+- term: PR review
+  aliases: [code review, CR]
+  category: abbr
+  meaning: 想象作业前同学互相检查——commit 之前同事看一遍你的代码。挑 bug、提建议、要求改、最后批准（approve）才能合进主干。互联网公司质量保障的核心环节。
+  example: 这 PR 等两个同事 review 通过才能合，至少留一个 LGTM。
+
+- term: ROFL
+  aliases: [rofl]
+  category: abbr
+  literal: Rolling On the Floor Laughing
+  meaning: 直译"笑到地上滚"——比 LOL 夸张三倍。网络聊天里表示"超级好笑"。
+  example: ROFL 这梗太离谱了，笑得肚子疼。
+
+- term: TIL
+  aliases: [til]
+  category: abbr
+  literal: Today I Learned
+  meaning: 直译"今天我学到了"——技术博客/Reddit 上分享小知识时的开场白。表示"虽然简单但我之前不知道"。
+  example: TIL Python 字典从 3.7 起是有序的——我一直以为是无序。
+
+- term: NPC
+  aliases: [npc]
+  category: abbr
+  literal: Non-Player Character，游戏术语
+  meaning: 想象 RPG 游戏里村里那些固定站着说固定台词的角色——你怎么和他互动他只会重复那几句。网络上把"反应模式化、像背台词的人"调侃成 NPC。
+  example: 这群人讨论像一群 NPC，无脑复读同一句话。
+
+- term: MR
+  aliases: [Merge Request]
+  category: abbr
+  meaning: GitLab 里"合并请求"的叫法——和 GitHub 的 PR 一回事。只是平台不同名字不同。功能完全一样：提请审查、被批准、合代码。
+  example: 公司用 GitLab 都叫提 MR，去 GitHub 公司说叫 PR。
+
+- term: SOTA
+  aliases: [sota, State Of The Art]
+  category: abbr
+  literal: State Of The Art，当前最高水平
+  meaning: 想象奥运会金牌——这个项目当前世界第一。AI/学术圈高频词，模型在某榜单上达到 SOTA 就是刷新了纪录。
+  example: 这个 7B 小模型在数学 benchmark 上做到 SOTA，超过了不少 70B 大模型。
+
+- term: LLM
+  aliases: [llm, 大语言模型]
+  category: abbr
+  literal: Large Language Model
+  meaning: 大语言模型的英文缩写——GPT、Claude、Gemini、Llama 这一类。2022 年 ChatGPT 出圈后 LLM 成了通用名词。
+  example: 公司客服接了 LLM 自动答用户问题，节省一半客服人力。
+
+- term: RAG
+  aliases: [rag]
+  category: abbr
+  literal: Retrieval-Augmented Generation
+  meaning: 想象闭卷考试 vs 开卷考试——RAG 是给 LLM 开卷的方法。问问题前先去知识库捞最相关的几段塞进 prompt，让 LLM 基于这些段落回答而不是凭"记忆"。能大幅减少幻觉、引用最新数据。
+  example: 公司客服 bot 用 RAG 接公司 wiki，答问题时引用具体文档。
+
+- term: AGI
+  aliases: [agi]
+  category: abbr
+  literal: Artificial General Intelligence
+  meaning: 通用人工智能——能在所有领域达到甚至超越人类的 AI。当前的 GPT/Claude 还不算 AGI（虽然某些任务超过人）。AGI 是 AI 圈的"圣杯"，啥时候到达业内分歧从 5 年到 50 年都有。
+  example: OpenAI 的目标是造出 AGI，但定义谁都说不准。
+
+- term: GPU
+  aliases: [gpu]
+  category: abbr
+  literal: Graphics Processing Unit
+  meaning: 显卡——原本干 3D 游戏渲染，现在主要靠它跑深度学习。GPU 擅长大量并行简单计算（矩阵乘法），刚好是神经网络需要的。NVIDIA 的 N 卡是行业标准，训练大模型一片 H100 要 30 万。
+  example: 训练 GPT-4 用了几万张 GPU 烧了几个亿美元。
+
+- term: TPU
+  aliases: [tpu]
+  category: abbr
+  literal: Tensor Processing Unit
+  meaning: Google 自研的 AI 加速芯片——对标 NVIDIA GPU，但优化得更狠（专门为深度学习设计）。只能租用、只在 Google Cloud 上跑。
+  example: Google 内部训练 Gemini 用的就是 TPU，外人想用得租 Google Cloud。
+
+- term: NPU
+  aliases: [npu]
+  category: abbr
+  literal: Neural Processing Unit
+  meaning: 神经网络处理器——专为端侧 AI 设计的小芯片，手机/PC 里都有。功率小、速度快、专做推理（跑模型）。手机本地跑 AI 模型靠它。
+  example: 新版 iPhone 的 NPU 性能翻倍，本地跑大模型不卡。
+
+- term: PoW
+  aliases: [Proof of Work]
+  category: abbr
+  literal: Proof of Work
+  meaning: 区块链的共识机制——所有节点抢一道极难的数学题，谁先算出来谁记账并拿奖励。这就是"挖矿"的本质。安全性高但耗电巨大，比特币就是 PoW，被环保人士骂惨。
+  example: PoW 比特币挖矿一年电力堪比一个中型国家，环保问题大。
+
+- term: PoS
+  aliases: [Proof of Stake]
+  category: abbr
+  literal: Proof of Stake
+  meaning: PoW 的环保替代——不靠算力比谁先解题，而是按"质押多少币"分配记账权。质押越多被选中越多。以太坊 2022 年从 PoW 切到 PoS，电力消耗降了 99%。
+  example: 以太坊 2.0 切 PoS 后，挖矿这门生意基本结束。
+
+- term: HMM
+  aliases: [hmm]
+  category: abbr
+  meaning: 双关：(1) 聊天里思考状语气词"嗯..."表示"我想想"；(2) 技术圈指 Hidden Markov Model（隐马尔可夫模型，一种概率模型）。多数情况下都是前者。
+  example: hmm 这个需求得想想，先别答应。
+
+- term: stdlib
+  aliases: [std]
+  category: abbr
+  literal: standard library，标准库
+  meaning: 语言官方自带的库——装语言时一起来的、不用 pip install / npm install。Python 的 os/json/re/random、Go 的 net/http/fmt 都是 stdlib。能用 stdlib 别引外部依赖是好习惯。
+  example: 能用 Python stdlib 的 json 模块就别引第三方 ujson，省一个依赖。
+
+- term: SSE
+  aliases: [sse, Server-Sent Events]
+  category: abbr
+  literal: Server-Sent Events
+  meaning: 想象单向广播——电台主播只播不听。SSE 就是服务端单向推送给浏览器的协议，基于 HTTP。比 WebSocket 简单一半（不能双向），但单向场景够用。ChatGPT 的"打字机"流式输出底层就是 SSE。
+  example: 实现 ChatGPT 那种边生成边显示的效果，最简单方案是 SSE。

@@ -1,0 +1,9 @@
+# codelang 运行依赖
+# 安装：py -m pip install -r requirements.txt
+
+mouse>=0.7.1          # 全局鼠标钩子
+pyperclip>=1.8.0      # 跨平台剪贴板（取词用）
+pystray>=0.19.0       # 系统托盘图标
+Pillow>=10.0.0        # 托盘图标渲染依赖
+requests>=2.30.0      # LLM 兜底（可选功能）
+pyyaml>=6.0           # 词库 YAML 解析（仅构建 dict.json 时用）

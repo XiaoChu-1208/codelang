@@ -1,0 +1,575 @@
+# AI / LLM / 大模型术语
+
+- term: LangChain
+  aliases: [langchain]
+  category: devterm
+  meaning: 想象做菜要"切菜→炒锅→装盘"按顺序串联——LangChain 就是 LLM 应用的这种串联框架：把语言模型 + 工具 + 记忆 + 向量库等组件像菜谱一样链式串起来。2023 年 LLM 应用栈的开荒者，特别红，后来生态被吐槽太重。
+  example: 用 LangChain 接公司 PDF + 向量库做一个能问答的客服机器人。
+
+- term: LlamaIndex
+  aliases: [llamaindex, GPT Index]
+  category: devterm
+  meaning: 想象把图书馆 1 万本书塞进 ChatGPT 大脑——一次塞不下。LlamaIndex 就专门干这件事的框架：把你的私有文档切片、建索引、按问题检索相关片段塞给 LLM。和 LangChain 同期出现，但聚焦"喂数据"这一件事。
+  example: 用 LlamaIndex 把公司 wiki 全部喂进去，做一个内部 RAG 问答系统。
+
+- term: LangGraph
+  aliases: [langgraph]
+  category: devterm
+  meaning: 想象 LangChain 像写直线的菜谱"切→炒→装盘"，LangGraph 像画流程图"如果汤淡就加盐重尝、咸了加水重尝"——能有循环、能回头、能根据状态分叉。适合复杂 agent 流程。
+  example: 用 LangGraph 写一个能反复反思修正的 agent，每步看自己上一步对不对。
+
+- term: LangSmith
+  aliases: [langsmith]
+  category: devterm
+  meaning: 想象给厨房装监控摄像头——回看每一步、看哪步做错了。LangSmith 是 LangChain 团队出的调试+评测平台：记录每次 LLM 调用、可视化整条 agent 链路、跑评测集。线上 agent 出问题不上 LangSmith 就是抓瞎。
+  example: agent 经常给错答案，上 LangSmith 一看是某个工具调用返回了错数据。
+
+- term: AutoGen
+  aliases: [autogen, Microsoft AutoGen]
+  category: devterm
+  meaning: 想象一个项目组而不是单兵——产品 + 开发 + 测试互相打配合。AutoGen 是微软的多 agent 协作框架：让多个 LLM 角色互相对话完成任务，比单 agent 一锤子干强很多。
+  example: 用 AutoGen 让一个 agent 写代码、另一个 agent 当 reviewer 提改进意见。
+
+- term: CrewAI
+  aliases: [crewai]
+  category: devterm
+  meaning: 和 AutoGen 一类——多 agent 协作框架，特色是强调"团队角色分工"：你定义经理 / 调研员 / 文案 / 校对，CrewAI 按角色协调他们工作。比 AutoGen 更面向工程化场景。
+  example: 用 CrewAI 模拟一个内容创作团队，写一篇专题文章经过这几个角色协作完成。
+
+- term: MCP
+  aliases: [Model Context Protocol]
+  category: devterm
+  literal: Model Context Protocol
+  meaning: 想象电子设备的 USB-C 接口——以前各家充电口五花八门，现在统一一种插头到处通。MCP 是 Anthropic 2024 年推的开放协议，规范"AI 模型 ↔ 外部工具/数据源"通信。Claude Desktop、Cursor 都接了 MCP，写一个 MCP server 多家 AI 都能用。
+  example: 写一个 MCP server 暴露公司 wiki 搜索能力，Claude 桌面端立刻能查公司知识。
+
+- term: ReAct
+  aliases: [react prompting]
+  category: devterm
+  literal: Reasoning + Acting
+  meaning: 想象福尔摩斯破案——"先想（这把刀很锋利说明凶手不普通），然后行动（去验尸），然后观察结果（发现伤口角度对不上），再想，再行动……"循环到结案。ReAct 就是让 LLM 走这种"思考→行动→观察→思考"的 agent 范式。
+  example: 让 LLM 用 ReAct 范式查天气——先想"我要调天气工具"，行动调用，观察返回，再回答用户。
+
+- term: CoT
+  aliases: [Chain of Thought, 思维链]
+  category: devterm
+  literal: Chain-of-Thought
+  meaning: 想象小学生做应用题——老师要求"写过程，别只写答案"，否则错了也不知道哪步错。CoT 就是让 LLM "把推理过程一步步写出来再给答案"，比直接答更准。最简形式就在 prompt 加 "let's think step by step"。
+  example: 数学题加 CoT 提示，GPT-4 准确率从 60% 提到 90%。
+
+- term: ToT
+  aliases: [Tree of Thought, 思维树]
+  category: devterm
+  literal: Tree-of-Thought
+  meaning: CoT 升级版。想象解谜题：CoT 是一条线推到底，错了就完；ToT 同时探索好几条思路，发现死胡同就剪掉、回到上一步换条路。像下棋时考虑多步未来。效果好但开销大。
+  example: 解 24 点游戏用 ToT 比 CoT 准 4 倍，但 token 消耗 10 倍。
+
+- term: few-shot
+  aliases: [few shot, 少样本]
+  category: devterm
+  meaning: 想象教侄子写自我介绍——你不讲一堆理论，直接给他看三份样本"我叫 X、几岁、喜欢什么"。他立刻照葫芦画瓢。few-shot 就是在 prompt 里给 LLM 几个 input → output 示例，它照着学新任务。不用训练就能教，便宜效果显著。
+  example: 给 3 个"原始评论 → 提取的产品名"示例做 few-shot，提取准确率从 60% 升到 90%。
+
+- term: zero-shot
+  aliases: [zero shot, 零样本]
+  category: devterm
+  meaning: 不给任何示例直接让 LLM 干活——靠它预训练时学到的通用能力裸答。和 few-shot 相对：zero-shot 是"凭印象答"，few-shot 是"看了样本答"。GPT-4 这种大模型 zero-shot 已经很多事都能干。
+  example: 不给任何例子直接让 GPT-4 翻译中文到法语，效果就已经接近职业译者。
+
+- term: in-context learning
+  aliases: [ICL, 上下文学习]
+  category: devterm
+  meaning: 大模型的神奇能力——你只是在 prompt 里给几个例子，它就当场学会一个新任务，但它的参数一个字节都没改。像一个聪明实习生看你示范两遍立刻会做。few-shot 就是这能力的体现。
+  example: ICL 让大模型不训练就能适应新任务，是 2020 年 GPT-3 论文出来时震惊业界的核心发现。
+
+- term: prompt engineering
+  aliases: [提示工程, prompt 工程]
+  category: devterm
+  meaning: 想象问律师同一个问题，怎么问决定答案质量——"我开车撞人怎么办"vs"作为加州居民，2024 年我开车撞人后应如何处理责任和保险，请按步骤回答"。后者答得详尽且专业。prompt engineering 就是这种"怎么问 LLM 得到最好答案"的工程实践。
+  example: 同一个 GPT 模型 prompt 改一下，效果差 30% 是常事。
+
+- term: system prompt
+  aliases: [system message, 系统提示]
+  category: devterm
+  meaning: 想象给员工新入职培训定的规矩——"接客户必须微笑、不能透露内部信息"。LLM 的 system prompt 就是这种"开场规则"：对话开头先告诉它你是谁、能说什么不能说什么。优先级比用户消息高，用户改不了。
+  example: 客服 bot 的 system prompt 设"只回答产品问题，遇到其他话题礼貌拒绝"。
+
+- term: Transformer
+  aliases: [transformer]
+  category: devterm
+  meaning: 2017 年 Google 一篇论文（Attention Is All You Need）提出的神经网络架构，从此改变了 AI 圈。当代所有大模型（GPT/Claude/Gemini/Llama）底层都是 Transformer。它的核心创新：用 attention 机制代替了之前的循环结构，又快又能学远距离关系。
+  example: 没有 Transformer 就没有 ChatGPT，2017 年那篇论文是 AI 史上最重要的几篇之一。
+
+- term: attention
+  aliases: [Attention, 注意力机制]
+  category: devterm
+  meaning: 想象你读一句话"小明给小红的礼物，让她非常开心"——读到"她"时大脑自动跳回去看"她"指谁。attention 机制就是让神经网络也学会这种"读到一个词，看回前文哪些词跟它最相关"。Transformer 的灵魂。
+  example: attention 矩阵能可视化"模型读到这个词时在关注前文哪些词"。
+
+- term: self-attention
+  aliases: [自注意力]
+  category: devterm
+  meaning: attention 应用在"自己看自己"的版本——序列里每个词都和序列内所有其他词算一遍关联度。这样模型能学到"这句话里词和词的关系网"。Transformer 的核心算子。
+  example: self-attention 能让模型理解"那只追猫的狗"里"追"是狗的动作不是猫的，靠的就是它。
+
+- term: multi-head attention
+  aliases: [MHA, 多头注意力]
+  category: devterm
+  meaning: 想象读一句话时大脑同时从几个角度看——一组看语法关系、一组看语义关系、一组看情感色彩。Multi-head attention 就是把 attention 拆成多个"头"并行算，每个头学一种独立的模式。比单头强很多。
+  example: GPT-4 一层就有几十个 attention head，每个学不同的语言规律。
+
+- term: encoder
+  aliases: [Encoder, 编码器]
+  category: devterm
+  meaning: 想象同声翻译先把整段中文听完理解清楚（编码），再开口说英文（解码）。Transformer 里 encoder 就是负责"理解输入"的部分，把整段输入压成一份内部表示。BERT 就是纯 encoder 架构，适合理解任务（分类、判断、搜索）。
+  example: encoder-only 模型如 BERT 不擅长写文章，但很擅长判断"这两句话意思一样吗"。
+
+- term: decoder
+  aliases: [Decoder, 解码器]
+  category: devterm
+  meaning: encoder 的另一半——负责"产出内容"。它根据已有内容一个 token 一个 token 往外写。GPT/Claude/Llama 都是纯 decoder 架构，专门生成。decoder-only 模型适合写文章、对话、补全。
+  example: ChatGPT 一边打字一边出字，就是 decoder 一个 token 一个 token 往外吐。
+
+- term: MoE
+  aliases: [Mixture of Experts, 专家混合]
+  category: devterm
+  literal: Mixture of Experts
+  meaning: 想象医院里几十个专家科室——病人来时只看症状被分给最对口的两三个专家，不用全院出动。MoE 就是这种大模型架构：模型里有几十个"专家"子网络，每个 token 进来只激活几个相关专家。总参数巨大但每次推理便宜。Mixtral / DeepSeek 都是 MoE。
+  example: Mixtral 8x22B 总参数 141B，但每个 token 只用约 39B，推理快、容量大。
+
+- term: token
+  aliases: [Token]
+  category: devterm
+  meaning: 想象 LLM 不是按"字"或"词"读文本，而是按"token"读——一个 token 大约是 0.75 个英文单词，或 1-2 个汉字。这是 LLM 处理的最小单位，按它计费、按它限上下文。"一条 prompt 1500 token"=大概 1000 个英文词或 700 多个汉字。
+  example: ChatGPT 一条提示 1500 token，刚好够塞进 GPT-4o 的 128k 上下文窗。
+
+- term: tokenizer
+  aliases: [Tokenizer, 分词器]
+  category: devterm
+  meaning: 把人类文本切成 token 的工具。"hello world" 可能被切成 ["hel", "lo", " wor", "ld"]——不一定按词，而是按训练时统计出的高频片段。每个模型有自己的 tokenizer，GPT 用 tiktoken、Llama 用 SentencePiece。中文 token 化效率一般比英文低，所以中文消耗 token 更多。
+  example: 同样一句话英文可能 10 token、中文可能 20 token——按 token 计费时中文用户吃亏。
+
+- term: embedding
+  aliases: [Embedding, 嵌入, 向量]
+  category: devterm
+  meaning: 想象用一组坐标描述每个词的"位置"——猫在(0.9, 0.1)、狗在(0.85, 0.15)、汽车在(0.1, 0.9)。猫和狗距离近、和汽车距离远。embedding 就是把文本（或图像）压成几百维浮点数向量，让计算机能"算两段内容意思有多近"。
+  example: 把文档全 embed 进向量库，搜索时用"语义距离"找最相关的段。
+
+- term: vector DB
+  aliases: [vector database, 向量数据库, 向量库]
+  category: devterm
+  meaning: 普通数据库找"等于 X 的记录"，向量库找"和 X 这条向量最像的 N 条"。专门为 embedding 设计、能极快做"最近邻搜索"。Pinecone/Weaviate/Milvus/Chroma/Qdrant 都是。RAG 应用必备的中间件。
+  example: 公司知识库 10 万篇文档全 embed 进 Pinecone，用户提问时秒检索最相关 5 篇喂给 LLM。
+
+- term: cosine similarity
+  aliases: [余弦相似度]
+  category: devterm
+  meaning: 算两个向量"方向有多像"的数学方法——想象两支箭，朝同一方向是 1（完全相似），垂直是 0，反向是 -1。embedding 检索的标准距离度量。0.85 以上就算很相似了。
+  example: 两段文本 embedding 的 cosine similarity 0.92，说明意思非常接近。
+
+- term: semantic search
+  aliases: [语义搜索]
+  category: devterm
+  meaning: 想象百度搜"减肥方法"只找出含"减肥"字眼的页面（关键词搜索），而 semantic search 能找出"瘦身方案"、"如何变苗条"——理解你要的意思。基于 embedding：把搜索词和所有内容都转向量，找最近的。
+  example: 公司知识库换成 semantic search 后，员工搜"差旅怎么报销"也能搜到《出差费用申报指南》。
+
+- term: context window
+  aliases: [上下文窗口, 上下文长度]
+  category: devterm
+  meaning: 想象 LLM 工作时记忆容量有限——给它塞 200 页书没问题，塞 2000 页就吐了。context window 就是这上限：Claude 200k token、Gemini 2M token。超出就得截断或先用 RAG 检索精华片段塞给它。
+  example: 长 PDF 200 页超出 context window，得切片向量化做 RAG，按问题检索相关段喂给模型。
+
+- term: hallucination
+  aliases: [幻觉, AI 幻觉]
+  category: devterm
+  literal: 幻觉
+  meaning: 想象班里那个最会吹牛的学生——老师叫起来回答，明明不知道却一脸严肃地编一个看似合理的答案。LLM 一本正经地编造事实就是这种"幻觉"：日期、人名、引用全是瞎说但看起来真。RAG 和事实核查能减轻但消不掉。
+  example: 让 LLM 写报告引用论文，它编了三篇根本不存在的——典型幻觉。
+
+- term: pre-training
+  aliases: [预训练, pretrain]
+  category: devterm
+  meaning: 想象培养一个通识学者——让他读完互联网上所有能找到的书、文章、代码。pre-training 就是这阶段：用海量文本训练基础模型让它学会语言规律和通用知识。烧几百万到几亿美元的就是这步。
+  example: Llama 3 在 15 万亿 token 上 pre-training，把人类大部分公开文本读了一遍。
+
+- term: fine-tuning
+  aliases: [fine tuning, 微调, finetune]
+  category: devterm
+  meaning: 想象通识学者经过 pre-training 已经啥都懂一点，现在让他专攻法律——给他读几千份判例、合同。fine-tuning 就是在预训练基础模型之上用专业数据再训一遍，让它适配具体任务/领域。
+  example: 用 10 万条法律文书 fine-tune 一个律所专用模型，比通用 GPT 准得多。
+
+- term: SFT
+  aliases: [supervised fine-tuning]
+  category: devterm
+  literal: Supervised Fine-Tuning
+  meaning: 想象老师教学生作文——一边出题一边告诉"这种题该这样答"，给一万套范例。SFT 就是给 LLM 喂"问题 → 标准回答"成对的数据，教它学会按指令回答。这是从只会续写的基座模型变成会对话的 Chat 模型的第一步。
+  example: 拿 10 万条"问题→人写的标准答案"做 SFT 训一周，基座变 Chat。
+
+- term: RLHF
+  aliases: [人类反馈强化学习]
+  category: devterm
+  literal: Reinforcement Learning from Human Feedback
+  meaning: 想象训狗——你给它两个答案 A 和 B，告诉它"A 比 B 好"，狗逐渐学会偏好 A 这一类。RLHF 就是让人类标注员对 LLM 输出打"A 比 B 好"的偏好，然后用强化学习把这种偏好教给模型。ChatGPT 出圈的关键技术。
+  example: 经过 RLHF 的模型回答更礼貌、更有用、更少胡说，比纯 SFT 强一大截。
+
+- term: DPO
+  aliases: [Direct Preference Optimization]
+  category: devterm
+  literal: Direct Preference Optimization
+  meaning: RLHF 简化版。RLHF 要先训一个"奖励模型"再用强化学习优化，两步太复杂还容易翻车。DPO 数学上证明可以跳过奖励模型直接用偏好数据训 LLM，简单稳定。2023 起广泛替代 RLHF。
+  example: 小团队微调没资源搭复杂 RLHF 管线，DPO 一步到位省一半事。
+
+- term: LoRA
+  aliases: [lora, Low-Rank Adaptation]
+  category: devterm
+  literal: Low-Rank Adaptation
+  meaning: 想象给大型机器人加个小耳机让它学新方言——机器本身没动，外挂一个小模块就改性格。LoRA 就这思路：冻结原模型不动，只在旁边训一个很小的"低秩适配器"模块，训练成本是全参微调的 1%，效果接近。开启个人微调时代。
+  example: 用 LoRA 在一张 4090 上就能微调 7B 模型，过去要 8 张 A100。
+
+- term: QLoRA
+  aliases: [qlora]
+  category: devterm
+  meaning: LoRA 升级版——先把原模型压成 4-bit（量化）省一大半显存，再上 LoRA 训。结果：24GB 消费级 GPU 上能微调 65B 模型，过去得 8 张专业卡。让民间玩转大模型微调成为可能。
+  example: QLoRA 让你在一张 4090 上 fine-tune Llama 70B，开源社区的春天。
+
+- term: PEFT
+  aliases: [peft, Parameter-Efficient Fine-Tuning]
+  category: devterm
+  literal: Parameter-Efficient Fine-Tuning
+  meaning: 所有"只训少量参数就让大模型学会新技能"方法的统称——LoRA、Prefix Tuning、Adapter 都属于 PEFT 家族。和"全参微调"对应，省 99% 训练成本。HuggingFace 出了同名的 PEFT 库。
+  example: 资源有限就用 PEFT 家族方法，别想着全参微调一个 70B 模型。
+
+- term: distillation
+  aliases: [知识蒸馏, distill]
+  category: devterm
+  literal: 蒸馏
+  meaning: 想象老师带徒弟——老师智慧渊博但行动慢，徒弟跟着学几年，能力八九成、动作快十倍。distillation 就是用大模型当"老师"训一个小模型当"学生"：学生学老师的输出分布，能力接近但小快便宜。
+  example: 从 GPT-4 distill 出一个 7B 学生模型部署到手机端，能在断网时跑。
+
+- term: quantization
+  aliases: [模型量化, 权重量化]
+  category: devterm
+  meaning: 想象图片从 100MB 高清压成 5MB 缩略图——大致还能认出但细节糊了。模型量化就这思路：把模型权重从精确的 16/32 位浮点压成粗略的 8/4 位整数。模型小一半到八分之一、推理快、代价是少量精度损失。注意：和"量化指标"那个量化完全两码事。
+  example: Llama 70B 全精度 140GB，量化到 4-bit 后只占 35GB，能在 48GB GPU 跑。
+
+- term: INT4
+  aliases: [4-bit, int4]
+  category: devterm
+  meaning: 4 位整数——每个权重只能取 16 个数。极致压缩，模型大小是 FP16 的 1/4。代价是精度损失明显，但配合 QLoRA 等技术效果还能接受。手机/嵌入式设备跑大模型的常用选择。
+  example: INT4 量化让 7B 模型只占 4GB 内存，能在树莓派上跑起来。
+
+- term: INT8
+  aliases: [8-bit, int8]
+  category: devterm
+  meaning: 8 位整数——每个权重 256 个数可选。常见的"性价比最高"量化精度：模型瘦一半，精度几乎无损。生产推理的默认选择。
+  example: 推理服务用 INT8 量化，吞吐翻倍质量没变化，性价比之王。
+
+- term: FP16
+  aliases: [half precision, 半精度]
+  category: devterm
+  literal: Floating Point 16-bit
+  meaning: 16 位浮点（半精度），比传统 32 位浮点 FP32 占内存少一半。GPU 训练和推理常用，速度快、精度还行。代价：极端数值易溢出。常和 FP32 混用做 mixed precision 训练取平衡。
+  example: GPU 训练用 FP16 + FP32 mixed precision，速度翻倍精度不掉。
+
+- term: BF16
+  aliases: [bfloat16]
+  category: devterm
+  literal: brain floating point 16
+  meaning: Google 出的 16 位浮点变种——比 FP16 把指数位扩大、精度位减小。能表示的数值范围更大不容易溢出，训练时数值更稳。Llama、Claude 等大模型训练首选。
+  example: Llama 训练用 BF16 而不是 FP16，loss 不容易出 NaN。
+
+- term: temperature
+  aliases: [温度参数]
+  category: devterm
+  literal: 温度
+  meaning: 想象点菜——温度 0 是"我永远点同一家招牌菜"，温度 2 是"我蒙眼乱戳菜单"。LLM 的 temperature 参数控制输出随机性：0 = 总是答概率最高的（稳定但无聊），高 = 更随机更有创意。代码任务调 0，写诗调 1.0+。
+  example: 客服 bot temperature 设 0 保证答案一致，作家辅助工具调 0.8 让它脑洞大。
+
+- term: top-p
+  aliases: [nucleus sampling]
+  category: devterm
+  meaning: 一种采样策略——选下一个词时只从"累积概率前 p 的候选"里挑。比如 p=0.9 意思是"看概率从高到低累加到 90% 那批词，从这批里选"。比 top-k 更聪明，能自适应词的概率分布形状。
+  example: top-p=0.9 是常用配置，既不失多样性又不会选到太离谱的词。
+
+- term: top-k
+  aliases: [top k]
+  category: devterm
+  meaning: 一种采样策略——每步只在概率最高的 K 个候选词里选。K=1 退化为贪心、K=∞ 完全随机。简单粗暴。一般和 temperature 配合用。
+  example: top-k=50 限制候选池大小，避免选到尾部的奇怪词。
+
+- term: greedy decoding
+  aliases: [greedy, 贪心解码]
+  category: devterm
+  meaning: 想象迷宫里每步都选眼前最宽的那条岔路——不一定全局最优但当下最稳。LLM 的贪心解码每步都选概率最高的 token，没有随机性。等同于 temperature=0。代码生成、数据提取这类需要稳定输出的任务默认用它。
+  example: 代码生成任务默认用 greedy decoding，避免随机性导致每次答案不同。
+
+- term: beam search
+  aliases: [集束搜索]
+  category: devterm
+  meaning: 想象探险队不只走一条路——同时派 5 队人探，每步保留进度最好的 5 条路线继续。beam search 就是 LLM 同时维护 K 条候选生成序列，每步扩展并保留 top-K。机器翻译常用，比贪心好但贵 K 倍。
+  example: 翻译模型用 beam search size=5，比贪心翻译质量明显好。
+
+- term: KV cache
+  aliases: [kv cache, KV 缓存]
+  category: devterm
+  meaning: 想象口算"123 + 456 + 789"——你算完前两步得 579，下一步直接 579+789，不会从头再加一遍。KV cache 就是 LLM 推理时把"前面看过的 token 计算结果"存起来，下个 token 接着算不重头来。大大加速但占显存。
+  example: 长对话上下文 KV cache 占的显存比模型本身还多，是长上下文推理的硬瓶颈。
+
+- term: TTFT
+  aliases: [Time To First Token, 首 token 延迟]
+  category: devterm
+  literal: Time To First Token
+  meaning: 用户按下回车到看到 LLM 输出第一个字的时间——心理上最关键的指标。即使总输出快，TTFT 长用户也觉得"卡"。优化 TTFT 主要靠优化 prompt 处理速度和首层计算。
+  example: 客服 bot TTFT 800ms 用户已经在皱眉，目标降到 300ms 以下。
+
+- term: prompt caching
+  aliases: [prompt cache, 提示缓存]
+  category: devterm
+  meaning: 想象你每天问同一个秘书"今天日程"——他知道你的偏好不用每次重问。LLM 服务的 prompt caching 类似：你 prompt 前面长的系统提示+知识库内容服务端缓存，下次同样 prompt 不重新算。Anthropic / OpenAI 都支持，能省 50% 成本。
+  example: RAG 应用每次都塞同样的 5KB 知识库片段，开 prompt caching 省一半钱。
+
+- term: streaming
+  aliases: [流式输出, 流式响应]
+  category: devterm
+  meaning: 想象朋友打字回你消息——不是写完一段一次发，是一个字一个字蹦出来你能边看边想。LLM streaming 就这体验：模型一边生成一边吐 token，用户更早看到内容、感觉更快。ChatGPT 的"打字机"效果就是。底层一般用 SSE。
+  example: 接口改成 streaming 后用户体感快了 3 倍，其实总输出时间没变只是首字快。
+
+- term: function calling
+  aliases: [tool use, tool calling, 工具调用]
+  category: devterm
+  meaning: 想象老板说"查下今天北京天气"——你不知道但能打电话给天气服务问。LLM 的 function calling 就这能力：你给它一堆可用工具，它判断"该用哪个工具+传什么参数"，外部跑完结果再喂回来给它继续。Agent 的基础能力。
+  example: 给 LLM 配天气工具，问"北京冷不冷"时它输出 `get_weather(city="北京")` 让外部跑。
+
+- term: agent
+  aliases: [Agent, AI agent]
+  category: devterm
+  meaning: 想象一个会主动办事的助理——你说"订下周飞东京的票"，它自己查日历、比价、订机票、加日程，不用你一步步盯。AI agent 比一问一答的 chatbot 更进一步：能自主决策、调多个工具、循环到完成目标。Devin、Manus 这些都是 agent。
+  example: 写一个 agent，自动读 GitHub issue → 写代码 → 提 PR，全流程不用人。
+
+- term: multimodal
+  aliases: [多模态]
+  category: devterm
+  meaning: 想象一个人能听、能说、能看、能写——五官全开。多模态 LLM 就这种：同时能吃文字、图片、音频、视频。看图说话、画图理解、识别截图全 OK。GPT-4V / Claude 3 / Gemini 都是多模态。
+  example: 把设计稿截图发给 Claude，它直接生成对应代码——这是多模态的力量。
+
+- term: vision model
+  aliases: [视觉模型, VLM]
+  category: devterm
+  meaning: 能"看图"的 LLM。截图它能读出 UI 元素、表格、图表数据。是多模态的一个子集（专门视觉）。VLM = Vision Language Model。
+  example: 用 vision model 让 AI 自动从设计图生成 React 代码，准确度已经很高。
+
+- term: AI benchmark
+  aliases: [跑分数据集, eval benchmark]
+  category: devterm
+  literal: AI 基准测试
+  meaning: 想象高考——一套标准题目让所有学生都做，分数能直接横向比。AI benchmark 就是 LLM 圈的统一考卷：MMLU 测通识、HumanEval 测编程、GSM8K 测数学。每个新模型出来都要刷一遍这些 benchmark 排名次。
+  example: 新模型发布必报 MMLU/HumanEval 几个 benchmark 分数，方便和 GPT-4 比。
+
+- term: MMLU
+  category: devterm
+  literal: Massive Multitask Language Understanding
+  meaning: 57 个学科（数学、历史、医学、法律……）的多选题集，测 LLM 通识。被引用最多的 benchmark 之一。GPT-4 在 MMLU 上 86%，已超过人类专家水平。
+  example: GPT-4 MMLU 86%、Claude 3.5 86.8%、人类专家 89.8%。
+
+- term: HumanEval
+  aliases: [humaneval]
+  category: devterm
+  meaning: OpenAI 出的 164 道 Python 编程题集，测 LLM 写代码能力。给函数签名和文档让模型补完。早期模型 30%，现在顶尖模型 90%+，差不多打满了。
+  example: Claude 3 在 HumanEval 上 92%，超过了人类平均码农。
+
+- term: SWE-bench
+  aliases: [swebench]
+  category: devterm
+  meaning: Princeton 出的真实 GitHub issue 数据集——给 LLM 看 issue 描述+整个代码库，让它写补丁修 bug。比 HumanEval 难得多（接近真工程），是 agent 时代的硬核 benchmark。
+  example: 顶级 agent 在 SWE-bench Verified 上做到 70% 已是行业领先。
+
+- term: Hugging Face
+  aliases: [HuggingFace, HF, hf]
+  category: devterm
+  meaning: 想象 GitHub 但专门给 AI 模型用——所有开源模型、数据集都挂这里。"AI 界的 GitHub"。同时也是著名的 transformers 库的出品方，社区主导地位。
+  example: 从 Hugging Face 下载 Llama 模型，几行 transformers 代码就能跑起来。
+
+- term: Llama
+  aliases: [LLaMA, llama]
+  category: devterm
+  meaning: Meta（Facebook 母公司）开源的大模型系列——从 Llama 1（2023.2）到 Llama 3.3。开源圈的"标杆基座"，社区微调、研究、私有部署的起点几乎都是 Llama。
+  example: 公司想私有部署 ChatGPT 替代品一般跑 Llama 70B。
+
+- term: Mistral
+  aliases: [mistral, Mixtral]
+  category: devterm
+  meaning: 法国 AI 公司，开源模型领域的另一强者。Mistral 7B（小但强）、Mixtral 8x7B（MoE 架构）都是社区明星。和 Meta 的 Llama 是开源圈两大旗舰。
+  example: 内存有限想要质量好的小模型，Mistral 7B 是首选。
+
+- term: Gemini
+  aliases: [gemini]
+  category: devterm
+  meaning: Google 出的多模态大模型系列。最大特色：超长上下文（Gemini 1.5 Pro 支持 2M token）和原生多模态。和 GPT/Claude 三国鼎立。
+  example: 让 AI 看一部完整电影做总结？Gemini 200 万 token 上下文够吃下整部。
+
+- term: o1
+  aliases: [GPT-o1, o1-preview, o1-mini]
+  category: devterm
+  meaning: OpenAI 2024 年发的"推理模型"——回答前先在内部长时间默想（看不见的 CoT），再吐答案。复杂数学/代码题准确率比 GPT-4 高很多，代价是慢和贵。开启 reasoning 模型新流派。
+  example: 让 o1 解奥数题正确率是 GPT-4 的 3 倍，代价是答一题要 30 秒+。
+
+- term: vLLM
+  aliases: [vllm]
+  category: devterm
+  meaning: 想象 LLM 推理的"超级引擎"——同样的模型在 vLLM 上跑比裸用 HuggingFace 快 20 倍。核心创新：PagedAttention（仿操作系统虚拟内存方式管理 KV cache）。生产环境部署 LLM 几乎必装。
+  example: 自建 LLM 服务在 vLLM 上跑 Llama 70B，单卡吞吐够支撑 1000+ 并发用户。
+
+- term: Ollama
+  aliases: [ollama]
+  category: devterm
+  meaning: 在自己电脑跑 LLM 的"极简遥控器"——一行 `ollama run llama3` 自动下载并启动。开发者最爱的本地 LLM 工具。免费、隐私、不烧 API 钱。
+  example: 写 demo 不想花 API 钱，本地 ollama 起一个 llama3 调用就行。
+
+- term: Pinecone
+  aliases: [pinecone]
+  category: devterm
+  meaning: 最早做向量数据库的商业 SaaS 公司（2019 年成立，2023 年 RAG 火起来时一飞冲天）。即开即用，省去自建运维。
+  example: 公司知识库用 Pinecone 省事，几十块钱一个月接入一个 RAG 应用。
+
+- term: Chroma
+  aliases: [chroma, ChromaDB]
+  category: devterm
+  meaning: 开源向量数据库，最大特点是"和 Python/LangChain 集成最丝滑"——几行代码起一个。本地开发、原型阶段首选。
+  example: 写一个 RAG demo 用 Chroma 几分钟就能跑起来，不用部署任何服务。
+
+- term: Milvus
+  aliases: [milvus]
+  category: devterm
+  meaning: Zilliz 公司出的开源向量数据库，性能强、企业级。适合亿级以上向量规模的生产场景。运维比 Pinecone 复杂但便宜。
+  example: 公司有 5 亿条文档向量化，自建 Milvus 集群存。
+
+- term: Weaviate
+  aliases: [weaviate]
+  category: devterm
+  meaning: 开源向量数据库，特色是"知识图谱 + 向量"混合检索——既支持语义搜，也支持基于实体关系的精确查询。适合结构化数据多的场景。
+  example: 商品数据既要按描述语义搜也要按类别价格过滤，用 Weaviate 一把搞定。
+
+- term: Qdrant
+  aliases: [qdrant]
+  category: devterm
+  meaning: Rust 写的开源向量数据库——性能突出、内存效率好。是 Pinecone 自建替代的热门选项。
+  example: 性能压榨到极致的场景选 Qdrant 替 Pinecone，自建省钱还快。
+
+- term: Stable Diffusion
+  aliases: [SD, stable diffusion]
+  category: devterm
+  meaning: Stability AI 出的开源文生图模型——你输入"夕阳下的猫"，它画出来。最大特色：开源 + 社区生态最丰富，几千种风格 LoRA、各种工具链全。绘画爱好者的"乐高"。
+  example: 用 Stable Diffusion + ControlNet 控制构图，复刻任何画风。
+
+- term: diffusion model
+  aliases: [扩散模型]
+  category: devterm
+  meaning: 想象从噪点画恢复出图——先把好图反复加噪声变模糊；模型学会反向去噪步骤。生成时给纯噪声让它一步步去噪出图。当代 AI 画图、视频生成主流架构。Stable Diffusion / DALL-E / Sora 全是它。
+  example: Sora 能从一段文字生成连贯视频，底层就是 diffusion model 的延伸。
+
+- term: DALL-E
+  aliases: [DALLE, dall-e]
+  category: devterm
+  meaning: OpenAI 的文生图模型系列。DALL-E 3 已经融进 ChatGPT——你在对话里说"画一只穿西装的猫"就直接画。是闭源、易用但社区生态远不如 Stable Diffusion。
+  example: 让 ChatGPT 画图就是它调 DALL-E 3 在背后操作。
+
+- term: Sora
+  category: devterm
+  meaning: OpenAI 2024 年发的文生视频模型——给一段描述能生成几十秒连贯高清视频，画质和物理感前所未有。让短视频和影视行业紧张。
+  example: Sora 出来后好几个 stock video 公司股价大跌，被 AI 抢饭碗。
+
+- term: ChatGPT
+  aliases: [chatgpt]
+  category: devterm
+  meaning: OpenAI 2022 年 11 月发的对话产品——5 天破百万用户、2 个月破亿。AI 正式"出圈"进入大众视野的引爆点。背后是 GPT 系列模型，但 ChatGPT 是面向用户的产品形态。
+  example: 让 ChatGPT 帮写 PPT 大纲、改邮件、答疑，是无数职场人的日常。
+
+- term: Claude
+  aliases: [claude]
+  category: devterm
+  meaning: Anthropic 出的对话模型系列（Sonnet/Haiku/Opus 三档）。和 GPT/Gemini 三国鼎立。代码、长上下文是 Claude 强项。注：codelang 这个工具就是用 Claude 写的。
+  example: 写复杂代码我用 Claude，写营销文案有人觉得 GPT 更顺手——各擅胜场。
+
+- term: Cursor
+  aliases: [cursor]
+  category: devterm
+  meaning: AI 编程编辑器——把 VS Code fork 一份深度整合 Claude/GPT。能在编辑器里直接和 AI 对话改代码、自动补全、跨文件理解项目。2024 年 AI 编程领域最火的工具，估值飙升。
+  example: 从 VS Code 切到 Cursor 后，写代码效率翻倍，常听到的说法。
+
+- term: Windsurf
+  aliases: [windsurf]
+  category: devterm
+  meaning: Codeium 公司出的 AI 编辑器，对标 Cursor，强调"全自主 agent 模式"——让 AI 自己开多个文件、跑命令、调试。和 Cursor 抢同一批用户。
+  example: Windsurf 的 Cascade agent 模式比 Cursor 的更激进，能跑得更远但出错更难纠。
+
+- term: Copilot
+  aliases: [GitHub Copilot, copilot]
+  category: devterm
+  meaning: 2021 年 GitHub + OpenAI 出的代码补全 AI——AI 编程鼻祖。当时震撼世界。现在功能被 Cursor / Windsurf 超越，但仍是历史地位无可替代的开拓者。
+  example: 2021 年 Copilot 出来时大家担心程序员失业，现在习惯它跟习惯输入法补全一样。
+
+- term: emergence
+  aliases: [emergent ability]
+  category: devterm
+  meaning: 想象孩子学说话——一岁前只会咿呀，某天突然蹦出一个完整词组。LLM 也有类似神奇：参数从 1B 涨到 10B 再到 100B，某些能力（few-shot 学习、CoT 推理）突然冒出来，小模型完全没有。这种"量变到质变"叫涌现。
+  example: GPT-3 突然展现的少样本学习能力，是 AI 涌现现象的经典例子。
+
+- term: scaling law
+  aliases: [Scaling Laws, 缩放定律]
+  category: devterm
+  meaning: 一条经验规律：模型性能 ∝ 参数量 × 数据量 × 计算量 的幂律——越烧钱越强、且性能曲线很可预测。"力大砖飞"的理论基础。OpenAI 等公司就是基于 scaling law 决定继续烧几亿美元做 GPT-5。
+  example: 根据 scaling law 推断，再大 10 倍参数模型还能涨能力——这是 GPT-5 等模型的押注。
+
+- term: alignment
+  aliases: [模型对齐, AI alignment]
+  category: devterm
+  meaning: 让 AI 行为符合人类意图、价值观的研究——别让它说脏话、别教人造弹药、别推销极端思想。RLHF/DPO/Constitutional AI 都是 alignment 技术。注：和大厂"开会对齐"完全不是一回事。
+  example: alignment 是 AI 安全核心问题——能力很强又听话才安全，能力强不听话最危险。
+
+- term: jailbreak
+  aliases: [越狱, 提示越狱]
+  category: devterm
+  meaning: 想象诱骗保险柜——保险柜本来不开，但你绕过密码用社会工程让它开。jailbreak 就是用特殊 prompt 绕过 LLM 安全护栏让它输出本来禁止的内容（教暴力、写黄文、说脏话）。AI 安全攻防的主要战场。
+  example: DAN ("Do Anything Now") 是早期经典 jailbreak prompt，能让 GPT 卸下伦理限制。
+
+- term: red team
+  aliases: [红队]
+  category: devterm
+  meaning: 想象电影里的反派演练——红队就是故意扮"坏人"挖系统漏洞的团队。AI 上线前红队会专门花几周时间想方设法用恶意输入、jailbreak、对抗样本攻击模型，找出问题再修补。
+  example: Claude / GPT 发版前都跑大量 red team 测试，把能挖到的漏洞先修了。
+
+- term: guardrail
+  aliases: [护栏]
+  category: devterm
+  meaning: 想象高速公路边的护栏——车失控时挡一下别冲下山。给 LLM 加的 guardrail 就是各种安全限制：敏感话题挡掉、敏感词过滤、输出格式校验。NeMo Guardrails / Guardrails AI 都是相关库。
+  example: 客服 bot 加 guardrail "不允许聊政治、宗教、薪资"，避免 PR 风险。
+
+- term: evals
+  aliases: [eval, 评测]
+  category: devterm
+  meaning: 想象给学生出一份系统化的"期末考试题集"+"评分标准"——LLM 应用的 evals 一样：一组代表性问题 + 怎么判断回答好不好。改完 prompt 跑一遍 evals 看回归是否有质量下降。和软件单测类似但分数有主观成分。
+  example: 改了 prompt 跑一遍 evals，30 道题里有 3 道质量下降，得回滚 prompt 调整。
+
+- term: structured output
+  aliases: [JSON mode, 结构化输出]
+  category: devterm
+  meaning: 想象问律师"我能起诉吗"——他可能说一长段，但你想要一张表"能/不能/原因/建议"。让 LLM 严格按 JSON schema 输出就是 structured output：你说要什么字段它就给什么，方便程序解析。Claude/GPT 都原生支持。
+  example: 接口要求 JSON 就开 structured output，不用从自然语言里抠字段。
+
+- term: tokens per second
+  aliases: [tok/s, tok per s]
+  category: devterm
+  meaning: LLM 推理速度的核心指标——每秒能吐多少 token。GPT-4 大约 30 tok/s、Claude Sonnet 60 tok/s、Groq 上的 Llama 能跑到 500+。越高用户体感越流畅。
+  example: 这模型 80 tok/s 已经够流畅，用户感觉不到等待。
+
+- term: 上下文工程
+  aliases: [context engineering]
+  category: devterm
+  meaning: prompt engineering 的进化版——不只是"怎么写好那段提示词"，还包括"该塞什么背景、检索哪些资料、给什么例子、怎么管理历史对话、怎么裁剪"。Agent 时代真正考验工程能力的是 context engineering。
+  example: agent 老答错是 prompt 没写好？多半是 context engineering 出了问题——背景信息没塞对。
+
+- term: 提示词
+  aliases: [prompt, Prompt]
+  category: devterm
+  meaning: 你给 LLM 的输入文本——告诉它你是谁、要它做什么、给它什么背景。设计好提示词是用 LLM 的基本功，"prompt 工程师"短暂火过一段。
+  example: 同一个模型，"用大白话解释幂等" vs "解释幂等" 后者答得简略很多——这就是提示词设计的力量。

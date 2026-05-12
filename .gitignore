@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# 用户运行时产物
+**/__pycache__/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# 临时
+tmp/
+*.tmp
+*.log
+
+# 不打包上游种子原始数据（占用空间，README 里有来源说明）
+tools/seeds/jargon_mcsrainbow*.md
+tools/seeds/cs_earseyesmouth.md
+tools/seeds/terms.json
+tools/seeds/generated.jsonl

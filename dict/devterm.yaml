@@ -1,0 +1,1804 @@
+# 开发术语 —— 后端 / 架构 / 工程概念
+- term: 幂等
+  aliases: [幂等性, idempotent, idempotency, idempotence]
+  category: devterm
+  literal: 数学概念，f(f(x)) = f(x)
+  meaning: 想象电梯按钮——你按一下电梯开始上来，你心急又连按八下，电梯还是只来一次。"幂等"就是这种性质：同一个动作做一次和做八次，结果完全一样。互联网公司做支付/下单接口必须设计成幂等的，不然用户重复点击就要被重复扣款。
+  example: 你网购付款时按钮卡住，你急得连戳五下，扣款只发生一次——背后就是幂等。
+
+- term: CAS
+  aliases: [Compare-And-Swap, compare and swap, 比较并交换]
+  category: devterm
+  literal: Compare-And-Swap，比较并交换
+  meaning: 想象一个公共白板，你正要把"今日值班：张三"擦掉改成"李四"。你先看一眼白板还是不是"张三"，是就改，不是就放下笔——说明已经被别人改过了，你得重新看再决定。"无锁并发"靠的就是这套先看再改的小心翼翼，比加大门锁要轻巧。
+  example: 多人同时给一个变量加 1，用 CAS 反复重试，比真上锁排队快得多。
+
+- term: BFF
+  aliases: [Backend for Frontend]
+  category: devterm
+  literal: Backend For Frontend，给前端用的后端
+  meaning: 想象你点外卖：你不会自己跑到三家餐厅各点一道菜，而是让外卖员帮你跑腿，回来时三道菜在一个袋子里。BFF 就是这个外卖员——前端只跟它要数据，它在后端世界里跑去把订单、用户、优惠券问完，整理好一次性递给前端。
+  example: 一个商品详情页要订单+物流+评论三种信息，BFF 一次打包返回，前端不用自己跑三趟。
+
+- term: 熔断
+  aliases: [circuit breaker, 熔断器, 服务熔断]
+  category: devterm
+  literal: 像家里电闸保险丝
+  meaning: 家里电器突然短路冒烟时，电闸"啪"地跳掉，整间屋子断电——这就是熔断的本意：保护更大的灾难。代码世界里，下游服务变慢或挂了，"熔断器"就快速断开调用，让上游不至于跟着死等，几十秒后再试试看好没好。
+  example: 推荐服务挂了十秒，熔断打开，期间访问商品页直接显示热门列表，不再去问推荐。
+
+- term: 降级
+  aliases: [服务降级, fallback, graceful degradation]
+  category: devterm
+  literal: 主动降低服务质量
+  meaning: 想象台风天的航空公司，舱单太满还在加人会出事，于是先取消餐食、关掉电影、再不行减航班，保住"安全起降"这件最核心的事。代码降级一样的逻辑：流量大或下游挂了时，主动关掉花哨功能、返回简化结果，保住下单/支付这条命根子。
+  example: 双 11 流量太大，淘宝主动关掉"猜你喜欢"模块，只让你下单付款，这叫降级。
+
+- term: 限流
+  aliases: [rate limit, rate limiting, throttle, throttling]
+  category: devterm
+  literal: 限制流量
+  meaning: 想象网红店门口的保安：每分钟只放十个人进去，超出的乖乖排队或者明天再来。代码限流一样，给某个接口规定"每秒最多 1000 个请求"，第 1001 个直接被拒在门外。不限流的话流量一暴涨服务就被挤爆。
+  example: 抢演唱会门票时网站让你"排队中"，那个排队就是限流在挡你。
+
+- term: 中间件
+  aliases: [middleware]
+  category: devterm
+  literal: 中间的软件
+  meaning: 想象一栋办公楼的安检+前台+保洁——你从大门进，到达办公室之前总要先过一遍这些"中间环节"。代码里的中间件就是请求送到业务逻辑之前必须经过的工序：先验身份、再记日志、再限流。每加一道中间件，就像门口多一个安检员。
+  example: 加一个鉴权中间件，所有 API 请求都得先被验登录态，没登录的直接拦回去。
+
+- term: 鉴权
+  aliases: [authn, authentication, 认证, auth]
+  category: devterm
+  literal: 鉴别+授权
+  meaning: 想象进公司大门：保安先看你工卡有没有人（认证：你是谁），刷开门禁还要看你这张卡能不能进财务部（授权：你能去哪）。鉴权就是这两件事的合称——先确认身份再判断你能不能干这事。
+  example: 公司内网系统要求登录后只有 HR 能看薪资，登录是认证、HR 权限是授权，合起来叫鉴权。
+
+- term: 灰度
+  aliases: [灰度发布, canary, canary release, 金丝雀]
+  category: devterm
+  literal: 不是全黑也不是全白
+  meaning: 想象新菜上市前，餐厅老板先做十份给老顾客试吃，看反响再决定要不要进菜单。代码上线也是：新版本先放给 1% 的用户试用，没人投诉再放 10%、再放全量。这样万一有 bug，受伤面控制得住。
+  example: 微信改版从来不是全员一起换，先内部、再小城市、再全国，这就是灰度。
+
+- term: A/B test
+  aliases: [ABtest, A/B 测试, 分流实验, AB 实验]
+  category: devterm
+  literal: A 组 vs B 组对比测试
+  meaning: 想象奶茶店纠结"招牌叫'轻享系列'还是'清爽系列'"，于是同一周两家分店挂不同招牌，看哪家进店人多。互联网公司天天干这事：把按钮文案、价格、颜色做两版，各放给一半用户，数据说话决定留哪个。
+  example: 淘宝把"加入购物车"按钮改成红色和橙色各放一半用户，一周后看谁点的多。
+
+- term: 长尾
+  aliases: [long tail, 长尾效应]
+  category: devterm
+  literal: 分布曲线尾巴又长又平
+  meaning: 想象书店里：畅销书架就那么二十本天天有人翻，剩下几万册冷门书一年才被借一两次。把数据画成图，畅销那段是"头"高高的，冷门那段是"尾"又长又扁，所以叫长尾。但这些冷门加起来量也巨大，亚马逊就靠卖长尾书赚钱。
+  example: 抖音热搜只有几个词每天百万次，剩下几亿个奇怪搜索词构成长尾。
+
+- term: 心跳
+  aliases: [heartbeat, keepalive]
+  category: devterm
+  literal: 像心跳一样定时
+  meaning: 想象异地恋每晚 11 点发一句"晚安"，对方不回连续三晚你就知道关系出问题了。代码里的心跳一样：客户端每隔几十秒给服务器发个小信号说"我还在"，服务器没收到就当掉线，及时清场。
+  example: 微信电脑版离线很久会断线，就是因为没继续发心跳。
+
+- term: 雪崩
+  aliases: [cache avalanche, 缓存雪崩, 服务雪崩]
+  category: devterm
+  literal: 一处崩塌带倒一片
+  meaning: 想象食堂窗口排队，A 窗口突然关了，所有人哗一下涌到 B 窗口，B 顶不住也关了，所有人再涌到 C，整个食堂瞬间瘫痪——这就是雪崩。代码常见场景：一堆缓存同时过期导致数据库被秒杀，或一个服务挂了上游全跟着挂。
+  example: Redis 里一万个 key 设了同样过期时间，凌晨 3 点同时过期，数据库瞬间被请求打爆。
+
+- term: 一致性
+  aliases: [consistency, 强一致, 最终一致, eventually consistent]
+  category: devterm
+  literal: 数据各处一样
+  meaning: 想象夫妻共用一个记账本：你刚记完"老婆借了我 100 块"，老婆立马看到这条新账——这是"强一致"。如果你记完她要过 5 分钟手机同步才看到，期间她查账还是旧的——这是"最终一致"。强一致用在转账这种容错不了的事，最终一致够用于朋友圈点赞数。
+  example: 转账两边账户必须强一致，不然钱可能消失或翻倍。
+
+- term: 状态机
+  aliases: [state machine, FSM, 有限状态机]
+  category: devterm
+  literal: 有限个状态 + 状态间转移规则
+  meaning: 想象一份外卖订单的人生轨迹：待支付 → 已支付 → 商家接单 → 配送中 → 已送达。每一步只能往后走，不能从"已送达"跳回"待支付"，跳了你就免单了。状态机就是把这套"什么状态能变成什么状态"的规则写死，挡掉所有不合法的跳跃。
+  example: 用状态机管订单，避免"已发货"被改回"待支付"这种白拿钱的 bug。
+
+# --- batch 2 expansion: 技术词 ---
+
+- term: 死锁
+  aliases: [deadlock]
+  category: devterm
+  literal: 锁死
+  meaning: 想象两个人面对面卡在窄门里，A 让 B 先过、B 让 A 先过，俩人都不动也都不让，于是僵在门口谁也过不去——这就是死锁。代码里两个进程互相握着对方需要的钥匙，又互不松手，程序卡住直到强制重启。
+  example: 数据库里两个事务互相等对方释放行锁，MySQL 直接挑一个出来回滚，免得永远卡着。
+
+- term: 乐观锁
+  aliases: [optimistic lock]
+  category: devterm
+  meaning: 想象你在共享文档里改了一段，按保存时系统先比一下"你打开时这段还是你看到那样吗"——是就保存，不是就提示"有人改过了，你重看一遍再改"。乐观锁就是这种"我先信任没人动，提交时再确认一下"的策略，不预先上锁、冲突时才处理。
+  example: 用一个版本号字段做乐观锁，更新时带上版本，对得上才写。
+
+- term: 悲观锁
+  aliases: [pessimistic lock]
+  category: devterm
+  meaning: 想象图书馆里有一本只有一份的孤本，你借出来时管理员立马挂个"借出中"的牌子，其他人想看必须等你还回去。悲观锁就这思路——先把数据锁住、其他人想动得排队等。和乐观锁的"先动手再确认"刚好相反，适合大家抢得很凶的场景。
+  example: 抢秒杀库存时用悲观锁，避免超卖。
+
+- term: 自旋锁
+  aliases: [spinlock]
+  category: devterm
+  literal: 原地转圈等
+  meaning: 想象你打电话给客服，对方"请稍等"，你不挂电话就攥着听筒在那干等。自旋锁就是这样——拿不到锁的线程不去睡觉，原地反复问"能用了吗能用了吗"。适合锁马上就会还回来的场景，比挂电话再回拨快。
+  example: 操作系统内核里常用自旋锁，因为切线程比原地等还贵。
+
+- term: 读写锁
+  aliases: [RWLock]
+  category: devterm
+  meaning: 想象图书馆的阅览室：很多人同时翻同一本书没问题（读+读），但有人要换书架上的书时，必须先把所有人请出去再换（写时独占）。读写锁就这规则——读和读不冲突可以一起来，只要有人写大家全等着。
+  example: 服务配置启动时写一次，运行期都是读，用读写锁性能比互斥锁好得多。
+
+- term: 互斥锁
+  aliases: [mutex]
+  category: devterm
+  literal: 互相排斥
+  meaning: 想象单人厕所的门锁——一次只能进一个人，进去就反锁，其他人等门外。互斥锁就是这个最朴素的锁，保护一份"同时只能让一个人动"的资源。是并发编程的入门工具。
+  example: 多线程共改同一个计数器，没加 mutex 数字就乱了。
+
+- term: 信号量
+  aliases: [semaphore]
+  category: devterm
+  meaning: 想象游乐场某游乐设施同时只能开 5 个人，门口发 5 张牌。前 5 个人拿牌进入，第 6 个等有人出来还牌再进。信号量就是这堆牌——既不是只能 1 个（那叫互斥锁），也不是没限制，而是"同时最多 N 个"。
+  example: 限制最多 10 个并发请求下游，就是用信号量发 10 张通行证。
+
+- term: 原子操作
+  aliases: [atomic]
+  category: devterm
+  meaning: 想象按下电梯按钮——你按下去那一瞬间，要么按到了（灯亮）要么没按到，不存在"按了一半"。原子操作就这意思：要么完整发生、要么没发生，外界看不到中间状态。CPU 提供这种基础保证。
+  example: 计数器用原子操作加 1，多线程也不会数错。
+
+- term: 事务
+  aliases: [transaction]
+  category: devterm
+  meaning: 想象转账：从你账户扣 100 + 给对方账户加 100 必须打包成一件事——要么两步全成功，要么两步全没发生。如果只扣不加，钱就消失了。"事务"就是这套"打包提交、出错就全部撤销"的保护机制。
+  example: 银行转账开一个事务，扣款和入账要么一起成、要么一起回滚。
+
+- term: ACID
+  aliases: [acid]
+  category: devterm
+  literal: Atomicity, Consistency, Isolation, Durability
+  meaning: 银行账本必须严格遵守的四条规矩：转账不能只扣不加（A 原子）、账目永远对得上（C 一致）、两人同时转账互不串台（I 隔离）、写完就算停电也不丢（D 持久）。传统数据库（MySQL/PostgreSQL）以这四条为本分。
+  example: 关系型数据库的招牌就是 ACID，对钱的事必须满足。
+
+- term: BASE
+  aliases: [base 理论]
+  category: devterm
+  literal: Basically Available, Soft state, Eventually consistent
+  meaning: 想象微博点赞数：你点了一下，可能 3 秒后朋友才看到 +1，期间各人看到的数字不一样。这种"先让大家都能用，数据慢慢同步对齐"就是 BASE，跟 ACID 那种"必须立刻一致"刚好相反。社交、内容这类业务允许这点延迟。
+  example: 朋友圈点赞数走 BASE，几秒同步上没人在意。
+
+- term: CAP
+  aliases: [CAP 理论]
+  category: devterm
+  literal: Consistency, Availability, Partition tolerance
+  meaning: 分布式系统三个特性像不可能三角——一致（大家看到的数据完全一样）、可用（永远能响应）、能抗网络断裂——只能保两个。现实里网络总会断，所以实际选择变成"宁可暂时拒绝服务也要一致"还是"宁可数据暂时不同也要响应"。
+  example: 银行转账系统选 CP（不一致宁可拒服务），抖音首页选 AP（先给你看，可能不是最新的）。
+
+- term: 索引
+  aliases: [index, 数据库索引]
+  category: devterm
+  literal: 像书的目录
+  meaning: 想象一本没目录的字典——你想查"幂等"就得从第 1 页翻到第 800 页。给字典加个拼音目录，你 3 秒翻到 M 部，再 5 秒翻到"幂"。数据库索引就是这个目录，查得快但每次写要顺带更新目录，所以稍微慢一点也占地方。
+  example: 一个 SQL 查询 3 秒，加个索引后 30 毫秒——百倍提速。
+
+- term: 主键
+  aliases: [primary key, PK]
+  category: devterm
+  meaning: 想象身份证号——每个中国人独一无二，公安一拿号就能精确找到你。表的主键就是这个身份证号，每一行数据有它独一份的标识，重复就报错。
+  example: 用户表主键是 user_id，永不重复，方便其他表来"引用"这个人。
+
+- term: 外键
+  aliases: [foreign key, FK]
+  category: devterm
+  meaning: 想象快递面单上写着"收件人身份证号"——它本身不是你的身份证，但通过这个号能精确找到你。外键就是表里指向另一张表主键的字段，建立"这条记录归属于谁"的关联。
+  example: 订单表里 user_id 是外键，告诉你这单是哪个用户下的。
+
+- term: 分库分表
+  aliases: [sharding, 分片]
+  category: devterm
+  meaning: 想象一家超大医院的病历柜：一个柜装不下，干脆按姓氏首字母分 26 个柜子。找张三的病历直接去 Z 柜，效率拉满。数据库分库分表一个道理——单库扛不住时按规则切成多块，每块存一部分。代价：跨库联查变难。
+  example: 订单表分成 64 张子表，按用户 ID 取模分配，每张表只存全量的 1/64。
+
+- term: 读写分离
+  aliases: [主从读写分离]
+  category: devterm
+  meaning: 想象图书馆有一份原稿和几份复印件：写改动只能改原稿（主库），所有人读时翻复印件（从库）。读的人多复印件随时加，扛压力很强。代价：原稿改了到复印件全部同步要几秒，所以读到一瞬间的旧数据是可能的。
+  example: 用户改了昵称立刻刷新，可能还是旧的——读写分离的延迟正常现象。
+
+- term: 主从
+  aliases: [master-slave, 主从复制]
+  category: devterm
+  meaning: 想象老板和秘书：老板说一句（主库写），秘书立刻在自己的本子上抄一份（从库复制）。老板请假时秘书顶上当代理（主挂了切从）。数据库主从复制就这套体系，多备份不丢数据 + 抗读流量。
+  example: Redis 一主三从挂了一台从，业务完全感觉不到，因为另外两台还能读。
+
+- term: TCP
+  aliases: [Transmission Control Protocol]
+  category: devterm
+  meaning: 想象寄一份重要合同：你寄出后对方签收要回执，缺页要补发，要确保完整无错到达。TCP 就是网络上这种"郑重邮寄"协议——发送前先打招呼（三次握手）、丢包了自动补、顺序乱了自动排好。慢一点但靠谱。
+  example: 上网看网页背后跑的是 HTTP，HTTP 跑在 TCP 上，所以你才能完整看到页面。
+
+- term: UDP
+  aliases: [User Datagram Protocol]
+  category: devterm
+  meaning: 想象大喊一声："开会啦！"——你喊了就完事，不在乎每个人都听见、谁先听见。UDP 就是这种网络协议：发完不管对方收没收、顺序对不对，速度第一。直播、视频通话、游戏都用 UDP，因为丢一帧也比卡顿强。
+  example: 直播看到主播突然变模糊，是 UDP 丢了几个数据包，但流没断。
+
+- term: HTTPS
+  aliases: [https]
+  category: devterm
+  meaning: 想象你和朋友传纸条但怕老师看：你们先约定密码本（建连时握手），之后纸条都用密码本加密，老师中间截到也看不懂。HTTPS 就是给 HTTP 套了这层加密外壳，浏览器看到地址栏小绿锁说明在用。
+  example: 现在浏览器对没加 HTTPS 的网站直接打"不安全"红标，逼着所有站都换。
+
+- term: DNS
+  aliases: [域名解析]
+  category: devterm
+  literal: Domain Name System
+  meaning: 想象通讯录——你只记"妈妈"这个名字，按下去手机自动拨那串 11 位号码。DNS 就是互联网的通讯录，你输入 baidu.com，它告诉浏览器"去这台 IP 找它"。背后还分层缓存：浏览器本地、运营商、根服务器一路查。
+  example: 偶尔打不开网站、过会儿又能开，多半是 DNS 出问题。
+
+- term: CDN
+  aliases: [Content Delivery Network, 内容分发网络]
+  category: devterm
+  meaning: 想象星巴克在全国每个城市开分店——你想喝咖啡不用千里飞去西雅图总部，就近一家就行。CDN 就是把网站的图片、视频复制到全国甚至全球的"分店"（边缘节点），你访问时自动从最近的取，又快又稳。
+  example: 你看 B 站不卡，是因为视频从你所在城市的 CDN 节点送过来，不是从总部机房。
+
+- term: 反向代理
+  aliases: [reverse proxy]
+  category: devterm
+  meaning: 想象高档小区门口的前台——访客不直接闯户主家，前台先问"找谁、几号楼"，再帮你联系。所有外部请求先到反向代理（如 Nginx），它一边过滤一边分发给后端服务，外人看不到后面到底有几栋楼。
+  example: 网站外面摆一台 Nginx 当反向代理，里面藏着十台真正干活的服务器。
+
+- term: 负载均衡
+  aliases: [load balance, LB]
+  category: devterm
+  meaning: 想象银行大厅多个柜台，门口的叫号机分配："1 号去 3 号台、2 号去 5 号台"——保证每个柜员都忙、没人闲、没人挤死。负载均衡就是网络流量的叫号机，按规则分发请求到多台后端机器。
+  example: 网站火了流量翻十倍，在 LB 后面加几台机器，叫号机自动把新流量分进去。
+
+- term: 缓存穿透
+  aliases: [cache penetration]
+  category: devterm
+  meaning: 想象图书馆门口的快速咨询台——一般问题它直接答，不会的它去库房找。如果有人故意一直问"你们有《不存在之书》吗"，咨询台问完每次都答"没有"，但每次都白跑库房一趟。攻击者就用不存在的 ID 反复请求，缓存挡不住，每次都打到数据库。
+  example: 用布隆过滤器挡掉不存在的请求，让咨询台不用每次跑库房。
+
+- term: 缓存击穿
+  aliases: [cache breakdown]
+  category: devterm
+  meaning: 想象一家网红奶茶店门口贴着"今日特供：明星款"。十分钟后特供卖完撤了告示，那一秒所有想买的人全涌进店里问店员"还有吗还有吗"，店员瞬间被围爆。代码里热门 key 突然过期，缓存查不到，瞬间所有请求挤爆数据库——这就是击穿。
+  example: 给热点 key 续命 + 同时只让一个请求去重建缓存，其他请求等一下别都冲进去。
+
+- term: LRU
+  aliases: [Least Recently Used]
+  category: devterm
+  literal: 最近最少使用
+  meaning: 想象你的衣柜放不下了——挑哪件扔？多数人挑"半年都没穿过的那件"。LRU 缓存策略一样：满了就把"最近最久没访问"的那个踢出去，给新数据让位。Redis、操作系统都用这套。
+  example: 浏览器缓存满了，先丢的就是你半年没访问的网页。
+
+- term: LFU
+  aliases: [Least Frequently Used]
+  category: devterm
+  literal: 最不常使用
+  meaning: 想象你淘汰歌单：不是看"哪首最近没听"，而是看"哪首历史上总播放次数最少"。LFU 看长期热度而不是最近时间，比 LRU 更稳，但对偶尔爆火的内容不友好。
+  example: 视频网站的热门榜淘汰用 LFU，长期低播放的视频先沉下去。
+
+- term: MQ
+  aliases: [message queue, 消息队列]
+  category: devterm
+  meaning: 想象写字楼楼下的快递柜——你不用守着等收件人，把包裹丢进柜子贴个号，对方有空再来取。MQ 就是这种"中转柜"：生产者扔消息进去就走，消费者按自己节奏来取。好处三件套：双方解耦、异步快、扛流量峰。
+  example: 用户下单成功后扔个消息到 MQ，库存/积分/物流三个服务各自来取，不用同时通知。
+
+- term: 削峰
+  aliases: [流量削峰]
+  category: devterm
+  literal: 削平流量高峰
+  meaning: 想象演唱会散场十万人一起涌出馆——直接放出去地铁站会被踩踏。运营组织排队分批放行，地铁站还来得及消化。削峰一个道理：流量瞬间过大先扔到 MQ 排队，后端按自己速度处理。秒杀场景靠这套不挂。
+  example: 双 11 零点一秒上千万下单，全先进 MQ 排队，后端慢慢处理，不至于秒崩。
+
+- term: 异步
+  aliases: [async, asynchronous]
+  category: devterm
+  meaning: 想象你在咖啡店点单——服务员接了单不在那等做完，立刻去接下一个，咖啡好了叫号你自己来取。异步就是这种"我先去干别的，结果好了再通知我"的工作方式，效率比死等高得多。
+  example: 下单接口里"发短信"改成异步，接口从 2 秒响应降到 50 毫秒，发短信慢一点用户也不知道。
+
+- term: 同步阻塞
+  aliases: [synchronous blocking, 阻塞]
+  category: devterm
+  meaning: 想象你打电话给客服，对方让你"稍等查一下"，你拿着听筒不能干别的事就在那等，挂电话又怕错过结果。同步阻塞就是这种死等模式：调了一个慢操作，必须杵着等结果回来才能继续。一卡卡全部。
+  example: 老代码所有请求同步阻塞，一个慢查询拖累整个服务无法响应别的用户。
+
+- term: 协程
+  aliases: [coroutine, 协程并发]
+  category: devterm
+  meaning: 想象超人厨师——他炒一道菜时如果汤要熬 5 分钟，他放下勺切个菜，菜切完去炒另一锅，期间汤好了立刻回去。协程就是这种"一个人能优雅地同时管很多件事"的并发方式。比开很多个厨师（线程）便宜得多。
+  example: Go 一个进程轻松开 10 万协程同时处理网络请求，开 10 万线程电脑早死了。
+
+- term: 内存泄漏
+  aliases: [memory leak]
+  category: devterm
+  literal: 内存漏出去
+  meaning: 想象你租了储物柜，借了又借却忘了还钥匙，柜子始终被你占着。久而久之储物间所有柜子都被你这种健忘客户占满，新人没柜子用。程序申请内存忘了释放，越跑越占，最后内存耗尽崩溃——这就是内存泄漏。
+  example: 服务跑 3 天没崩，第 4 天突然 OOM，几乎肯定是某处内存泄漏在慢慢攒。
+
+- term: GC
+  aliases: [Garbage Collection, 垃圾回收]
+  category: devterm
+  meaning: 想象你家请了个保洁，定期扫描每个房间，把没人用的旧报纸、空瓶子收走腾出空间。Java/Go/Python 这些语言带了这个保洁——自动找出没用的内存对象释放掉，程序员不用手动管。代价：保洁干活时会让你暂时停下让路。
+  example: 服务突然卡顿 2 秒所有接口超时，多半是 Full GC 在大扫除。
+
+- term: STW
+  aliases: [stop the world]
+  category: devterm
+  literal: 暂停世界
+  meaning: 想象超市大扫除——为了彻底打扫，临时关门所有顾客出去等。STW 就是 GC 做大扫除时所有业务线程被冻住，等扫完再放行。老 Java 算法一冻就是几秒，新算法（ZGC）压到几毫秒。
+  example: 接口监控突然全红，一查是 Full GC STW 卡了 5 秒所有请求超时。
+
+- term: OOM
+  aliases: [Out Of Memory]
+  category: devterm
+  literal: 内存耗尽
+  meaning: 想象搬家公司的卡车空间满了还往里塞东西——车厢爆掉，所有东西散一地。程序的内存满了再申请就 OOM，整个进程当场被杀。常见原因：一次查太多数据没分页、内存泄漏积累、缓存无限增长。
+  example: 一个 SQL 没加 limit 想查 1000 万行进内存，瞬间 OOM 服务崩。
+
+- term: 时间复杂度
+  aliases: [time complexity, O(n)]
+  category: devterm
+  meaning: 衡量一个算法跑得多快。想象你在 100 人队伍里找张三：O(1) = 直接知道在第 5 个位置一眼看到；O(logn) = 队伍按身高排过你二分法找；O(n) = 一个个挨着喊；O(n²) = 每两人配对核对——10 万人时这俩天差地别。
+  example: 这双循环 O(n²)，数据涨到 10 万就跑半天，得改成 O(n logn) 才扛得住。
+
+- term: 空间复杂度
+  aliases: [space complexity]
+  category: devterm
+  meaning: 算法占用内存随数据量增长的趋势。和时间复杂度兄弟概念——一个看时间一个看空间。常见有用空间换时间的取舍：开个哈希表内存多花，但查询变快。
+  example: 这个去重算法 O(n) 空间，1 亿数据要 1G 内存，得换流式算法。
+
+- term: SQL 注入
+  aliases: [SQL injection]
+  category: devterm
+  meaning: 想象保安问"你是谁"，你回答"张三'+'OR 1=1"，结果保安系统把你的回答当成了指令的一部分——"任何人都让进"。SQL 注入就是攻击者把恶意片段混进输入，被当成 SQL 指令执行，可以绕登录、删库、偷数据。
+  example: 登录框输入 admin'-- 直接绕过密码验证，这是 SQL 注入的经典示例。
+
+- term: XSS
+  aliases: [Cross-Site Scripting]
+  category: devterm
+  literal: 跨站脚本
+  meaning: 想象有人在公告栏贴张纸，写的不是普通通知而是"扫这个码自动支付 100 元"——其他人看到就被坑了。XSS 就是攻击者把恶意 JS 脚本塞进网站内容里（评论、留言），其他用户浏览时浏览器把它当代码执行，cookie 被偷、账号被劫。
+  example: 评论框没过滤就渲染，有人发 `<script>...</script>` 进去，所有看评论的人 cookie 被发到攻击者服务器。
+
+- term: CSRF
+  aliases: [Cross-Site Request Forgery]
+  category: devterm
+  literal: 跨站请求伪造
+  meaning: 想象你登录网银没退出，有人发你一张"点开看猫片"的链接，你点开后那个页面偷偷帮你向网银发了转账指令——浏览器还自动带着你的登录凭证。CSRF 就是这种"借用你已登录的身份让你帮人办坏事"的攻击。
+  example: 转账接口必须额外带一个 CSRF token，别人无法伪造你的转账请求。
+
+- term: JWT
+  aliases: [JSON Web Token]
+  category: devterm
+  meaning: 想象会议胸牌——上面写着姓名+部门+日期，再加一个防伪水印。你拿着这张牌进任何会议室，门口只看水印对不对就放行，不用打电话回前台核实你是不是真员工。JWT 就是这种"自己带着身份信息+防伪签名"的令牌，服务端不用查库就能验。
+  example: 用户登录后服务端发一张 JWT，之后每次请求都带这张牌，服务端验签名就知道是谁。
+
+- term: OAuth
+  aliases: [oauth2, OAuth 2.0]
+  category: devterm
+  meaning: 想象代驾——你不会把车钥匙完整交出，而是给一张限时入门卡，能开车回家但不能开走、不能进你家。OAuth 就是这种"授权但不交底"的协议：用 GitHub 登录某网站，你不告诉它密码，只让它读你的用户名头像就行。
+  example: 点"用微信登录"那一下，背后就是 OAuth 在帮你把"读基本资料"的临时凭证发给目标网站。
+
+- term: RPC
+  aliases: [Remote Procedure Call]
+  category: devterm
+  literal: 远程过程调用
+  meaning: 想象你在自家厨房喊一声"妈，糖给我"，妈在隔壁屋递糖过来——感觉就像伸手就够到。RPC 让程序员调远程服务像调本地函数一样简单：写 user.getName() 框架自动把请求送到那台机器、等回结果。底层网络细节全屏蔽。
+  example: 微服务之间不写 HTTP 拼 JSON，直接 user.getInfo() 像调本地代码，是 RPC 框架在背后操办。
+
+- term: gRPC
+  aliases: [grpc]
+  category: devterm
+  meaning: 想象普通快递（HTTP/JSON）和顺丰特惠（gRPC）的区别——顺丰用专门通道、压缩包装、统一规格的箱子，又快又省。gRPC 是 Google 出的高性能 RPC 框架，跑在 HTTP/2 上、用 Protobuf 序列化，跨编程语言通用。微服务间通信首选。
+  example: 内部服务从 HTTP/JSON 改 gRPC，接口延迟降一半，流量也降。
+
+- term: Protobuf
+  aliases: [protocol buffers, pb, proto]
+  category: devterm
+  meaning: 想象寄包裹两种方式：(1) JSON 像写一张长清单，每个商品名+数量+价格中文写一遍；(2) Protobuf 像用统一编号——大家约定 1 号=苹果、2 号=梨，只发"1=5, 2=3"——同样信息字节少十倍。Google 出的二进制协议，省流量、速度快、类型强，但需要预先约定 schema。
+  example: 移动端和服务端用 protobuf 通信，每次请求体积只有 JSON 的 1/5。
+
+- term: 依赖注入
+  aliases: [DI, dependency injection]
+  category: devterm
+  meaning: 对象不自己 new 依赖，由外部框架塞给它。便于测试和换实现。Spring/NestJS 核心思想。
+  example: Service 通过依赖注入拿到 Repository，单测时换成 mock。
+
+- term: 控制反转
+  aliases: [IoC, inversion of control]
+  category: devterm
+  meaning: 想象家里装修——以前你自己跑建材市场买所有材料，叫工人来装；现在你雇个总包公司，告诉它要什么效果，材料和工人都它来管。"控制反转"就是把"找依赖"的活儿交给框架（如 Spring），代码只声明需要什么，框架来送。
+  example: Spring 容器是典型 IoC——你的 Service 不自己 new 一个数据库连接，容器自动把它塞给你。
+
+- term: 单元测试
+  aliases: [unit test, UT]
+  category: devterm
+  meaning: 想象造汽车前先单独测每个零件：刹车片单独压一万次看会不会裂、火花塞通电看会不会亮。单元测试就是给一个函数/类单独写个验证脚本，断网断库都能跑，保证最小零件本身对。没有单测的代码，重构起来心惊胆战。
+  example: 这个计算运费的函数没单测，谁也不敢动它，怕一改下单算错钱。
+
+- term: 集成测试
+  aliases: [integration test]
+  category: devterm
+  meaning: 单元测试是测零件，集成测试就是把零件装一起开上路跑——发动机+变速箱+刹车系统连起来还转不转。比单测慢但更接近真实，常会启真数据库、调真依赖。
+  example: 单测都过了不代表能上线，必须跑一遍集成测试看整套流程串起来对不对。
+
+- term: CI
+  aliases: [continuous integration, 持续集成]
+  category: devterm
+  meaning: 想象工厂质检——每个零件下线立刻进检测仪，不合格直接拦下。CI 就是给代码装这种检测仪：每次提交自动跑构建+所有测试，挂了立刻通知，别等上线才发现 bug。GitHub Actions、Jenkins 是常见 CI 工具。
+  example: 提了 PR 等 CI 跑绿（全部测试通过）才能合代码，挡掉一堆低级错误。
+
+- term: CD
+  aliases: [continuous deployment, 持续部署]
+  category: devterm
+  meaning: 顺着 CI 往下：CI 把代码验过了，CD 自动把它送到测试环境/灰度/生产。从程序员按下 commit 到代码真正跑在用户眼前，全程自动化无需手动登服务器拷文件。
+  example: 公司 CI/CD 流水线打通后，merge 代码后 20 分钟内自动到达灰度环境。
+
+- term: docker
+  aliases: [Docker, 容器]
+  category: devterm
+  meaning: 想象搬家——以前你得告诉新房主你家洗衣机要 220V、冰箱要靠墙、空调外机要支架。换成集装箱搬家：所有东西+管线+插座打包成一个箱子，到哪儿插上电就能用。Docker 就是这种"应用 + 全部依赖打包带走"的集装箱方案。
+  example: 本地一行 `docker run redis` 就跑起 Redis，不用装也不污染机器环境。
+
+- term: k8s
+  aliases: [Kubernetes]
+  category: devterm
+  meaning: 如果 Docker 是集装箱，k8s 就是港口的集装箱调度系统：装船、卸船、坏了换、忙了多调几个、闲了收回。k8s 帮你管几百上千个容器：自动启动、挂了自动重启、流量大了自动扩容。Google 出的，已成行业标准。
+  example: 业务上 k8s 之后扩容点几下鼠标加 10 台机器，不用手动登服务器。
+
+- term: 微服务
+  aliases: [microservice]
+  category: devterm
+  meaning: 想象一家公司从夫妻店变成连锁集团——以前所有活儿一个人干，长大后拆成"采购部、销售部、财务部"各自独立办公。微服务就是把一个大应用拆成几十个小服务各自部署，每个服务专心干一件事。代价：服务间通信、监控、运维都复杂十倍。
+  example: 老单体系统拆微服务拆了一年多，拆完性能确实好，但出问题排查也变难。
+
+- term: 单体
+  aliases: [monolith, 单体应用]
+  category: devterm
+  meaning: 一个公司全员在一间大办公室、做所有事——开会效率高、决策快，但人多了挤不下。单体应用就这样：所有功能编译/部署在一起，简单可靠适合小项目，但大了之后改一行也要全量重新发版。
+  example: 业务还在早期就别折腾微服务，单体起步两个月能上线，微服务一年都搞不定。
+
+- term: WebSocket
+  aliases: [ws]
+  category: devterm
+  meaning: 普通网页是"你问一句我答一句"，问完就挂电话。WebSocket 像电话不挂——两边一直保持热线，谁有话谁说。聊天/直播弹幕/股票行情都靠它实时双向推。
+  example: 微信网页版的消息实时推送，背后跑的是 WebSocket 长连接。
+
+- term: 长连接
+  aliases: [long connection]
+  category: devterm
+  meaning: 想象你家和单位有专线电话——一直占着不挂，方便随时通话。和"短连接"相对（短连接：每次说完话就挂，要再说就再拨）。聊天、推送服务必须用长连接，否则没办法主动通知你。
+  example: 微信收消息靠长连接挂在那里，对面发来一秒就推到你手机。
+
+- term: 短连接
+  aliases: [short connection]
+  category: devterm
+  meaning: 像投硬币打公用电话——投一次只能打一次，下次再打要重新投币。每次请求开一个连接用完就关，开关本身有成本。HTTP/1.0 默认短连接，HTTP/1.1 起改成可复用。
+  example: 老接口设计用短连接，每次请求都要握手，性能差，升级长连后 QPS 翻倍。
+
+- term: 序列化
+  aliases: [serialize]
+  category: devterm
+  meaning: 想象把一座立体的乐高城堡寄给朋友——你得先把它拆成扁平包装能塞进盒子里（序列化），对方收到再按说明书重新拼起来（反序列化）。程序里把一个内存对象变成可发送/可存储的字节流就叫序列化。
+  example: 把用户对象转成 JSON 字符串存到 Redis，是个序列化过程。
+
+- term: 哈希
+  aliases: [hash, 散列]
+  category: devterm
+  meaning: 想象一台魔法绞肉机——任何东西丢进去（一句话、一首歌、一部电影），出来都是一根固定长度的香肠（哈希值）。同样的东西出同样的香肠，差一个字也出完全不同的香肠。文件秒传、密码存储、HashMap 查找全靠它。
+  example: 上传大文件 360 网盘"秒传"，就是算了文件哈希发现服务器已有同样香肠了，秒标完成。
+
+- term: 哈希冲突
+  aliases: [hash collision]
+  category: devterm
+  meaning: 哈希绞肉机理论上无限输入对应有限输出，所以肯定有两份不同的东西出一样的香肠——这就是哈希冲突。HashMap 处理冲突的办法：同一个香肠位置挂个链表，存进来的多个数据都放一起，查的时候逐个比对。
+  example: HashMap 一个桶冲突太多链表过长，Java 8 起就把链表升级成红黑树提速。
+
+- term: 字典树
+  aliases: [trie, 前缀树]
+  category: devterm
+  meaning: 想象英汉词典是一棵树——第一层是 a/b/c...26 个分支，每个分支再分下一层，沿着字母往下走就能找到完整单词。字典树就这结构，特别适合做"前缀匹配"——输入"hel"，秒列出所有 hel 开头的词。搜索框联想用它。
+  example: 公司敏感词过滤用字典树存几万词，O(n) 扫一遍消息就能查出来。
+
+- term: B+ 树
+  aliases: [B+ tree, B 树]
+  category: devterm
+  meaning: 想象一本超厚的字典分十级目录：1 级目录指向 2 级，2 级指向 3 级，最后落到具体某页。每级页面又宽又扁（多叉），从顶往下找几次就到目标。MySQL 数据库的索引底层就用这种结构，每读一次磁盘能拿一大块。
+  example: MySQL 加索引能让 100 万行表查询从 3 秒变 30 毫秒，靠的就是 B+ 树。
+
+- term: 红黑树
+  aliases: [red-black tree]
+  category: devterm
+  meaning: 想象一个倒挂的家谱树——树长歪了一边特别深查找慢。红黑树是一种会自动给自己"扶正"的树：每次插入/删除都按规则旋转一下，保证不会左重右轻。查找/增删都是 O(logn)。Java TreeMap、Linux 内核都用。
+  example: HashMap 一个桶冲突太多时自动从链表升级红黑树，最坏查找从 O(n) 变 O(logn)。
+
+- term: 跳表
+  aliases: [skip list]
+  category: devterm
+  meaning: 想象地铁——线路最底层是每站都停的普通车，上面叠一层快车（隔几站停一次）、再上面是特快（只停几个大站）。跳表就是这种"多层有序链表"——查找时从顶层快车跳过大段，逼近目标再下到底层精确停。比红黑树简单好实现。
+  example: Redis 的 zset（有序集合）底层就是跳表 + 哈希双结构。
+
+- term: 一致性哈希
+  aliases: [consistent hash]
+  category: devterm
+  meaning: 想象一个圆形钟表，每个缓存服务器在表盘上占一个位置。一个数据来了，按它的哈希算出对应时刻，顺时针找到下一个服务器就放那。加一台机器只影响相邻一段，不会让全部缓存失效——这是普通哈希做不到的。
+  example: 缓存集群用一致性哈希，扩容时只有 1/N 的 key 要重新分布，命中率不会暴跌。
+
+- term: 雪花算法
+  aliases: [snowflake]
+  category: devterm
+  meaning: 想象怎么给全世界出生的孩子起独一无二的编号——不可能全部回总部排队取号，所以约定：每个医院有编号 + 出生时间精确到毫秒 + 当毫秒内序号。Twitter 设计的雪花算法就这套，64 位整数搞定全球分布式 ID 生成，趋势递增、不重复、不依赖中心服务。
+  example: 订单系统在多个数据库里都能生成不冲突的订单号，靠雪花算法。
+
+- term: 灰度环境
+  aliases: [pre 环境, 预发环境]
+  category: devterm
+  meaning: 想象新菜上市前的"内部试吃晚宴"——配方、食材、厨师跟正式开业完全一样，但只给员工和老顾客吃。灰度环境就是上线前最后一道关：配置和生产几乎一样，但只放小流量进来验证，发现问题不影响普通用户。
+  example: 新版支付链路先上灰度跑两天，没问题再切全量。
+
+- term: 滚动发布
+  aliases: [rolling update]
+  category: devterm
+  meaning: 想象车队全员换轮胎——不可能同时四辆车一起换瘫痪整队，改成一辆一辆来：第一辆换完检查 OK 再换第二辆。滚动发布就这样：把服务实例分批替换为新版本，每批观察一下没事再下一批，挂了影响范围有限。
+  example: k8s 默认滚动发布每次替换 25%，全队 100 台机器分四批升级。
+
+- term: 蓝绿发布
+  aliases: [blue-green]
+  category: devterm
+  meaning: 想象工厂有两条生产线（蓝、绿）：今天蓝线在跑、绿线空着，新版本部署到绿线上，开关一拨流量瞬间切到绿线。出问题瞬间切回蓝。代价是常备双倍机器，好处是回滚秒级、零中断。核心交易系统常用。
+  example: 银行核心交易做蓝绿发布，切流量按下回车那秒新版本接管所有请求。
+
+# --- batch 6 expansion: UI 组件 + 前端通用术语 ---
+
+- term: tooltip
+  aliases: [提示框]
+  category: devterm
+  meaning: 想象博物馆展品旁边的小说明牌——你不凑近不知道有，凑近一看："明朝青花瓷·1450 年"。tooltip 就是这种网页/软件上的小说明牌：鼠标停在按钮、图标上几秒，旁边浮出一句解释，告诉你这是干嘛的。
+  example: 给一个图标按钮加 tooltip 说"复制链接"，用户就不用猜了。
+
+- term: modal
+  aliases: [Modal, 模态框, 模态弹窗]
+  category: devterm
+  meaning: 想象老板把你拉进办公室门一关："这事说完才能走"——你没法去外面继续敲键盘。modal 就是这种"霸占整个屏幕、必须先处理"的弹窗，背景一般还会变灰让你聚焦。删除前的"确认要删吗？" 都是 modal。
+  example: 用户点"删除账户"，先弹一个 modal 让你输密码确认，防止误操作。
+
+- term: popover
+  aliases: [Popover, 浮层]
+  category: devterm
+  meaning: 想象你在便利店问"这个酸奶过期了吗"，店员凑过来小声告诉你日期——比朋友凑过来贴脸说重，比贴一张海报轻。popover 就是这种悬浮的小卡片：点某个元素旁边浮出来更多信息或操作选项，不像 modal 那样霸屏。
+  example: 头像旁的下拉菜单"设置/退出"，那个小卡片就是 popover。
+
+- term: popup
+  aliases: [Popup, 弹窗]
+  category: devterm
+  meaning: 笼统的"弹出窗口"——所有突然蹦出来的小窗都能叫 popup。浏览器新开的窗、JS 警告框、网站的"加微信抽奖"广告，全是 popup。一般偏贬义，因为打扰用户。
+  example: 这站子一打开就 popup 三个广告，体验差得要命。
+
+- term: dropdown
+  aliases: [Dropdown, 下拉菜单, 下拉框]
+  category: devterm
+  meaning: 想象自动售货机的选择按钮——点一下展开一列选项给你挑。dropdown 就是网页/App 里点击后向下展开的选项列表，省空间又规整，常用于选国家、选月份、选分类这种枚举值。
+  example: 注册表单的"出生年份"做成 dropdown，比让用户自己输入数字方便。
+
+- term: toast
+  aliases: [Toast]
+  category: devterm
+  literal: 烤面包片"砰"地弹出来
+  meaning: 想象烤面包机"叮"地把面包弹出来又自己沉下去——toast 就这种短暂提示：浮在屏幕一角说一句话（"已保存""复制成功"），几秒后自己消失。不打断用户操作，比 modal 优雅得多。
+  example: 表单提交成功后弹个绿色 toast 提示"已保存"，2 秒自动消失。
+
+- term: snackbar
+  aliases: [Snackbar]
+  category: devterm
+  meaning: 想象餐厅吧台递过来的小食——一根薯条配蘸酱，吃完不吃就撤。snackbar 是 Material Design 里底部弹出的短消息条，跟 toast 类似但常带一个操作按钮（"撤销"），让用户有反悔机会。
+  example: 删除了一条消息后弹 snackbar "已删除 [撤销]"，5 秒内点撤销能恢复。
+
+- term: breadcrumb
+  aliases: [面包屑, 面包屑导航]
+  category: devterm
+  literal: 童话《糖果屋》里兄妹一路撒面包屑找回家路
+  meaning: 想象在森林里走了三层迷宫，每个岔路都做个记号——再深也知道怎么回去。网页深层级页面顶部"首页 > 商品 > 手机 > iPhone"这种路径条就叫面包屑，告诉用户自己在哪、能往哪退。
+  example: 电商商品页加面包屑，用户点上一级就能回类目列表。
+
+- term: sidebar
+  aliases: [侧边栏]
+  category: devterm
+  meaning: 想象长篇文章页面旁边那栏目录——你看正文时侧边一直显示章节，方便随时跳。sidebar 就是页面左右两侧固定不滚动的导航栏或信息栏，文档站、后台管理系统几乎必备。
+  example: 后台系统左侧 sidebar 一直显示所有模块入口。
+
+- term: drawer
+  aliases: [抽屉]
+  category: devterm
+  meaning: 想象桌子下的抽屉——平时藏起来不占地方，要用拉出来。drawer 就是从屏幕边缘滑出的面板：手机端常用的筛选、设置、导航菜单，点一下从右/左滑出来，关闭后又缩回屏幕外。
+  example: 手机商城的"筛选"按钮点了从右侧 drawer 滑出筛选选项。
+
+- term: accordion
+  aliases: [折叠面板, Collapse]
+  category: devterm
+  literal: 手风琴一拉伸一收缩
+  meaning: 想象一组手风琴——按一下一格展开看内容，按另一格当前的收起、新的展开。accordion 组件就这样：一组可展开/折叠的标题块，FAQ 页面 / 设置项分类 常用，避免一页堆太多东西。
+  example: 帮助文档用 accordion 折叠每个问题，点击展开看答案。
+
+- term: tab
+  aliases: [Tab, 标签页]
+  category: devterm
+  meaning: 想象图书馆借阅卡上的彩色标签——一张卡可以分"借阅记录/罚款/到期"几个标签，按需翻看。网页 tab 一样：一块区域用几个标签切换不同内容，节省空间。浏览器的多标签页是最大的 tab。
+  example: 个人主页用 tab 切"动态 / 资料 / 收藏 / 关注"四个板块。
+
+- term: badge
+  aliases: [Badge, 徽章]
+  category: devterm
+  meaning: 想象快递柜上贴的小红点——告诉你有新包裹。badge 就是 UI 上贴在图标/元素角上的小标识：红点说"有新东西"、数字说"未读 5 条"。一种安静但有效的注意力召唤。
+  example: 邮件 App 图标右上角 badge 显示"3"，你就知道有三封未读。
+
+- term: chip
+  aliases: [Chip, Tag, 标签]
+  category: devterm
+  literal: 小芯片
+  meaning: 想象筹码——圆角小小一块，代表一个具体的东西（颜色=分类，数字=面额）。UI 里的 chip 是这种圆角小标签元素，常用来表示"已选筛选条件""话题标签""技能 tag"，一眼能看出来有哪些。
+  example: 搜索结果上方一排 chip 显示"价格 100-200 / 包邮 / 5 星"等已选筛选条件，点 X 能去掉。
+
+- term: avatar
+  aliases: [头像]
+  category: devterm
+  meaning: 想象会议桌上每个人前面的小桌牌——一眼能看出谁是谁。avatar 就是用户头像组件，常圆形，没设置图片时显示首字母占位。聊天软件、评论区、会议系统都用得到。
+  example: 群聊每条消息左侧的 avatar，点一下能看用户主页。
+
+- term: skeleton
+  aliases: [Skeleton, 骨架屏]
+  category: devterm
+  literal: 骨架
+  meaning: 想象买毛坯房——内容还没填，但墙体、门窗、户型先搭起来给你看，能想象装修完什么样。骨架屏就是这种"先画一个灰色的网页轮廓让用户脑补"：等真数据回来再填进去，比转圈圈 spinner 让人感觉网站快。
+  example: 抖音 / 微博列表加载时先显示灰色骨架屏，体感比转菊花快 30%。
+
+- term: spinner
+  aliases: [Spinner, loading 转圈]
+  category: devterm
+  meaning: 想象等电梯时盯着楼层数字一格一格跳——你知道电梯在动，心里就不那么烦。spinner 就是网页那个不停转圈的小图标，告诉用户"我在加载，请稍等"。简单粗暴，纯等待场景常用。
+  example: 提交按钮被点了之后变成 spinner，提示"正在保存别再点了"。
+
+- term: placeholder
+  aliases: [占位符]
+  category: devterm
+  meaning: 想象超市货架上贴的小标签"此处仅供陈列"——告诉你这里本来该有商品。placeholder 两种用法：(1) 输入框里灰色提示文字（如"请输入邮箱"）；(2) 图片/内容还没加载时的占位灰块。
+  example: 邮箱输入框 placeholder 写 "name@example.com"，用户照着填。
+
+- term: pagination
+  aliases: [分页]
+  category: devterm
+  meaning: 想象一本字典分卷——A-F 是一本、G-L 是一本……谁要看 P 直接拿 M-R 那本，不用扛整套。pagination 就是把长列表切成多页，底部带"上一页/下一页/页码"，每次只加载一页。
+  example: 商品搜索结果 1000 个，每页 20，用 pagination 翻页。
+
+- term: infinite scroll
+  aliases: [无限滚动, 无限加载]
+  category: devterm
+  meaning: 想象抖音首页——你怎么往下划都有新内容，永远没底。infinite scroll 就是这种没有"下一页"按钮、滚到底自动加载下一批的设计。让用户停不下来，但找特定内容也找不回。
+  example: 抖音、小红书 feed 流都是 infinite scroll，一刷停不下来。
+
+- term: hamburger
+  aliases: [汉堡菜单, 汉堡按钮]
+  category: devterm
+  literal: 三横线像汉堡里夹的三层
+  meaning: 手机屏幕太小放不下所有导航按钮，干脆全收进一个三横线图标里，点一下展开整个菜单。这个图标因为长得像汉堡得名 hamburger。几乎所有手机 App 都用。
+  example: 手机版网站左上角 hamburger 按钮，点开是所有功能入口。
+
+- term: 滚动条
+  aliases: [scrollbar]
+  category: devterm
+  meaning: 想象一本书右侧的进度条——你看到现在的位置、还剩多少。网页内容超出屏幕时浏览器右侧自动出滚动条，拖动跳到任意位置。Mac/手机端默认隐藏，滚动时才显形，省视觉空间。
+  example: 表格列太多出了横向滚动条，体验差，得加固定首列。
+
+# --- batch 6: JavaScript / TypeScript 语言概念 ---
+
+- term: closure
+  aliases: [闭包]
+  category: devterm
+  meaning: 想象你在母校教室里写过的笔记本——毕业多年后翻开，每页旁边都写着"那年同桌张三 / 老师姓李"。函数也能"记住"它出生时周围的变量，即使搬到外面运行也认得出。这就是闭包，JS/Python 里万物皆闭包，做计数器、私有变量都靠它。
+  example: 写一个"按一下计数加 1"的函数，让里面的次数变量不被外面看到——闭包做到。
+
+- term: hoisting
+  aliases: [变量提升]
+  category: devterm
+  meaning: 想象 JS 引擎读你的代码时是个"先扫一遍把人头数清楚再正式开会"的主持人——它把所有 var 和 function 声明先抓到顶上做登记，然后才一行行执行。所以你在声明它之前用一个 var，不报错但是 undefined（已登记没赋值）。坑因此而来。
+  example: console.log(a); var a = 1; —— 不报错，输出 undefined，这就是 hoisting 在搞鬼。
+
+- term: scope
+  aliases: [作用域]
+  category: devterm
+  meaning: 想象公司里"会议室"和"工位"——会议室里的对话只有里面的人听得见，工位上聊天周围一圈都听见。变量也分这种"听得见范围"：全局变量满公司听见，函数内变量只有这函数听见，let 声明的变量只有这一对大括号里听见。这就是 scope。
+  example: 在 if 块里用 let 定义的变量，出了这块大括号就消失，因为它是块级 scope。
+
+- term: prototype
+  aliases: [原型, 原型链]
+  category: devterm
+  meaning: 想象一棵家族族谱：你身上有些特征不是你独有的，是从父亲、祖父继承下来的——找族谱往上追总能找到源头。JS 对象就这种结构：每个对象有个隐形的"父亲"指针（__proto__），找一个属性自身没有就往父亲那里找，找不到再往爷爷找。
+  example: 给 Array.prototype 加个 myMethod，所有数组都能用——因为它们都"继承"自这个老祖宗。
+
+- term: this
+  category: devterm
+  meaning: JS 里最坑的关键词。同一个函数里 this 是谁，看你"怎么叫它干活"——不是看你在哪写的它。把它当变量传给别人调用，this 就变成别人那边的"我"了。这种"指向不固定"的特性让无数初学者怀疑人生。箭头函数没有自己的 this，永远继承外层那个。
+  example: 在 setTimeout 里直接调用 this.name 经常拿不到，因为 this 跑去指 window 了——这就是 this 经典坑。
+
+- term: 箭头函数
+  aliases: [arrow function]
+  category: devterm
+  meaning: 普通函数像正式工，有自己的工位（this）、有自己的姓名牌（arguments）。箭头函数像临时工，没自己的工位坐外面那一圈大佬中间，问 this 就指外面老板。写起来短、不带"自己的 this"，写回调时省心。
+  example: 数组 map 用箭头函数 `arr.map(x => x * 2)` 比写 `function(x){...}` 简洁。
+
+- term: callback
+  aliases: [回调, 回调函数]
+  category: devterm
+  meaning: 想象你去复印店："打印好叫我一声，电话留 138xxx"——你留的那个电话就是 callback。代码里就是把一个函数当参数传给别人，"事情办完时麻烦调一下这个"。是 JS 处理异步最原始的方式。
+  example: setTimeout(() => alert("3 秒到了"), 3000) —— 那个箭头函数就是 callback。
+
+- term: callback hell
+  aliases: [回调地狱]
+  category: devterm
+  meaning: 想象托人办事必须排个长链："先打电话给 A 让他通知 B，B 通知 C，C 再回电话给 A，A 再…"——代码里多层回调一层套一层缩进越走越右，像往下倒挂的金字塔。早期 JS 异步代码经常这样，根本读不下去。Promise / async-await 就是为了解决它。
+  example: 老代码三个网络请求嵌套五层回调，缩进缩到屏幕右边——这就是 callback hell。
+
+- term: Promise
+  aliases: [promise]
+  category: devterm
+  meaning: 想象你点了奶茶，店员给你一张小票（"取餐凭证"）。这张小票就是 Promise——它代表"未来某时刻会有奶茶给你"。有三种状态：等待（pending）、做好了（fulfilled）、做不出来（rejected）。你拿小票 .then() 等结果，比留电话回调清晰得多。
+  example: fetch 一个 URL 返回 Promise，写 .then(res => ...) 处理结果。
+
+- term: async/await
+  aliases: [async await, await]
+  category: devterm
+  meaning: Promise 写多了链式 .then 还是难读，async/await 让异步代码看起来跟同步一样直白：`const data = await fetch(url);` 像逐行办事，背后还是 Promise 但你视觉上不用关心。是 JS 现代异步写法的事实标准。
+  example: 改成 async/await 后接口调用代码可读性翻倍。
+
+- term: event loop
+  aliases: [事件循环]
+  category: devterm
+  meaning: 想象一个忙碌的快递员只有一辆车，桌上堆着一摞订单。他每次只能跑一单，跑完回来再拿下一单；如果某一单跑得太久，后面的全部等着。JS 引擎就是这种"单线程 + 排队拿活"的工作方式，这套排队取活的循环就叫 event loop。死循环会把它阻死，整个页面卡住点不动。
+  example: 用户点按钮没反应，因为某段同步代码占住了 event loop。
+
+- term: microtask
+  aliases: [微任务]
+  category: devterm
+  meaning: 快递员桌上有两摞订单：VIP 加急单（microtask）和普通单（macrotask）。每跑完一单回来，他先看 VIP 摞——VIP 全清完才去普通摞拿下一单。Promise 的回调就是 VIP 加急单，所以 Promise.then 永远比 setTimeout 早执行。
+  example: Promise.then 比 setTimeout(0) 先跑，因为前者是 microtask 高优先级。
+
+- term: macrotask
+  aliases: [宏任务, 任务队列]
+  category: devterm
+  meaning: event loop 里普通优先级的那摞订单——setTimeout/setInterval/I/O 回调都属于此。每轮循环只处理一个 macrotask，再回头清空所有 microtask。这就是为啥 setTimeout 0 不是真 0 延迟，它至少要等当前同步代码 + 所有 microtask 跑完。
+  example: setTimeout(fn, 0) 实际最少要等 4ms，因为它得排在 macrotask 队尾。
+
+- term: hoist
+  aliases: [提升]
+  category: devterm
+  meaning: 见 hoisting。JS 引擎"先扫一遍登记声明、再正式执行"的行为。"这个变量被 hoist 了"=声明被自动提前生效，但赋值还在原位。
+  example: var 声明的变量在写它之前就能访问（值是 undefined），因为被 hoist 了。
+
+- term: polyfill
+  aliases: [兼容补丁]
+  category: devterm
+  literal: 填坑的物质
+  meaning: 想象去爷爷家拜年，发现他家没微波炉——你带个微波炉过去临时装上让全家能热菜。polyfill 就是给老浏览器"带一个"它没有的新功能：你写现代代码，靠 polyfill 在老 IE 里跑出一样效果。
+  example: IE 浏览器没有 Array.includes，加段 polyfill 它就也认了。
+
+- term: transpile
+  aliases: [转译]
+  category: devterm
+  meaning: 想象把粤语翻译成普通话——本质都是中文，只是说法变了。transpile 就是这种"同级别语言互译"：TypeScript 转 JavaScript、新版 ES6 语法转老版 ES5。和 compile 区别：compile 一般指翻译成机器能跑的低级语言（如 C 编译成可执行文件）。
+  example: 写 TypeScript 最终都是被 tsc transpile 成 JS 给浏览器跑。
+
+- term: bundler
+  aliases: [打包工具, bundle]
+  category: devterm
+  meaning: 想象你出门旅行——衣服、洗漱、充电器分散在屋里各处，行李员（bundler）帮你打包进两个箱子方便提走。bundler 就这角色：把项目里几百个分散的 JS/CSS/图片文件打包成几个大文件给浏览器加载，省得浏览器跑几百趟。webpack/vite/rollup/esbuild 都是。
+  example: Vite 启动比 webpack 快 10 倍，是因为开发时按需打包不全量 bundle。
+
+- term: tree-shaking
+  aliases: [tree shaking, 摇树]
+  category: devterm
+  literal: 摇树掉枯叶
+  meaning: 想象一棵苹果树秋天摇一摇，枯叶坏果都自动掉下来，只剩有用的。打包时 tree-shaking 干同样的事：扫一遍你代码，发现你没用到的函数/模块自动剔除，产物体积小一大截。代价是必须用 ES Module 写法才能摇得动。
+  example: lodash 全量 import 没法被 tree-shake，按需 import 才能瘦身。
+
+- term: code splitting
+  aliases: [code-splitting, 代码分割]
+  category: devterm
+  meaning: 想象搬家用大卡车一次拉走 vs 用面包车按房间分批运——后者每次轻、用什么运什么，更灵活。code splitting 把打包产物切成多个小块，首屏只下载眼前需要的，其他用到时再下，明显加快加载速度。
+  example: 后台 10 个页面做 code splitting，首屏只下 1 个页面的代码而不是 10 个全部。
+
+- term: lazy load
+  aliases: [lazy loading, 懒加载]
+  category: devterm
+  meaning: 想象去图书馆——你不会一进门把所有书搬回家，是用到才借一本。lazy load 同理：网页图片、组件、路由先不全加载，用户滚到那里 / 真要用时才下载。极大省流量和首屏时间。
+  example: 长文章里的图片用 lazy load，用户滚到才下载，不滚就不浪费流量。
+
+- term: minify
+  aliases: [压缩]
+  category: devterm
+  meaning: 想象寄信省邮费——能不写的标点不写、能用简称的不用全称、空白行全删掉。minify 就这干法：把 JS/CSS 里的空格、换行、注释、长变量名全部压成最短，体积小一半以上。代价：压完代码人看不懂了，调试得靠 source map 反推。
+  example: 一个 500KB 的 JS 文件 minify 后变 80KB，传输快得多。
+
+- term: source map
+  aliases: [sourcemap, .map 文件]
+  category: devterm
+  meaning: 压缩后代码像被翻译成了一串密码，浏览器里报错指着 abc.min.js 第 1 行 5000 列谁也读不懂。source map 是一张"密码本"——告诉浏览器"这个 a 对应原文里的 userName，这一行对应你源码第 42 行"。Sentry 这类错误监控全靠它把堆栈翻译回来。
+  example: 生产环境出 source map 给 Sentry，线上崩了能定位到原始代码第几行。
+
+- term: HMR
+  aliases: [hot module replacement, 热更新]
+  category: devterm
+  literal: Hot Module Replacement
+  meaning: 想象写 PPT 时改一页不重新打开整个文件——只刷新这一页，其他保留原样。HMR 就是给前端开发的这种体验：改一个 CSS / 组件，浏览器只换那一小块，页面状态（输入框已填的内容、滚动位置）全保留。Vite/webpack-dev-server 都内建。
+  example: 改一行 CSS 一保存浏览器立刻变样，不用刷新整页——HMR 在起作用。
+
+- term: hot reload
+  aliases: [热重载]
+  category: devterm
+  meaning: 比 HMR 粗一点。改代码后整个页面快速刷新（但比手动按 F5 自动得多）。Flutter / React Native 里说 hot reload，一般指这种"整页或整 App 状态保留 + 重新加载"。
+  example: Flutter 改 UI 代码一秒看到手机端变化，不用重新安装 App。
+
+# --- batch 6: React / Vue ---
+
+- term: hook
+  aliases: [hooks, React hook]
+  category: devterm
+  literal: 钩子
+  meaning: 想象厨房挂钩——平时是空的，需要时挂上一把铲子、一个抹布。代码里的"钩子"就是预留的位置，让你"在某时刻挂上自定义动作"。比如 Git commit 前挂个钩子自动跑 lint。React Hooks 是这个概念的具体应用：useState 让你在函数组件里挂上状态、useEffect 让你挂上副作用。
+  example: 这组件用了五个 useState hook，状态太多得拆。
+
+- term: useState
+  category: devterm
+  meaning: 想象家门口的小白板——你在上面写"今天买菜支出 35 元"，明天可以擦了改写新数字。useState 就是给 React 组件配这块白板：你写一个值上去，要改用配套的更新函数擦掉重写，写完整个组件自动重画。
+  example: 计数器用 useState 存 count，按按钮调 setCount(count+1) 数字+1。
+
+- term: useEffect
+  category: devterm
+  meaning: 想象交代秘书"会议开始后帮我倒杯水、结束后把椅子收一下"——把"什么时机做什么"打包交给别人。useEffect 就是 React 的这个安排：你告诉它"组件出现后帮我请求数据""组件消失前帮我取消订阅"，它在合适时机自动跑。
+  example: 组件首次出现时用 useEffect 拉用户数据，离开时清理 setInterval。
+
+- term: useRef
+  category: devterm
+  meaning: 想象给重要文件夹挂个钥匙圈——钥匙圈本身不变，但你能换里面的钥匙。useRef 是 React 的"可变盒子"——盒子身份不变（跨渲染保持引用），里面的值随时能改且改了不重渲染。常用来抓 DOM 元素（"给我那个输入框的引用"）或记住上次的值。
+  example: 用 useRef 拿到 input 的引用，组件出现时调 focus() 自动聚焦。
+
+- term: useMemo
+  category: devterm
+  meaning: 想象算账时把"老婆这月的工资单总额"算一遍写在贴纸上——每次需要这数你看贴纸就行，不用重新加一遍。除非她又涨工资（依赖变了）才重算。useMemo 就这思路：贵的计算结果缓存起来，依赖没变就用缓存，省 CPU。
+  example: 大数组排序结果用 useMemo 缓存，搜索关键词没变就不重排。
+
+- term: useCallback
+  category: devterm
+  meaning: 类似 useMemo，但专门缓存的是"函数本身"。想象给子组件递一个回调，每次重渲染都新造一个函数，子组件以为变了又重画——白做工。useCallback 让回调保持同一个引用，配合 React.memo 能让子组件聪明地不必要不重渲染。
+  example: 给列表里每个 item 传 onClick 回调用 useCallback 包，免得整列表跟着重画。
+
+- term: useContext
+  category: devterm
+  meaning: 想象公司全员共享的 Wi-Fi 密码——你不会让 HR 一层一层亲手发，挂在前台一张纸上谁要谁看。useContext 就是 React 的这种"挂在最外面让所有子组件按需取"机制，跨多层组件共享数据（主题、用户登录态）不用 props 一层层传。
+  example: 主题、当前登录用户挂在 Context 上，任意层级组件用 useContext 直接取。
+
+- term: JSX
+  aliases: [TSX, jsx, tsx]
+  category: devterm
+  meaning: 想象一种文字混合体——中文里能夹英文单词，英文里能夹颜文字。JSX 就是 JavaScript 里直接写 HTML 的能力：你不用"先写 HTML 模板再绑数据"，直接 `<div>{name}</div>` 想写啥写啥。TSX 是它的 TypeScript 版本（加了类型）。
+  example: 一个 React 组件就是个函数，return 出一段 JSX 就是它的 UI。
+
+- term: props
+  aliases: [Props]
+  category: devterm
+  literal: properties 的简写
+  meaning: 想象家长给孩子去学校带的便当——孩子（子组件）拿到怎么吃就怎么吃，但不能改便当的菜（只读）。props 就是父组件传给子组件的参数：传进去能用，子组件想改得问父组件再传新的。
+  example: 把用户对象当 props 传进 UserCard，卡片里展示用户头像和昵称。
+
+- term: state
+  aliases: [State, 状态]
+  category: devterm
+  meaning: 组件自己的"小本本"——记录我自己的当前数据（输入框里写了啥、tab 切到了哪个、loading 还是没 loading）。变了 React 会自动重画 UI。和 props 配对：props 是外面塞进来的、state 是自己内部的。
+  example: 表单的每个输入框值都放 state 里，用户敲一下就 setState 一下。
+
+- term: ref
+  aliases: [Ref, 引用]
+  category: devterm
+  meaning: 想象给某件家具上贴一张姓名贴"主卧大衣柜"，以后家人提"主卧大衣柜"就知道指哪个。ref 就是这种"我要直接拿到那个 DOM 元素 / 子组件"的方式——不像 props 那样间接传，而是手指头点上去拿引用。
+  example: 给 input 元素加 ref，组件出现时自动调 focus() 让它聚焦。
+
+- term: 受控组件
+  aliases: [controlled component]
+  category: devterm
+  meaning: 想象红绿灯——一个中控室统一管所有交通灯的颜色，灯本身不能自作主张。受控组件就这种"输入框的值由 React state 单一控制"的设计：用户每敲一个字都先报告给 state 再更新。好处是 state 永远是真理之源，便于校验、撤销、关联。
+  example: 表单输入框用受控组件，每次 onChange 都更新 state，能实时做格式校验。
+
+- term: 非受控组件
+  aliases: [uncontrolled component]
+  category: devterm
+  meaning: 和受控组件相反——交通灯自己想啥色就啥色，中控室提交时才去问当前是啥色。非受控组件让浏览器自己管输入值，React 不实时跟踪，只在提交时通过 ref 一把取走。简单但不好做实时校验。
+  example: 一个简单的搜索框可以用非受控组件，省去 state 来回更新的成本。
+
+- term: HOC
+  aliases: [高阶组件, higher-order component]
+  category: devterm
+  literal: Higher-Order Component
+  meaning: 想象给衣服外面套个雨衣——衣服本身没变，但外层加了防雨能力。HOC 就是给现有组件外面"套一层"加新能力：传进去一个组件，包一层鉴权/日志/loading 逻辑，返回一个新组件。React 早期复用逻辑主要靠它，现在大部分被 Hooks 取代。
+  example: withAuth 是个 HOC，传进 Dashboard 组件返回带登录检查的版本。
+
+- term: virtual DOM
+  aliases: [vDOM, 虚拟 DOM]
+  category: devterm
+  meaning: 想象装修房子前先在纸上画图改方案——直接拆墙太贵了，先在图纸上比较新旧方案再决定哪些墙真要动。virtual DOM 就是这张"内存里的图纸"：React 把所有 UI 状态先在虚拟 DOM 上算清楚要改哪里，最后一次性高效地动真实 DOM。
+  example: state 变了 React 先在 virtual DOM diff 一下，算出最小改动再批量更新真实 DOM。
+
+- term: hydration
+  aliases: [水合]
+  category: devterm
+  literal: 水合作用
+  meaning: 想象一棵脱水的盆栽——叶子还在但软塌塌，浇水后立刻挺拔。SSR 场景下服务端返回的 HTML 就是这棵脱水植物：能看但不能交互（按钮点了没反应）。浏览器加载完 JS 后给它"浇水"——挂上事件监听让它活过来，这一步就是 hydration。
+  example: Next.js 首屏 SSR 出 HTML 立刻能看，1 秒后 hydration 完成才能点。
+
+- term: SSG
+  aliases: [Static Site Generation]
+  category: devterm
+  literal: Static Site Generation
+  meaning: 想象出版社一次性把所有书印好堆在仓库，谁要哪本直接发——不用每次有人买都现场印。SSG 就是构建时把所有页面一次性生成 HTML 静态文件，运行时直接发文件，飞快又便宜。但缺点：内容必须在构建时就能定下来，不能根据用户动态变。
+  example: 博客和文档站用 SSG，从 CDN 直接发 HTML，加载和服务器成本极低。
+
+- term: ISR
+  aliases: [Incremental Static Regeneration]
+  category: devterm
+  literal: Incremental Static Regeneration
+  meaning: SSG 的进化版。出版社一次性印好所有书（SSG），但加了规矩"每本书每 10 分钟去查查是否要更新一版重印"——这就是 ISR：页面是静态的，但后台会按规则按需重新生成。结合了 SSG 的快和 SSR 的实时。Next.js 推的。
+  example: 商品价格用 ISR，每 10 分钟后台自动重生成页面，用户访问到的总不会太旧。
+
+- term: composable
+  aliases: [组合式函数]
+  category: devterm
+  meaning: Vue 3 里类似 React Hook 的"小工具盒"——把一段可复用逻辑（用户信息获取、计时器、表单校验）打包成函数 `useXxx()`，谁需要谁拿。和 React Hook 名字不同思想相通。
+  example: 写一个 useUserInfo composable，三个组件都用它拿登录用户信息。
+
+- term: computed
+  aliases: [计算属性]
+  category: devterm
+  meaning: 想象 Excel 表格里"总计=单价×数量"——你只改单价或数量，总计自动更新且每次显示是缓存好的不需要重算。Vue 的 computed 一样：基于其他数据派生一个新值，依赖变了才重算、不变就用缓存。
+  example: 购物车总价用 computed 从商品列表自动推出，删一件自动减。
+
+- term: directive
+  aliases: [指令]
+  category: devterm
+  meaning: 想象 Vue 模板里的"特殊魔法咒语"——v-if 让元素按条件显示、v-for 让它批量循环、v-model 让输入框双向绑定数据。这些 v-xxx 都叫指令，是 Vue 给模板加超能力的方式。你也能自己写自定义指令。
+  example: 自己写个 v-permission 指令，挂在按钮上自动按权限隐藏。
+
+- term: slot
+  aliases: [插槽]
+  category: devterm
+  meaning: 想象一个相册封面——封面是固定花纹但中间留个方框让你塞自己的照片。组件里的 slot 就是这种"留白"：组件作者搭好骨架但留几处空让外部塞自定义内容。Vue 和 Web Components 都有。
+  example: Modal 组件用 slot 让调用方塞自定义内容（图表、表单、文字都行），而不是写死。
+
+# --- batch 6: Python ---
+
+- term: ctypes
+  category: devterm
+  meaning: 想象用 Python 当遥控器、按一下能开一台 C 写的家电——遥控器没换、家电没改，但能互通。ctypes 就是 Python 自带的这把万能遥控：让 Python 代码调用 C 写的动态库（Windows 的 .dll、Linux 的 .so），不用写 C 扩展就能拿底层 API。
+  example: 用 ctypes 调 user32.dll 的 GetCursorPos 函数，Python 也能拿到鼠标位置。
+
+- term: decorator
+  aliases: [装饰器, "@xxx"]
+  category: devterm
+  meaning: 想象你点外卖前服务员问"要不要打包+加双筷子+保温袋？"——这些都是给餐本身加的"装饰服务"，餐没变包装升级。代码 decorator 一样：用 @xxx 在函数上面套一层，加日志/计时/缓存/权限，原函数代码不动只是被包了。
+  example: 给一个慢函数加 @lru_cache，结果自动缓存，下次同样参数直接取缓存。
+
+- term: generator
+  aliases: [生成器]
+  category: devterm
+  meaning: 想象你要看 100 集电视剧——一次下载完占满硬盘吃不消，改成"看哪集下哪集"。generator 就是这种"用一个出一个"的函数：调用一次产出一个值，下次再调才继续，特别省内存。处理 10G 大文件用它一行行读，内存只占几 KB。
+  example: 读 10G 日志文件用 generator 一行一行处理，内存稳定不爆炸。
+
+- term: iterator
+  aliases: [迭代器]
+  category: devterm
+  meaning: 想象一沓便利贴——你能一张一张往下翻、翻完为止。iterator 就是任何"能被 for 循环逐个取"的对象，generator 是其中一种实现。Python 里 for x in xxx 能 work 的，xxx 就是 iterator。
+  example: 自定义一个 class 实现 __iter__ 和 __next__，就能直接 for 循环遍历它。
+
+- term: yield
+  category: devterm
+  meaning: Python 里把普通函数变成"分集播出剧"的关键字。执行到 yield 这一行暂停、产出一个值给外面、保留现场；外面拿完想要下一个，函数从暂停处继续。和 return 一次性给完不一样。
+  example: 用 yield 实现"按需读文件"：每次只读一行交出去，不一次性吃整个文件进内存。
+
+- term: comprehension
+  aliases: [列表推导式, 推导式]
+  category: devterm
+  meaning: Python 独有的一种紧凑写法——传统三行 for 循环装结果到 list，可以一行写成 `[x*2 for x in lst]`。读起来像数学公式，比 map+lambda 更 Pythonic。除了 list 还有 dict / set / generator 版本。
+  example: 把列表里每个数翻倍：[x*2 for x in arr]，比 for 循环短一半。
+
+- term: lambda
+  category: devterm
+  meaning: 想象你给保姆留张便利贴"接孩子直接回家"——你不用注册一个正式秘书职位，便利贴用一次就丢。lambda 就是这种"匿名小函数"：一次性写完用完，不用专门起名。各语言都有：Python lambda x:x+1、JS x=>x+1、Java x->x+1。
+  example: "排序时按年龄排：sorted(users, key=lambda u: u.age)，lambda 当一次性比较器。"
+
+- term: context manager
+  aliases: [上下文管理器, with 语句]
+  category: devterm
+  meaning: 想象进游泳馆前换泳衣、寄物柜存包；游完出来自动还柜、换回衣服。这套"进入做啥、出去做啥"的固定流程就是 context manager。Python 用 `with xxx as yyy:` 写：进入自动开文件、出去自动关；进入加锁、出去解锁。
+  example: 写 `with open('file') as f:` 不管程序怎么结束，文件都会被自动关。
+
+- term: dunder
+  aliases: [魔术方法, magic method, "__xx__"]
+  category: devterm
+  literal: double underscore 缩写
+  meaning: 想象 Python 对象的"暗号"——你写 `a + b` 实际上 Python 偷偷调 `a.__add__(b)`。这些两边带双下划线的方法叫 dunder（double under），由 Python 语法/运算符自动触发。你重写它们，对象就能支持各种语法糖。
+  example: 给类加 `__eq__` 方法，让两个对象能用 == 比较是否相等。
+
+- term: GIL
+  aliases: [Global Interpreter Lock, 全局解释器锁]
+  category: devterm
+  literal: Global Interpreter Lock
+  meaning: 想象 Python 解释器只有一支笔——你开 8 个线程想同时算东西，但笔只有一支，他们得轮流抢着用。GIL 就是这支独裁的笔，CPython 的设计缺陷，导致 Python 多线程在 CPU 密集任务上根本快不起来。绕开它要用 multiprocessing（多支笔）或 asyncio（单笔多人轮流写）。
+  example: CPU 密集任务多线程没用，必须 multiprocessing 开多进程才能真并行。
+
+- term: asyncio
+  category: devterm
+  meaning: 想象一个超人厨师在五口锅之间切换——A 锅炖着汤的间隙去翻 B 锅的肉，B 肉好了切去 C 锅。asyncio 是 Python 的这种"单人多任务高效切换"框架，基于协程，特别适合大量等待 IO 的场景（网络请求、文件读写）。
+  example: 写爬虫用 asyncio + aiohttp 同时拉 1000 个网页，比同步快几十倍。
+
+- term: pip
+  category: devterm
+  meaning: 想象 App Store——你想要的 Python 库都在仓库里，一行命令就装上。pip 是 Python 的官方包管理器，3000 万开发者每天用它装第三方库。`pip install requests` 就是从仓库下载安装 requests 库。
+  example: 装个流行库：pip install pandas，几秒钟就能用上。
+
+- term: venv
+  aliases: [virtualenv, 虚拟环境]
+  category: devterm
+  meaning: 想象家里多个孩子各有自己的玩具箱——不同项目玩具不串味、不抢资源。venv 就是 Python 给每个项目搭一个独立"玩具箱"：装的库只在这个项目里有效，不污染电脑全局，也不打架。每个项目都开一个 venv 是好习惯。
+  example: 项目目录里跑 python -m venv .venv 开个虚拟环境，装库只在这里面生效。
+
+- term: conda
+  category: devterm
+  meaning: 想象 venv 是给 Python 准备的玩具箱，conda 是连水电气一起包圆的精装公寓——除了 Python 库还能装 C 库、CUDA、各种系统级依赖。数据科学/AI/科研常用，配 TensorFlow GPU 这种复杂依赖时无敌。
+  example: 装 PyTorch GPU 版用 conda 一行搞定 CUDA + cuDNN 配置。
+
+- term: poetry
+  category: devterm
+  meaning: Python 现代化的依赖管理工具，比 pip+venv 更优雅——一个文件 pyproject.toml 配置所有，自动解决依赖冲突。类似 JS 的 npm/yarn 体验，新项目首选。
+  example: 新 Python 项目用 poetry init，依赖管理瞬间现代化。
+
+- term: uv (Python)
+  aliases: [uv 包管理]
+  category: devterm
+  meaning: 2024 年横空出世的 Python 包管理新星——用 Rust 写的，比 pip 快 10-100 倍。装一个大库以前要 2 分钟，uv 几秒搞定。注意：和缩写里的 UV（独立访客）拼写一样但完全是两回事。
+  example: 一行 `uv pip install` 体验过就回不去 pip 了。
+
+# --- batch 6: Go ---
+
+- term: goroutine
+  aliases: [go 协程]
+  category: devterm
+  meaning: Go 语言的"轻便小工人"——传统线程要操作系统帮忙调度、开 1 万个就吃力。goroutine 由 Go runtime 自己调度，单进程开 10 万个跟玩似的。写法极简：`go doSomething()` 就启动一个去后台干活。
+  example: 启 1000 个 goroutine 并发拉数据，比开 1000 个线程内存少 100 倍。
+
+- term: channel
+  aliases: [chan, 通道]
+  category: devterm
+  meaning: 想象工厂流水线上的传送带——一头放东西另一头收。channel 就是 goroutine 之间的传送带：一个 goroutine 把结果扔进 channel，另一个等着取。"不用共享内存通信，用通信共享内存"是 Go 的核心哲学。
+  example: 10 个 worker goroutine 把结果丢进 channel，主 goroutine 一边收一边处理。
+
+- term: defer
+  category: devterm
+  meaning: 想象进餐厅时跟服务员说"等会儿走时记得帮我打包剩菜"——defer 就是这种"提前安排函数结束时的收尾"。文件打开后立刻 defer file.Close()，写到哪里报错都会自动关文件，避免忘记。
+  example: defer file.Close() 是 Go 程序员的肌肉记忆，写完打开就 defer 关。
+
+- term: panic
+  category: devterm
+  meaning: Go 程序里的"砰一声崩了"。panic 触发后当前 goroutine 立刻终止，从调用链一路向上崩。一般只用于"这是程序员 bug，没法继续"的极端情况，业务错误推荐用 error 返回。
+  example: 数组越界自动 panic，业务代码里能避免就避免主动 panic。
+
+- term: recover
+  category: devterm
+  meaning: panic 的救生员。配合 defer 用——在 panic 崩塌的最后一刻接住它，不让整个 goroutine 死掉。HTTP 服务器中间件常用 recover 兜住每个请求的 panic，避免一个崩溃打挂整个服务。
+  example: HTTP 中间件 defer + recover 把每个请求的 panic 转成 500 错误，服务不挂。
+
+- term: nil
+  category: devterm
+  meaning: Go 里的"空"——指针、interface、map、slice、channel 没赋值时都是 nil。其他语言里叫 null（Java/JS）/None（Python），Go 用 nil。和 nil 比对检查值是否被赋过是日常。
+  example: 写 `if err != nil` 几乎出现在每个 Go 函数里，检查是否有错。
+
+- term: interface
+  aliases: [接口]
+  category: devterm
+  meaning: 想象工作合同——上面写"会做菜、会洗碗"。任何会做菜+会洗碗的人都符合这份合同，不管他叫什么、长什么样。interface 就是这种"满足一组方法就算实现"的契约。Go 的特别之处：自动判定满足，不用像 Java/TS 显式写 implements。
+  example: 任何有 Read() 方法的类型都算 io.Reader，能传给 io.Copy。
+
+# --- batch 6: Git ---
+
+- term: branch
+  aliases: [分支]
+  category: devterm
+  meaning: 想象一本日记的不同版本——主线日记一直在写，某天你想"如果我那天选了另一个工作呢"，于是开一个平行宇宙（分支）从那天分叉。Git 分支就这样：每个新功能开一条独立线，开发完合回主线，互不干扰。
+  example: 改新功能从 main 拉一条 feature/login 分支，慢慢开发不影响别人。
+
+- term: commit
+  aliases: [提交]
+  category: devterm
+  meaning: 想象拍照存档你当前的代码状态——每次 commit 就是按一下快门，留一张完整的快照，附带一条注释说明这次改了啥。代码出问题可以随时回到任何一张快照。
+  example: 改完一个功能用 git commit -m 备注一句，留下当前状态。
+
+- term: merge
+  aliases: [合并]
+  category: devterm
+  meaning: 想象两个平行宇宙的剧本合成一本——你在分支上做的改动现在要回到主分支。Git merge 帮你比对两边的不同，把改动合到一起，留一个"merge commit"标记合并发生。
+  example: feature 分支开发完一周，git merge 回主干，新功能正式进入主线。
+
+- term: rebase
+  aliases: [变基]
+  category: devterm
+  meaning: 想象你在分支上的改动重新"贴"到主线最新位置——把你的故事剪下来按主线最新进度重排，避免出现 merge commit 让历史更整齐。代价是改写了历史，多人协作时小心使用。
+  example: 提 PR 前 git rebase main，把自己的 commit 重排在主线最新之上，历史一条直线好看。
+
+- term: conflict
+  aliases: [冲突, merge conflict]
+  category: devterm
+  meaning: 想象两人各自编辑同一份合同的第 5 条，merge 时 Git 不知道你俩谁的对，干脆并列贴出来标记 <<<<<<<<HEAD 和 >>>>>>>分支名，让你手动挑或拼。这就是冲突，团队协作必然遇到的麻烦。
+  example: 这文件冲突了，打开看 Git 标的两段，手动选一段或合并。
+
+- term: cherry-pick
+  aliases: [cherrypick]
+  category: devterm
+  literal: 挑樱桃（只挑好的）
+  meaning: 想象做水果拼盘——你不要整盘樱桃，只挑一颗最甜的放进来。git cherry-pick 就是"从别条分支只拿一个特定 commit 过来用"，不带其他改动。常用于把某个修复挪到 release 分支。
+  example: 紧急 bug 在 feature 分支修了，cherry-pick 那个 commit 到 main，立刻上线。
+
+- term: squash
+  aliases: [squash commit]
+  category: devterm
+  literal: 压扁/合并到一起
+  meaning: 想象你写日记时一天改了 20 次错别字，留 20 条记录太啰嗦——合并成一条"今天写完整理过"就清爽。git squash 把多个零碎 commit 压成一个有意义的，PR 合代码前常用清理历史。
+  example: 这 PR 有 30 个零碎 commit，squash 成 1 个"实现登录功能"再合，主干历史干净。
+
+- term: stash
+  category: devterm
+  literal: 藏起来
+  meaning: 想象做菜做到一半老板来电话要你立刻去隔壁帮个忙——你不想丢菜也不想留一团乱在锅里，把锅盖上推到一边等会儿回来继续。git stash 就这功能：当前改了一半的代码先临时收起来，工作区干净，切别的分支办急事，回头 stash pop 恢复继续。
+  example: 改 bug 到一半急活儿来了，git stash 收起，切去做急活儿，做完回来 stash pop 接着改。
+
+- term: HEAD
+  category: devterm
+  meaning: Git 里的"你在这"指针——告诉 Git 你当前在哪个分支的哪个 commit。HEAD~1 是上一个 commit、HEAD~2 是再上一个。所有"基于当前位置"的命令都靠 HEAD 定位。
+  example: 撤销最近一次提交：git reset HEAD~1。
+
+- term: detached HEAD
+  aliases: [游离 HEAD]
+  category: devterm
+  meaning: 正常情况下 HEAD 指向一个分支（"我在 main 分支最新")，detached HEAD 意思是 HEAD 直接指了一个具体 commit（"我在第 abc123 那个 commit"）——像断了线的风筝。你可以看可以试，但新做的 commit 不属于任何分支，关闭后会丢。
+  example: 不小心 checkout 了一个 commit ID 就进 detached HEAD，新 commit 要切回分支才不丢。
+
+- term: PR
+  aliases: [pull request]
+  category: devterm
+  meaning: 想象你把作业本递给老师批改——老师看完打勾或写"重做"，过了才能贴墙上。PR 就是程序员把自己写的代码递给同事审查的请求，必须被同事看过批准才能合进主干。GitHub 叫 PR，GitLab 叫 MR。
+  example: 改完功能提个 PR，等同事 review 通过才合代码。
+
+- term: fork
+  category: devterm
+  meaning: 想象在图书馆借书要复印一份带走改批注——原书不变，你的复印件随便涂改。fork 就是把别人的 GitHub 仓库整个复制到自己账户，你能自由改，原作者不受影响。改完想合回去就提 PR。开源世界的基础动作。
+  example: fork 某开源项目 → 改 bug → 提 PR 让作者合回。
+
+- term: upstream
+  aliases: [origin]
+  category: devterm
+  meaning: 想象一条河——上游的水流到下游。你 fork 别人项目后，你的仓库是下游，原作者那个是 upstream（上游）。原作者更新了，你得手动从 upstream 拉新代码合到自己仓库，免得脱节。origin 一般指你自己那个远端。
+  example: 别人项目更新了，git fetch upstream 拉最新再合到自己的 fork。
+
+# --- batch 6: 测试 / 工具链 ---
+
+- term: mock
+  aliases: [Mock, 模拟]
+  category: devterm
+  meaning: 想象拍戏要爆破——不可能真炸座大楼，搭一个假楼炸。mock 就是测试时用假对象冒充真依赖：假数据库、假支付接口、假 GPS。让测试快、可控、不依赖外部服务、能反复跑。
+  example: 测下单流程要 mock 掉真支付接口，不然每次测都要真扣钱。
+
+- term: stub
+  aliases: [桩]
+  category: devterm
+  meaning: 比 mock 更简单的"假人"——只负责"被问到就返回固定答案"，不假装很复杂。前端常用：后端接口还没写好，前端先写个 stub 返回假数据让 UI 能联调。
+  example: API 还没好，先 stub 一个返回固定 JSON 让前端先开发界面。
+
+- term: spy
+  aliases: [间谍]
+  category: devterm
+  meaning: 想象给真函数加个旁听记录员——函数正常干活，记录员悄悄记下"被叫过几次、每次参数是啥"。测试时用 spy 不替换原逻辑，只为了验证"这函数确实被调过、调对了"。
+  example: 用 jest.spyOn 监听 fetch 被调用，确认参数对、调了 3 次。
+
+- term: fixture
+  aliases: [测试数据]
+  category: devterm
+  meaning: 想象舞台剧布景——每次开演前预先摆好桌椅灯光，演完撤掉。测试 fixture 就是这种"测试前准备的固定数据/环境"：每次跑测试前 load 10 个用户、5 个订单进数据库，跑完清掉。
+  example: 集成测试用 fixture 准备一批用户数据，跑完自动清掉环境干净。
+
+- term: snapshot test
+  aliases: [快照测试]
+  category: devterm
+  meaning: 想象给孩子定期拍照对比——长高了一眼能看出来。快照测试就是第一次跑记下"输出应该长这样"存成快照，以后每次跑都跟快照比对，一致就过、不一致就报警。前端 UI、JSON 接口常用。
+  example: React 组件 snapshot 测试，UI 改了立刻报警让你确认这是有意的还是 bug。
+
+- term: fuzz
+  aliases: [fuzz testing, 模糊测试]
+  category: devterm
+  meaning: 想象拿一把豆子哗哗倒进机器看哪颗能卡坏齿轮——故意往程序灌随机、畸形、超长、特殊字符输入，看能不能崩。最适合找解析器、文件格式、网络协议里的隐藏漏洞。Google 用它发现了几百个开源库 bug。
+  example: protobuf 解析库用 fuzz 跑一晚上找出 3 个会让程序崩的输入样本。
+
+- term: smoke test
+  aliases: [冒烟测试]
+  category: devterm
+  literal: 通电看冒不冒烟（电器最基础的能用性验证）
+  meaning: 想象修完电器先通电看冒不冒烟——不冒烟不一定能用但冒烟一定不能用。冒烟测试就是部署完最快最基本的验证：核心 5 个接口能调通就算过，过不了立刻回滚。
+  example: 新版上线后跑 smoke test 验证登录/首页/下单都能打开，不通就回滚。
+
+- term: regression test
+  aliases: [回归测试]
+  category: devterm
+  meaning: 想象写小说改一章后通读全书检查没出现"前文张三是男这章变女"这种穿帮。回归测试就是改了代码后跑一遍所有历史测试用例，确保新功能没把以前能用的搞坏。
+  example: 发版前必跑完整回归测试集，防止改 A 把 B 弄坏。
+
+- term: e2e
+  aliases: [end-to-end, 端到端测试]
+  category: devterm
+  meaning: 想象彩排话剧——开场到谢幕完整跑一遍，演员、灯光、音响、走位全配合。e2e 测试就是从用户视角完整跑流程：启真浏览器、点真按钮、看真页面真数据。Playwright/Cypress 这类工具能录脚本。慢但最像真用户。
+  example: 写一段 e2e 脚本：打开站点 → 登录 → 加购 → 下单 → 看结果，能跑通就放心。
+
+- term: coverage
+  aliases: [覆盖率, 测试覆盖率]
+  category: devterm
+  meaning: 想象图书馆抽查体检——抽到了 80% 的书，剩 20% 没看过。coverage 就是这个比例：你写的测试到底跑过多少代码？高覆盖率不保证没 bug（书翻过不代表内容对），但低覆盖率一定有大块没测过。
+  example: 核心库 coverage 要保 80% 以上，关键支付路径必须 100%。
+
+- term: flaky test
+  aliases: [不稳定测试]
+  category: devterm
+  meaning: 想象一盏灯——你拉绳有时亮有时不亮但接线没问题。flaky test 就是这种神出鬼没的测试：同样代码同样环境，有时绿有时红。多半是时序、外部依赖或并发引起的。CI 老挂在这种测试上，比真 bug 还烦人。
+  example: 这个 test 每月挂 3 次重跑就过，典型 flaky test，得排查时序问题。
+
+- term: linter
+  aliases: [lint]
+  category: devterm
+  meaning: 想象一位严格的语文老师——你交作文她不光看大错，连"逗号后没空格""这词没必要重复"全圈出来。linter 就是这种代码挑刺工具，扫一遍找潜在 bug、不符合规范的写法。ESLint（JS）、Pylint（Python）、golangci-lint（Go）都是。
+  example: lint 报错没修不让合 PR，强制大家代码风格统一。
+
+- term: formatter
+  aliases: [格式化工具]
+  category: devterm
+  meaning: 想象一个自动排版助手——你随便写文档，它"嗖"一下把缩进、字号、标点全调成统一规范。formatter 就这角色：自动整理代码格式（空格、缩进、换行），让所有人代码看起来像一个人写的。常见：Prettier (JS) / Black (Python) / gofmt (Go)。
+  example: 保存代码自动跑 formatter，团队从此不再为"该不该加空格"开会。
+
+- term: prettier
+  category: devterm
+  meaning: JS/TS/CSS 圈最流行的 formatter，特色是"规则不让你配"——大家都用一样的就别争了。开源、零配置、保存即格式化，前端项目标配。
+  example: 接入 prettier 后再没人讨论代码格式问题，省了无数会。
+
+- term: eslint
+  aliases: [ESLint]
+  category: devterm
+  meaning: JS/TS 圈最流行的 linter，能查潜在 bug（用了未定义变量、unused 引用）、风格问题、安全隐患。规则丰富可配，配合 prettier 一个负责"对错"一个负责"格式"。
+  example: eslint --fix 自动修能修的问题，剩下的报错人工改。
+
+- term: TypeScript
+  aliases: [ts, TS]
+  category: devterm
+  meaning: 想象 JavaScript 是个不打草稿的写作者，错字得运行才发现——TypeScript 给它配了实时拼写检查。同样的 JS 代码加上类型声明，编译时就能发现"这函数你传了字符串但人家要数字"这种错。微软出的，已成大型前端项目标配。
+  example: 项目从 JS 迁到 TypeScript 后，运行时报错少了 60%。
+
+- term: monorepo
+  aliases: [大仓库]
+  category: devterm
+  meaning: 想象一栋办公楼里所有部门都在——人事、财务、研发同一栋楼，开会、共享资源很方便。monorepo 就是把公司所有项目（前端、后端、工具）放一个 Git 仓库，跨项目改东西一次提交搞定。Google、Meta 都这风格。代价：工具链复杂。
+  example: 公司前端 50 个项目放一个 monorepo，用 pnpm workspace 互相 import。
+
+- term: polyrepo
+  aliases: [多仓库]
+  category: devterm
+  meaning: 和 monorepo 相反——每个项目一个独立 Git 仓库，像每个部门分散在不同办公楼。优点：彼此完全独立，缺点：跨项目改动要提多个 PR、版本协同麻烦。微服务架构常这样。
+  example: 30 个微服务 polyrepo 各自管各自的代码、独立 CI/CD。
+
+- term: workspace
+  aliases: [工作区]
+  category: devterm
+  meaning: monorepo 里的子项目单元——一个大仓库里分出多个 workspace 各自有 package.json，互相能 import。pnpm/yarn/npm 都内建支持。
+  example: pnpm workspace 让 ui-components 子包被 frontend、admin 两个 workspace 同时引用。
+
+- term: lockfile
+  aliases: [lock 文件, package-lock.json, yarn.lock]
+  category: devterm
+  meaning: 想象出差打包带的清单——"洗发水 200ml 牌子 A、毛巾两条尺寸 B"。lockfile 就是依赖的精确清单：把每个第三方包的具体版本（包括它依赖的依赖）全部记死，保证别人/CI/服务器装出来的依赖一模一样。绝对不能 .gitignore 掉。
+  example: 同事说"我本地能跑你那挂"，看一眼 lockfile 有没有提交往往就是答案。
+
+- term: semver
+  aliases: [语义化版本, semantic versioning]
+  category: devterm
+  meaning: 一种全行业约定的版本号规则：v 主.次.补丁（如 1.2.3）。补丁号涨=修 bug；次版本涨=加了功能但向下兼容；主版本涨=改了 API 老代码可能跑不起。看版本号就能预判风险。
+  example: 1.2.3 升到 2.0.0 说明有 breaking change，要看 changelog 评估。
+
+- term: breaking change
+  aliases: [破坏性变更]
+  category: devterm
+  meaning: 想象家里钥匙换了锁——原来的钥匙立刻不好使。breaking change 就是不向后兼容的改动：API 改名、参数改类型、行为变了，升级后老代码会跑不起。库的主版本号涨=必有 breaking change。
+  example: 这个库 v3 把方法名全改了，是 breaking change，升级前要先改业务代码。
+
+- term: deprecation
+  aliases: [deprecate, 弃用]
+  category: devterm
+  meaning: 想象产品贴张"本款将于 6 月 30 日停售，建议换新款"的告示——还能买但提示赶紧换。代码里的 deprecation 一样：标记"这个 API/方法将来要删，先别用了"，给几个版本过渡期让大家迁移。
+  example: 文档里这函数标 deprecated，建议改用新 API，下版本就删了。
+
+# --- batch 6: DevOps / 运维 ---
+
+- term: pipeline
+  aliases: [流水线, CI 流水线]
+  category: devterm
+  meaning: 一系列自动化步骤串起来：拉代码 → 装依赖 → 跑测试 → 构建 → 部署。CI/CD 的核心。
+  example: PR 触发 pipeline 跑测试，全绿才能合。
+
+- term: runner
+  category: devterm
+  meaning: CI 系统里实际跑 pipeline 任务的机器/容器。GitHub Actions runner、GitLab runner 都是。
+  example: 自建 runner 跑 CI 比公共的快。
+
+- term: artifact
+  aliases: [构建产物]
+  category: devterm
+  meaning: 构建过程产出的文件（jar/dmg/exe/docker image）。CI 一般会归档。
+  example: 这个 release 的 artifact 在 GitHub 上能下到。
+
+- term: image
+  aliases: [docker image, 镜像]
+  category: devterm
+  meaning: Docker 里的"模板"，包含跑应用需要的所有东西。container 是镜像的运行实例。
+  example: 构建 image push 到镜像仓库。
+
+- term: registry
+  aliases: [镜像仓库, container registry]
+  category: devterm
+  meaning: 存 docker image 的服务。Docker Hub、阿里云 ACR、Harbor 都是。
+  example: CI 构建完 push 到 registry。
+
+- term: container
+  category: devterm
+  meaning: 应用 + 依赖打包后的隔离运行单元。比虚拟机轻，秒启动。Docker 是最常用的实现。
+  example: 一个 container 一个进程是好习惯。
+
+- term: helm
+  aliases: [helm chart]
+  category: devterm
+  meaning: Kubernetes 的"包管理器"，把多个 yaml 模板化打包成 chart，一键部署应用。
+  example: 用 helm 部署 Redis 集群，几行命令。
+
+- term: terraform
+  aliases: [tf]
+  category: devterm
+  meaning: HashiCorp 出的基础设施即代码工具。用 HCL 描述云资源（VM/网络/DB），terraform apply 自动创建。
+  example: 用 terraform 一键起 AWS 整套环境。
+
+- term: ansible
+  category: devterm
+  meaning: 配置管理工具，用 YAML 写"剧本"批量自动化操作多台机器。无 agent。
+  example: 用 ansible playbook 给 100 台机器装 nginx。
+
+- term: nginx
+  category: devterm
+  meaning: 极高性能的 HTTP 服务器/反向代理/负载均衡器。互联网公司流量入口几乎都用它。
+  example: 前面挡一层 nginx 处理 TLS + 限流。
+
+- term: feature flag
+  aliases: [feature toggle, 功能开关]
+  category: devterm
+  meaning: 用配置控制功能开关，无需发版就能开关功能、做 A/B、分用户灰度。LaunchDarkly 是典型。
+  example: 新支付链路藏在 feature flag 后面，能秒级回滚。
+
+- term: rollback
+  aliases: [回滚]
+  category: devterm
+  meaning: 想象新菜上市第二天客人吃了拉肚子——餐厅立刻撤菜回到老菜单。rollback 就是部署新版本出大问题立刻切回上一个稳定版本，止血优先。这是线上事故标准操作。
+  example: 新版上线 5 分钟告警全红立刻 rollback，先恢复用户体验。
+
+- term: hotfix
+  aliases: [热修复]
+  category: devterm
+  meaning: 想象药店凌晨 3 点接到求救电话——平时五点开门但今晚特殊放行配药。hotfix 就是紧急 bug 绕过常规发版流程立刻上线，不等下个 sprint。一般用于线上严重漏洞或事故。
+  example: 这个让用户能看到别人订单的 bug 走 hotfix，今晚 12 点必须修上去。
+
+- term: incident
+  aliases: [事故]
+  category: devterm
+  meaning: 想象医院急诊分级——挂号时分轻重缓急，重症进抢救室。线上 incident 也分级 P0/P1/P2/P3：P0 是"全员马上拉群"的核灾，P3 是"明天处理也行"。每次 incident 后必写复盘报告。
+  example: 支付服务挂了 5 分钟是 P0 incident，全公司值班人员立刻拉群。
+
+- term: postmortem
+  aliases: [事故复盘, RCA]
+  category: devterm
+  literal: 尸检（医学术语）
+  meaning: 想象空难调查报告——飞机失事后查清"几点几分什么环节哪个零件出了什么问题"。postmortem 就是事故的"尸检报告"：根因是什么、时间线如何、影响多大、以后怎么防。互联网公司事故文化基础。
+  example: 这次故障定 P1，下周必出 postmortem 报告，全工程师评审。
+
+- term: on-call
+  aliases: [值班, oncall]
+  category: devterm
+  meaning: 想象消防员排班——晚上有人值班，电话一响 5 分钟到现场。on-call 就是程序员的"消防值班"：轮流挂着手机，凌晨 3 点告警炸了得立刻爬起来处理。互联网大厂工程师无法回避的 1 周 1 次苦差。
+  example: 这周轮我 on-call，凌晨 3 点被告警叫醒两次，第二天累成狗。
+
+- term: metrics
+  aliases: [指标]
+  category: devterm
+  meaning: 想象医院给病人接的监护仪——心率、血压、血氧每秒一个数。metrics 就是这种"系统的监护数据"：QPS、响应时间 P99、CPU 占用、内存。Prometheus 是常用采集器，Grafana 把它画成图。
+  example: 看 metrics 监控这接口 QPS 从 100 涨到 1000，要扩容了。
+
+- term: tracing
+  aliases: [trace, 链路追踪]
+  category: devterm
+  meaning: 想象顺丰快递单——你能查"包裹 10 点从北京、12 点到天津转运、14 点到上海派送"。tracing 就是给每个请求装这种"行程跟踪"：经过多少服务、每段花多久。微服务架构里排查慢请求必备。
+  example: 用户说一个接口慢，开 tracing 一看是支付服务调 90% 时间花在 DNS 解析。
+
+- term: logging
+  aliases: [日志]
+  category: devterm
+  meaning: 想象船长航海日志——每天记什么时间发生了什么。程序的 logging 也是这意思：每条关键路径都写一行"我做了 X、结果是 Y"。出问题翻日志比看代码快十倍。级别由低到高：debug/info/warn/error。
+  example: 关键步骤打 info 日志，出错打 error，出问题翻 log 5 分钟就定位。
+
+- term: observability
+  aliases: [可观测性]
+  category: devterm
+  meaning: 想象一辆车的体检系统——仪表盘（metrics）显示当前各项数值、行车记录仪（logs）记录每段经历、GPS（traces）画出走的路径。三件齐了车出任何问题都能查清。observability 就是把这套"看清系统内部状态"的能力上到工程化水平。
+  example: 公司上 observability 平台后，事故平均处理时间从 4 小时降到 40 分钟。
+
+# --- batch 6: 架构 / 工程 ---
+
+- term: handler
+  aliases: [处理器]
+  category: devterm
+  meaning: 想象前台接到外线："找张三的"——前台知道把电话转给张三处理。handler 就是这个"专门处理某种请求/事件的函数"：HTTP handler 处理某条 URL 的请求、click handler 处理鼠标点击、消息 handler 处理消息队列的一条消息。
+  example: 给 /login 写一个 POST handler 处理登录请求。
+
+- term: dispatcher
+  aliases: [分发器]
+  category: devterm
+  meaning: 想象前台的分机表——电话进来按"找谁找哪个部门"，前台立刻转给对应的 handler。dispatcher 就是这种"看请求/事件类型决定派给哪个 handler"的中间层。Redux 的 dispatch 是经典例子。
+  example: 用户操作 → action → dispatcher 看 action 类型 → 调对应 reducer。
+
+- term: reducer
+  aliases: [Reducer]
+  category: devterm
+  meaning: 想象算总账：每收到一笔新支出就"老余额 + 这笔 = 新余额"，永远是这种"老状态 + 新事件 → 新状态"的纯计算。Redux 的 reducer 就是这种纯函数：你不能在里面偷偷改老 state，必须返回一个全新的。这种纪律换来可预测可调试。
+  example: reducer 里别改原 state 对象，必须 return 一个新对象。
+
+- term: listener
+  aliases: [监听器]
+  category: devterm
+  meaning: 想象快递柜里你设的"包裹到了请短信通知我"——柜子有事它通知你。listener 就是这种"挂在某个事件源上、事件发生时被调用"的回调函数。DOM 的 addEventListener、Kafka 消费者都是 listener。
+  example: 给输入框加一个 change listener，每次输入触发校验。
+
+- term: emitter
+  aliases: [事件发射器, EventEmitter]
+  category: devterm
+  meaning: 和 listener 配对——一个发一个收。emitter 是"事件发出方"：它说一句 emit('data', value)，所有挂在 'data' 事件上的 listener 都被叫一遍。Node.js 的 EventEmitter 是核心基础类。
+  example: 文件读取流是 EventEmitter，emit 'data' 时各段内容陆续过来。
+
+- term: subscriber
+  aliases: [订阅者]
+  category: devterm
+  meaning: 想象订阅杂志——每出新刊编辑部主动寄给你。pub/sub 模式里的 subscriber 就是这个订阅者：表态"我对 X 主题感兴趣"，X 有新消息时自动收到。
+  example: 用户下单事件被推送给所有 subscriber：积分服务、物流服务、营销服务。
+
+- term: pub/sub
+  aliases: [发布订阅]
+  category: devterm
+  meaning: 想象报刊订阅——出版社（publisher）出新刊扔给邮局（channel），所有订过的人（subscriber）自动收到。这种"发的人不直接知道谁收"的解耦消息模式就是 pub/sub。Redis pub/sub、Kafka、RabbitMQ 都支持。
+  example: 通知系统用 Redis pub/sub：业务方发消息，多个推送服务监听并发到用户。
+
+- term: DTO
+  aliases: [Data Transfer Object]
+  category: devterm
+  literal: Data Transfer Object
+  meaning: 想象快递公司的填表单——"寄件人、收件人、物品、电话"几个简单字段。DTO 就是这种"为传输设计的扁平数据对象"：后端给前端返回的接口结构、API 入参格式都是 DTO。不带业务逻辑、不直接对应数据库实体。
+  example: 用户实体里有密码字段，转 UserDTO 给前端时去掉，只留昵称头像。
+
+- term: DAO
+  aliases: [Data Access Object]
+  category: devterm
+  literal: Data Access Object
+  meaning: 想象图书馆有个专门的"取书员"——你给个书号他给你书，你只管要不用懂怎么找。DAO 就是封装数据库 CRUD 操作的对象，业务层只调它的方法（findById、save、delete）不直接写 SQL。换数据库时改 DAO 不用动业务。
+  example: UserDAO 提供 findById/save/delete，业务层调用不关心底层是 MySQL 还是 PostgreSQL。
+
+- term: repository
+  aliases: [仓储, Repo 模式]
+  category: devterm
+  meaning: DDD 里的 repository 比 DAO 更"业务感"——把领域实体当一个"集合"对外暴露，方法名是业务语言："找出某用户的全部订单"，不像 DAO 那么 SQL 化。
+  example: OrderRepository.findByUserId 返回这用户的订单聚合，调用方读起来像在操作内存数据。
+
+- term: service
+  aliases: [服务层]
+  category: devterm
+  meaning: 想象餐厅后厨——前台接单（controller）、厨师做菜（service）、仓库取材料（repository）。service 是分层架构的中间业务逻辑层，把"具体怎么实现这单生意"集中在这里，前后两端只用接它的接口。
+  example: 下单业务（扣库存、生成订单、扣款）全放 OrderService 里，controller 只负责接 HTTP 请求。
+
+- term: controller
+  aliases: [控制器]
+  category: devterm
+  meaning: 想象餐厅前台——接电话、记下订单、转给后厨、收菜传给客人。controller 是 Web 框架里 HTTP 请求的入口：解析参数、调 service 拿结果、组装响应返回前端。自己不写业务逻辑。
+  example: OrderController 接 POST /orders 请求，解析 body 后调 OrderService 处理。
+
+- term: route
+  aliases: [路由]
+  category: devterm
+  meaning: 想象写字楼的索引牌——"3 楼 财务、5 楼 销售"。route 就是 URL 到处理函数的索引：用户访问 /user/123 时该叫哪个 handler 处理。前端路由（页面切换）和后端路由（接口分发）都用这个概念。
+  example: React Router 配 /user/:id route，访问该 URL 时渲染 UserDetail 组件。
+
+- term: backoff
+  aliases: [exponential backoff, 退避]
+  category: devterm
+  meaning: 想象敲门没人开——你不会一直猛敲，会等 1 秒再敲、2 秒再敲、4 秒……越等越久。backoff 就是失败重试时每次等更久的策略，避免被打的服务永远缓不过来。指数退避（exponential backoff）是最常见。
+  example: 调外部 API 失败用 exponential backoff：1s、2s、4s、8s，三次都不行就放弃。
+
+- term: retry
+  aliases: [重试]
+  category: devterm
+  meaning: 想象信号差打电话没通你会再拨——retry 就是失败后再试一次。配合 backoff（每次等更久）和最大次数（避免无限重试）。互联网世界网络抖动经常，retry 是必备保险。
+  example: 网络抖动接口超时，加个自动 retry 3 次，多半就过去了。
+
+- term: timeout
+  aliases: [超时]
+  category: devterm
+  meaning: 想象等公交规定"最多等 20 分钟没来就改打车"——给等待行为设最长容忍时间。timeout 就是给每个慢操作（请求、查询、锁等待）设上限，超了就放弃别死等。没设 timeout 的代码一旦下游卡死，整条链路都跟着挂。
+  example: 调外部接口至少加 5 秒 timeout，免得对方挂了你跟着挂。
+
+- term: 节流
+  aliases: [客户端节流]
+  category: devterm
+  meaning: 想象你按门铃——按一下铃响，但你疯狂连按只响一次每隔几秒。节流就是"高频事件每 N 秒最多响应一次，期间其他全忽略"。常用于滚动事件、resize 这种 1 秒能触发几百次的场景，省 CPU。
+  example: 滚动监听做节流 100ms 一次，否则一秒触发 60 次 setState 卡死页面。
+
+- term: debounce
+  aliases: [防抖]
+  category: devterm
+  meaning: 想象电梯——你按 5 楼后又按 8 楼，电梯不会先去 5 楼再去 8 楼，而是等你按完后去 8 楼。debounce 就这思路："等用户停下来"才触发，每次新事件重新计时。搜索输入用得多——边打字边搜浪费请求，停下来再搜。
+  example: 搜索框 debounce 300ms：用户停止打字 300ms 后才发请求，节省 90% 流量。
+
+- term: race condition
+  aliases: [竞态, 竞争条件]
+  category: devterm
+  meaning: 想象两个人同时按电梯按钮，但只有一个被记录，另一个迷失。race condition 就是这种"两个事并发执行，结果取决于谁先谁后的细微时序"。同样代码同样输入，有时对有时错，最难复现最折磨人的 bug 类型。
+  example: 用户连点两次按钮触发两个网络请求，先发的后回，state 错乱——典型 race condition。
+
+- term: side effect
+  aliases: [副作用]
+  category: devterm
+  meaning: 想象买把椅子要付钱、占快递柜、产生废纸箱——除了"得到椅子"主目的外还产生了一堆别的影响。函数的 side effect 就是"除返回值外对外界产生的改变"：改全局变量、发网络请求、操作 DOM。函数式编程的目标是把它最小化集中处理。
+  example: useEffect 是 React 专门管 side effect 的 hook，所有发请求、订阅事件都放这里。
+
+- term: pure function
+  aliases: [纯函数]
+  category: devterm
+  meaning: 想象一台计算器——你输入 2+3 永远得 5，没有副作用、不依赖外界、不偷偷改其他东西。pure function 就这种性质：同样输入永远同样输出 + 不影响外面。极易测、易缓存、易并发。
+  example: 把价格计算逻辑写成 pure function，单测时直接 expect(calc(items)).toBe(199)，无需 mock 任何外部依赖。
+
+- term: stateless
+  aliases: [无状态]
+  category: devterm
+  meaning: 想象自助饮料机——给硬币吐饮料，谁来都一样、不记得上一个买了啥。stateless 服务就这特性：每次请求独立处理，本地不存信息。好处是想加多少台都行，任意一台都能处理任意请求，扩容超方便。
+  example: 把登录状态放 Redis，API 服务保持 stateless，水平扩 10 台机器都行。
+
+- term: stateful
+  aliases: [有状态]
+  category: devterm
+  meaning: 想象记账员——他脑子里有你账户余额，离开他换个新人就不认识你了。stateful 服务在本地存信息（内存/磁盘），扩容时新实例没历史数据不能直接接管。MySQL、Redis 都是 stateful 的，扩容要考虑数据迁移。
+  example: MySQL 是 stateful 服务，扩容不只是加机器，还得考虑数据怎么搬过去。
+
+- term: refactor
+  aliases: [重构]
+  category: devterm
+  meaning: 想象给屋子重新归置——东西没扔、功能没变，但摆放更合理找东西更快。refactor 就是给代码"换个摆法"：行为对外完全一样，内部更清晰更好维护。和"改 bug"、"加功能"严格分开做，避免一次混着改翻车。
+  example: 这段五层嵌套 if 没法读，重构成早 return 模式，逻辑清晰一倍。
+
+- term: boilerplate
+  aliases: [样板代码]
+  category: devterm
+  literal: 锅炉模板板（印刷术语）
+  meaning: 想象每篇政府公文开头都是"为了贯彻落实……"，每次都得抄一遍。boilerplate 就是这种"写新代码不得不重复抄一遍的固定开头/模板"——不重要但少不了。脚手架工具帮你自动生成 boilerplate。
+  example: 老 Spring 项目 boilerplate 满天飞，每个 Controller 几十行套话。
+
+- term: scaffold
+  aliases: [脚手架]
+  category: devterm
+  literal: 建筑施工脚手架
+  meaning: 想象盖楼前先搭脚手架——工人沿着脚手架能快速搭起楼体框架。代码 scaffold 也是这思路：一条命令自动生成项目骨架（目录结构、配置文件、入口）。create-react-app、vue create、rails new 都是 scaffold。
+  example: npm create vite@latest 一秒 scaffold 出一个能跑的前端项目。
+
+- term: snippet
+  aliases: [代码片段]
+  category: devterm
+  meaning: 想象快捷短语——你电脑里设个 yyds 自动展开"永远的神"。snippet 就是代码版的"快捷短语"：在编辑器配几个字母自动展开成一段常用代码，省打字。VS Code 内置 snippet 功能很强。
+  example: 配个 cl snippet 敲 cl 加 Tab 自动展开 `console.log()`，光标定在括号里。
+
+- term: tech debt
+  aliases: [technical debt, 技术债]
+  category: devterm
+  literal: 技术债务
+  meaning: 想象赶 deadline 用纸杯垫桌脚——能用但不稳，欠下个"以后必须处理"的债。代码里赶进度采取的临时方案（写死、复制粘贴、跳过测试）都是 tech debt，越积越多最后必须花专门时间还，否则系统垮。
+  example: 这模块 5 年没重构 tech debt 太重，下季度专门留两周还。
+
+- term: legacy
+  aliases: [legacy code, 老代码, 遗留系统]
+  category: devterm
+  meaning: 想象家里的老电视——还能用但显像管要修没零件、没说明书没人懂。legacy 系统就这种："还在跑、改不动、谁都不敢碰"的老代码。要么花大力气重写、要么继续战战兢兢维护。
+  example: 这套 legacy 系统跑了 12 年，原作者都退休了，重写预算太大只能修修补补。
+
+- term: env var
+  aliases: [environment variable, 环境变量]
+  category: devterm
+  meaning: 想象不同房间贴的"温度设置"小纸条——同一台空调，主卧贴 26 度、客厅贴 24 度。env var 就是给程序贴的环境差异化配置：开发环境一个数据库地址、生产一个，密钥不写代码里靠 env var 在不同环境注入。
+  example: 把 DATABASE_URL 放 env var，开发用本地库、生产用云库，代码完全一样。
+
+- term: secret
+  aliases: [secrets, 密钥]
+  category: devterm
+  meaning: 想象家门钥匙、银行卡密码、保险柜组合——绝不能贴公告栏、不能给陌生人。secret 就是这种敏感凭证（API key、数据库密码、TLS 私钥），绝对禁止进 Git 仓库、必须用专门的密钥管理服务存。泄露常导致严重损失。
+  example: AWS access key 一旦不小心 commit 进 GitHub，几分钟内就被人扫到拿去挖矿。
+
+- term: hardcode
+  aliases: [写死, 硬编码]
+  category: devterm
+  meaning: 想象菜谱写死"用 3 号锅"——换厨房没 3 号锅就废了。hardcode 就是把本该可配置的值（URL、密钥、阈值）直接写进代码里。改一下就要重新发版、容易漏改、密钥还有安全隐患。
+  example: 别把测试服 IP hardcode 在代码里，改用 env var 不同环境注入。
+
+- term: stdin
+  category: devterm
+  literal: standard input
+  meaning: 程序的"嘴巴"——别人塞给它输入的管子。命令行 `cat file | grep error` 里 grep 的 stdin 就是 cat 的输出。控制台输入、文件管道都通过这个标准接口接入程序。
+  example: 命令 `cat log.txt | grep error` 里 grep 从 stdin 读 cat 的输出。
+
+- term: stdout
+  category: devterm
+  literal: standard output
+  meaning: 程序的"嗓子"——它正常说话从这里出来。print/console.log 默认全写到 stdout。可以重定向到文件 `xxx > out.txt`，也可以接管道给下个程序当 stdin。
+  example: 程序结果写 stdout，print 一行就是往 stdout 写一行。
+
+- term: stderr
+  category: devterm
+  literal: standard error
+  meaning: 程序的"另一张嘴"——专门用于报错和警告，和 stdout 分开。这样管道接东西时不会把错误信息和正常结果混淆。`2>&1` 是"把 stderr 也合并到 stdout"的咒语。
+  example: 程序结果写 stdout，错误信息写 stderr，便于 `>` 重定向时只存结果不存日志。
+
+- term: pid
+  aliases: [PID, 进程号]
+  category: devterm
+  literal: Process ID
+  meaning: 想象警察局给每个嫌犯发的临时编号——同一时间不重号，方便指代。每个运行中的进程在操作系统里有一个 PID。ps 列出进程、kill 杀进程，都是靠 PID。
+  example: ps aux 看到某进程 PID 是 12345，要杀就 kill 12345。
+
+- term: socket
+  aliases: [套接字]
+  category: devterm
+  meaning: 想象墙上的电插座——电器一插就能用电，背后是怎么发电的你不管。socket 是操作系统给程序的"网络插座"：你的代码插上这个 socket 就能跟网络上其他机器通信。TCP/UDP/WebSocket 底层都是 socket。
+  example: 用 socket 几十行代码就能写一个简单的 echo 服务器。
+
+- term: regex
+  aliases: [regexp, 正则, 正则表达式]
+  category: devterm
+  meaning: 想象一种描述字符串模式的"魔法咒语"——比如 \d{11} 这串密文意思是"11 位数字"，把它丢给电脑能瞬间找出文档里所有手机号。regex 学一次受用终身，几乎每种编程语言都内建支持。
+  example: 用 regex `^\d{11}$` 验证用户输入的手机号格式。
+
+- term: glob
+  category: devterm
+  meaning: 想象文件名的简单匹配——你说"*.jpg"，电脑就找出所有 jpg 文件。glob 就是这种文件路径通配符语法：* 匹配任意字符、** 匹配多层目录。比 regex 简单粗暴但够用，构建工具、版本控制都用它。
+  example: 用 glob 模式 `src/**/*.test.ts` 匹配 src 下所有层级的测试文件。
+
+- term: webhook
+  aliases: [回调通知]
+  category: devterm
+  meaning: 想象快递通知——你不用每天打电话问"我包裹到了吗"，快递员到了主动发短信给你。webhook 就这思路：你给某服务留一个 URL，对方有事主动 POST 通知你。GitHub PR 合并、Stripe 收款都靠 webhook 推。
+  example: 给 Slack 配 webhook，公司服务出告警自动推到群里。
+
+# --- batch 6: 文件后缀（防 BAT 那种误匹配） ---
+
+- term: .bat
+  aliases: [bat 文件, batch 脚本]
+  category: devterm
+  meaning: 想象一张写满命令的购物清单——你递给保姆她照着一条条买。.bat 就是 Windows 给"命令行清单"用的文件后缀，双击就跑，里面写 dir/copy/python xxx 这种命令。最常见用途：双击启动应用、批量改文件名。
+  example: 写个 run.bat 内容是 `py app.py`，双击就启动你的程序。
+
+- term: .sh
+  aliases: [sh 脚本, shell 脚本]
+  category: devterm
+  meaning: Unix/Linux/Mac 上对应 .bat 的存在——shell 命令清单文件。一般用 bash 或 zsh 跑，运维部署脚本几乎都是 .sh。比 .bat 功能强大很多。
+  example: deploy.sh 是部署脚本，跑一下自动拉代码 + 构建 + 发布。
+
+- term: .py
+  aliases: [py 文件]
+  category: devterm
+  meaning: Python 源代码文件后缀，里面写 Python 代码。最熟悉的入口：main.py。
+  example: 程序主入口 main.py，命令行跑 `python main.py` 启动。
+
+- term: .ts
+  aliases: [ts 文件]
+  category: devterm
+  meaning: TypeScript 源代码文件后缀——带类型的 JavaScript。.ts 文件最终被编译成 .js 给浏览器跑。
+  example: 把核心库从 .js 改成 .ts，类型保护让 bug 少很多。
+
+- term: .tsx
+  aliases: [tsx 文件]
+  category: devterm
+  meaning: TypeScript + JSX 组合后缀——React 组件且要写类型的时候用。和 .ts 区别：.tsx 允许文件里有 `<div>` 这种 HTML 语法。
+  example: 新写的 React 组件直接用 .tsx，类型 + JSX 都齐。
+
+- term: .vue
+  aliases: [vue 文件, vue SFC]
+  category: devterm
+  meaning: Vue 独有的"单文件组件"后缀——一个文件里把 HTML 模板、JS 逻辑、CSS 样式三件套放一起。这是 Vue 的标志性写法（SFC = Single-File Component）。
+  example: Card.vue 一个文件包含这个卡片组件的全部代码 + 样式。
+
+- term: .json
+  aliases: [json 文件]
+  category: devterm
+  meaning: JSON 数据格式文件后缀。配置、接口数据、本地存储几乎都是 JSON。前后端数据交换的事实标准。
+  example: package.json 是 npm 项目的"户口本"，里面记着依赖、脚本、版本。
+
+- term: .yaml
+  aliases: [yml 文件, yaml 文件]
+  category: devterm
+  meaning: YAML 配置文件后缀。比 JSON 读起来舒服得多（没那么多花括号引号），靠缩进表达层级。Kubernetes、GitHub Actions、Docker Compose 配置都用 yaml。
+  example: k8s 部署一个服务的 deployment.yaml 描述了机器数、镜像版本、网络规则。
+
+- term: .toml
+  aliases: [toml 文件]
+  category: devterm
+  meaning: 介于 INI 文件和 YAML 之间的配置格式后缀。比 yaml 严格（不靠缩进，靠节标记），更不容易出错。Python 现代项目用 pyproject.toml、Rust 用 Cargo.toml。
+  example: pyproject.toml 描述 Python 项目依赖和打包配置。
+
+- term: .md
+  aliases: [md 文件, markdown 文件]
+  category: devterm
+  meaning: Markdown 文档文件后缀——一种简化版的文档格式，靠几个简单符号（#、*、>）就能写出漂亮排版的文档。GitHub、README、技术博客都用 markdown 写。
+  example: 每个开源项目根目录必有 README.md，介绍项目是啥怎么用。
+
+# --- batch 6: 常见 English 编程动词 ---
+
+- term: parse
+  aliases: [解析]
+  category: devterm
+  meaning: 想象老师改作文要先把句子拆成"主语+谓语+宾语"才好评分——parse 就这意思：把一串纯文本/字节流按规则拆解成程序能用的结构化数据。JSON.parse 把字符串变对象、SQL parser 把 SQL 语句变语法树。
+  example: 用 JSON.parse 把后端返回的字符串 parse 成 JS 对象。
+
+- term: deserialize
+  aliases: [反序列化]
+  category: devterm
+  meaning: serialize（打包传输）的反向操作。想象朋友寄你一个拼装好压平的乐高城堡，你按说明书重新立起来。deserialize 就是把传过来的字符串/字节流还原成内存里能用的对象。
+  example: 从 Redis 取回数据是字符串，deserialize 成对象再用。
+
+- term: render
+  aliases: [渲染]
+  category: devterm
+  meaning: 想象电影特效——剧本和模型变成肉眼可见的画面。render 就是把数据/状态变成肉眼可见的东西：React render 把 state 变成 UI、3D 引擎 render 把模型变成图像、HTML render 把模板变成网页。
+  example: 数据变了 React 自动 render 出新 UI，你不用手动改 DOM。
+
+- term: compile
+  aliases: [编译]
+  category: devterm
+  meaning: 想象把中文菜谱翻译成只有厨师能看的"工业指令"——按多少克、几秒精确动作。compile 就是把人类能读的源代码翻译成计算机能直接跑的低级形式（字节码、机器码）。和 transpile（同级翻译）不同，compile 一般跨抽象级别向下。
+  example: Go 程序 go build 一下 compile 出一个可执行二进制文件直接跑。
+
+- term: build
+  aliases: [构建]
+  category: devterm
+  meaning: 想象做菜的完整流程：洗、切、煮、装盘——不只是某一步而是整套。build 是从源代码到可部署产物的整个过程：编译、打包、压缩、签名都是 build 的步骤。CI 第一步永远是 build。
+  example: 提交代码后 CI 自动跑 build 确保能编过，编不过禁止 merge。
+
+- term: deploy
+  aliases: [部署, 发布]
+  category: devterm
+  meaning: 想象菜做好了端上桌让客人吃。deploy 就是这"端上桌"：把构建好的产物推到线上服务器跑起来。一般分多个环境（staging → production）一步步推。
+  example: 这个版本先 deploy 到 staging 跑一夜验证，没问题明天 deploy 到 production。
+

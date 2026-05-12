@@ -1,0 +1,407 @@
+"""Dict lookup with smart selection cleanup + multi-result + ECDICT translation fallback.
+
+Lookup chain (in order):
+  1. Local dict (curated, including user.yaml)
+  2. Selection cleanup: strip punct → try again
+  3. Selection split: split on separators, look up each part
+  4. ECDICT translation fallback (if available, marked as 通用翻译)
+  5. Miss → caller handles
+
+Threading: callers should treat .lookup_translation() as potentially slow (file IO),
+fine to call from main thread for now since ECDICT loads once and is in-memory.
+"""
+from __future__ import annotations
+
+import json
+import re
+import threading
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Optional
+
+import requests
+
+from . import config
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DICT_JSON = PROJECT_ROOT / "extension-browser" / "dict.json"
+USER_YAML = PROJECT_ROOT / "dict" / "user.yaml"
+ECDICT_JSON = PROJECT_ROOT / "extension-browser" / "ecdict.json"
+
+# Stripped from start/end of selection before lookup
+PUNCT_STRIP = " \t\n\r.,;:!?，。、；：！？\"'`()[]{}<>《》【】「」『』-—_"
+
+# Separators used to split selection into multiple candidate terms
+SPLIT_SEPS = re.compile(r"[,，、;；/\\\s]+")
+
+
+def normalize(s) -> str:
+    return str(s or "").strip().lower().replace(" ", "").replace("-", "").replace("_", "")
+
+
+def strip_punct(s: str) -> str:
+    return str(s or "").strip(PUNCT_STRIP)
+
+
+@dataclass
+class Entry:
+    term: str
+    category: str
+    literal: str
+    meaning: str
+    example: str
+    source: str = "local"  # local | user | translation | llm | llm-cache
+
+
+@dataclass
+class LookupResult:
+    entries: list[Entry] = field(default_factory=list)
+    cleanup: str = ""  # "" | "stripped" | "split"
+    raw_query: str = ""
+
+    @property
+    def is_hit(self) -> bool:
+        return bool(self.entries)
+
+
+class DictIndex:
+    def __init__(self, path: Path = DICT_JSON):
+        self.path = path
+        self.entries: list[dict] = []
+        self.index: dict[str, int] = {}
+        self._load()
+
+    def _load(self) -> None:
+        if not self.path.exists():
+            return
+        with self.path.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self.entries = data.get("entries", [])
+        self.index = data.get("index", {})
+
+    def reload(self) -> None:
+        self._load()
+
+    def lookup_one(self, query: str) -> Optional[Entry]:
+        """Single best match for query (after normalize)."""
+        nk = normalize(query)
+        if not nk:
+            return None
+        idx = self.index.get(nk)
+        if idx is None:
+            return None
+        e = self.entries[idx]
+        return Entry(
+            term=e.get("term", query),
+            category=e.get("category", "misc"),
+            literal=e.get("literal", ""),
+            meaning=e.get("meaning", ""),
+            example=e.get("example", ""),
+            source="local",
+        )
+
+    def smart_lookup(self, query: str, max_entries: int = 3) -> LookupResult:
+        """Smart lookup with selection cleanup + multi-result.
+
+        Strategy:
+        1. Exact normalized lookup.
+        2. Strip surrounding punctuation, retry.
+        3. Split on separators (whitespace/comma/etc), look up each token,
+           return all distinct hits (up to max_entries).
+        """
+        result = LookupResult(raw_query=query)
+        if not query or not query.strip():
+            return result
+
+        # Step 1: exact lookup
+        e = self.lookup_one(query)
+        if e:
+            result.entries.append(e)
+            return result
+
+        # Step 2: strip surrounding punctuation
+        stripped = strip_punct(query)
+        if stripped and stripped != query:
+            e = self.lookup_one(stripped)
+            if e:
+                result.entries.append(e)
+                result.cleanup = "stripped"
+                return result
+
+        # Step 3: split into tokens
+        tokens = [strip_punct(t) for t in SPLIT_SEPS.split(query) if strip_punct(t)]
+        if len(tokens) >= 2:
+            seen = set()
+            for t in tokens:
+                e = self.lookup_one(t)
+                if e and e.term not in seen:
+                    seen.add(e.term)
+                    result.entries.append(e)
+                    if len(result.entries) >= max_entries:
+                        break
+            if result.entries:
+                result.cleanup = "split"
+                return result
+
+        # Step 4: extract ASCII word-like tokens embedded in mixed text
+        # (e.g. "和YAML这种" → ["YAML"]; "用React写" → ["React"])
+        ascii_tokens = re.findall(r"[A-Za-z][A-Za-z0-9./+_-]{0,30}", query)
+        if ascii_tokens:
+            seen = set()
+            for t in ascii_tokens:
+                t_clean = strip_punct(t)
+                if not t_clean or t_clean.lower() == normalize(query):
+                    continue  # avoid loops on already-tried full query
+                e = self.lookup_one(t_clean)
+                if e and e.term not in seen:
+                    seen.add(e.term)
+                    result.entries.append(e)
+                    if len(result.entries) >= max_entries:
+                        break
+            if result.entries:
+                result.cleanup = "extracted"
+                return result
+
+        return result
+
+    @property
+    def count(self) -> int:
+        return len(self.entries)
+
+
+# ---------- Translation fallback (ECDICT) ----------
+
+class Translator:
+    """Lazy loader for ECDICT-derived English→Chinese fallback dictionary.
+
+    Loads only when first lookup_translation() is called, to keep app startup fast.
+    Falls back gracefully if ecdict.json is absent.
+    """
+
+    def __init__(self, path: Path = ECDICT_JSON):
+        self.path = path
+        self._dict: Optional[dict[str, str]] = None
+        self._lock = threading.Lock()
+
+    def _load_if_needed(self) -> Optional[dict[str, str]]:
+        if self._dict is not None:
+            return self._dict
+        with self._lock:
+            if self._dict is not None:
+                return self._dict
+            if not self.path.exists():
+                self._dict = {}
+                return self._dict
+            try:
+                with self.path.open(encoding="utf-8") as f:
+                    raw = json.load(f)
+                # Normalize keys (lowercase) for O(1) lookup
+                normalized = {}
+                for k, v in raw.items():
+                    nk = normalize(k)
+                    if nk and v:
+                        normalized[nk] = v
+                self._dict = normalized
+            except Exception:
+                self._dict = {}
+            return self._dict
+
+    @property
+    def available(self) -> bool:
+        return self.path.exists()
+
+    @property
+    def count(self) -> int:
+        d = self._load_if_needed()
+        return len(d) if d else 0
+
+    def lookup(self, query: str) -> Optional[Entry]:
+        d = self._load_if_needed()
+        if not d:
+            return None
+        nk = normalize(query)
+        if not nk:
+            return None
+        meaning = d.get(nk)
+        if not meaning:
+            return None
+        # Clean up ECDICT's multi-meaning format (often "n. xxx vt. yyy" or "<br>" separated)
+        cleaned = meaning.replace("\\n", " · ").replace("<br>", " · ").strip()
+        if len(cleaned) > 200:
+            cleaned = cleaned[:200] + "…"
+        return Entry(
+            term=query,
+            category="translation",
+            literal="",
+            meaning=cleaned,
+            example="",
+            source="translation",
+        )
+
+
+# ---------- LLM fallback (unchanged from before) ----------
+
+_LLM_LOCK = threading.Lock()
+
+LLM_SYSTEM = """你是中文程序员/职场术语解释器。给一个词，输出 JSON：
+{"literal":"字面意思（一句或空）","meaning":"实际含义（1-2 句大白话，讲清在中文互联网/编程/职场语境的实际意思）","example":"具体场景例句"}
+规则：
+- 只输出 JSON，没有 markdown 围栏、没有解释文字
+- 风格要大白话、举具体场景，禁用「在某种意义上」「可以理解为」这类抽象表述
+- 如果词没有特别的技术/职场含义，meaning 字段填「通用词，无特殊语境含义」"""
+
+
+def _parse_llm_json(text: str) -> dict:
+    s = text.strip()
+    m = re.search(r"```(?:json)?\s*([\s\S]*?)```", s)
+    if m:
+        s = m.group(1).strip()
+    i = s.find("{")
+    j = s.rfind("}")
+    if i == -1 or j == -1:
+        raise ValueError("no JSON object in LLM response")
+    return json.loads(s[i : j + 1])
+
+
+def call_anthropic(api_key: str, model: str, term: str, timeout: int = 8) -> dict:
+    body = {
+        "model": model or "claude-haiku-4-5-20251001",
+        "max_tokens": 400,
+        "system": LLM_SYSTEM,
+        "messages": [{"role": "user", "content": f"解释这个词：{term}"}],
+    }
+    r = requests.post(
+        "https://api.anthropic.com/v1/messages",
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+        json=body,
+        timeout=timeout,
+    )
+    if not r.ok:
+        raise RuntimeError(f"Anthropic {r.status_code}: {r.text[:200]}")
+    data = r.json()
+    text = data["content"][0]["text"]
+    return _parse_llm_json(text)
+
+
+def call_openai(api_key: str, model: str, term: str, timeout: int = 8) -> dict:
+    body = {
+        "model": model or "gpt-4o-mini",
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": LLM_SYSTEM},
+            {"role": "user", "content": f"解释这个词：{term}"},
+        ],
+    }
+    r = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "content-type": "application/json",
+        },
+        json=body,
+        timeout=timeout,
+    )
+    if not r.ok:
+        raise RuntimeError(f"OpenAI {r.status_code}: {r.text[:200]}")
+    data = r.json()
+    text = data["choices"][0]["message"]["content"]
+    return _parse_llm_json(text)
+
+
+def llm_lookup(term: str, cfg: dict) -> Entry:
+    """Call LLM; results are cached on disk so we never pay twice for the same word."""
+    nk = normalize(term)
+    cache = config.load_cache()
+    if nk in cache:
+        c = cache[nk]
+        return Entry(
+            term=c.get("term", term),
+            category=c.get("category", "llm"),
+            literal=c.get("literal", ""),
+            meaning=c.get("meaning", ""),
+            example=c.get("example", ""),
+            source="llm-cache",
+        )
+
+    if not cfg.get("api_key"):
+        raise RuntimeError("未配置 API key")
+
+    provider = cfg.get("provider", "anthropic")
+    model = cfg.get("model", "")
+    if provider == "openai":
+        parsed = call_openai(cfg["api_key"], model, term)
+    else:
+        parsed = call_anthropic(cfg["api_key"], model, term)
+
+    entry_dict = {
+        "term": term,
+        "category": "llm",
+        "literal": (parsed.get("literal") or "").strip(),
+        "meaning": (parsed.get("meaning") or "").strip(),
+        "example": (parsed.get("example") or "").strip(),
+    }
+    with _LLM_LOCK:
+        cache = config.load_cache()
+        cache[nk] = entry_dict
+        config.save_cache(cache)
+
+    return Entry(source="llm", **entry_dict)
+
+
+# ---------- User dict additions ----------
+
+_USER_LOCK = threading.Lock()
+
+
+def append_user_entry(term: str, meaning: str, example: str = "", category: str = "user") -> None:
+    """Append a user-curated entry to dict/user.yaml. Caller should reload dict afterwards."""
+    USER_YAML.parent.mkdir(parents=True, exist_ok=True)
+
+    def yaml_escape(s: str) -> str:
+        if not s:
+            return '""'
+        if any(c in s for c in ':#&*!|>%@`"\'[]{},') or s.startswith(" ") or s.endswith(" "):
+            return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+        return s
+
+    block_lines = [
+        f"- term: {yaml_escape(term)}",
+        f"  category: {category}",
+        f"  meaning: {yaml_escape(meaning)}",
+    ]
+    if example:
+        block_lines.append(f"  example: {yaml_escape(example)}")
+    block = "\n".join(block_lines) + "\n\n"
+
+    with _USER_LOCK:
+        if not USER_YAML.exists():
+            USER_YAML.write_text("# 用户自建词条（codelang 内自动追加）\n\n", encoding="utf-8")
+        with USER_YAML.open("a", encoding="utf-8") as f:
+            f.write(block)
+
+
+def rebuild_dict_json() -> tuple[bool, str]:
+    """Run build_dict.py in-process to regenerate dict.json. Returns (ok, message)."""
+    import subprocess
+    import sys
+
+    script = PROJECT_ROOT / "tools" / "build_dict.py"
+    if not script.exists():
+        return False, f"build_dict.py not found at {script}"
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(script)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            cwd=str(PROJECT_ROOT),
+        )
+        if proc.returncode != 0:
+            return False, f"build failed: {proc.stderr[:200] or proc.stdout[:200]}"
+        return True, (proc.stdout or "").strip().split("\n")[-1]
+    except Exception as e:
+        return False, f"build error: {e}"

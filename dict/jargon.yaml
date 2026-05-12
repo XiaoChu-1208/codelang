@@ -1,0 +1,1002 @@
+# 互联网黑话 —— 大厂会议室高频词
+- term: 对齐
+  aliases: [对齐一下, 拉齐, sync up, align]
+  category: jargon
+  literal: 排成一条线
+  meaning: 想象军训时教官喊"向左看齐"——大家原本朝不同方向，立刻调成一条线。大厂里"对齐一下"就是这种"找几个人开短会同步信息、确认大家理解一致"。常发生在做事前先开半小时碰需求/方向。
+  example: 这事儿我先和产品对齐一下需求再开发，免得做完发现理解错了。
+
+- term: 颗粒度
+  aliases: [粒度, granularity]
+  category: jargon
+  literal: 颗粒的粗细
+  meaning: 想象食材切法——切丝是细颗粒、切块是粗颗粒。"颗粒度"形容任务/数据/计划的细致程度。"颗粒度太粗"=拆得不够细，看不出每步谁干什么；"颗粒度细"=拆到每天每人具体做啥。开会常被问"你的颗粒度能不能再细一点"。
+  example: 这版项目排期颗粒度太粗，按周给的，按天再拆一下让大家明确每天该干啥。
+
+- term: 抓手
+  aliases: [核心抓手, 关键抓手]
+  category: jargon
+  literal: 能抓住的把手
+  meaning: 想象搬一个奇形怪状的箱子——你得先找到能抓住的把手才搬得动。"抓手"就是推动一件大事的具体切入点。"找抓手"=找一个能下手干活的点。"用户留存是今年的核心抓手"=今年绕着"提升留存"这个具体目标干，比"做好业务"具体多了。
+  example: 老板让今年业务上一个台阶，先得找抓手——光说目标没用，得有具体能动的点。
+
+- term: 赋能
+  aliases: [赋能业务, empower]
+  category: jargon
+  literal: 给予能力
+  meaning: 想象工厂供电——总电厂不直接做产品，只把电送给各车间让他们造东西。"赋能"就是"提供工具/数据/方法让别人能把事干成"。基础平台部门最爱说："我们组赋能业务"——意思是"我们造基础设施，你们造业务"。
+  example: 我们组维护数据中台，赋能业务方做精细化运营，他们不用自己处理数据底层。
+
+- term: 闭环
+  aliases: [闭环了, 形成闭环]
+  category: jargon
+  literal: 环路闭合
+  meaning: 想象洒水后水流回水库再循环——头尾相接形成闭环就持续运转。互联网里"闭环"指流程从头跑到尾且结果回流到起点形成反馈："投放→点击→购买→数据回到投放系统优化下次投放"。"这事闭环了"=端到端跑通且有反馈数据。
+  example: 我们的广告投放-转化-复购数据要打通形成闭环，才能基于真实数据优化下一波投放。
+
+- term: 心智
+  aliases: [用户心智, 心智模型]
+  category: jargon
+  literal: 心理上的认知
+  meaning: 想象提"高端白酒"你脑子立刻跳出茅台——这种"听到 X 立刻想到 Y"就是心智。营销圈说"占领用户心智"=让你一想到某场景就先想到我家牌子。建立心智成本巨高但护城河深。
+  example: 提"国民老婆"想到新垣结衣、提"凉茶"想到王老吉——都是用户心智的体现。
+
+- term: 复盘
+  aliases: [复盘一下, retrospect, retro]
+  category: jargon
+  literal: 围棋术语，下完棋再重摆一遍找问题
+  meaning: 想象球队赛后看录像——回顾每个传球是不是最优、防守哪儿漏了。复盘就这思路：事后回看整个过程，哪步对哪步错、为啥成功为啥失败、下次怎么改进。项目结束、季度末、事故后都会复盘。
+  example: 这次大促结束我们开个复盘会，看哪些招有效、哪些是白花钱。
+
+- term: 漏斗
+  aliases: [转化漏斗, funnel]
+  category: jargon
+  literal: 漏斗形状，上宽下窄
+  meaning: 想象 100 个人路过店门口——80 个看了一眼、30 个进店、10 个看商品、3 个下单付款。每步流失一批，画出来像漏斗。优化转化率本质就是"放大漏斗每层的通过率"，找出"哪一环掉得最多"是分析的核心。
+  example: 看下用户转化漏斗，咱们是加购少还是付款失败多？针对最大流失环节优化。
+
+- term: 打法
+  aliases: [战术打法]
+  category: jargon
+  literal: 怎么打仗的方法
+  meaning: 想象打篮球——同样是想赢比赛，强攻篮下是一种打法、外线投三分是另一种。互联网"打法"就是"做某事的策略路径"。"换个打法"=换种思路做。
+  example: 这个市场纯砸钱拉新成本越来越高，得换个打法，靠内容自传播。
+
+- term: 破圈
+  aliases: [出圈]
+  category: jargon
+  literal: 突破自己的小圈子
+  meaning: 想象一段视频原本只在小众动漫圈传播——突然有天微博、抖音、广场舞大妈都在转。这种"内容/产品从核心粉丝群扩散到全民"叫破圈。破圈成功一夜暴富，但流量来得快走得也快。
+  example: 这条短视频破圈了，连完全不玩游戏的中老年人都在朋友圈转。
+
+- term: 中台
+  aliases: [业务中台, 数据中台]
+  category: jargon
+  literal: 中间的台子
+  meaning: 想象连锁餐厅——前台门店面对顾客（前台/前线），后台是供应链仓库（后台/基础设施），中间需要一层"半成品加工厂"统一处理食材发给各门店（中台）。把账户、订单、营销这些多业务线共用的能力沉淀成统一平台就叫中台。2018 阿里带火，近几年在退潮。
+  example: 把账户/订单/营销做成中台，公司每条业务线都能复用，不重复造轮子。
+
+- term: 沉淀
+  aliases: [沉淀下来, 沉淀文档]
+  category: jargon
+  literal: 沉到底
+  meaning: 把临时经验/做法整理成可复用的文档/工具/流程。
+  example: 这次踩的坑要沉淀成 wiki，下次别再踩。
+
+- term: 拉通
+  aliases: [拉通一下]
+  category: jargon
+  literal: 拉直/打通
+  meaning: 跨团队/跨部门把信息和资源连起来。比"对齐"范围更大。
+  example: 这事涉及三个部门，我去拉通一下。
+
+- term: 包装
+  aliases: [包装一下]
+  category: jargon
+  literal: 给商品包包装
+  meaning: 把已做的事换个角度讲得更亮眼，多用于汇报/晋升 PPT 场景。
+  example: 这个项目效果一般，但你包装一下还是能讲。
+
+- term: 高频
+  aliases: [低频, 高频场景]
+  category: jargon
+  literal: 频率高
+  meaning: 用户使用次数多的场景/功能。和低频相对，做产品都想抢高频入口。
+  example: 微信支付是高频，所以是巨大入口。
+
+# --- batch 1 expansion ---
+
+- term: 落地
+  aliases: [落地实施, 真正落地]
+  category: jargon
+  literal: 落到地上
+  meaning: 想法变成可执行的产品/流程/方案。"怎么落地？"=怎么真正做起来。
+  example: 方案讨论一周了，下周必须落地，先做个原型。
+
+- term: 对标
+  aliases: [对标一下, benchmark]
+  category: jargon
+  literal: 对照标杆
+  meaning: 拿别家成熟产品/数据当参照。"对标抖音"=照着抖音的样子来。
+  example: 这个功能对标小红书的笔记流。
+
+- term: 倒逼
+  aliases: [倒逼机制]
+  category: jargon
+  literal: 反向逼迫
+  meaning: 从下游/结果反过来推上游做改变。常用于"用 deadline 倒逼进度"。
+  example: 用季度 OKR 倒逼业务方提早提需求。
+
+- term: 输出
+  aliases: [有输出, 输出物]
+  category: jargon
+  literal: 把东西输出来
+  meaning: 大厂语境=交付文档/PPT/方案/代码这类可见成果。"你这周有什么输出？"=你交了啥。
+  example: 这次调研要有输出，至少一份分析文档。
+
+- term: 提炼
+  category: jargon
+  meaning: 从一堆杂事/数据里抽出核心要点。常用于汇报、文档总结场景。
+  example: 这次复盘把三个核心问题提炼出来。
+
+- term: 踩坑
+  aliases: [踩了坑, 避坑]
+  category: jargon
+  literal: 踩到坑里
+  meaning: 遇到没预料到的麻烦/bug。"踩过坑"=有相关经验。
+  example: 我之前接 OAuth 踩过这坑，给你避一下。
+
+- term: 填坑
+  aliases: [填一下坑]
+  category: jargon
+  literal: 把坑填上
+  meaning: 收拾别人或之前留下的烂摊子。前任甩锅、技术债，都得有人填。
+  example: 我这季度主要在填上家留的 bug 坑。
+
+- term: 兜底
+  aliases: [兜底方案]
+  category: jargon
+  literal: 兜住底
+  meaning: 主链路挂了/出问题时的保底方案。一定要有兜底，不然就翻车。
+  example: 推荐服务挂了走兜底，返回热门列表。
+
+- term: 协同
+  aliases: [协同作战, 协同效应]
+  category: jargon
+  meaning: 多团队/多业务线一起干，1+1>2。比"配合"更端着。
+  example: 这事要市场+产品+研发三方协同。
+
+- term: 联动
+  aliases: [联动一下]
+  category: jargon
+  meaning: 几方一起做个事产生连锁效果。常见跨品牌联动、跨部门联动。
+  example: 抖音和瑞幸联动了一波营销。
+
+- term: 打通
+  aliases: [打通一下]
+  category: jargon
+  literal: 打成一条通路
+  meaning: 把原本割裂的系统/数据/流程连起来。"打通账户体系"=用户登录一处全通用。
+  example: 我们要打通 APP 和小程序的会员积分。
+
+- term: 抹平
+  aliases: [抹平差异]
+  category: jargon
+  literal: 抹得平整
+  meaning: 把多端/多系统的差异在某一层屏蔽掉，让上层看不出来。
+  example: 这个 SDK 抹平了 iOS 和安卓的接口差异。
+
+- term: 解耦
+  aliases: [decouple]
+  category: jargon
+  literal: 解开耦合
+  meaning: 把原本互相依赖的两块拆开各干各的，谁挂了不影响谁。架构师最爱说。
+  example: 把支付和订单解耦，订单写库不等支付回调。
+
+- term: 耦合
+  aliases: [强耦合, coupling]
+  category: jargon
+  meaning: 两块东西绑得太死，改 A 必动 B。和"解耦"反义。
+  example: 这俩模块耦合太重，重构得连带改。
+
+- term: 复用
+  aliases: [reuse]
+  category: jargon
+  meaning: 一个东西多个地方使。代码复用、组件复用、能力复用。
+  example: 这个登录组件抽出来给三条业务线复用。
+
+- term: 封装
+  aliases: [encapsulation]
+  category: jargon
+  literal: 包装起来
+  meaning: 把实现细节藏起来，只露出干净的接口给别人调。
+  example: 这段重复逻辑封装成一个 hook。
+
+- term: 抽象
+  aliases: [抽象一层]
+  category: jargon
+  meaning: 把多个具体场景的共同点提出来变成通用接口/模型。抽象做对了好用，做错了过度设计。
+  example: 别过度抽象，先把第一个版本写死再说。
+
+- term: 聚合
+  aliases: [aggregate, 聚合接口]
+  category: jargon
+  meaning: 把多个数据源/接口/事件合并成一个统一的输出。
+  example: 这个聚合接口一次返回订单+物流+优惠券。
+
+- term: 集成
+  aliases: [integrate]
+  category: jargon
+  meaning: 把别人的东西接进来用。集成第三方 SDK、集成 CI/CD。
+  example: 这周要集成钉钉登录。
+
+- term: 下沉
+  aliases: [能力下沉, 下沉市场]
+  category: jargon
+  literal: 沉到下面
+  meaning: 两个用法：(1) 把上层重复逻辑沉到底层框架；(2) 业务从一线城市拓展到三四线/县城。
+  example: 把鉴权下沉到网关，业务层不用关心。
+
+- term: 拉新
+  aliases: [新客获取]
+  category: jargon
+  literal: 拉来新用户
+  meaning: 获取新注册用户。"拉新成本"=买一个新用户花多少钱。
+  example: 双十一拉新成本飙到 80 块一个用户。
+
+- term: 留存
+  aliases: [次日留存, retention]
+  category: jargon
+  literal: 留下来
+  meaning: 新用户/老用户后续还回来用的比例。次日留存=注册第二天还来的占比。
+  example: 30 日留存只有 5%，这个产品有问题。
+
+- term: 促活
+  aliases: [激活]
+  category: jargon
+  literal: 促使活跃
+  meaning: 让已沉默的用户重新打开 App。常见手段：推送、短信、优惠券。
+  example: 这波促活活动拉回了 10 万沉睡用户。
+
+- term: 召回
+  aliases: [用户召回, 召回策略]
+  category: jargon
+  meaning: 把流失的用户拉回来。短信/电话/Push 三件套。
+  example: 一个月没登录的发短信召回。
+
+- term: 流失
+  aliases: [用户流失, churn]
+  category: jargon
+  meaning: 用户不再来用了。流失率高=产品有大问题。
+  example: 这周 DAU 跌 10%，看下哪个渠道流失最猛。
+
+- term: 获客
+  aliases: [获客成本, CAC]
+  category: jargon
+  meaning: 拿到一个新客户。"获客成本"=买一个新客户花多少。
+  example: SEM 渠道获客成本 200，太贵了。
+
+- term: 投放
+  aliases: [广告投放, 投流]
+  category: jargon
+  meaning: 花钱买广告位/流量。"投放 ROI"=投了多少换了多少。
+  example: 信息流投放这周烧了 50 万。
+
+- term: 裂变
+  aliases: [裂变玩法]
+  category: jargon
+  literal: 像核裂变那样扩散
+  meaning: 老用户拉新用户、新用户再拉新用户，几何级增长。拼多多砍一刀就是裂变。
+  example: 设计个裂变红包，让用户帮我们拉新。
+
+- term: 跨界
+  aliases: [跨界合作]
+  category: jargon
+  meaning: 不同行业/品类的品牌一起做联名。常见为了破圈/吸新客。
+  example: 旺旺和卫龙跨界出了联名零食。
+
+- term: 共建
+  aliases: [共建生态]
+  category: jargon
+  meaning: 几方一起出力建一个东西。常用于平台对外说辞，听起来比"你给我打工"好听。
+  example: 邀请开发者共建小程序生态。
+
+- term: 画饼
+  aliases: [画大饼]
+  category: jargon
+  literal: 用嘴画一张饼
+  meaning: 老板/上级讲愿景但没实际兑现的承诺。"老板又画饼了"=又许了个空愿。
+  example: 入职时画饼期权，三年后公司没上市。
+
+- term: 死磕
+  aliases: [死磕到底]
+  category: jargon
+  meaning: 一件事不出结果不放手，硬刚到底。
+  example: 这个性能问题死磕了一周才定位到。
+
+- term: 深耕
+  aliases: [深耕领域]
+  category: jargon
+  literal: 深深耕作
+  meaning: 长期专注做某一个垂直领域，做到很深。和"广撒网"反义。
+  example: 我们在物流领域深耕十年。
+
+- term: 攻坚
+  aliases: [攻坚战]
+  category: jargon
+  meaning: 集中力量啃硬骨头。常用于推动卡了很久的项目。
+  example: Q4 我们要打个技术攻坚战，把架构升级完。
+
+- term: 破题
+  aliases: [怎么破题]
+  category: jargon
+  literal: 解开题目
+  meaning: 想清楚问题该从哪下手解。"先破题"=先弄明白问题本质。
+  example: 留存低这个问题，怎么破题？
+
+- term: 破局
+  aliases: [破局之道]
+  category: jargon
+  literal: 打破僵局
+  meaning: 现有局面卡死了，找一招打开新局面。
+  example: 在红海里破局，必须做差异化。
+
+- term: 风口
+  aliases: [风口浪尖, 站风口]
+  category: jargon
+  literal: 风吹来的口
+  meaning: 一个突然变热的行业方向。"站在风口上猪都能飞"，但风一停先掉的也是猪。
+  example: AI Agent 是今年的风口，融资都疯了。
+
+- term: 赛道
+  aliases: [选赛道]
+  category: jargon
+  literal: 比赛跑道
+  meaning: 一个细分市场方向。"换赛道"=换一个行业/方向重新做。
+  example: 这个赛道太挤了，我们换个赛道。
+
+- term: 红海
+  aliases: [红海市场]
+  category: jargon
+  literal: 染红的海（杀红了眼）
+  meaning: 竞争极度激烈、利润薄如刀片的市场。和蓝海相对。
+  example: 外卖是红海，新人进来纯亏钱。
+
+- term: 蓝海
+  aliases: [蓝海市场]
+  category: jargon
+  literal: 蓝色的海（没人）
+  meaning: 还没什么人做、利润空间大的市场。但蓝海会迅速变红海。
+  example: 五年前直播带货还是蓝海，现在不是了。
+
+- term: 头部
+  aliases: [头部玩家, top]
+  category: jargon
+  literal: 头的部分
+  meaning: 行业里排在最前面的几家/几个。和腰部、尾部相对。
+  example: 短视频头部就抖音和快手两家。
+
+- term: 腰部
+  aliases: [腰部玩家]
+  category: jargon
+  meaning: 行业里中等规模的玩家，不是龙头但也活得不错。
+  example: 这家公司是 SaaS 腰部，营收 5 亿左右。
+
+- term: 痛点
+  aliases: [用户痛点]
+  category: jargon
+  literal: 痛的点
+  meaning: 用户实际遇到、不解决就难受的问题。做产品的口头禅。
+  example: 通勤无聊是痛点，所以播客起来了。
+
+- term: 爽点
+  aliases: [用户爽点]
+  category: jargon
+  meaning: 用户用了立刻爽到的功能。和痛点配对：解决痛点+制造爽点=好产品。
+  example: 拼多多砍一刀就是爽点，每砍一下进度往前一截。
+
+- term: 痒点
+  category: jargon
+  meaning: 不解决也能活、但解决了让人小欢喜的需求。痛点之下的浅层需求。
+  example: 头像戴圣诞帽是痒点，挠到就传播。
+
+- term: 公域
+  aliases: [公域流量]
+  category: jargon
+  meaning: 平台公共流量池，不归你私有，要花钱买。如抖音推荐流、淘宝搜索流。
+  example: 公域获客越来越贵，得做私域。
+
+- term: 私域
+  aliases: [私域流量, 私域运营]
+  category: jargon
+  meaning: 你自己能反复触达的用户，比如微信群、企微好友、自有 App。
+  example: 把客户加到微信群运营，这就是私域。
+
+- term: 上游
+  aliases: [上游环节]
+  category: jargon
+  meaning: 产业链/数据流里更靠前的环节。和下游相对。
+  example: 我们是芯片厂的上游，做光刻设备。
+
+- term: 下游
+  aliases: [下游环节]
+  category: jargon
+  meaning: 产业链/数据流里靠后的环节。
+  example: 数据先到 Kafka，下游消费方有十几个。
+
+- term: 阈值
+  aliases: [threshold, 临界值]
+  category: jargon
+  literal: 门槛值
+  meaning: 触发某行为的临界数值。超过阈值就告警/降级/触发。
+  example: CPU 超 80% 阈值就自动扩容。
+
+- term: 锚点
+  aliases: [价格锚点, anchor]
+  category: jargon
+  literal: 抛锚的点
+  meaning: 用一个参照物影响判断。卖手表先放个十万的，再卖五千的就显便宜。
+  example: 课程定价先标 999 划掉，再写 299，这是锚点。
+
+- term: 标杆
+  aliases: [标杆案例]
+  category: jargon
+  literal: 立起来的杆
+  meaning: 行业里被当成参照的典型。"对标 X 是标杆"。
+  example: 海底捞是服务业的标杆。
+
+- term: 壁垒
+  aliases: [技术壁垒, 护城河]
+  category: jargon
+  literal: 墙
+  meaning: 别人难以复制超越的能力/资源。"有壁垒"=别人短时间追不上。
+  example: 自研芯片是华为的壁垒之一。
+
+- term: 反哺
+  aliases: [反哺业务]
+  category: jargon
+  literal: 倒过来喂
+  meaning: 从某事的产出回过头来帮助源头。常见于"数据反哺模型""利润反哺研发"。
+  example: 投放数据反哺算法模型迭代。
+
+- term: 助力
+  aliases: [助力一下]
+  category: jargon
+  meaning: 帮忙、加油的端着说法。常见于砍价/拼团活动。
+  example: 帮我助力砍一刀。
+
+- term: 加持
+  aliases: [AI 加持, X 加持]
+  category: jargon
+  literal: 佛教术语，神力护佑
+  meaning: 借助某个能力让事情更强。"AI 加持"=接了 AI 之后更牛。
+  example: AI 加持下，文档可以自动生成大纲。
+
+- term: 自洽
+  aliases: [逻辑自洽]
+  category: jargon
+  literal: 自己跟自己融洽
+  meaning: 一套说辞/系统内部不矛盾、说得通。
+  example: 这个商业模式逻辑自洽，但落地难。
+
+- term: 真香
+  aliases: [真香警告]
+  category: jargon
+  literal: 出自《变形计》梗
+  meaning: 一开始嘴硬说不要，用了之后立刻"真香"。
+  example: 我之前说绝不用 AI 写代码，用了 Cursor 真香。
+
+- term: 矩阵
+  aliases: [产品矩阵, 账号矩阵]
+  category: jargon
+  literal: 数学的矩阵
+  meaning: 一组互相补位、形成体系的产品/账号/能力。
+  example: 公司有十个抖音号组成账号矩阵。
+
+- term: 玩法
+  aliases: [新玩法]
+  category: jargon
+  meaning: 一种做事的套路/模式。"新玩法"=没人用过的方法。
+  example: 这次大促上了直播间发券新玩法。
+
+- term: 调性
+  aliases: [品牌调性]
+  category: jargon
+  literal: 格调
+  meaning: 品牌/产品给人的整体感觉风格。"调性高"=显得高端。
+  example: 这个广告调性不对，太接地气了。
+
+- term: 体感
+  aliases: [体感不好]
+  category: jargon
+  literal: 身体感受
+  meaning: 用户实际用起来的感受，区别于跑分数据。
+  example: 数据上 P99 100ms，但体感很卡。
+
+- term: 认知
+  aliases: [用户认知]
+  category: jargon
+  meaning: 用户/市场对某事的理解和印象。"教育用户认知"=让他们知道这是啥。
+  example: 教育市场认知就是要花大钱投放。
+
+- term: 战役
+  aliases: [打仗, 大型战役]
+  category: jargon
+  literal: 打仗
+  meaning: 公司里把重要项目叫"战役"，搞得很军事化。
+  example: 双 11 是年度一号战役。
+
+- term: 价值
+  aliases: [体现价值]
+  category: jargon
+  meaning: 大厂晋升语境里=你给公司带来了什么可量化收益。"体现价值"=能写进 PPT。
+  example: 你这个项目对业务的价值要量化出来。
+
+- term: 项目化
+  aliases: [项目制]
+  category: jargon
+  meaning: 把日常工作打包成"项目"来推进，有目标/有里程碑/有 owner。
+  example: 这事项目化推进，每周一过进度。
+
+- term: owner
+  aliases: [负责人, owner 制]
+  category: jargon
+  literal: 主人
+  meaning: 一件事的唯一负责人。"做 owner"=端到端兜着。
+  example: 这事谁是 owner，出问题找谁。
+
+# --- batch 5 expansion ---
+
+- term: 串联
+  category: jargon
+  meaning: 把多个孤立环节连成一条完整链路。"串联打通"=把流程拉直。
+  example: 这事得把市场-产品-研发串联起来一起跑。
+
+- term: 透传
+  aliases: [透传字段]
+  category: jargon
+  literal: 透明传递
+  meaning: 一个值原样从上游传到下游，中间层不改也不看。
+  example: trace_id 全链路透传，方便排查。
+
+- term: 发力
+  category: jargon
+  meaning: 在某方向重点投入资源。"发力 XX 赛道"=重点搞这块。
+  example: 公司今年发力 AI 业务。
+
+- term: 量化
+  aliases: [量化指标]
+  category: jargon
+  meaning: 把感觉/印象变成具体数字。"量化产出"=用数据证明你干了多少。
+  example: 这个项目的价值量化一下，写进汇报。
+
+- term: 细分
+  aliases: [细分领域]
+  category: jargon
+  meaning: 把大市场/大品类切成更精确的小段。细分场景=具体到某类用户某场景。
+  example: 咖啡赛道里要找细分，做女性轻乳咖。
+
+- term: 重塑
+  aliases: [重塑认知]
+  category: jargon
+  meaning: 彻底改变某事的原有形态/印象。常用于大变革汇报。
+  example: AI 重塑了内容创作流程。
+
+- term: 引爆
+  aliases: [引爆全网, 引爆流量]
+  category: jargon
+  meaning: 内容/事件一夜之间扩散到全平台。和"出圈"接近，强调瞬间爆发。
+  example: 这条短视频引爆了抖音。
+
+- term: 挖掘
+  aliases: [挖掘价值]
+  category: jargon
+  meaning: 从已有数据/用户/资源里找出隐藏价值。"深度挖掘"=反复扒。
+  example: 挖掘老用户复购潜力。
+
+- term: 背书
+  aliases: [品牌背书]
+  category: jargon
+  literal: 票据背面签字担保
+  meaning: 用自己的信誉给某事/某人/某产品担保。明星代言、大公司投资都是背书。
+  example: 红杉投资给这家创业公司背书。
+
+- term: 背锅
+  aliases: [背了锅, 替罪羊]
+  category: jargon
+  literal: 把锅背身上
+  meaning: 替别人/集体扛责任，多半是被迫的。
+  example: 上线翻车老板让我背锅。
+
+- term: 加速
+  aliases: [加速器]
+  category: jargon
+  meaning: 让某事变快推进。"加速落地"=赶紧搞起来。
+  example: 公司给重点项目配加速通道。
+
+- term: 共创
+  aliases: [客户共创]
+  category: jargon
+  meaning: 几方一起出力创造一个东西。比"共建"多一层"从零开始"。
+  example: 和头部客户共创下一代产品。
+
+- term: 融合
+  aliases: [融合发展]
+  category: jargon
+  meaning: 几个东西揉到一起变成一个新东西。"线上线下融合"。
+  example: 把音频和视频能力融合到一个 SDK。
+
+- term: 拉升
+  aliases: [拉升业绩]
+  category: jargon
+  meaning: 把某指标推高。和"提升"同义但更动作派。
+  example: 这个活动拉升次日留存 5 个点。
+
+- term: 洞察
+  aliases: [用户洞察]
+  category: jargon
+  literal: 看穿
+  meaning: 从数据/调研里看出别人看不到的关键发现。"洞察对了"=找到了真正的需求。
+  example: 这次调研得出三个用户洞察。
+
+- term: 渗透
+  aliases: [市场渗透, 渗透率]
+  category: jargon
+  meaning: 一个产品/品牌在目标人群里覆盖到的比例。渗透率高=人均都在用。
+  example: 微信在中国渗透率接近 100%。
+
+- term: 辐射
+  aliases: [辐射范围]
+  category: jargon
+  meaning: 一个能力/影响向周围扩散到的范围。"辐射 X 万用户"。
+  example: 这个直播间辐射 50 万下沉用户。
+
+- term: 开拓
+  aliases: [开拓市场]
+  category: jargon
+  meaning: 进入一个新市场/新方向。
+  example: 公司明年开拓东南亚市场。
+
+- term: 收口
+  aliases: [收尾, 收口动作]
+  category: jargon
+  meaning: 项目最后一步收拾干净。"收口"比"收尾"多一层"留个有头有尾的交付物"。
+  example: 这事下周收口，写一份总结文档。
+
+- term: 转型
+  aliases: [业务转型]
+  category: jargon
+  meaning: 公司/业务/个人从一个方向换到另一个方向。"数字化转型""技术转型管理"。
+  example: 传统制造业转型做工业互联网。
+
+- term: 收割
+  aliases: [收割流量, 收割用户]
+  category: jargon
+  literal: 庄稼成熟收割
+  meaning: 已经培育好的市场/用户拿来变现。带点贬义，暗示一锤子买卖。
+  example: 别老想收割用户，长期会反噬。
+
+- term: 评估
+  aliases: [评估一下]
+  category: jargon
+  meaning: 简单分析判断可行性/价值/风险。比"研究"轻一些。
+  example: 我先评估下这个方案的工作量。
+
+- term: 务实
+  aliases: [务实派]
+  category: jargon
+  meaning: 不搞虚的，只做能见效的实事。和"务虚""画饼"相对。
+  example: 这个老板很务实，少开会多干活。
+
+- term: 夯实
+  aliases: [夯实基础]
+  category: jargon
+  literal: 把地基砸实
+  meaning: 把基础打牢。常用于"夯实技术底座""夯实数据基建"。
+  example: 这季度先夯实基建，明年再上业务。
+
+- term: 预判
+  aliases: [提前预判]
+  category: jargon
+  meaning: 提前判断接下来会怎样。"做好预判"=想到了才不慌。
+  example: 预判到大促流量峰值，提前扩容。
+
+- term: 打磨
+  aliases: [打磨产品]
+  category: jargon
+  meaning: 反复修改优化细节直到顺手。
+  example: 这个交互打磨了三个月。
+
+- term: 击穿
+  aliases: [击穿底线, 击穿心智]
+  category: jargon
+  meaning: 突破某个临界点。"击穿用户心智"=营销说服力把用户认知打透了。
+  example: 这价格击穿了行业底价。
+
+- term: 破冰
+  aliases: [破冰会]
+  category: jargon
+  literal: 砸开冰面
+  meaning: 第一次见面/合作时打破尴尬的开场。常用于团建/客户拜访。
+  example: 新团队第一天搞个破冰活动。
+
+- term: 操盘
+  aliases: [操盘手]
+  category: jargon
+  literal: 操作盘面（股市术语）
+  meaning: 全盘掌控一个项目/业务的运转。"操盘人"=实际决策的人。
+  example: 这个新业务由他操盘。
+
+- term: 突围
+  aliases: [突围之道]
+  category: jargon
+  literal: 包围圈里冲出去
+  meaning: 在竞争激烈的环境下找到独特路径活下来。
+  example: 在大厂围剿下，小公司怎么突围？
+
+- term: 补位
+  aliases: [互相补位]
+  category: jargon
+  literal: 球场上替补位置
+  meaning: 同事走了/请假，临时顶上他的工作。
+  example: 后端缺人，前端补位写了几个接口。
+
+- term: 进化
+  aliases: [产品进化]
+  category: jargon
+  meaning: 一代代变得更好。强调持续迭代。
+  example: 这个产品进化到第 5 版才好用。
+
+- term: 链路
+  aliases: [全链路]
+  category: jargon
+  meaning: 一件事从头到尾的完整流程。"全链路打通"=每一环都跑通了。
+  example: 排查问题要看全链路日志。
+
+- term: 卡点
+  aliases: [卡住的点]
+  category: jargon
+  meaning: 让事情推不动的关键障碍。"找卡点"=找出谁/什么在阻塞。
+  example: 这事的卡点是法务还没批。
+
+- term: 卡位
+  aliases: [抢占卡位]
+  category: jargon
+  literal: 占住有利位置（球场术语）
+  meaning: 提前占住关键资源/位置防止被对手拿走。
+  example: 趁竞争对手没动，赶紧卡位这个赛道。
+
+- term: 公司
+  aliases: [友商, 鹅厂, 猫厂, 狗厂, 字节, 抖音]
+  category: jargon
+  meaning: 互联网公司戏称：鹅厂=腾讯、猫厂=阿里、狗厂=京东、狼厂=百度、东厂=字节。"友商"=同行（其他公司）。
+  example: 这事和友商对齐过，他们也这么做。
+
+- term: 私董会
+  aliases: [私董]
+  category: jargon
+  literal: 私人董事会
+  meaning: 一群创始人/高管定期闭门交流的小圈子。话题敏感、严格保密。
+  example: 加入这个 CTO 私董会受益很大。
+
+- term: 二号位
+  aliases: [二把手]
+  category: jargon
+  meaning: 一号位之下、实际执行的核心。
+  example: 业务一号位是 CEO，二号位是 COO。
+
+- term: 上下文
+  aliases: [context, ctx]
+  category: jargon
+  literal: 上下文
+  meaning: 一件事发生的背景信息。"补一下上下文"=先讲清楚来龙去脉。技术上特指线程/请求级的环境变量。
+  example: 这事得有上下文才能判断，先说说背景。
+
+- term: 弯道超车
+  aliases: [换道超车]
+  category: jargon
+  literal: 弯道时超过前车
+  meaning: 不正面拼传统赛道，靠新方向反超对手。
+  example: 在 AI 上弯道超车 OpenAI 不容易。
+
+- term: 第二曲线
+  aliases: [新增长曲线]
+  category: jargon
+  meaning: 主业之外培育的新业务，老业务衰退前接续增长。字节做电商就是要找第二曲线。
+  example: 公司在找第二曲线，避免单一业务依赖。
+
+- term: 收敛
+  aliases: [收敛一下]
+  category: jargon
+  meaning: 选项太多时收紧到几个可执行方案。"先收敛再扩散"是产品决策套路。
+  example: 这个方案太发散，先收敛到三个候选。
+
+- term: 发散
+  aliases: [发散思维]
+  category: jargon
+  meaning: 头脑风暴时尽量多想可能性，不限制。和收敛相对。
+  example: 上半场先发散想点子，下半场再收敛。
+
+- term: 标配
+  aliases: [行业标配]
+  category: jargon
+  meaning: 行业里大家都做的基础配置。"X 是标配"=没这个不行。
+  example: 灰度发布现在是大厂标配。
+
+- term: 玩家
+  aliases: [玩家阵营]
+  category: jargon
+  meaning: 一个领域里参与的公司/团队。"主要玩家"=主要竞争者。
+  example: 短视频赛道头部玩家就抖音和快手。
+
+- term: 心力
+  aliases: [心力交瘁]
+  category: jargon
+  literal: 心的力气
+  meaning: 一个人对一件事投入的精神能量。"老板心力不够"=他不上心了。
+  example: 创业最缺的是心力。
+
+- term: 红利
+  aliases: [流量红利, 人口红利]
+  category: jargon
+  meaning: 一段时间内躺着就能赚的机会窗口。窗口一关就难。
+  example: 移动互联网红利已经吃完。
+
+# --- batch 7 expansion ---
+
+- term: 跑通
+  aliases: [跑通一下]
+  category: jargon
+  meaning: 端到端走一遍流程证明可行。"先跑通 MVP"=先把最简版本走一遍流程。
+  example: 这个 demo 跑通了，下一步加细节。
+
+- term: 拍板
+  aliases: [拍个板, 拍脑袋决定]
+  category: jargon
+  meaning: 拿主意做决定。一般指有权的人最终拍板。
+  example: 这事老板拍板就走。
+
+- term: 拍脑袋
+  aliases: [拍脑袋决策]
+  category: jargon
+  meaning: 不靠数据/分析、凭感觉做决定。略带贬义。
+  example: 这价格定得太拍脑袋，没做用户调研。
+
+- term: 看齐
+  aliases: [向 X 看齐]
+  category: jargon
+  meaning: 以某人/某团队为标准对照自己。比"对标"更上对下。
+  example: 部门要向头部团队看齐。
+
+- term: 卷王
+  aliases: [卷神]
+  category: jargon
+  meaning: 内卷之王。比同事还能卷的人，加班最狠的那个。
+  example: 这个新人是卷王，每天最后一个走。
+
+- term: 躺平
+  aliases: [选择躺平]
+  category: jargon
+  meaning: 不卷了、放弃挣扎。和"卷"相对。
+  example: 35 岁后我选择躺平。
+
+- term: 内耗
+  aliases: [内耗严重]
+  category: jargon
+  meaning: 两种用法：(1) 团队内部消耗精力扯皮；(2) 个人精神内耗，反复纠结自我消耗。
+  example: 部门政治内耗，活没干多少。
+
+- term: 鸡娃
+  aliases: [鸡娃教育]
+  category: jargon
+  meaning: 拼命给孩子打鸡血、刷题培优。互联网父母焦虑产物。
+  example: 北上海妈妈鸡娃从幼儿园开始。
+
+- term: 工具人
+  aliases: [纯工具人]
+  category: jargon
+  meaning: 别人需要什么自己就干什么，没有自主性的人。略带自嘲。
+  example: 我就是个工具人，老板让搬砖就搬砖。
+
+- term: 老登
+  aliases: [老登们]
+  category: jargon
+  meaning: 网络俚语，戏称中年男性，常带反讽味。
+  example: 评论区老登又出来阴阳了。
+
+- term: 退退退
+  category: jargon
+  meaning: 表达"够了别说了"的网络梗，源自驱蚊歌阿姨。
+  example: 老板又开始画饼了 → 退退退。
+
+- term: 出活
+  aliases: [出活效率]
+  category: jargon
+  meaning: 干活产出快、量大。"这人出活"=干得快。
+  example: 招个 senior 比 junior 出活多得多。
+
+- term: 上量
+  aliases: [起量]
+  category: jargon
+  meaning: 用户量/订单量/营收量开始大幅增长。
+  example: 这个新功能这周开始上量了。
+
+- term: 起势
+  aliases: [势头, 起势头]
+  category: jargon
+  meaning: 一个产品/趋势开始有上升势头。
+  example: AI 编程工具去年开始起势。
+
+- term: 颠覆
+  aliases: [颠覆式创新]
+  category: jargon
+  literal: 把东西颠过来
+  meaning: 从底层规则上改变行业格局。"被 X 颠覆"=被新玩家从根本上替代。
+  example: ChatGPT 颠覆了搜索引擎。
+
+- term: 抄作业
+  aliases: [抄一抄]
+  category: jargon
+  meaning: 学习/模仿别人的成功做法。中性甚至褒义。
+  example: 直接抄字节的打法，省事。
+
+- term: 拉胯
+  aliases: [拉了]
+  category: jargon
+  meaning: 表现差、不给力。
+  example: 这季度销售拉胯，KPI 没完成。
+
+- term: 优雅
+  aliases: [优雅地]
+  category: jargon
+  meaning: 程序员语境=代码漂亮、逻辑清晰。"优雅地解决"=简洁好看的方案。
+  example: 这段代码不优雅，但能跑。
+
+- term: 跑分
+  category: jargon
+  literal: 跑性能基准
+  meaning: 测软件/硬件性能数据，常用于横向对比。手机/CPU/AI 模型都"跑分"。
+  example: 这模型在 MMLU 跑分超过 GPT-4。
+
+- term: 黑盒
+  aliases: [黑箱]
+  category: jargon
+  meaning: 内部怎么工作不知道、只看输入输出。AI 模型、复杂系统常被叫黑盒。
+  example: 大模型对开发者就是个黑盒。
+
+- term: 白盒
+  category: jargon
+  meaning: 内部完全透明可见的系统。和黑盒相对。
+  example: 自研的系统是白盒，第三方 SaaS 是黑盒。
+
+- term: 强 Push
+  aliases: [硬推]
+  category: jargon
+  literal: 强势推动
+  meaning: 不顾阻力强行往前推。
+  example: 老板强 Push 这个项目年底必须上。
+
+- term: Plan B
+  aliases: [planB, B 计划]
+  category: jargon
+  meaning: 主方案挂了的备用方案。和"兜底"近义。
+  example: 主路径挂了走 Plan B 返回热门数据。
+
+- term: 看板
+  aliases: [Kanban, dashboard]
+  category: jargon
+  meaning: 把状态/指标可视化的面板。任务看板（Trello 那种）、监控看板（Grafana）都是。
+  example: 这季度做个数据看板，老板天天看。
+
+- term: 反向
+  aliases: [反向求职, 反向 PUA]
+  category: jargon
+  meaning: 倒过来做某事的修饰词。反向 PUA=员工 PUA 老板，反向求职=应聘者挑公司。
+  example: 现在是反向求职，候选人挑公司。
+
+- term: 接坑
+  aliases: [接锅]
+  category: jargon
+  meaning: 接手别人留下的烂摊子。比"接手"多一层"已经是坑了"。
+  example: 上家走了，我接坑这个项目。
+

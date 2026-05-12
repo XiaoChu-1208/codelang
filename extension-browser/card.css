@@ -1,0 +1,150 @@
+.codelang-card {
+  position: absolute;
+  z-index: 2147483647;
+  width: 340px;
+  max-width: 90vw;
+  background: #ffffff;
+  color: #1f2328;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(31, 35, 40, 0.18);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  overflow: hidden;
+}
+
+.codelang-card .cl-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #f6f8fa;
+  border-bottom: 1px solid #d0d7de;
+}
+
+.codelang-card .cl-term {
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
+  word-break: break-all;
+}
+
+.codelang-card .cl-cat {
+  font-size: 11px;
+  padding: 2px 6px;
+  background: #ddf4ff;
+  color: #0969da;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.codelang-card .cl-close {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  color: #57606a;
+  padding: 0 4px;
+  line-height: 1;
+}
+.codelang-card .cl-close:hover {
+  color: #1f2328;
+}
+
+.codelang-card .cl-body {
+  padding: 10px;
+}
+
+.codelang-card .cl-row {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.codelang-card .cl-row + .cl-row {
+  border-top: 1px dashed #eaeef2;
+}
+
+.codelang-card .cl-label {
+  flex: 0 0 32px;
+  color: #57606a;
+  font-size: 11px;
+  padding-top: 2px;
+}
+
+.codelang-card .cl-val {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.codelang-card .cl-empty {
+  padding: 6px 0;
+  color: #57606a;
+}
+
+.codelang-card .cl-ask {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1px solid #d0d7de;
+  background: #f6f8fa;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #1f2328;
+}
+.codelang-card .cl-ask:hover {
+  background: #eaeef2;
+}
+
+.codelang-card .cl-loading {
+  padding: 6px 0;
+  color: #57606a;
+}
+
+.codelang-card .cl-error {
+  padding: 6px 0;
+  color: #cf222e;
+  font-size: 12px;
+}
+
+.codelang-card .cl-foot {
+  padding: 6px 10px;
+  border-top: 1px solid #eaeef2;
+  background: #f6f8fa;
+  font-size: 11px;
+  color: #57606a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .codelang-card {
+    background: #0d1117;
+    color: #e6edf3;
+    border-color: #30363d;
+  }
+  .codelang-card .cl-head,
+  .codelang-card .cl-foot {
+    background: #161b22;
+    border-color: #30363d;
+  }
+  .codelang-card .cl-cat {
+    background: #1f6feb33;
+    color: #58a6ff;
+  }
+  .codelang-card .cl-ask {
+    background: #21262d;
+    border-color: #30363d;
+    color: #e6edf3;
+  }
+  .codelang-card .cl-ask:hover {
+    background: #30363d;
+  }
+  .codelang-card .cl-row + .cl-row {
+    border-top-color: #21262d;
+  }
+  .codelang-card .cl-foot {
+    border-top-color: #21262d;
+  }
+}

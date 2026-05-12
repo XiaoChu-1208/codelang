@@ -1,0 +1,288 @@
+# 职场/程序员俚语
+- term: 八股
+  aliases: [八股文, 背八股]
+  category: slang
+  literal: 明清科举的固定文体
+  meaning: 面试必背的标准问答题，如"Java 内存模型""HTTP/TCP 三次握手"。不一定真用到，但不背过不了面试。
+  example: 后端校招就是卷八股。
+
+- term: 卷
+  aliases: [内卷, 太卷了]
+  category: slang
+  literal: 卷起来
+  meaning: 大家都拼命加码导致整体性价比下降。"卷加班""卷 KPI"。
+  example: 部门里一个人开始 996，全组就被卷了。
+
+- term: 润
+  aliases: [润了, 跑路]
+  category: slang
+  literal: run 的音译
+  meaning: 离职 / 移民 / 跑路。
+  example: 干够三年我就润了。
+
+- term: 大厂
+  aliases: [互联网大厂]
+  category: slang
+  literal: 大公司
+  meaning: 国内一般指字节/阿里/腾讯/美团/拼多多/快手等头部互联网公司。海外类似有 FAANG（Meta/Apple/Amazon/Netflix/Google）。
+  example: 准备秋招冲大厂。
+
+- term: 螺丝钉
+  aliases: [拧螺丝, 拧螺丝钉]
+  category: slang
+  literal: 一颗小螺丝
+  meaning: 自嘲。大厂分工细，每个人只负责一小块，没法看全局。
+  example: 我就一拧螺丝的，整个链路问产品。
+
+- term: 业务
+  aliases: [做业务, 业务方]
+  category: slang
+  literal: 业务部门
+  meaning: 程序员语境里指"贴近变现的应用层开发"，和"做底层/做技术"相对。做业务=快速堆需求，做技术=搞中间件/编译器/操作系统。
+  example: 我转岗想从业务去基础架构。
+
+- term: 35 岁危机
+  aliases: [35岁, 35 岁]
+  category: slang
+  literal: 35 岁的危机
+  meaning: 国内互联网潜规则，35 岁后程序员普遍面临裁员/招聘歧视/晋升天花板。
+  example: 想想 35 岁危机，副业得搞起来。
+
+- term: 晋升答辩
+  aliases: [述职, 晋升评审]
+  category: slang
+  literal: 升职面试
+  meaning: 升职前的评审会，向更高级评委 PPT 汇报自己干了啥。包装能力 = 答辩硬通货。
+  example: 这个季度先憋个大项目，年底晋升答辩用。
+
+- term: ddl
+  aliases: [DDL, deadline]
+  category: slang
+  literal: deadline 的缩写
+  meaning: 截止时间。"ddl 是第一生产力"。
+  example: ddl 是周五前提测，今晚得赶完。
+
+- term: 摸鱼
+  aliases: [划水]
+  category: slang
+  literal: 浑水摸鱼
+  meaning: 上班时间偷懒做私事。
+  example: 周五下午摸鱼看 B 站。
+
+# --- batch 4 expansion: 俵语 ---
+
+- term: 996
+  aliases: [9-9-6]
+  category: slang
+  literal: 早 9 晚 9，一周 6 天
+  meaning: 中国互联网臭名昭著的工作制。马云 2019 说"996 是福报"翻车后大家都假装不提了。
+  example: 我上一家是 996，逃出来了。
+
+- term: 007
+  category: slang
+  literal: 0 点到 0 点，一周 7 天
+  meaning: 比 996 更狠：24 小时随时待命，一周七天。游戏行业冲版本时常见。
+  example: 这项目快上线了，全组 007。
+
+- term: 大小周
+  aliases: [大周, 小周]
+  category: slang
+  meaning: 这周休一天（大周），下周休两天（小周）轮换。比 996 体面但实际比双休累。字节、快手都搞过、后取消。
+  example: 字节早年搞大小周，2021 年取消了。
+
+- term: 福报
+  aliases: [996 福报]
+  category: slang
+  literal: 佛教用语
+  meaning: 马云原话"能 996 是修来的福报"，被员工反讽到沦为黑话。"福报"=变相加班 PUA。
+  example: 老板说"加班是福报"，我笑而不语。
+
+- term: PUA
+  aliases: [职场 PUA]
+  category: slang
+  literal: Pickup Artist（起源于把妹术语）
+  meaning: 职场里指上级通过否定/打压让你怀疑自己价值，更便宜地榨干你。"被 PUA 了"=被精神控制。
+  example: 老板天天说你不行，这就是 PUA。
+
+- term: 大饼
+  aliases: [大饼 PPT]
+  category: slang
+  meaning: 老板许的空头愿景。"老板又画大饼了"=又说一通让你拼命但不兑现的话。
+  example: 期权大饼吃了三年，公司还没上市。
+
+- term: HR
+  aliases: [hr]
+  category: slang
+  literal: Human Resources
+  meaning: 人力资源部门。互联网公司里 HR 三件套：招人 + 谈薪 + 谈离职。
+  example: HR 找我聊，多半是绩效或者优化。
+
+- term: 优化
+  aliases: [被优化]
+  category: slang
+  literal: 字面"变更好"
+  meaning: 大厂裁员的委婉说法。"被优化"=被裁。听起来积极，实际就是滚蛋。
+  example: 这季度组里优化了 3 个人。
+
+- term: N+1
+  aliases: [N加1, n+1 补偿]
+  category: slang
+  meaning: 裁员标准补偿：每工作一年补一个月工资，多 1 个月代通知金。N=工作年数。如果直接走还有 2N。
+  example: 这次裁员给的 N+1，部分人争取到了 2N。
+
+- term: 毕业
+  aliases: [毕业了, 突然毕业]
+  category: slang
+  literal: 从学校毕业
+  meaning: 互联网公司裁员的更委婉说法（腾讯 2022 起带火）。"我毕业了"=被裁了。
+  example: 鹅厂这波又毕业了一批人。
+
+- term: 福利
+  aliases: [大厂福利]
+  category: slang
+  meaning: 大厂特指各种非工资待遇：免费三餐、健身房、班车、年假、股票。也是面试时挑公司的硬指标。
+  example: 字节福利还行，餐补 + 房补 + 健身房。
+
+- term: leader
+  aliases: [Leader, 直属 leader]
+  category: slang
+  literal: 领导
+  meaning: 互联网公司不太说"领导"，说 leader。"我 leader 说"=我老板说。
+  example: 这个问题我先问下我 leader。
+
+- term: TL
+  aliases: [tl, tech lead, team leader]
+  category: slang
+  literal: Team Leader / Tech Lead
+  meaning: 小团队负责人，通常带 5-10 人。半技术半管理。
+  example: 升 TL 后开会变多了，写码变少。
+
+- term: 一线
+  aliases: [一线大厂]
+  category: slang
+  meaning: 行业里头部公司。"一线大厂" ≈ BAT + 字节/美团/拼多多/快手 等。
+  example: 校招优先冲一线大厂。
+
+- term: 二线
+  aliases: [二线公司, 二三线]
+  category: slang
+  meaning: 没到头部但也不小的互联网公司。如携程、滴滴、贝壳、知乎等。
+  example: 二线公司压力小点，薪资也低 20%。
+
+- term: 三本
+  aliases: [民办, 双非]
+  category: slang
+  meaning: 中国大学层级俚语：985/211/双非/三本，越往后越被简历筛挂。双非=非 985 非 211。
+  example: 双非简历进大厂基本要靠内推。
+
+- term: 简历倒挂
+  aliases: [倒挂]
+  category: slang
+  meaning: 后入职的同事工资比早入职的老员工高。校招新人薪资涨太快经常导致倒挂。
+  example: 新人比我多 2000，倒挂了。
+
+- term: 内推
+  aliases: [内推码]
+  category: slang
+  meaning: 公司内员工推荐应聘者投简历。简历直接到 HR 桌上、不被系统筛掉，过 HR 关概率大幅提升。
+  example: 别在官网投，找个朋友内推。
+
+- term: HC
+  aliases: [hc, headcount]
+  category: slang
+  literal: Headcount，人头编制
+  meaning: 一个岗位的招聘名额。"还有 HC 吗"=还能招人吗。
+  example: 这季度我们组没 HC，明年再说。
+
+- term: P 几
+  aliases: [P7, P8, 阿里 P 级]
+  category: slang
+  meaning: 阿里巴巴的技术等级体系（P1-P14），P6 ≈ 中级、P7 ≈ 高级、P8 ≈ 专家。圈内常用来横向比职级。
+  example: 字节 2-2 大概对标阿里 P7。
+
+- term: T 几
+  aliases: [T3, T4]
+  category: slang
+  meaning: 腾讯/华为的职级体系（T1-T4 各分小段）。T3-1 应届、T3-2 中级、T3-3 高级 ...
+  example: 鹅厂 T3.3 对标阿里 P7。
+
+- term: BG
+  aliases: [bg, 事业群]
+  category: slang
+  literal: Business Group，事业群
+  meaning: 大厂内部最大的业务划分。腾讯有 WXG（微信）、PCG（视频/QQ）、CSIG（云）等。
+  example: 跨 BG 调岗手续比较麻烦。
+
+- term: BU
+  aliases: [bu, 事业部]
+  category: slang
+  literal: Business Unit，事业部
+  meaning: BG 下的一级业务单元。比 BG 小，比小组大。
+  example: 我们 BU 这季度营收破 10 亿。
+
+- term: 鄙视链
+  aliases: [技术鄙视链]
+  category: slang
+  meaning: 圈子里互相看不起的食物链。前端 vs 后端、Java vs PHP、用 Mac vs Windows，全都有鄙视链。
+  example: 程序员鄙视链：写 C++ 的看不起写 Java 的，写 Java 的看不起写 PHP 的。
+
+- term: 调休
+  aliases: [周末调休]
+  category: slang
+  meaning: 国内法定节假日的反人类发明：放假前后挪周末凑出长假。"国庆放 8 天但前后要连上 6 天班"。
+  example: 这个国庆调休调得人想骂人。
+
+- term: 转正
+  aliases: [转正答辩]
+  category: slang
+  meaning: 试用期结束变正式员工。一般 3-6 个月，需要走个转正答辩。
+  example: 我下周转正答辩，PPT 还没准备好。
+
+- term: 试用期
+  aliases: [probation]
+  category: slang
+  meaning: 入职头 3-6 个月，公司和员工互相试。试用期工资一般打 80%。期间被开补偿少。
+  example: 试用期被劝退，赔了一个月走人。
+
+- term: 跳槽
+  aliases: [换工作]
+  category: slang
+  meaning: 离职去另一家公司，最常见的加薪方式。"跳一次涨 30%"。
+  example: 这家干够两年我就跳槽。
+
+- term: 背调
+  aliases: [背景调查, background check]
+  category: slang
+  meaning: 入职前的尽调：核实学历、上家工作、有无违规。互联网公司常委托第三方做。
+  example: 简历别写假，背调一查全露馅。
+
+- term: 卡学历
+  aliases: [学历门槛]
+  category: slang
+  meaning: 招聘环节按学历筛人。大厂校招 985 起步、双非简历常被系统直接刷掉。
+  example: 这岗卡 985，我双非投了直接挂。
+
+- term: 老板
+  aliases: [我老板]
+  category: slang
+  literal: 字面老板
+  meaning: 互联网公司里"老板"是相对说法，不一定是 CEO。"我老板"=我直属上级，可能是个组长。
+  example: 我老板让我加班，没办法。
+
+- term: 一号位
+  aliases: [一号位负责人]
+  category: slang
+  meaning: 一个事业/项目的总负责人。"业务一号位"=这条业务最高头儿。
+  example: 这个新业务的一号位是 VP 亲自挂帅。
+
+- term: 大头兵
+  aliases: [小兵]
+  category: slang
+  meaning: 基层执行者，自嘲。没决策权，老板让干啥干啥。
+  example: 我就是个大头兵，老板要做我能咋办。
+
+- term: 老白男
+  aliases: [老白]
+  category: slang
+  meaning: 调侃硅谷高管多是中年白人男性。引申：固化保守的管理层。
+  example: 这家公司高管全是老白男，思路太老。
