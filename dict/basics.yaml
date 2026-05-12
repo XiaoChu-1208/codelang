@@ -1,0 +1,297 @@
+# 基础英文 / 通用术语 —— 程序员日常对话/UI/文档里高频出现的"看似简单但选中就懵"的词
+
+# --- 系统/服务/平台 ---
+
+- term: system
+  aliases: [系统]
+  category: devterm
+  meaning: 字面"系统"——既指操作系统（Windows/macOS 那种），也泛指任何"一整套互相关联的东西"。业务系统、推荐系统、支付系统都是。中文 IT 圈说"做一个系统"=做一整套软件。
+  example: 公司订单系统出问题，全员处理。
+
+- term: platform
+  aliases: [平台]
+  category: devterm
+  meaning: 字面"台子"——能让别人在上面跑/卖/玩的基础环境。微信是社交平台、淘宝是电商平台、AWS 是云平台、抖音是内容平台。"做平台"意味着别人来你这里做生意。
+  example: 想做产品先确定上哪个平台分发——iOS App Store？小程序？
+
+- term: application
+  aliases: [app, App, 应用, 应用程序]
+  category: devterm
+  meaning: 字面意思就是"应用"——你下载安装的软件。微信、抖音、Office 都是 application。手机上叫 App 是它的简称。和 system（操作系统）相对：app 跑在 system 之上。
+  example: 这个应用启动太慢，怀疑装了什么后台 App 在占资源。
+
+- term: server
+  aliases: [服务器]
+  category: devterm
+  meaning: 两层意思：(1) 提供服务的电脑（机房里那堆机器）；(2) 提供服务的程序（"HTTP server""game server"）。"服务器挂了"=那台机器或程序崩了。
+  example: 网站打不开多半是服务器挂了或者 DNS 出问题。
+
+- term: client
+  aliases: [客户端]
+  category: devterm
+  meaning: 和 server 配对——发请求的那一方。浏览器是 client，HTTP 服务器是 server。"客户端"在中文里特指"App 那部分"（vs 网页 / 后端）。
+  example: iOS 客户端的 bug，让 App 端工程师改。
+
+# --- 数据/格式 ---
+
+- term: data
+  aliases: [数据]
+  category: devterm
+  meaning: 万物皆数据——用户信息、订单记录、传感器读数、日志……一切被电脑处理的东西都叫 data。"数据驱动"=靠数据做决策。
+  example: 给我看下用户数据，按月分析下留存。
+
+- term: format
+  aliases: [格式]
+  category: devterm
+  meaning: 数据/文件的"长相规则"——JSON 是一种 format、CSV 是一种 format、.pdf 是一种 format。说"格式不对"=不符合预期长相。动词"format" 还指"格式化"代码（自动调缩进/空格）。
+  example: 接口返回的 JSON format 变了，前端报错。
+
+- term: schema
+  aliases: [架构, 模式, 数据结构]
+  category: devterm
+  meaning: 描述数据"长什么样"的规范——比如"用户表必须有 id/name/age 三个字段，id 是数字"。数据库表结构、JSON 数据格式、API 请求体都有 schema。
+  example: 改数据库 schema 加一个字段，要做数据迁移。
+
+- term: value
+  aliases: [值]
+  category: devterm
+  meaning: 一个数据的"具体内容"。变量 age = 18 中，18 是 value；key 是 "age"。配对的术语：key-value 键值对。
+  example: 这个 key 的 value 改成 "true"。
+
+- term: key
+  aliases: [键]
+  category: devterm
+  meaning: 三层意思：(1) 键值对里的"键"（用 key 找 value）；(2) 数据库的"键"（主键 primary key、外键 foreign key）；(3) 密钥（API key、SSH key）。
+  example: Redis 缓存里这个 key 不存在，要从数据库重查。
+
+# --- 数据结构/集合 ---
+
+- term: list
+  aliases: [列表]
+  category: devterm
+  meaning: 一串按顺序排好的数据——[1,2,3,4] 是 list。Python 里叫 list，JavaScript/Java 里叫 array。日常意义就是"清单"。
+  example: 这个接口返回的是用户 list，前端做下分页。
+
+- term: array
+  aliases: [数组]
+  category: devterm
+  meaning: 和 list 几乎同义——"一组按下标访问的数据"。某些语言区别 array（固定大小）vs list（可变）。
+  example: 这个 array 有 100 个元素，取前 10 个用 slice(0, 10)。
+
+- term: object
+  aliases: [对象]
+  category: devterm
+  meaning: 两层意思：(1) 面向对象编程里"实例化的类"（一个 user 对象）；(2) JS/JSON 里的键值对集合（如 name 字段、age 字段组成的大括号包起来那种）。中文"对象"常用。
+  example: 把 user 对象转成 JSON 字符串发给前端。
+
+- term: string
+  aliases: [字符串, str]
+  category: devterm
+  meaning: 一串字符——"hello"、"你好" 都是 string。任何用引号包起来的文本都是 string 类型。
+  example: 前端传来的所有参数都是 string，需要时转 number。
+
+- term: number
+  aliases: [数字]
+  category: devterm
+  meaning: 数字类型——整数（1, 100）+ 浮点数（3.14）。JS 里所有数字都是 number 一种类型，其他语言有 int/float/double 之分。
+  example: 价格 number 算账，文本输入要做 number 转换。
+
+- term: integer
+  aliases: [int, 整数]
+  category: devterm
+  meaning: 整数——没有小数点的数字（-3, 0, 42）。简称 int。计算机里用固定位数表示，太大会"溢出"。
+  example: 用户 ID 一般是 integer 自增。
+
+- term: float
+  aliases: [浮点数, 小数]
+  category: devterm
+  meaning: 带小数的数字（3.14, -0.5）。计算机存浮点数有精度问题，所以钱不能用 float 存，要用 decimal 或者整数（分为单位）。
+  example: 0.1 + 0.2 ≠ 0.3 在 float 里是常识。
+
+- term: boolean
+  aliases: [bool, 布尔]
+  category: devterm
+  meaning: 真假值——只有 true 或 false 两种状态。判断、开关、是否启用之类都用 boolean。
+  example: 这个 user 表加个 isVip boolean 字段。
+
+- term: "null"
+  aliases: []
+  category: devterm
+  meaning: 字面"空"——明确表示"这个东西没有值"。和 undefined（从未赋值）区别：null 是"故意设成空"。Tony Hoare 称发明 null 是"十亿美元的错误"。
+  example: 如果 user 没登录，userInfo = null。
+
+- term: undefined
+  aliases: []
+  category: devterm
+  meaning: JS 特有概念——"变量声明了但没赋值"或"对象的某属性不存在"。与 null 不同：undefined 是默认空，null 是显式设空。
+  example: 这个对象没有 age 字段，访问返回 undefined。
+
+- term: "true"
+  aliases: [真]
+  category: devterm
+  meaning: 布尔值"真"——表示是、对、开、有。
+  example: 写 if isVip == true 走 VIP 流程。
+
+- term: "false"
+  aliases: [假]
+  category: devterm
+  meaning: 布尔值"假"——表示否、错、关、无。
+  example: 默认值给 false，登录后再改成 true。
+
+# --- 元素/条目 ---
+
+- term: entry
+  aliases: [条目]
+  category: devterm
+  meaning: 字面"一条记录"——字典里一个词条、数据库里一行、表格里一格。codelang 的 YAML 文件里每个 term 开头的块都是一个 entry。
+  example: 这个词典有 900 个 entry，覆盖 99% 日常术语。
+
+- term: item
+  aliases: [项, 项目]
+  category: devterm
+  meaning: 一个"东西"——购物车里的商品、列表里的元素、TODO 清单的一项都叫 item。最通用的"单个东西"词。
+  example: 购物车有 5 个 item，价格合计 300 块。
+
+- term: element
+  aliases: [元素]
+  category: devterm
+  meaning: 字面"组成部分"——数组的元素、HTML 的元素、化学元素。最常见用法：list 里每个数据叫 element；HTML 中 div / p 这种标签也叫 element。
+  example: 遍历这个 list 每个 element，打个标签。
+
+- term: name
+  aliases: [名称]
+  category: devterm
+  meaning: 字面意思——给变量/函数/文件起的名字。"命名"是编程最难的事之一（"There are only two hard things in computer science"那个梗）。
+  example: 这个变量名取得不好，看不出是干嘛的。
+
+- term: title
+  aliases: [标题]
+  category: devterm
+  meaning: 文章、页面、窗口的"主标题"。HTML 里 `<title>` 是浏览器标签页显示的内容，影响 SEO。
+  example: 这个页面 title 太长，浏览器标签页都显示不全。
+
+- term: label
+  aliases: [文字标签, 表单标签]
+  category: devterm
+  meaning: 两层意思：(1) UI 上输入框前的小字（"邮箱"那个文字是 label）；(2) 用于分类的标识（issue 加 bug/feature 等 label）。
+  example: 表单 label 写"邮箱"，placeholder 写示例邮箱。
+
+- term: type
+  aliases: [类型]
+  category: devterm
+  meaning: 数据/对象的"种类"——string/number/boolean 都是 type。TypeScript 主打"静态类型检查"，编译时发现类型错误。
+  example: 这个函数参数 type 是 number 但传了 string，TypeScript 报错。
+
+- term: category
+  aliases: [类别, 分类]
+  category: devterm
+  meaning: 字面"类别"——把东西分类的概念。商品分类、文章分类、词典分类。codelang 的每个词条都有 category 字段（devterm/jargon/abbr/slang）。
+  example: 这个商品分错 category 了，应该在"数码"不是"家居"。
+
+# --- 输入/输出 ---
+
+- term: input
+  aliases: [输入]
+  category: devterm
+  meaning: 两层意思：(1) 给程序的输入数据（函数的参数、命令的参数）；(2) HTML 表单的输入框（`<input>`）。
+  example: 这个函数 input 是字符串，output 是数字。
+
+- term: output
+  aliases: [程序输出, 输出结果]
+  category: devterm
+  meaning: 程序的"产出"——函数返回值、命令打印到屏幕的内容、AI 模型生成的回答都叫 output。和 input 配对。注意：和 jargon 里大厂语境的"输出"（=写文档/做汇报）含义不同。
+  example: 跑完脚本看 output 文件，分析结果。
+
+- term: request
+  aliases: [请求]
+  category: devterm
+  meaning: HTTP 通信里的"问"——浏览器/客户端发给服务器的请求。包含 URL、方法（GET/POST）、headers、body。简称 req。
+  example: 这个 request 慢了 3 秒才返回，看下是数据库还是网络问题。
+
+- term: response
+  aliases: [响应, 回应]
+  category: devterm
+  meaning: HTTP 通信里的"答"——服务器返回给客户端的内容。包含状态码、headers、body。简称 res 或 resp。和 request 配对。
+  example: 接口 response 体积太大，前端解析慢。
+
+- term: query
+  aliases: [查询]
+  category: devterm
+  meaning: 两层意思：(1) 数据库查询语句（SQL query）；(2) URL 里的 query string（`?key=value` 那部分，比如搜索关键词）。
+  example: 这个 SQL query 没加索引，跑 5 秒。
+
+- term: command
+  aliases: [命令]
+  category: devterm
+  meaning: 命令行里敲的一条指令——`ls`、`cd`、`git push` 都是 command。也指"动作"，UI 里的"命令"。
+  example: 这个安装命令复制粘贴到终端就行。
+
+# --- 函数/方法/变量 ---
+
+- term: function
+  aliases: [函数, fn]
+  category: devterm
+  meaning: 一段封装好可以被反复调用的代码——给定输入算出输出。编程最基础的复用单元。所有语言都有 function 概念。
+  example: 写个 function 计算总价，每个页面调用它。
+
+- term: method
+  aliases: [方法]
+  category: devterm
+  meaning: 挂在对象/类上的函数——`user.getName()` 中 getName 是 method。和普通 function 区别：method 有"宿主对象"。
+  example: 给 User class 加一个 fullName method。
+
+- term: variable
+  aliases: [var, 变量]
+  category: devterm
+  meaning: 字面"可变的盒子"——给一个值起个名字方便引用。比如 let name = "Alice" 这一句，name 就是变量。
+  example: 临时存数据用 variable，但别给变量起 a/b/x/y 这种无意义名字。
+
+- term: constant
+  aliases: [const, 常量]
+  category: devterm
+  meaning: 字面"不可变的盒子"——一旦赋值就不能改。比如 const PI = 3.14 这种写法。和 variable 相对。常量名通常全大写。
+  example: 把魔法数字 86400 抽成 const SECONDS_PER_DAY = 86400。
+
+- term: parameter
+  aliases: [param, 形参]
+  category: devterm
+  meaning: 函数定义时声明的"占位参数"——`function add(a, b)` 中 a 和 b 是 parameter。和 argument（实参）区别：parameter 是定义时的、argument 是调用时实际传的。
+  example: 这个函数定义了 3 个 parameter，但调用时只传 2 个会报错。
+
+- term: argument
+  aliases: [arg, 实参]
+  category: devterm
+  meaning: 函数调用时实际传进去的"具体值"——`add(1, 2)` 中 1 和 2 是 argument。对应 parameter 是函数定义时的形参。
+  example: 这个函数收 3 个 argument，按顺序 name/age/email。
+
+# --- 模块/包/库/框架 ---
+
+- term: module
+  aliases: [模块]
+  category: devterm
+  meaning: 一份独立的代码文件/单元——可以被别的代码 import 进来用。Python 的 .py 文件、JS 的 ESM 模块都是。
+  example: 把工具函数抽成单独的 module，多处复用。
+
+- term: package
+  aliases: [包]
+  category: devterm
+  meaning: 一组打包好可分发的代码——可以发布到 npm/PyPI 让别人下载用。比 module 大、有元信息（版本/作者/依赖）。
+  example: 把这个工具发成 npm package，团队共享。
+
+- term: library
+  aliases: [lib, 库]
+  category: devterm
+  meaning: 别人写好的可复用代码集合——你 import 进自己项目调用它的函数。比如 lodash 是 JS 工具库、requests 是 Python HTTP 库。
+  example: 用现成的 library 比自己造轮子省力一百倍。
+
+- term: framework
+  aliases: [框架]
+  category: devterm
+  meaning: 比 library 更"霸道"的东西——它规定了你代码的结构，你"填空"。React/Vue/Django 都是 framework。区别口诀：你调 library，framework 调你。
+  example: 选 framework 是大事，决定后整个团队都得按它的规矩写。
+
+- term: runtime
+  aliases: [运行时]
+  category: devterm
+  meaning: 两层意思：(1) 程序运行时（"runtime error"=运行期间报的错，区别于编译期）；(2) 跑代码的环境（Node.js 是 JS 的服务端 runtime，Deno/Bun 是替代品）。
+  example: 这个错误是 runtime 才暴露的，编译期没看出来。
