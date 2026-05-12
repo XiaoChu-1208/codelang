@@ -80,7 +80,20 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 怎么用（3 分钟跑起来）
 
-### 1. 装一下（一次性）
+### 0. 最懒办法：让 AI 帮你装（推荐零基础用户）
+
+如果你电脑上有任何 **agentic AI**——Claude Code、Cursor、Windsurf、OpenCode、通义灵码、Codex CLI 之类——直接复制这一段给它：
+
+> 请帮我装这个工具：https://github.com/XiaoChu-1208/codelang
+> 装完直接帮我跑起来。
+
+AI 会自己 clone 仓库、装 Python 依赖、启动应用。你只需要看着托盘出现蓝色 codelang 图标就行。
+
+为啥这么省事？这种 AI 助手能直接读你电脑、跑命令、装东西——本质就是把"我替你跑这些命令"自动化了。整个安装过程它替你处理，你不用碰一行命令。
+
+> 💡 没有 Claude Code？可以装 [Claude Code 官网](https://claude.ai/code) 或 [Cursor](https://cursor.com)，国产可以用通义灵码、CodeBuddy 等。任何一个能跑命令的 AI 都行。
+
+### 1. 手动装（如果你懒得搞 AI 助手）
 
 需要你电脑上有 **Python 3.10 或以上**。没有的话：
 
