@@ -173,6 +173,24 @@ class _MONITORINFO(ctypes.Structure):
     ]
 
 
+def get_foreground_window_info() -> tuple[str, str]:
+    """Return (window_title, class_name) of the currently foreground window.
+
+    Used for diagnostics — many "doesn't work" bug reports turn out to be
+    "you were clicking in a window that doesn't support standard text selection"
+    (e.g. cmd.exe console, terminal apps, certain games). Logging the foreground
+    target lets us see immediately whether the user is testing in a viable app.
+    """
+    hwnd = _user32.GetForegroundWindow()
+    if not hwnd:
+        return "", ""
+    title_buf = ctypes.create_unicode_buffer(256)
+    _user32.GetWindowTextW(hwnd, title_buf, 256)
+    cls_buf = ctypes.create_unicode_buffer(256)
+    _user32.GetClassNameW(hwnd, cls_buf, 256)
+    return title_buf.value, cls_buf.value
+
+
 def get_monitor_work_rect(x: int, y: int) -> tuple[int, int, int, int]:
     """Return (left, top, right, bottom) of the work area on the monitor containing (x,y)."""
     pt = POINT(x, y)

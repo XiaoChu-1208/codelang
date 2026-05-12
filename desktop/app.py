@@ -171,6 +171,8 @@ class App:
         """
         try:
             time.sleep(0.030)
+            title, cls = winhelp.get_foreground_window_info()
+            print(f"[codelang] foreground: title='{title}' class='{cls}'", file=sys.stderr)
             prev_clip = _safe_paste()
             print(f"[codelang] grabbing at ({cx},{cy}), prev_clip_len={len(prev_clip)}", file=sys.stderr)
             selected = grab_selection(prev_clip)
