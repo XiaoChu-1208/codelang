@@ -254,27 +254,48 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                  词库源文件（YAML 格式）
-│   ├── devterm.yaml       开发术语 ~330 条
-│   ├── ai.yaml            AI/LLM 术语 ~90 条
-│   ├── jargon.yaml        互联网黑话 ~150 条
-│   ├── abbr.yaml          缩写 ~95 条
-│   ├── slang.yaml         职场俚语 ~45 条
-│   └── user.yaml          你录入的词（运行时自动追加）
-├── desktop/               桌面应用（Alt+划词触发）
-│   ├── app.py             主入口
-│   ├── ui.py              tooltip 卡片
-│   ├── lookup.py          智能查询 + 翻译兜底
-│   ├── win.py             Win32 API 封装
-│   ├── config.py          配置 + 缓存
-│   ├── run.bat            双击启动（带控制台）
-│   └── run_silent.vbs     后台静默启动
-├── extension-browser/     浏览器扩展（备用方案）
-│   ├── dict.json          构建好的词典
-│   └── ecdict.json        通用翻译兜底（207 条）
-└── tools/
-    ├── build_dict.py      YAML → dict.json 构建脚本
-    └── setup_translator.py ECDICT 词典扩展工具
+├── dict/                       词库源文件（YAML 格式，1009 条 / 9 个文件）
+│   ├── devterm.yaml            开发/工程概念 ~330（锁/数据库/网络/微服务/UI/JS-TS/React/Python/Go/Git/测试/DevOps）
+│   ├── ai.yaml                 AI/LLM/Agent ~120（Transformer/RLHF/LoRA/RAG/LangChain/MCP/智能体）
+│   ├── platforms.yaml          社区/框架/数据库/云 ~70（CSDN/掘金/GitHub/Tailwind/MySQL/AWS/Vercel）
+│   ├── system.yaml             OS/硬件/办公 ~70（Windows/macOS/CPU/RAM/Chrome/Office/钉钉/飞书）
+│   ├── basics.yaml             基础英文 ~47（system/platform/format/function/module/library）
+│   ├── jargon.yaml             互联网黑话 ~155（对齐/颗粒度/抓手/赋能/闭环/中台/复盘/拉通）
+│   ├── abbr.yaml               缩写 ~95（OKR/KPI/GMV/DAU/QPS/SSR/LGTM/TODO/SOTA/RAG）
+│   ├── slang.yaml              流行语/职场俚语 ~105（996/班味/牛马/上岸/yyds/I 人/emo/citywalk）
+│   ├── product.yaml            产品/运营/增长 ~57（LTV/CAC/复购率/北极星指标/种草/拔草/平替/PRD）
+│   └── user.yaml               你录入的词（运行时自动追加）
+├── desktop/                    桌面应用（Alt+划词触发）
+│   ├── app.py                  主入口
+│   ├── ui.py                   tooltip 卡片
+│   ├── lookup.py               智能查询 + 翻译兜底
+│   ├── win.py                  Win32 API 封装
+│   ├── config.py / logging_setup.py  配置 + 缓存 + 日志
+│   ├── run.bat                 双击启动（无控制台）
+│   ├── run_console.bat         调试启动（带控制台）
+│   └── run_silent.vbs          后台静默启动（vbs 版）
+├── bin/                        命令行启动器（被 install.bat 加进 PATH）
+│   ├── codelang.cmd            敲 `codelang` 启动
+│   └── dongwang.cmd            敲 `dongwang` 同上（拼音盲打）
+├── assets/logo/                项目图标资产
+│   ├── icon-minimal-gray.svg   托盘 + README 用的灰白版（Gemini 设计）
+│   ├── icon-blueprint.svg      蓝线 blueprint 版（备份）
+│   ├── icon-{16..512}.png      多尺寸位图（resvg-py 从 SVG 渲染）
+│   ├── icon.ico                Windows 多分辨率 ICO（用于桌面快捷方式）
+│   └── banner-*.svg            README 顶部横幅
+├── extension-browser/          浏览器扩展（备用方案）
+│   ├── dict.json               构建好的词典
+│   └── ecdict.json             通用翻译兜底（207 条）
+├── tools/
+│   ├── build_dict.py           YAML → dict.json 构建脚本
+│   ├── render_icons.py         SVG → PNG/ICO（用 resvg-py）
+│   ├── install_shortcuts.py    一键安装（PATH + 桌面快捷方式）
+│   ├── uninstall_shortcuts.py  反向卸载
+│   ├── extract_terms.py        从开源仓库抽词条
+│   ├── gen_explanations.py     LLM 批量生成（构建期可选）
+│   └── setup_translator.py     ECDICT 通用翻译扩展
+├── install.bat                 双击一键安装（加 PATH + 建桌面快捷方式）
+└── uninstall.bat               双击反向卸载
 ```
 
 ---
