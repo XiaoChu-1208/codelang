@@ -291,9 +291,17 @@ class App:
             print(f"[codelang] tray disabled: {e}", file=sys.stderr)
             return
 
-        img = Image.new("RGB", (64, 64), color=(29, 78, 216))
-        d = ImageDraw.Draw(img)
-        d.rectangle([12, 12, 52, 52], outline=(255, 255, 255), width=4)
+        # Load the real codelang icon. Falls back to a drawn placeholder if
+        # the asset file is missing (e.g. user ran without running render_icons.py).
+        from pathlib import Path
+        icon_path = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-64.png"
+        if icon_path.exists():
+            img = Image.open(icon_path)
+        else:
+            img = Image.new("RGB", (64, 64), color=(29, 78, 216))
+            d = ImageDraw.Draw(img)
+            d.rectangle([12, 12, 52, 52], outline=(255, 255, 255), width=4)
+            print(f"[codelang] using placeholder tray icon (asset missing at {icon_path})", file=sys.stderr)
 
         def on_reload(icon, item):
             self.dict.reload()

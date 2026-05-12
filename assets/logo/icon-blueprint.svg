@@ -1,0 +1,37 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Board -->
+  <rect width="100" height="100" fill="#2563EB" rx="16"/>
+  <!-- Grid Pattern Definition -->
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#60A5FA" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <!-- Grid Layer -->
+  <rect width="100" height="100" fill="url(#grid)" rx="16"/>
+  
+  <!-- Icon Graphics - 线条变更细 (stroke-width: 1.2) -->
+  <g stroke="#FFFFFF" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ship Body -->
+    <path d="M 25 55 C 25 15, 75 15, 75 55 Z"/>
+    <ellipse cx="50" cy="65" rx="45" ry="15"/>
+    
+    <!-- Antenna -->
+    <line x1="50" y1="20" x2="50" y2="5"/>
+    <circle cx="50" cy="5" r="4" fill="#FFFFFF"/>
+    
+    <!-- Glasses -->
+    <rect x="28" y="35" width="18" height="18" rx="4"/>
+    <rect x="54" y="35" width="18" height="18" rx="4"/>
+    <line x1="46" y1="44" x2="54" y2="44"/>
+    <circle cx="37" cy="44" r="2" fill="#FFFFFF"/>
+    <circle cx="63" cy="44" r="2" fill="#FFFFFF"/>
+    
+    <!-- Mouth -->
+    <path d="M 40 70 L 60 70"/>
+    
+    <!-- Construction Lines -->
+    <line x1="5" y1="65" x2="95" y2="65" stroke="#93C5FD" stroke-width="0.8" stroke-dasharray="2 3"/>
+    <line x1="50" y1="5" x2="50" y2="95" stroke="#93C5FD" stroke-width="0.8" stroke-dasharray="2 3"/>
+  </g>
+</svg>

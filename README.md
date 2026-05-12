@@ -1,4 +1,8 @@
-# codelang · 看不懂代码和黑话？按住 Alt 划一下，立刻解释
+<p align="center">
+  <img src="assets/logo/banner-blueprint.svg" alt="codelang" width="600">
+</p>
+
+<h1 align="center">codelang · 看不懂代码和黑话？按住 Alt 划一下，立刻解释</h1>
 
 <p align="center">
   <b>一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的桌面小工具。</b><br>
@@ -6,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img alt="entries" src="https://img.shields.io/badge/词条-679-blue">
+  <img alt="entries" src="https://img.shields.io/badge/词条-837-blue">
   <img alt="response" src="https://img.shields.io/badge/响应速度-<5ms-green">
   <img alt="offline" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey">
