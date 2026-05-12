@@ -43,12 +43,12 @@ def add_to_user_path(target_dir: Path) -> bool:
         # Case-insensitive presence check on individual path entries
         existing_entries = [p.strip().rstrip("\\") for p in current.split(";") if p.strip()]
         if any(e.lower() == bin_str.lower() for e in existing_entries):
-            print(f"[skip] already in user PATH: {bin_str}")
+            print("[1/2] 命令行入口已注册，跳过")
             return False
 
         new_value = bin_str if not current else (current.rstrip(";") + ";" + bin_str)
         winreg.SetValueEx(key, "Path", 0, kind or winreg.REG_EXPAND_SZ, new_value)
-        print(f"[ok]   added to user PATH: {bin_str}")
+        print("[1/2] 已注册命令行入口（CMD 输入 codelang 可启动）")
 
     # Broadcast the change so new shells see it without logout
     ctypes.windll.user32.SendMessageTimeoutW(
@@ -99,7 +99,7 @@ lnk.Save
     vbs_path.write_text(vbs, encoding="utf-16")
     try:
         subprocess.run(["cscript", "//nologo", str(vbs_path)], check=True)
-        print(f"[ok]   desktop shortcut created: {lnk_path}")
+        print(f"[2/2] 桌面已生成快捷方式: {lnk_path.name}")
     finally:
         try:
             vbs_path.unlink()
@@ -109,34 +109,27 @@ lnk.Save
 
 
 def main() -> int:
-    print("=== codelang 一键安装 ===")
-    print(f"项目路径: {ROOT}")
+    print("正在安装 codelang ...")
     print()
 
     if not ICON.exists():
-        print(f"[warn] 找不到图标文件 {ICON}")
-        print("       请先跑一次 py tools/render_icons.py 生成图标")
+        print("[提示] 找不到图标文件，先跑一次 py tools/render_icons.py 再装")
         print()
 
-    print("1) 把 bin/ 加入 PATH（命令行能用 codelang / dongwang）...")
-    changed = add_to_user_path(BIN)
-
-    print("2) 桌面生成快捷方式（带图标，可拖到任务栏/开始菜单）...")
+    add_to_user_path(BIN)
     lnk = create_desktop_shortcut()
 
     print()
     print("=" * 48)
-    print("安装完成！")
+    print("装好了！")
     print()
-    print("- CMD/PowerShell（请新开窗口，旧窗口看不到更新的 PATH）输入:")
-    print("    codelang   ← 启动 codelang")
-    print("    dongwang   ← 同上，方便拼音盲打")
+    print("- 双击桌面上的 codelang 图标启动")
+    print("- 启动后右下角托盘会出现一个蓝色小飞碟图标")
+    print("- 想开机自启？把桌面那个快捷方式拖进:")
+    print("    Win+R 输入 shell:startup 打开的文件夹")
     print()
-    print(f"- 桌面已有快捷方式：{lnk.name}")
-    print("  双击启动 / 拖到任务栏固定 / 拖到 shell:startup 实现开机自启")
-    print()
-    print("- 应用全程后台运行，托盘右下角能看到 codelang 蓝色小图标")
-    print("- 想看日志：托盘右键 → 查看日志")
+    print("[高阶玩法] 新开一个 CMD/PowerShell 窗口，输入:")
+    print("    codelang     或     dongwang    都能启动")
     return 0
 
 

@@ -46,7 +46,7 @@ def remove_from_user_path(target_dir: Path) -> bool:
         entries = [p.strip() for p in current.split(";") if p.strip()]
         kept = [p for p in entries if p.rstrip("\\").lower() != bin_str]
         if len(kept) == len(entries):
-            print(f"[skip] PATH 里没找到 {target_dir}，无需清理")
+            print("[1/2] 命令行入口本来就没装，跳过")
             return False
 
         new_value = ";".join(kept)
@@ -54,7 +54,7 @@ def remove_from_user_path(target_dir: Path) -> bool:
             winreg.SetValueEx(key, "Path", 0, kind or winreg.REG_EXPAND_SZ, new_value)
         else:
             winreg.DeleteValue(key, "Path")
-        print(f"[ok]   从用户 PATH 移除: {target_dir}")
+        print("[1/2] 命令行入口已移除")
 
     # Broadcast change so new shells pick it up
     ctypes.windll.user32.SendMessageTimeoutW(
@@ -71,28 +71,28 @@ def remove_from_user_path(target_dir: Path) -> bool:
 
 def delete_desktop_shortcut(lnk: Path) -> bool:
     if not lnk.exists():
-        print(f"[skip] 桌面快捷方式不存在 ({lnk.name})，无需删除")
+        print("[2/2] 桌面快捷方式本来就没装，跳过")
         return False
     try:
         lnk.unlink()
-        print(f"[ok]   删除桌面快捷方式: {lnk}")
+        print("[2/2] 桌面快捷方式已删除")
         return True
     except Exception as e:
-        print(f"[err]  删除快捷方式失败: {e}")
+        print(f"[!] 删除桌面快捷方式失败: {e}")
         return False
 
 
 def purge_user_config(config_dir: Path) -> bool:
     """Remove ~/.codelang/ entirely. Only called when --purge-config is passed."""
     if not config_dir.exists():
-        print(f"[skip] 配置目录不存在 ({config_dir})")
+        print("[额外] 个人配置目录本来就没有，跳过")
         return False
     try:
         shutil.rmtree(config_dir)
-        print(f"[ok]   删除配置目录: {config_dir}")
+        print(f"[额外] 已删除个人配置目录: {config_dir}")
         return True
     except Exception as e:
-        print(f"[err]  删除配置失败: {e}")
+        print(f"[!] 删除个人配置失败: {e}")
         return False
 
 
@@ -105,30 +105,26 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    print("=== codelang 卸载 ===")
-    print(f"项目路径: {ROOT}")
+    print("正在卸载 codelang ...")
     print()
 
-    print("1) 从用户 PATH 移除 bin/ ...")
     remove_from_user_path(BIN)
-
-    print("2) 删除桌面快捷方式 ...")
     delete_desktop_shortcut(DESKTOP_LNK)
 
     if args.purge_config:
-        print("3) 删除用户配置目录 (--purge-config) ...")
         purge_user_config(USER_CONFIG_DIR)
-    else:
-        print("3) 配置目录保留 (~/.codelang/)")
-        print("   如需一并清理，请用: py tools/uninstall_shortcuts.py --purge-config")
 
     print()
     print("=" * 48)
-    print("卸载完成！")
+    print("卸载完了！")
     print()
-    print("- 项目代码、词库、托盘程序仍在原地（你 git clone 的那个目录）")
-    print("  想完全清掉直接删整个项目文件夹即可")
-    print("- 如果 codelang 还在跑：托盘右键 → 退出")
+    print("- 桌面图标和命令行入口都拆掉了")
+    print("- 程序文件本体还在项目文件夹里，想彻底清掉直接删整个目录就行")
+    print("- 如果 codelang 还在跑：右下角托盘右键 → 退出")
+    if not args.purge_config:
+        print()
+        print("[小提示] 你自己录入的生词、个人配置还留着没动")
+        print("        想一起清掉，运行: py tools/uninstall_shortcuts.py --purge-config")
     return 0
 
 
