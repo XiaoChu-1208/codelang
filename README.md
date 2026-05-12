@@ -114,15 +114,30 @@ py -m pip install -r requirements.txt
 
 如果你完全不懂 git，也可以点本仓库右上角「Code → Download ZIP」，解压到任意目录。
 
-### 2. 启动
+### 2. 一键安装 + 启动
 
-**最简单**：双击 `desktop\run.bat` —— 后台静默启动，**不会有任何黑窗口**。启动成功你会在屏幕右下角系统托盘看到一个 codelang 蓝色小图标。
+**双击项目根目录的 `install.bat`** —— 一次性帮你做两件事：
 
-排查问题想看实时日志？两种办法：
-- **托盘菜单点「查看日志」**：自动用记事本打开 `~/.codelang/codelang.log`
-- 或双击 `desktop\run_console.bat`：保留 cmd 黑窗显示实时输出（仅调试时用）
+1. **把 bin/ 加入用户 PATH**：之后在任意 CMD/PowerShell 里输入 `codelang` 或 `dongwang` 都能启动
+2. **桌面生成带图标的快捷方式 `codelang.lnk`**：双击启动，也可以拖到任务栏固定、拖到开始菜单、拖到启动文件夹实现开机自启
 
-想开机自启？把 `run.bat` 的快捷方式拖进 Windows 启动文件夹（`Win+R` → `shell:startup`）即可。
+启动后右下角系统托盘出现 codelang 蓝色小图标，说明在跑了。
+
+### 三种启动方式
+
+| 你想这么干 | 操作 |
+|---|---|
+| 命令行启动（极客向）| 新开 CMD/PowerShell，敲 `codelang` 或 `dongwang` |
+| 桌面双击启动 | 双击桌面 `codelang.lnk` |
+| 开机自动启动 | 把 `codelang.lnk` 拖进 `shell:startup` 文件夹（`Win+R` 输入这个就能打开）|
+
+不想一键安装？也可以：
+- 双击 `desktop\run.bat` 静默启动
+- 双击 `desktop\run_console.bat` 带控制台启动（调试用）
+
+### 排查问题想看实时日志
+
+**托盘菜单点「查看日志」** —— 自动用记事本打开 `~/.codelang/codelang.log`，包含取词、Alt 检测、phantom 清理等所有诊断信息。
 
 ### 3. 用
 
