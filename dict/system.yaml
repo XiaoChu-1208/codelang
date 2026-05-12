@@ -1,0 +1,437 @@
+# 操作系统 / 硬件 / 办公软件 / 系统概念
+# —— 用户用电脑时高频遇到但之前没收录的基础词
+
+# --- 操作系统 ---
+
+- term: Windows
+  aliases: [windows, Win, Windows 11, Windows 10]
+  category: devterm
+  meaning: 微软出的操作系统——全球桌面操作系统市占率第一（70%+）。从 Windows 95 开始的家用版本一路演进到 Windows 11。普通用户家里电脑、公司工作机绝大多数都是 Windows。
+  example: 公司新发的电脑装 Windows 11，但软件兼容性还得测一遍。
+
+- term: macOS
+  aliases: [Mac OS, OSX, OS X, mac]
+  category: devterm
+  meaning: 苹果电脑的操作系统——只在苹果自家 Mac 电脑上跑。设计师、程序员、内容创作者偏爱。和 Windows 是桌面市场两大阵营。
+  example: 设计师同事的 MacBook 装的是 macOS Sequoia。
+
+- term: Linux
+  aliases: [linux, GNU/Linux]
+  category: devterm
+  meaning: 开源操作系统内核（1991 年芬兰大学生 Linus Torvalds 写的）+ 庞大生态。服务器、超算、安卓底层全是 Linux。桌面用户少（约 4%），但程序员/运维必学。
+  example: 公司服务器跑 Linux，本地开发用 Mac 也是 Unix 系。
+
+- term: Ubuntu
+  aliases: [ubuntu]
+  category: devterm
+  meaning: 最流行的 Linux 桌面发行版——Canonical 出品，界面友好、装软件简单。Linux 新手入门首选。
+  example: 想试 Linux 装个 Ubuntu，操作和 Windows 差不多。
+
+- term: Debian
+  aliases: [debian]
+  category: devterm
+  meaning: 最老牌的 Linux 发行版之一——稳定、保守、不追新。Ubuntu 就是基于 Debian 改的。服务器场景偏爱 Debian。
+  example: 公司服务器全跑 Debian，三年不重启都稳。
+
+- term: CentOS
+  aliases: [centos]
+  category: devterm
+  meaning: 中国互联网公司服务器最常见的 Linux 发行版——Red Hat 的免费克隆版。2020 年 Red Hat 改策略后 CentOS 8 EOL，业务往 Rocky Linux / AlmaLinux 迁。
+  example: 老服务器一堆 CentOS 7，正在批量迁到 Rocky Linux。
+
+- term: iOS
+  aliases: [ios]
+  category: devterm
+  meaning: 苹果 iPhone/iPad 的操作系统。闭源、App 必须通过 App Store 审核分发、生态封闭。
+  example: 想做 iOS App 必须有 Mac + Xcode + 99 美元/年开发者账号。
+
+- term: Android
+  aliases: [android, 安卓]
+  category: devterm
+  meaning: Google 出的手机操作系统——开源、市占率 70%+。除了 iPhone 之外几乎所有手机都跑 Android（华为/小米/三星/Pixel...）。国产手机各家系统（MIUI/EMUI/ColorOS）都是 Android 改的。
+  example: 一个 App 上架要做 iOS 版 + Android 版两套。
+
+- term: Chrome OS
+  aliases: [ChromeOS]
+  category: devterm
+  meaning: Google 出的轻量操作系统——核心是 Chrome 浏览器。主要在 Chromebook 上跑（美国学校大量使用）。中国基本没存在感。
+  example: 美国学生人手一台 Chromebook，跑 Chrome OS 上网课用。
+
+- term: Unix
+  aliases: [unix, UNIX]
+  category: devterm
+  meaning: 现代操作系统的"祖师爷"——1970 年贝尔实验室出的。Linux 和 macOS 都从 Unix 思想衍生（"类 Unix"）。所以 Mac 用户和 Linux 用户终端命令大同小异（ls/cd/grep）。
+  example: 学了 Unix 命令行在 Mac 和 Linux 都通用，Windows PowerShell 是另一套。
+
+# --- 硬件 ---
+
+- term: CPU
+  aliases: [cpu, 中央处理器, Central Processing Unit]
+  category: devterm
+  meaning: 电脑的"大脑"——所有计算最终都在这跑。Intel / AMD / Apple Silicon 是常见品牌。性能用 GHz（频率）和核数衡量。
+  example: 这台新 MacBook 装的是 M3 Pro CPU，跑大型项目超快。
+
+- term: RAM
+  aliases: [ram, 内存]
+  category: devterm
+  literal: Random Access Memory，随机存取存储器
+  meaning: 电脑的"工作台"——程序运行时用来临时放数据的空间。关机内容就消失。容量越大越能同时跑很多软件。和"硬盘"区别：RAM 快但断电消失、硬盘慢但永久保留。
+  example: 8GB 内存的电脑现在不够用了，开几个浏览器+IDE 就卡。
+
+- term: ROM
+  aliases: [rom]
+  category: devterm
+  literal: Read-Only Memory，只读存储器
+  meaning: 字面是"只读不写"的存储——固件 / BIOS 这类常驻数据放这。安卓手机刷机时说的"刷 ROM"是另一个意思：换整个系统镜像。
+  example: 手机折腾党给手机"刷 ROM"=换个第三方 Android 系统。
+
+- term: SSD
+  aliases: [ssd, 固态硬盘]
+  category: devterm
+  literal: Solid State Drive
+  meaning: 固态硬盘——用闪存芯片存数据，没机械部件、读写超快。2020 年后新电脑标配。和老式 HDD 机械硬盘相比开机/读写都快好几倍。
+  example: 装 SSD 后电脑开机从 1 分钟变 10 秒。
+
+- term: HDD
+  aliases: [hdd, 机械硬盘]
+  category: devterm
+  literal: Hard Disk Drive
+  meaning: 机械硬盘——里面真有个盘片旋转读写。便宜、容量大（多 TB），但慢、怕震。现在主要做"冷数据"备份盘，主盘都换 SSD 了。
+  example: 这台老电脑还是 HDD，开个 Word 都要等 5 秒。
+
+- term: 显卡
+  aliases: [graphics card, 独显, 集显]
+  category: devterm
+  meaning: 见 GPU——独立显卡（独显）有自己显存性能强；集成显卡（集显）和 CPU 共用内存，便宜但弱。游戏/AI 必须独显。
+  example: 这台笔记本只有集显，跑不动大模型。
+
+- term: 显示器
+  aliases: [monitor, 屏幕]
+  category: devterm
+  meaning: 电脑的"脸"——你看的那块屏。分辨率（1080p/2K/4K）、刷新率（60Hz/120Hz/144Hz）、屏幕尺寸是主要指标。程序员多用 4K + 27 寸。
+  example: 换了 4K 显示器后看代码爽多了，一屏能装更多。
+
+- term: USB
+  aliases: [usb]
+  category: devterm
+  literal: Universal Serial Bus
+  meaning: 通用串行总线——电脑最常见的接口。USB-A（传统大口）、USB-C（小口可正反插）、USB 2.0/3.0/3.1 等版本速度逐代提升。
+  example: 这台新 Mac 全是 USB-C 口，老 U 盘要转接头。
+
+- term: Type-C
+  aliases: [USB-C, USB Type-C, TypeC]
+  category: devterm
+  meaning: USB-C 接口——比传统 USB-A 小很多，正反都能插。手机/笔记本/平板逐步统一这个口。欧盟 2024 起强制所有电子设备用 Type-C 充电。
+  example: 现在新设备全 Type-C，家里旧 microUSB 线都该淘汰了。
+
+- term: HDMI
+  aliases: [hdmi]
+  category: devterm
+  literal: High-Definition Multimedia Interface
+  meaning: 高清多媒体接口——电脑/游戏机连显示器/电视的最主流接口。同时传视频+音频。
+  example: 笔记本接外接显示器，HDMI 线一插就用。
+
+- term: BIOS
+  aliases: [bios]
+  category: devterm
+  literal: Basic Input/Output System
+  meaning: 电脑开机最早跑的"启动程序"——硬件自检+加载操作系统。开机按 F2/Del 进的"蓝底白字配置界面"就是 BIOS。新机型已换为 UEFI（更现代的替代品）。
+  example: 装系统前先进 BIOS 改启动顺序到 U 盘。
+
+- term: UEFI
+  aliases: [uefi]
+  category: devterm
+  literal: Unified Extensible Firmware Interface
+  meaning: BIOS 的升级版——支持鼠标操作、大硬盘、安全启动。2010 年后新电脑都是 UEFI。功能上是 BIOS 但内部完全不同。
+  example: Windows 11 强制要求 UEFI + TPM 2.0 安全芯片。
+
+# --- 浏览器 ---
+
+- term: Chrome
+  aliases: [chrome, Google Chrome]
+  category: devterm
+  meaning: Google 出的浏览器（2008）——全球市占率第一（65%+）。基于开源的 Chromium 项目，速度快、插件多。"我用 Chrome"几乎成了"我用浏览器"的代名词。
+  example: 网站调试主要在 Chrome 开发者工具里跑。
+
+- term: Edge
+  aliases: [edge, Microsoft Edge]
+  category: devterm
+  meaning: 微软新一代浏览器——2020 年后改用 Chromium 内核（等于"装了微软皮肤的 Chrome"）。Windows 系统默认浏览器，集成 Copilot AI。
+  example: 老 IE 早废了，公司内网建议用 Edge 兼容模式。
+
+- term: Firefox
+  aliases: [firefox, 火狐]
+  category: devterm
+  meaning: Mozilla 基金会出的开源浏览器——曾是 Chrome 出现前的市场霸主。现在市占率 3% 左右但仍是"隐私优先"派的代表。
+  example: 不想被大公司追踪用 Firefox 浏览器。
+
+- term: Safari
+  aliases: [safari]
+  category: devterm
+  meaning: 苹果出的浏览器——iPhone/Mac 默认浏览器。省电做得好，但开发者圈吐槽多（Web 标准支持慢，被叫"新 IE"）。
+  example: iOS 上所有浏览器底层都被强制要求用 Safari 引擎。
+
+# --- 办公软件 ---
+
+- term: Office
+  aliases: [Microsoft Office, MS Office, 微软 Office]
+  category: devterm
+  meaning: 微软办公套件——Word/Excel/PowerPoint/Outlook 那一套。世界办公软件标准。订阅版叫 Microsoft 365。
+  example: 公司发邮件附件多半 docx/xlsx，没 Office 没法工作。
+
+- term: Word
+  aliases: [Microsoft Word, MS Word, docx]
+  category: devterm
+  meaning: 微软的文档编辑器——写文档、合同、报告默认就是 Word。文件格式 .docx。
+  example: 简历用 Word 写完导出 PDF 再发。
+
+- term: Excel
+  aliases: [excel, xls, xlsx, Microsoft Excel]
+  category: devterm
+  meaning: 微软的电子表格软件——处理数据、做表格、画图、写公式、宏自动化都行。文件 .xlsx。功能强到很多公司业务系统其实就是大堆 Excel。
+  example: 财务部门核心工作是用 Excel 算各种报表。
+
+- term: PPT
+  aliases: [PowerPoint, ppt, pptx, Microsoft PowerPoint]
+  category: devterm
+  meaning: 微软的演示文稿软件——做幻灯片汇报用。文件 .pptx。"做 PPT"是大厂打工人核心技能之一。
+  example: 周五汇报会前赶 PPT 通宵。
+
+- term: Outlook
+  aliases: [outlook, Microsoft Outlook]
+  category: devterm
+  meaning: 微软的邮件客户端 + 日历 + 联系人套件。企业邮箱标配。Gmail / 网易邮箱也能装到 Outlook 里统一收发。
+  example: 公司邮件全在 Outlook 里管，会议邀请也走它。
+
+- term: Teams
+  aliases: [Microsoft Teams, MS Teams]
+  category: devterm
+  meaning: 微软的企业通讯+视频会议工具——对标 Slack 和 Zoom。集成进 Microsoft 365 卖给企业。
+  example: 公司开会用 Teams，发文件甩链接给同事。
+
+- term: Slack
+  aliases: [slack]
+  category: devterm
+  meaning: 硅谷企业通讯工具——按频道（channel）分话题聊天。集成 GitHub/Jira/谷歌日历等几千种工具。被 Salesforce 收购。
+  example: 海外团队都用 Slack，国内 IT 公司多半用飞书/钉钉。
+
+- term: 钉钉
+  aliases: [DingTalk]
+  category: devterm
+  meaning: 阿里巴巴出的企业通讯工具——中国传统行业（地产/制造/政府）覆盖率最高的办公 IM。考勤、审批、视频会议一站式。
+  example: 部门 OA 走钉钉，请假在上面提单。
+
+- term: 飞书
+  aliases: [Feishu, Lark]
+  category: devterm
+  meaning: 字节跳动出的企业协作工具——文档/IM/视频/日历一体化。互联网/创业公司爱用，体验比钉钉现代。海外版叫 Lark。
+  example: 字节系公司全用飞书，文档共享比传统 Office 强很多。
+
+- term: 企业微信
+  aliases: [WeCom, 企微]
+  category: devterm
+  meaning: 腾讯出的企业通讯——能和普通微信互通的"工作版微信"。零售/服务业最常用（销售加客户用企微，避免离职带走客户）。
+  example: 销售加客户都用企微号，离职号自动转给同事。
+
+- term: Notion
+  aliases: [notion]
+  category: devterm
+  meaning: 美国出的"一体化笔记+知识库"工具——能做文档、表格、看板、数据库。年轻人/独立开发者/小团队爱用。中国版有 Wolai、FlowUs。
+  example: 个人知识管理用 Notion，比传统 word 灵活多了。
+
+- term: Figma
+  aliases: [figma]
+  category: devterm
+  meaning: 设计师的协作设计工具——浏览器里跑，多人实时协作。2022 年 Adobe 想买被反垄断挡了，2024 准备 IPO。彻底取代了老式的 Sketch。
+  example: 产品经理拉 UI 设计师在 Figma 上一起评审。
+
+- term: Photoshop
+  aliases: [PS, ps]
+  category: devterm
+  meaning: Adobe 出的图像处理软件——P 图、设计、修照片的事实标准。文件 .psd。"P 一下"就是 Photoshop 处理一下的简称。
+  example: 朋友照片发出来要 P 掉路人，用 Photoshop 几分钟。
+
+- term: Premiere
+  aliases: [Adobe Premiere, premiere pro, Pr 软件]
+  category: devterm
+  meaning: Adobe 出的视频剪辑软件——专业级，电影/广告/UP 主都用。文件 .prproj。
+  example: B 站 UP 主大部分用 Premiere 剪视频。
+
+# --- 系统概念 ---
+
+- term: 内核
+  aliases: [kernel]
+  category: devterm
+  meaning: 操作系统的"核心"——管 CPU 调度、内存分配、文件系统、网络等最底层的事。Linux 内核、Windows NT 内核、macOS XNU 内核。普通用户从不直接看到它但每一秒都在用。
+  example: Android 底层是 Linux 内核，上面套了一层 Java 应用层。
+
+- term: shell
+  aliases: [外壳]
+  category: devterm
+  meaning: 操作系统的"命令解释器"——你敲的命令它翻译给内核执行。Windows 的 PowerShell/CMD、Mac/Linux 的 bash/zsh/fish 都是 shell。
+  example: Mac 默认 shell 是 zsh，Linux 多用 bash。
+
+- term: 终端
+  aliases: [terminal, console]
+  category: devterm
+  meaning: 字面是"终端机"——现在指打字敲命令的那个黑窗口。Mac 的 Terminal.app、Windows 的 Windows Terminal、Linux 的 gnome-terminal 都是。
+  example: 程序员的"主战场"之一就是终端。
+
+- term: 桌面
+  aliases: [desktop]
+  category: devterm
+  meaning: 操作系统打开后看到的最外层界面——背景图 + 一堆图标 + 任务栏。"桌面"既指物理意义也指"桌面应用"（区别于 Web 应用、手机应用）。
+  example: 桌面图标乱了半小时收拾才看得过去。
+
+- term: 任务栏
+  aliases: [taskbar]
+  category: devterm
+  meaning: Windows 屏幕底部那条——左边开始菜单、中间打开的程序、右边时间和系统托盘。Mac 类似的叫 Dock（在底部）。
+  example: 任务栏右边密密麻麻的图标都是开机自启的程序。
+
+- term: 注册表
+  aliases: [regedit, Windows 注册表]
+  category: devterm
+  meaning: Windows 的"全局配置数据库"——所有软件/系统设置都存这。改坏了系统可能崩。普通用户从不该碰，但有些教程会让你 regedit 修注册表解决某些问题。
+  example: 卸载老软件后注册表里残留 key 拖慢系统。
+
+- term: 系统托盘
+  aliases: [tray, system tray, 通知区域]
+  category: devterm
+  meaning: Windows 任务栏右边那一堆小图标的区域——常驻后台的程序（QQ、网盘、杀毒、codelang）都在这。Mac 上叫"菜单栏"在顶部。
+  example: codelang 启动后在系统托盘出现蓝色小图标。
+
+- term: 进程
+  aliases: [process]
+  category: devterm
+  meaning: 一个正在运行的程序的"实例"——你开两个 Chrome 窗口就有两个或多个 Chrome 进程。每个进程有独立的 PID（进程号）和独立的内存空间。
+  example: Chrome 占内存是因为每个 tab 是独立进程。
+
+- term: 任务管理器
+  aliases: [Task Manager]
+  category: devterm
+  meaning: Windows 上 Ctrl+Shift+Esc 打开的工具——看哪些进程在跑、占多少 CPU/内存、强行结束程序。Mac 上对应的叫"活动监视器"。
+  example: 电脑卡了打开任务管理器，发现 Chrome 占了 80% 内存。
+
+# --- 网络基础 ---
+
+- term: URL
+  aliases: [url, 网址, link]
+  category: devterm
+  literal: Uniform Resource Locator
+  meaning: 网址——你在浏览器地址栏看到的那串字符。比如 https://github.com 就是一个 URL。包含协议（https）、域名（github.com）、路径等部分。
+  example: 把这个 URL 复制给对方就能看同一个网页。
+
+- term: 域名
+  aliases: [domain, domain name]
+  category: devterm
+  meaning: 网站的"门牌号"——baidu.com / google.com 这种好记的名字。背后会被翻译成 IP 地址（数字门牌号）。买域名一年几十到几千块。
+  example: 公司花 5000 注册了一个三字母 .com 域名。
+
+- term: 浏览器
+  aliases: [browser]
+  category: devterm
+  meaning: 上网用的软件——Chrome / Edge / Safari / Firefox 都是。底层是个"渲染引擎"，把服务器发来的 HTML 变成你看的网页。
+  example: 浏览器是大多数人接触互联网的入口。
+
+- term: 网站
+  aliases: [website, site]
+  category: devterm
+  meaning: 一组通过浏览器访问的页面集合——挂在一个域名下。淘宝、知乎、B 站都是网站。
+  example: 我做了一个个人网站挂自己作品集。
+
+- term: 局域网
+  aliases: [LAN, lan, intranet, 内网]
+  category: devterm
+  literal: Local Area Network
+  meaning: 一个有限范围内的网络——家里 Wi-Fi、公司内网都是 LAN。和公网（Internet）相对。局域网内设备能互访但外人进不来。
+  example: 公司内网系统只能在 LAN 里访问，在家要连 VPN。
+
+- term: IP
+  aliases: [ip, IP 地址, IP address]
+  category: devterm
+  literal: Internet Protocol address
+  meaning: 联网设备的"门牌号"——一串数字（IPv4 类似 192.168.1.1，IPv6 更长）。两台机器通信靠 IP 找彼此。域名通过 DNS 翻译成 IP。
+  example: 自己电脑公网 IP 可以用 ip.cn 查。
+
+# --- 文件 / 系统 ---
+
+- term: 文件夹
+  aliases: [folder, 目录, directory, dir]
+  category: devterm
+  meaning: 装文件的容器——电脑组织文件用的层级结构。"目录"是文件夹的技术叫法，在命令行更常说。
+  example: 把所有项目放一个文件夹下，文档放子文件夹里。
+
+- term: 启动盘
+  aliases: [boot disk, 系统盘, U 盘装系统]
+  category: devterm
+  meaning: 装了操作系统镜像、能用来启动电脑装系统的 U 盘。装机/重装系统/救援系统都用得到。Rufus / Ventoy 是常用制作工具。
+  example: 用 Rufus 把 Windows 11 ISO 写到 U 盘做启动盘。
+
+# --- 编程语言 ---
+
+- term: Python
+  aliases: [python, 蟒蛇]
+  category: devterm
+  meaning: 当代最流行的编程语言——语法简单、库丰富。脚本/数据分析/AI/爬虫都用。codelang 就是 Python 写的。
+  example: AI 工程师 80% 时间在写 Python。
+
+- term: Java
+  aliases: [java]
+  category: devterm
+  meaning: 1995 年 Sun 出的语言——"一次编写，到处运行"。中国后端开发主力（招聘量第一）。Spring 框架是 Java 生态的标杆。
+  example: 大公司业务系统大部分是 Java 写的。
+
+- term: JavaScript
+  aliases: [JS, js, javascript]
+  category: devterm
+  meaning: 浏览器唯一原生支持的脚本语言——所有网页交互都靠它。后来 Node.js 让 JS 也能写后端。学一门搞前端必先学 JS。
+  example: 写网页 JavaScript 是必修课。
+
+- term: C++
+  aliases: [cpp, cxx, 'c plus plus']
+  category: devterm
+  meaning: 上世纪 80 年代发明的高性能编程语言——C 的面向对象扩展。游戏引擎、操作系统、浏览器内核、嵌入式都用 C++。学习曲线陡。
+  example: 大型游戏引擎像 Unreal 用 C++ 写。
+
+- term: C#
+  aliases: ['C sharp', csharp]
+  category: devterm
+  meaning: 微软出的语言（2000）——给 .NET 生态用，类似 Java 的设计。游戏引擎 Unity 用 C# 写脚本。
+  example: Unity 游戏开发者必须会 C#。
+
+- term: Go
+  aliases: [Golang, golang]
+  category: devterm
+  meaning: Google 2009 出的语言——主打"并发简单+编译成单文件"。后端微服务、CLI 工具、容器（Docker/K8s）都用 Go。
+  example: Docker、Kubernetes、Gin 全是 Go 写的。
+
+- term: Rust
+  aliases: [rust]
+  category: devterm
+  meaning: Mozilla 2010 起开发的系统级语言——"内存安全 + 高性能"。Firefox 内核部分代码、Discord 后端都用 Rust。学习曲线陡但安全性收益大。
+  example: 这个加密工具用 Rust 写，性能逼近 C 又不会内存泄漏。
+
+- term: Swift
+  aliases: [swift]
+  category: devterm
+  meaning: 苹果 2014 出的语言——给 iOS/macOS 开发用，替代老的 Objective-C。开发苹果 App 几乎必学。
+  example: 想做 iPhone App 学 Swift + Xcode 是标配。
+
+- term: Kotlin
+  aliases: [kotlin]
+  category: devterm
+  meaning: JetBrains 出的 JVM 语言——Google 2017 起把它定为 Android 官方语言。比 Java 简洁很多。
+  example: 现在写 Android App 大部分用 Kotlin 不用 Java。
+
+- term: PHP
+  aliases: [php]
+  category: devterm
+  meaning: 1994 出的 Web 开发语言——曾经驱动 80% 网站（WordPress / 早期 Facebook 都是 PHP）。后被 Node/Python/Go 抢市场份额。"PHP 是世界上最好的语言"是个梗。
+  example: 老 WordPress 站点都是 PHP 写的，搬迁麻烦。
+
+- term: Ruby
+  aliases: [ruby]
+  category: devterm
+  meaning: 日本人 1995 出的语言——主打"程序员幸福感"。配 Rails 框架曾火遍创业圈（Twitter 早期就是 Rails）。现在份额小但仍是经典。
+  example: GitHub 后端大部分用 Ruby on Rails。
