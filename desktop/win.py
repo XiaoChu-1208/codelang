@@ -113,25 +113,39 @@ def _send_key(vk: int, up: bool = False) -> None:
 
 
 def send_ctrl_c() -> None:
-    """Simulate Ctrl+C without touching Alt state.
+    """Simulate Ctrl+C with a brief Alt UP/DOWN dance.
 
-    The earlier version synthesized Alt-UP before Ctrl+C and Alt-DOWN after,
-    aiming to avoid triggering Alt+Ctrl+C bindings. That re-press at the end
-    was the source of a phantom-Alt-down bug: if the user physically released
-    Alt during the 5-15ms window of this call, the trailing synthetic Alt-DOWN
-    left the OS thinking Alt was still held. Every subsequent click/key in any
-    app would then be interpreted as Alt+<that>, breaking unrelated workflows.
+    Why the dance: when the user holds Alt and we naively send Ctrl+C, the
+    focused application receives Alt+Ctrl+C, not pure Ctrl+C. Modern apps
+    (Chrome, Cursor, VS Code) tolerate this and still copy, but older Win32
+    apps (Notepad, Word, file explorer dialogs) do NOT — they interpret Alt
+    as menu activation and Ctrl+C falls into a black hole. Result: clipboard
+    doesn't update, the app appears completely dead.
 
-    Trade-off: while Alt is physically held, the focused app sees Alt+Ctrl+C.
-    Chrome / Cursor / VS Code / Word / Explorer all treat that as plain Ctrl+C.
-    The very rare app with a custom Alt+Ctrl+C binding is the cost; the win is
-    no more sticky Alt anywhere else.
+    The fix: synthesize Alt-UP just before Ctrl+C so the focused app sees a
+    clean Ctrl+C. After Ctrl+C, re-synthesize Alt-DOWN to restore the user's
+    continuous physical hold (important for Alt+double-click flows where the
+    second click also needs Alt-held).
+
+    Known small risk: if the user physically releases Alt within our ~10ms
+    dance window, the trailing synthetic Alt-DOWN can leave a phantom Alt-held
+    in OS state. The race window is tiny. Mitigation: tray menu has a
+    "释放卡住的 Alt" emergency button. The earlier "no Alt dance" version
+    avoided this race but broke Notepad/Word entirely — far worse.
     """
+    alt_was_down = alt_pressed()
+    if alt_was_down:
+        _send_key(VK_LMENU, up=True)
+        _send_key(VK_RMENU, up=True)
     _send_key(VK_CONTROL, up=False)
     _send_key(VK_C, up=False)
     time.sleep(0.005)
     _send_key(VK_C, up=True)
     _send_key(VK_CONTROL, up=True)
+    if alt_was_down:
+        # Restore user's physical Alt hold so subsequent triggers (Alt+double-click
+        # second click) still see Alt as held.
+        _send_key(VK_LMENU, up=False)
 
 
 def force_release_alt() -> None:

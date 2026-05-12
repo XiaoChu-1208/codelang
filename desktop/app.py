@@ -123,39 +123,42 @@ class App:
                     return
                 if event.button != mouse.LEFT:
                     return
-                # Track Alt at mouse-down so we know whether Alt was held *throughout*
-                # the drag. This rules out cases where Alt was released milliseconds
-                # before mouse-up — without this check, the in-flight Ctrl+C could
-                # arrive after Alt is gone and confuse downstream apps.
+                # Track Alt at mouse-down so we know whether Alt was held throughout
+                # the drag. Rules out false triggers from Alt+Tab → click sequences.
                 if event.event_type == mouse.DOWN:
                     self._alt_at_mouse_down = winhelp.alt_pressed()
+                    if self._alt_at_mouse_down:
+                        print("[codelang] mouse-down with Alt held, watching for up", file=sys.stderr)
                     return
                 if event.event_type != mouse.UP:
                     return
                 if not self._alt_at_mouse_down:
                     return
-                # Re-check at mouse-up: Alt must still be held. This catches the
-                # case where user pressed Alt at mouse-down but released before
-                # finishing the drag.
                 if not winhelp.alt_pressed():
+                    print("[codelang] mouse-up: Alt released mid-drag, skip", file=sys.stderr)
                     self._alt_at_mouse_down = False
                     return
                 cx, cy = winhelp.get_cursor_pos()
                 prev_clip = _safe_paste()
+                print(f"[codelang] triggering at ({cx},{cy}), prev_clip_len={len(prev_clip)}", file=sys.stderr)
                 selected = grab_selection(prev_clip)
-                # Reset the flag — one trigger per drag, no leakage to next event
                 self._alt_at_mouse_down = False
                 if not selected:
+                    print("[codelang] clipboard did not change — selection was empty or Ctrl+C blocked", file=sys.stderr)
                     return
+                print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
                 if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
+                    print(f"[codelang] selection rejected (len={len(selected)} or contains newline)", file=sys.stderr)
                     return
                 self.queue.put(("trigger", cx, cy, selected.strip()))
             except Exception as e:
+                import traceback
                 print(f"[codelang] hook error: {e}", file=sys.stderr)
+                traceback.print_exc(file=sys.stderr)
 
         mouse.hook(on_event)
         self._hook_thread_started = True
-        print("[codelang] mouse hook installed (Alt+drag, double-checked)", file=sys.stderr)
+        print("[codelang] mouse hook installed (Alt+drag/double-click, Alt-dance restored)", file=sys.stderr)
 
     # ---------- queue polling on main thread ----------
 
