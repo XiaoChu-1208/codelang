@@ -1808,3 +1808,482 @@
   meaning: 想象菜做好了端上桌让客人吃。deploy 就是这"端上桌"：把构建好的产物推到线上服务器跑起来。一般分多个环境（staging → production）一步步推。
   example: 这个版本先 deploy 到 staging 跑一夜验证，没问题明天 deploy 到 production。
 
+# --- batch 7: 补充文件后缀 ---
+
+- term: .js
+  aliases: [js 文件]
+  category: devterm
+  meaning: JavaScript 源代码文件后缀。浏览器唯一原生认识的脚本语言，也是 Node.js 后端的主力。网页交互、服务端逻辑、构建工具都用它。
+  example: 在 HTML 里用 `<script src="app.js">` 引入 JS 文件。
+
+- term: .jsx
+  aliases: [jsx 文件]
+  category: devterm
+  meaning: JavaScript + JSX 组合后缀——React 组件用。和 .js 区别：.jsx 允许在代码里直接写 HTML 标签语法（如 `<Button />`），是 React 的标志写法。
+  example: React 组件 Button.jsx 里既写逻辑也写 UI 模板。
+
+- term: .css
+  aliases: [css 文件, 样式表]
+  category: devterm
+  meaning: 层叠样式表文件后缀——网页的"化妆师"。所有颜色、字体、间距、动画都写在 .css 里。HTML 管骨架，CSS 管皮肤。
+  example: 全局样式 global.css，组件样式 Button.module.css。
+
+- term: .html
+  aliases: [html 文件, 网页文件]
+  category: devterm
+  meaning: 网页文件后缀。浏览器打开的就是 HTML——用标签（`<div>`、`<p>`、`<a>`）描述页面结构。所有网站的起点。
+  example: 双击 index.html 浏览器直接打开这个网页。
+
+- term: .xml
+  aliases: [xml 文件]
+  category: devterm
+  meaning: 可扩展标记语言文件后缀——比 HTML 更通用的标签格式，标签名你自己定。早期接口数据交换的标准（后来被 JSON 取代），安卓布局、Maven 配置、RSS 订阅还在用。
+  example: Android 的界面布局写在 activity_main.xml 里。
+
+- term: .sql
+  aliases: [sql 文件]
+  category: devterm
+  meaning: SQL 脚本文件后缀——里面写数据库查询、建表、改表语句。DBA 和后端常用，跑一下就能批量操作数据库。
+  example: 版本升级时跑 migration_v2.sql 给数据库加新字段。
+
+- term: .go
+  aliases: [go 文件]
+  category: devterm
+  meaning: Go 语言源代码文件后缀。Go 是 Google 出的编译型语言，以简洁、并发强、编译快著称。云原生基础设施（Docker、K8s）几乎全是 Go 写的。
+  example: main.go 是 Go 程序入口，`go run main.go` 直接跑。
+
+- term: .rs
+  aliases: [rs 文件, rust 文件]
+  category: devterm
+  meaning: Rust 源代码文件后缀。Rust 主打内存安全 + 高性能，没有垃圾回收但编译器帮你管内存。系统级编程、WebAssembly、命令行工具越来越多用 Rust。
+  example: lib.rs 是 Rust 库的入口文件。
+
+- term: .java
+  aliases: [java 文件]
+  category: devterm
+  meaning: Java 源代码文件后缀。企业级应用的老牌王者——银行、电商后端大量用 Java。一个 .java 文件对应一个类，文件名必须和类名一致。
+  example: UserService.java 里写用户相关的业务逻辑。
+
+- term: .c
+  aliases: [c 文件, c 源代码]
+  category: devterm
+  meaning: C 语言源代码文件后缀。操作系统、嵌入式、驱动程序的底层语言，Linux 内核就是 C 写的。没有对象、没有垃圾回收，手动管内存，但跑得极快。
+  example: 嵌入式固件 main.c 直接操作硬件寄存器。
+
+- term: .cpp
+  aliases: [cpp 文件, c++ 文件]
+  category: devterm
+  meaning: C++ 源代码文件后缀。C 的超集，加了面向对象、模板、STL 等功能。游戏引擎（Unreal）、浏览器引擎（Chrome V8）、高频交易都用 C++。
+  example: 游戏核心渲染循环写在 engine.cpp 里。
+
+- term: .rb
+  aliases: [rb 文件, ruby 文件]
+  category: devterm
+  meaning: Ruby 源代码文件后缀。Ruby 以"开发者幸福感"著称，语法极其优雅。Rails 框架让 Ruby 在 Web 开发火过一阵，GitHub 早期就是 Ruby on Rails 写的。
+  example: Rails 项目的控制器 users_controller.rb 处理用户请求。
+
+- term: .php
+  aliases: [php 文件]
+  category: devterm
+  meaning: PHP 源代码文件后缀。曾经统治 Web 后端的语言——WordPress、Facebook 早期都是 PHP。现在仍有大量网站在跑 PHP，Laravel 框架让它保持活力。
+  example: WordPress 主题的 index.php 决定首页怎么渲染。
+
+- term: .swift
+  aliases: [swift 文件]
+  category: devterm
+  meaning: Swift 源代码文件后缀。Apple 出的现代语言，用来写 iOS/macOS 应用，取代 Objective-C。语法简洁安全，是苹果生态开发的首选。
+  example: iOS App 的主界面逻辑写在 ContentView.swift 里。
+
+- term: .kt
+  aliases: [kt 文件, kotlin 文件]
+  category: devterm
+  meaning: Kotlin 源代码文件后缀。Google 钦定的 Android 开发首选语言，比 Java 简洁得多，100% 兼容 Java。现在新 Android 项目基本都用 Kotlin。
+  example: Android 的 MainActivity.kt 是应用启动入口。
+
+- term: .dart
+  aliases: [dart 文件]
+  category: devterm
+  meaning: Dart 源代码文件后缀。Google 出的语言，主要搭配 Flutter 框架做跨平台 App（一套代码跑 iOS + Android + Web）。
+  example: Flutter 应用入口 main.dart，`flutter run` 启动。
+
+- term: .lua
+  aliases: [lua 文件]
+  category: devterm
+  meaning: Lua 脚本文件后缀。超轻量嵌入式脚本语言，游戏行业最爱——魔兽世界插件、Roblox、Nginx 扩展都用 Lua。整个解释器才几百 KB。
+  example: 游戏 mod 用 Lua 写，热加载不用重启游戏。
+
+- term: .env
+  aliases: [env 文件, 环境变量文件]
+  category: devterm
+  meaning: 环境变量配置文件后缀。里面写 KEY=VALUE 格式的配置（数据库密码、API 密钥等），程序启动时读取。.env 文件绝对不能提交到 Git，否则密码全泄露。
+  example: .env 里写 DATABASE_URL=xxx，代码里 process.env.DATABASE_URL 读取。
+
+- term: .log
+  aliases: [log 文件, 日志文件]
+  category: devterm
+  meaning: 日志文件后缀。程序运行时把发生的事情一行行写进 .log 文件——出了 bug 第一件事就是翻日志查线索。服务器日志、应用日志、错误日志都是 .log。
+  example: 服务挂了赶紧看 error.log 最后几行，定位崩溃原因。
+
+- term: .csv
+  aliases: [csv 文件]
+  category: devterm
+  meaning: 逗号分隔值文件后缀——最简单的表格数据格式，每行一条记录，字段用逗号隔开。Excel 能直接打开，数据导入导出的通用格式。
+  example: 从数据库导出用户列表 users.csv，用 Excel 打开就是表格。
+
+- term: .txt
+  aliases: [txt 文件, 文本文件]
+  category: devterm
+  meaning: 纯文本文件后缀——最朴素的文件格式，没有格式、没有样式、只有文字。记事本打开的就是 .txt。requirements.txt、robots.txt 都是这格式。
+  example: Python 项目依赖写在 requirements.txt 里，pip install -r 一键安装。
+
+- term: .exe
+  aliases: [exe 文件, 可执行文件]
+  category: devterm
+  meaning: Windows 可执行文件后缀——双击就能运行的程序。编译型语言（C/C++/Go/Rust）在 Windows 上编译出来就是 .exe。下载软件安装包经常也是 .exe。
+  example: Go 编译完得到 app.exe，双击或命令行直接跑。
+
+- term: .dll
+  aliases: [dll 文件, 动态链接库]
+  category: devterm
+  meaning: Windows 动态链接库文件后缀——多个程序可以共享的代码库。想象公共图书馆：你不用自己买书，去图书馆借就行。.dll 就是 Windows 上的"共享代码图书馆"，系统和应用都依赖大量 .dll。
+  example: 游戏报错"缺少 xxx.dll"就是少了一个共享库文件。
+
+- term: .so
+  aliases: [so 文件, 共享库]
+  category: devterm
+  meaning: Linux/Mac 上的共享库文件后缀（Shared Object），相当于 Windows 的 .dll。多个程序共用同一个 .so 文件里的代码，省内存省磁盘。
+  example: Python 的 C 扩展编译后是 .so 文件，import 时自动加载。
+
+- term: .bin
+  aliases: [bin 文件, 二进制文件]
+  category: devterm
+  meaning: 通用二进制文件后缀——里面不是人类可读的文本，而是机器直接理解的字节数据。固件、编译产物、数据包经常用 .bin。另外 bin 也是目录名（如 /usr/bin），放可执行程序。
+  example: 嵌入式设备刷固件就是把 firmware.bin 烧进芯片。
+
+- term: .tar
+  aliases: [tar 文件, tarball]
+  category: devterm
+  meaning: Unix 打包文件后缀（Tape Archive）。注意 .tar 只是"打包"不是"压缩"——把多个文件捆成一个。通常配合 .gz 或 .xz 压缩，变成 .tar.gz（又叫 .tgz）。
+  example: 下载 Linux 源码通常是 linux-x.x.tar.gz，先解压再解包。
+
+- term: .gz
+  aliases: [gz 文件, gzip]
+  category: devterm
+  meaning: gzip 压缩文件后缀。Linux 世界最常用的压缩格式，配合 .tar 变成 .tar.gz 是打包+压缩的标准组合。Web 服务器也用 gzip 压缩传输数据省带宽。
+  example: nginx 开启 gzip 压缩，网页传输体积减少 70%。
+
+- term: .zip
+  aliases: [zip 文件]
+  category: devterm
+  meaning: 最通用的压缩文件后缀——Windows/Mac/Linux 全都认识，自带打包+压缩。发文件给非技术人员用 .zip 准没错。
+  example: 把项目打成 project.zip 发给同事，对方双击解压就能看。
+
+- term: .svg
+  aliases: [svg 文件, 矢量图]
+  category: devterm
+  meaning: 可缩放矢量图形文件后缀。不像 .png/.jpg 是像素点阵，SVG 是用数学公式画图——放大到多大都不模糊。图标、Logo、插画用 SVG 最合适。本质是 XML 文本，能用代码编辑。
+  example: 网站 Logo 用 SVG 格式，在手机和 4K 屏上都清晰锐利。
+
+- term: .png
+  aliases: [png 文件]
+  category: devterm
+  meaning: 便携网络图形文件后缀——支持透明背景的位图格式。截图、UI 素材、需要透明底的图片用 PNG。比 JPG 大但不损失画质（无损压缩）。
+  example: App 图标导出 PNG 格式，保留透明背景叠在任何底色上。
+
+- term: .jpg
+  aliases: [jpg 文件, jpeg 文件, .jpeg]
+  category: devterm
+  meaning: 最常见的照片格式后缀。有损压缩——牺牲一点画质换小体积，肉眼几乎看不出差别。照片、风景图用 JPG，文件小加载快。不支持透明。
+  example: 手机拍的照片默认就是 .jpg，上传网站时体积小加载快。
+
+- term: .gif
+  aliases: [gif 文件, 动图]
+  category: devterm
+  meaning: 图形交换格式后缀——最大特点是能动！支持简单动画（逐帧播放），聊天表情包绝大多数是 GIF。缺点是只支持 256 色，色彩丰富的图用它画质差。
+  example: 聊天发的搞笑表情包基本都是 .gif 动图。
+
+- term: .webp
+  aliases: [webp 文件]
+  category: devterm
+  meaning: Google 推出的新一代图片格式后缀——同画质下比 PNG 小 26%、比 JPG 小 25-34%，还支持透明和动画。现代浏览器都支持，是网页图片的最佳选择。
+  example: 网站把图片全转成 WebP，页面加载速度明显提升。
+
+- term: .pdf
+  aliases: [pdf 文件]
+  category: devterm
+  meaning: 便携文档格式后缀——"所见即所得"的文档标准。不管在什么设备打开，排版、字体、图片都一模一样。合同、简历、论文都用 PDF 发。
+  example: 面试投简历一定要发 PDF 版，Word 版在别人电脑上排版可能乱。
+
+- term: .wasm
+  aliases: [wasm 文件, WebAssembly]
+  category: devterm
+  meaning: WebAssembly 二进制文件后缀——让浏览器跑接近原生速度的代码。C/C++/Rust 编译成 .wasm，浏览器加载后跑得比 JS 快很多。游戏、视频编辑、CAD 这类重计算场景用它。
+  example: Figma 的核心渲染引擎是 C++ 编译成 WASM 在浏览器里跑的。
+
+- term: .lock
+  aliases: [锁文件]
+  category: devterm
+  meaning: 依赖锁定文件后缀——精确记录项目每个依赖的具体版本号。package-lock.json、yarn.lock、Cargo.lock 都是。确保团队所有人和 CI 装的依赖版本一模一样，避免"我电脑上能跑"。
+  example: 别把 package-lock.json 加进 .gitignore，它保证大家依赖版本一致。
+
+- term: .gitignore
+  aliases: [gitignore]
+  category: devterm
+  meaning: Git 忽略规则文件——告诉 Git 哪些文件不要追踪、不要提交。node_modules、.env、编译产物、IDE 配置这些都该写进 .gitignore。每个项目根目录必备。
+  example: .gitignore 里写 `node_modules/`，几万个依赖文件就不会被提交到仓库。
+
+- term: .dockerignore
+  aliases: [dockerignore]
+  category: devterm
+  meaning: Docker 构建忽略文件——告诉 Docker 打包镜像时哪些文件不要复制进去。和 .gitignore 同理，避免把 node_modules、.git、测试数据这些无关文件塞进镜像导致镜像臃肿。
+  example: .dockerignore 里加 node_modules，镜像体积从 2GB 降到 200MB。
+
+- term: .ini
+  aliases: [ini 文件]
+  category: devterm
+  meaning: 初始化配置文件后缀——最简单的配置格式，用 [节名] 分区、key=value 写配置。Windows 系统和很多老软件用 INI 格式。比 JSON/YAML 简单但功能也弱。
+  example: PHP 的 php.ini 控制 PHP 运行时配置，改完重启生效。
+
+- term: .conf
+  aliases: [conf 文件, 配置文件]
+  category: devterm
+  meaning: 通用配置文件后缀——Linux 世界大量服务用 .conf。Nginx 的 nginx.conf、Apache 的 httpd.conf、SSH 的 sshd_config 都是。格式不统一，每个软件自己定规矩。
+  example: 改 nginx.conf 配置反向代理，改完 `nginx -s reload` 热重载。
+
+# --- batch 7: 命令行基本命令 ---
+
+- term: ls
+  aliases: [LS]
+  category: devterm
+  meaning: Linux/Mac 命令行里"看看这个文件夹里有什么"的命令。相当于打开文件管理器看一眼目录内容。ls -la 显示隐藏文件和详细信息（权限、大小、日期）。Windows 对应命令是 dir。
+  example: ls -la 列出当前目录所有文件（含隐藏文件）和详细信息。
+
+- term: pwd
+  aliases: [PWD, print working directory]
+  category: devterm
+  meaning: 显示"你现在在哪个目录"的命令。命令行没有地址栏，迷路了敲 pwd 看看当前路径。全称 Print Working Directory。
+  example: cd 了好几层不知道在哪了，敲 pwd 显示 /home/user/project/src。
+
+- term: mkdir
+  aliases: [MKDIR, make directory, md]
+  category: devterm
+  meaning: 创建新文件夹的命令。mkdir src 就在当前目录下新建一个叫 src 的文件夹。加 -p 参数可以一次性创建多层目录（如 mkdir -p src/components/ui）。
+  example: mkdir -p src/components/ui 一次性创建三层嵌套目录。
+
+- term: rm
+  aliases: [RM, remove, del]
+  category: devterm
+  meaning: 删除文件/目录的命令。rm file.txt 删文件，rm -rf folder/ 强制递归删目录（r=递归 f=不确认）。注意：命令行删除不进回收站，删了就没了！rm -rf / 是"删光整台电脑"的经典梗。
+  example: rm -rf node_modules 删掉依赖目录重新安装。
+
+- term: cp
+  aliases: [CP, copy]
+  category: devterm
+  meaning: 复制文件/目录的命令。cp a.txt b.txt 复制文件，cp -r dir1/ dir2/ 复制整个目录（-r 表示递归）。Windows cmd 里对应命令是 copy。
+  example: cp .env.example .env 从模板复制一份环境变量配置。
+
+- term: mv
+  aliases: [MV, move]
+  category: devterm
+  meaning: 移动或重命名文件的命令。mv old.txt new.txt 是重命名，mv file.txt /tmp/ 是移动到另一个目录。一个命令两种用法，取决于目标是文件名还是目录。
+  example: mv index.js index.ts 把文件从 JS 改名为 TS 后缀。
+
+- term: cat
+  aliases: [CAT, concatenate]
+  category: devterm
+  meaning: 快速查看文件内容的命令——把文件内容一股脑打印到终端上。名字来自 concatenate（拼接），本意是拼接多个文件，但更常用来快速看文件内容。文件太长会刷屏，大文件用 less 或 head。
+  example: cat README.md 快速看一下项目说明。
+
+- term: echo
+  aliases: [ECHO]
+  category: devterm
+  meaning: 在终端打印一段文字的命令——相当于命令行版的 console.log。最常用来查看环境变量的值（echo $PATH）或往文件里追加内容（echo "hello" >> file.txt）。
+  example: echo $HOME 查看用户主目录路径，echo "done" 在脚本里输出提示。
+
+- term: touch
+  aliases: [TOUCH]
+  category: devterm
+  meaning: 创建空文件或更新文件时间戳的命令。touch index.js 如果文件不存在就创建一个空文件，存在则刷新修改时间。快速创建空文件的最便捷方式。
+  example: touch .env 快速创建一个空的环境变量文件。
+
+- term: chmod
+  aliases: [CHMOD, change mode]
+  category: devterm
+  meaning: 修改文件权限的命令。Linux/Mac 每个文件有"谁能读 / 谁能写 / 谁能执行"三组权限。chmod +x script.sh 给脚本加执行权限，chmod 755 是常见的"所有者全权限、其他人只读执行"。
+  example: 脚本跑不起来报 Permission denied，chmod +x run.sh 加权限就好了。
+
+- term: chown
+  aliases: [CHOWN, change owner]
+  category: devterm
+  meaning: 修改文件所有者的命令。Linux 每个文件属于某个用户和用户组，chown 改归属。常见场景：Docker 容器里生成的文件属于 root，chown 改成普通用户才能编辑。
+  example: chown -R $USER:$USER ./data 把 data 目录下所有文件归属改成当前用户。
+
+- term: grep
+  aliases: [GREP]
+  category: devterm
+  meaning: 文本搜索神器——在文件或输出中搜索匹配某个模式的行。想象 Ctrl+F 的命令行升级版，支持正则表达式，能同时搜多个文件。管道组合起来威力巨大：`ps aux | grep node` 找出所有 node 进程。
+  example: grep -r "TODO" src/ 递归搜索 src 目录下所有包含 TODO 的文件。
+
+- term: find
+  aliases: [FIND]
+  category: devterm
+  meaning: 按条件查找文件的命令——按名字、大小、类型、修改时间等条件在目录树里搜文件。比文件管理器的搜索强大得多，还能对找到的文件批量执行操作。
+  example: find . -name "*.log" -mtime +30 -delete 找出 30 天前的日志文件并删除。
+
+- term: curl
+  aliases: [CURL, cURL]
+  category: devterm
+  meaning: 命令行里发 HTTP 请求的瑞士军刀——GET、POST、上传下载、加 Header、带 Cookie 全能。调试 API 不用打开浏览器或 Postman，一行 curl 搞定。名字来自 Client URL。
+  example: curl -X POST https://api.example.com/users -d '{"name":"test"}' 发个 POST 请求。
+
+- term: wget
+  aliases: [WGET]
+  category: devterm
+  meaning: 命令行下载工具——给个 URL 就帮你下载文件，支持断点续传、递归下载整个网站。比 curl 更专注于"下载"场景，curl 更侧重"发请求"。
+  example: wget https://example.com/dataset.zip 下载数据集文件。
+
+- term: tar
+  aliases: [TAR]
+  category: devterm
+  meaning: 打包/解包命令。tar -czf archive.tar.gz dir/ 打包压缩目录，tar -xzf archive.tar.gz 解压。参数记忆口诀：c=create 创建、x=extract 解压、z=gzip 压缩、f=file 指定文件名。
+  example: tar -xzf node-v20.tar.gz 解压下载的 Node.js 源码包。
+
+- term: kill
+  aliases: [KILL]
+  category: devterm
+  meaning: 终止进程的命令。kill PID 发终止信号给指定进程，kill -9 PID 是强制杀（不给进程收拾的机会）。进程卡死时的最后手段。先用 ps 或 top 查到进程 ID 再 kill。
+  example: 端口 3000 被占用，kill -9 $(lsof -t -i:3000) 杀掉占用进程。
+
+- term: sudo
+  aliases: [SUDO, superuser do]
+  category: devterm
+  meaning: 以管理员权限运行命令——Linux/Mac 里的"右键→以管理员身份运行"。安装软件、改系统配置、操作系统目录都需要 sudo。会要求输入你的密码确认身份。
+  example: sudo apt install nginx 用管理员权限安装 Nginx。
+
+- term: apt
+  aliases: [APT, apt-get, 包管理器]
+  category: devterm
+  meaning: Debian/Ubuntu 系 Linux 的软件包管理器——相当于手机的应用商店。apt install 安装软件、apt update 更新软件源、apt upgrade 升级已装软件。其他 Linux 发行版有 yum（CentOS）、pacman（Arch）。
+  example: sudo apt update && sudo apt install git 更新源然后安装 Git。
+
+- term: brew
+  aliases: [BREW, Homebrew]
+  category: devterm
+  meaning: macOS 上的第三方包管理器——Mac 没有自带的 apt，社区做了 Homebrew 填坑。brew install 安装命令行工具和应用，Mac 开发者几乎人手必装。
+  example: brew install node 一行命令在 Mac 上装好 Node.js。
+
+- term: man
+  aliases: [MAN, manual]
+  category: devterm
+  meaning: 查看命令手册的命令——不记得某个命令怎么用，man 一下看官方说明书。比百度靠谱，内容最全最权威。按 q 退出。
+  example: man grep 查看 grep 命令的完整用法和所有参数说明。
+
+- term: tail
+  aliases: [TAIL 命令]
+  category: devterm
+  meaning: 查看文件末尾几行的命令——和 head 反过来。最常用的是 tail -f，实时追踪文件新增内容，看日志必备：日志一有新行立马显示出来。
+  example: tail -f /var/log/app.log 实时监控应用日志输出。
+
+- term: diff
+  aliases: [DIFF]
+  category: devterm
+  meaning: 比较两个文件差异的命令——逐行对比，标出哪些行被加了、删了、改了。Git diff 就是基于这个原理。代码审查、配置对比都用 diff。
+  example: diff old.conf new.conf 对比两个配置文件哪里改了。
+
+- term: ping
+  aliases: [PING]
+  category: devterm
+  meaning: 测试网络连通性的命令——往目标服务器发个小包看它回不回。回了说明网络通、延迟多少毫秒；不回说明网不通或对方挂了。网络排障第一步永远是 ping。
+  example: ping google.com 看看能不能上外网，延迟多少。
+
+- term: scp
+  aliases: [SCP, secure copy]
+  category: devterm
+  meaning: 通过 SSH 在本地和远程服务器之间传文件的命令。scp 本地文件 user@host:远程路径 上传，反过来就是下载。比 FTP 安全（走 SSH 加密），但不如 rsync 智能。
+  example: scp dist.tar.gz deploy@server:/opt/app/ 把打包文件传到服务器。
+
+- term: which
+  aliases: [WHICH, where]
+  category: devterm
+  meaning: 查看一个命令装在哪里的命令。敲 which python 告诉你系统用的是哪个路径下的 python。装了多个版本不知道用的哪个时特别有用。Windows 对应 where。
+  example: which node 显示 /usr/local/bin/node，确认用的是哪个 Node。
+
+- term: clear
+  aliases: [CLEAR, cls]
+  category: devterm
+  meaning: 清屏命令——把终端上所有已显示内容清掉，给你一个干净屏幕。Linux/Mac 用 clear，Windows cmd 用 cls。快捷键 Ctrl+L 效果一样。
+  example: 终端输出太多看不清了，敲 clear 清屏重新开始。
+
+- term: exit
+  aliases: [EXIT, quit]
+  category: devterm
+  meaning: 退出当前终端会话或脚本的命令。exit 关闭终端窗口，exit 0 表示正常退出，exit 1 表示出错退出。在脚本里用来控制结束流程。
+  example: SSH 远程登录后敲 exit 断开连接回到本地终端。
+
+- term: whoami
+  aliases: [WHOAMI]
+  category: devterm
+  meaning: 显示当前登录用户名的命令——字面意思"我是谁"。在不确定自己是 root 还是普通用户时很有用，一行命令确认身份。
+  example: whoami 显示 root，说明你现在是管理员身份要小心操作。
+
+- term: alias
+  aliases: [ALIAS, 命令别名]
+  category: devterm
+  meaning: 给命令起外号的命令。嫌 `git status` 太长？`alias gs='git status'` 以后敲 gs 就行。写进 .bashrc/.zshrc 永久生效。程序员都会设一堆 alias 提高效率。
+  example: alias ll='ls -la' 以后敲 ll 就是列出所有文件含隐藏文件。
+
+- term: source
+  aliases: [SOURCE, 点命令]
+  category: devterm
+  meaning: 在当前 shell 中执行脚本的命令——改了 .bashrc 或 .zshrc 后 `source ~/.zshrc` 让配置立即生效，不用关掉终端重开。和直接 `./script.sh` 区别：source 在当前环境执行，变量会留下来。
+  example: 改了 .bashrc 后 source ~/.bashrc 让新配置立即生效。
+
+- term: export
+  aliases: [EXPORT]
+  category: devterm
+  meaning: 设置环境变量的命令——让一个变量对当前终端和它启动的所有子进程可见。`export PATH=$PATH:/new/path` 是最常见用法：往 PATH 里加新目录。关掉终端就失效，写进 .bashrc 才永久。
+  example: export NODE_ENV=production 设置 Node.js 为生产模式。
+
+- term: env
+  aliases: [ENV 命令]
+  category: devterm
+  meaning: 查看或设置环境变量的命令。单独敲 env 列出当前所有环境变量（密密麻麻一大堆）。也可以临时设置变量运行命令：`env NODE_ENV=test node app.js`。
+  example: env | grep PATH 查看 PATH 环境变量的值。
+
+- term: xargs
+  aliases: [XARGS]
+  category: devterm
+  meaning: 把前一个命令的输出当参数传给下一个命令。管道 | 只能传文本流，xargs 把文本变成命令参数。经典组合：`find . -name "*.log" | xargs rm` 找到所有日志然后删掉。
+  example: cat urls.txt | xargs curl 把文件里的 URL 一个个请求一遍。
+
+- term: pipe
+  aliases: [管道, 管道符]
+  category: devterm
+  meaning: 命令行里的竖线符号 |，把前一个命令的输出"接水管"送给下一个命令当输入。是 Unix 哲学的核心：每个命令做一件小事，用管道组合成强大流水线。
+  example: cat log.txt | grep ERROR | wc -l 数一下日志里有多少行包含 ERROR。
+
+- term: redirect
+  aliases: [重定向]
+  category: devterm
+  meaning: 把命令的输出写到文件而不是屏幕上。> 覆盖写入、>> 追加写入、< 从文件读入。还有 2> 专门重定向错误输出。命令行把一切当文件流处理的核心机制。
+  example: echo "hello" > greeting.txt 把文字写入文件，>> 则追加到末尾。
+
+- term: wc
+  aliases: [WC, word count]
+  category: devterm
+  meaning: 统计文件行数、单词数、字节数的命令。wc -l 只数行数，是最常用的方式。配合管道数数特别方便：`grep ERROR log.txt | wc -l` 数错误行数。
+  example: wc -l *.py 统计每个 Python 文件有多少行代码。
+
+- term: chmod +x
+  aliases: [加执行权限]
+  category: devterm
+  meaning: 给文件加上"可执行"权限的命令。下载或新建的脚本默认没有执行权限，直接跑会报 Permission denied。chmod +x 一下就能跑了。
+  example: 新写的 deploy.sh 跑不了报 Permission denied，chmod +x deploy.sh 解决。
+
+- term: PATH
+  aliases: [环境变量 PATH]
+  category: devterm
+  meaning: 最重要的环境变量——告诉系统去哪些目录找可执行命令。你敲 python 时系统就去 PATH 列的目录里一个个找，找到第一个 python 就用。"命令找不到"十有八九是 PATH 没配对。
+  example: 装了 Python 但命令行找不到，多半是安装路径没加到 PATH 里。
+
+
