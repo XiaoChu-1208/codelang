@@ -100,11 +100,12 @@ class App:
         self.queue: "queue.Queue[tuple]" = queue.Queue()
         self._hook_thread_started = False
         self._tray_icon = None
-        # Track whether Alt was held when the left mouse button went down.
-        # We only trigger on mouse-up if Alt was held *throughout*, which avoids
-        # false triggers when Alt is held only briefly (e.g. Alt+Tab finishing
-        # right before a click).
-        self._alt_at_mouse_down = False
+        # Track the timestamp of the last real mouse activity. The background Alt
+        # cleanup thread uses this to decide whether to nuke a stuck Alt state:
+        # if we haven't seen any mouse motion/click for a few seconds AND Alt
+        # currently shows as "down" in OS state, it's almost certainly phantom
+        # Alt left over from our send_ctrl_c dance — clean it.
+        self._last_mouse_activity = time.monotonic()
 
         translator_status = (
             f"+ECDICT({self.translator.count})" if self.translator.available else ""
@@ -117,41 +118,38 @@ class App:
     # ---------- mouse hook ----------
 
     def start_mouse_hook(self) -> None:
+        """Original-style synchronous mouse hook: on Alt+mouse-up we do the
+        clipboard dance inline. The earlier "deferred to worker thread" attempt
+        broke취ing in real-world apps (Claude / Chrome), even though it was
+        theoretically cleaner. Reverting to what worked.
+
+        Phantom Alt cleanup is handled separately by the background idle thread —
+        see start_alt_idle_cleanup.
+        """
         def on_event(event):
             try:
                 if not isinstance(event, mouse.ButtonEvent):
+                    if isinstance(event, mouse.MoveEvent):
+                        self._last_mouse_activity = time.monotonic()
                     return
-                if event.button != mouse.LEFT:
-                    return
-                # Track Alt at mouse-down so we know whether Alt was held throughout
-                # the drag. Rules out false triggers from Alt+Tab → click sequences.
-                if event.event_type == mouse.DOWN:
-                    self._alt_at_mouse_down = winhelp.alt_pressed()
-                    if self._alt_at_mouse_down:
-                        print("[codelang] mouse-down with Alt held, watching for up", file=sys.stderr)
-                    return
-                if event.event_type != mouse.UP:
-                    return
-                if not self._alt_at_mouse_down:
+                # Any mouse event resets the idle timer
+                self._last_mouse_activity = time.monotonic()
+                if event.event_type != mouse.UP or event.button != mouse.LEFT:
                     return
                 if not winhelp.alt_pressed():
-                    print("[codelang] mouse-up: Alt released mid-drag, skip", file=sys.stderr)
-                    self._alt_at_mouse_down = False
                     return
+                title, cls = winhelp.get_foreground_window_info()
+                print(f"[codelang] trigger in '{title}' (class={cls})", file=sys.stderr)
                 cx, cy = winhelp.get_cursor_pos()
-                self._alt_at_mouse_down = False
-                # CRITICAL: This is a Windows low-level mouse hook (WH_MOUSE_LL),
-                # which is synchronous — Windows waits for our callback to return
-                # before delivering WM_LBUTTONUP to the focused app. If we do the
-                # 200ms clipboard-poll dance here inline, the app hasn't even seen
-                # mouse-up yet, so its text selection isn't finalized when we send
-                # Ctrl+C. Result: copy fails, clipboard stays empty.
-                # Fix: hand off to a worker thread, return from the hook in <1ms.
-                threading.Thread(
-                    target=self._do_grab_after_release,
-                    args=(cx, cy),
-                    daemon=True,
-                ).start()
+                prev_clip = _safe_paste()
+                selected = grab_selection(prev_clip)
+                if not selected:
+                    print(f"[codelang] no selection captured at ({cx},{cy})", file=sys.stderr)
+                    return
+                print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
+                if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
+                    return
+                self.queue.put(("trigger", cx, cy, selected.strip()))
             except Exception as e:
                 import traceback
                 print(f"[codelang] hook error: {e}", file=sys.stderr)
@@ -159,35 +157,40 @@ class App:
 
         mouse.hook(on_event)
         self._hook_thread_started = True
-        print("[codelang] mouse hook installed (Alt+drag/double-click, deferred grab)", file=sys.stderr)
+        print("[codelang] mouse hook installed (Alt+drag, sync)", file=sys.stderr)
 
-    def _do_grab_after_release(self, cx: int, cy: int) -> None:
-        """Run the clipboard dance on a worker thread, not the mouse hook thread.
+    def start_alt_idle_cleanup(self) -> None:
+        """Background daemon: silently force-release Alt when no mouse activity
+        for a while.
 
-        First waits ~30ms so the focused app has time to process its own mouse-up
-        event (which finalizes the text selection) before we ask it to copy.
-        Without this, Ctrl+C arrives at an app that doesn't yet know the drag
-        is over, and copies an empty / stale selection.
+        The premise: real users hold Alt only when actively moving the mouse to
+        select text. If Alt looks held in OS state but the user hasn't moved the
+        mouse for a few seconds, it's almost certainly phantom — leftover from
+        send_ctrl_c's Alt UP/DOWN dance racing the user's physical release.
+
+        We periodically (every 1s) check this condition. The cleanup is a single
+        synthetic Alt-UP; harmless if Alt was already up. If a user is genuinely
+        idle with Alt physically held (rare), they'd need to re-press to do the
+        next codelang trigger — acceptable trade.
         """
-        try:
-            time.sleep(0.030)
-            title, cls = winhelp.get_foreground_window_info()
-            print(f"[codelang] foreground: title='{title}' class='{cls}'", file=sys.stderr)
-            prev_clip = _safe_paste()
-            print(f"[codelang] grabbing at ({cx},{cy}), prev_clip_len={len(prev_clip)}", file=sys.stderr)
-            selected = grab_selection(prev_clip)
-            if not selected:
-                print("[codelang] clipboard did not change — selection was empty or Ctrl+C blocked", file=sys.stderr)
-                return
-            print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
-            if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
-                print(f"[codelang] selection rejected (len={len(selected)} or contains newline)", file=sys.stderr)
-                return
-            self.queue.put(("trigger", cx, cy, selected.strip()))
-        except Exception as e:
-            import traceback
-            print(f"[codelang] grab worker error: {e}", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
+        IDLE_THRESHOLD = 2.0  # seconds of mouse idle before considering Alt phantom
+
+        def loop():
+            while True:
+                try:
+                    time.sleep(1.0)
+                    if not winhelp.alt_pressed():
+                        continue
+                    if time.monotonic() - self._last_mouse_activity < IDLE_THRESHOLD:
+                        continue
+                    # Alt looks held + no recent mouse activity → almost certainly phantom
+                    winhelp.force_release_alt()
+                    print("[codelang] silently cleared phantom Alt (idle>2s)", file=sys.stderr)
+                except Exception as e:
+                    print(f"[codelang] alt-cleanup error: {e}", file=sys.stderr)
+
+        threading.Thread(target=loop, daemon=True).start()
+        print("[codelang] alt idle-cleanup thread started", file=sys.stderr)
 
     # ---------- queue polling on main thread ----------
 
@@ -318,6 +321,7 @@ class App:
     def run(self) -> int:
         self.start_mouse_hook()
         self.start_outside_click_hook()
+        self.start_alt_idle_cleanup()
         self.start_tray()
         self.poll_queue()
         try:
