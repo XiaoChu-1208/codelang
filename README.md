@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo/banner-blueprint.svg" alt="codelang" width="600">
+  <img src="assets/logo/banner-minimal-gray.svg" alt="codelang" width="600">
 </p>
 
 <h1 align="center">codelang · 看不懂代码和黑话？按住 Alt 划一下，立刻解释</h1>
