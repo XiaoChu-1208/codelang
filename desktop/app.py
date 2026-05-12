@@ -139,18 +139,19 @@ class App:
                     self._alt_at_mouse_down = False
                     return
                 cx, cy = winhelp.get_cursor_pos()
-                prev_clip = _safe_paste()
-                print(f"[codelang] triggering at ({cx},{cy}), prev_clip_len={len(prev_clip)}", file=sys.stderr)
-                selected = grab_selection(prev_clip)
                 self._alt_at_mouse_down = False
-                if not selected:
-                    print("[codelang] clipboard did not change — selection was empty or Ctrl+C blocked", file=sys.stderr)
-                    return
-                print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
-                if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
-                    print(f"[codelang] selection rejected (len={len(selected)} or contains newline)", file=sys.stderr)
-                    return
-                self.queue.put(("trigger", cx, cy, selected.strip()))
+                # CRITICAL: This is a Windows low-level mouse hook (WH_MOUSE_LL),
+                # which is synchronous — Windows waits for our callback to return
+                # before delivering WM_LBUTTONUP to the focused app. If we do the
+                # 200ms clipboard-poll dance here inline, the app hasn't even seen
+                # mouse-up yet, so its text selection isn't finalized when we send
+                # Ctrl+C. Result: copy fails, clipboard stays empty.
+                # Fix: hand off to a worker thread, return from the hook in <1ms.
+                threading.Thread(
+                    target=self._do_grab_after_release,
+                    args=(cx, cy),
+                    daemon=True,
+                ).start()
             except Exception as e:
                 import traceback
                 print(f"[codelang] hook error: {e}", file=sys.stderr)
@@ -158,7 +159,33 @@ class App:
 
         mouse.hook(on_event)
         self._hook_thread_started = True
-        print("[codelang] mouse hook installed (Alt+drag/double-click, Alt-dance restored)", file=sys.stderr)
+        print("[codelang] mouse hook installed (Alt+drag/double-click, deferred grab)", file=sys.stderr)
+
+    def _do_grab_after_release(self, cx: int, cy: int) -> None:
+        """Run the clipboard dance on a worker thread, not the mouse hook thread.
+
+        First waits ~30ms so the focused app has time to process its own mouse-up
+        event (which finalizes the text selection) before we ask it to copy.
+        Without this, Ctrl+C arrives at an app that doesn't yet know the drag
+        is over, and copies an empty / stale selection.
+        """
+        try:
+            time.sleep(0.030)
+            prev_clip = _safe_paste()
+            print(f"[codelang] grabbing at ({cx},{cy}), prev_clip_len={len(prev_clip)}", file=sys.stderr)
+            selected = grab_selection(prev_clip)
+            if not selected:
+                print("[codelang] clipboard did not change — selection was empty or Ctrl+C blocked", file=sys.stderr)
+                return
+            print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
+            if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
+                print(f"[codelang] selection rejected (len={len(selected)} or contains newline)", file=sys.stderr)
+                return
+            self.queue.put(("trigger", cx, cy, selected.strip()))
+        except Exception as e:
+            import traceback
+            print(f"[codelang] grab worker error: {e}", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
 
     # ---------- queue polling on main thread ----------
 
