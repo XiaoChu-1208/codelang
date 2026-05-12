@@ -9,9 +9,8 @@
   </defs>
   <!-- Grid Layer -->
   <rect width="600" height="200" fill="url(#grid-bg)" rx="24"/>
-  
+
   <g transform="translate(50, 40) scale(1.2)">
-    <!-- Icon Graphics - ????? (stroke-width: 1.2) -->
     <g stroke="#FFFFFF" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path d="M 25 55 C 25 15, 75 15, 75 55 Z"/>
       <ellipse cx="50" cy="65" rx="45" ry="15"/>
@@ -29,6 +28,6 @@
   </g>
 
   <!-- Typography -->
-  <text x="210" y="105" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#FFFFFF" letter-spacing="-1">CodeLang</text>
-  <text x="215" y="150" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-weight="bold" font-size="28" fill="#DBEAFE">?? <tspan font-weight="normal" font-size="20" fill="#93C5FD">???????</tspan></text>
+  <text x="210" y="105" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#FFFFFF" letter-spacing="-1">codelang</text>
+  <text x="215" y="150" font-family="'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif" font-weight="normal" font-size="22" fill="#93C5FD">按住 Alt 划词 · 秒懂代码黑话</text>
 </svg>
