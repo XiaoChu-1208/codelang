@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# codelang launcher — macOS / Linux.
+# Resolves the repo via the directory this script lives in, then invokes
+# `python3 -m desktop.app`. The Windows equivalent is bin/codelang.cmd.
+
+set -euo pipefail
+
+# Resolve symlinks so $0 → real path even when this script is symlinked into
+# /usr/local/bin or ~/.local/bin.
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+    LINK_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    case "$SOURCE" in
+        /*) ;;
+        *) SOURCE="$LINK_DIR/$SOURCE" ;;
+    esac
+done
+SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+cd "$REPO_ROOT"
+
+PYBIN="${CODELANG_PYTHON:-}"
+if [ -z "$PYBIN" ]; then
+    if command -v python3 >/dev/null 2>&1; then
+        PYBIN=python3
+    elif command -v python >/dev/null 2>&1; then
+        PYBIN=python
+    else
+        echo "codelang: no python interpreter found. Install Python 3.10+ from https://www.python.org/downloads/ first." >&2
+        exit 1
+    fi
+fi
+
+exec "$PYBIN" -m desktop.app "$@"

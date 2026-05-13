@@ -5,9 +5,9 @@
 ## 项目身份
 
 - **名称**：codelang（中文别名：懂网 / dongwang）
-- **类型**：Windows 桌面工具（Python + Win32 + 浏览器扩展）
-- **作用**：按住 Alt + 鼠标划词，在鼠标旁弹出大白话术语解释卡片
-- **平台**：Windows 10 / 11
+- **类型**：跨平台桌面工具（Python + Win32 / AppKit + 浏览器扩展）
+- **作用**：按住 Alt（Mac 上是 ⌥ Option）+ 鼠标划词，在鼠标旁弹出大白话术语解释卡片
+- **平台**：Windows 10 / 11，macOS 12+
 - **协议**：MIT
 - **仓库**：https://github.com/XiaoChu-1208/codelang
 
@@ -34,50 +34,73 @@
 
 ## 安装流程（给 agent 自动跑）
 
-**前置条件**：用户电脑上有 Python 3.10+。如果没有，先引导用户从 https://www.python.org/downloads/ 装（勾选 "Add to PATH"）。
+**前置条件**：用户电脑上有 Python 3.10+。如果没有，先引导用户从 https://www.python.org/downloads/ 装（Windows 勾选 "Add to PATH"，macOS 也可以用 `brew install python@3.12`）。
 
-**自动化步骤**（你应该一步步在用户终端里跑）：
+### Windows
 
 ```powershell
 # 1. 确认 Python 可用
 py --version
-# 期望输出 Python 3.10.x 或以上
 
-# 2. 克隆仓库到用户主目录
+# 2. 克隆 + 装依赖
 cd $HOME
 git clone https://github.com/XiaoChu-1208/codelang.git
 cd codelang
-
-# 3. 安装 Python 依赖
 py -m pip install -r requirements.txt
 # 关键依赖：mouse, pyperclip, pystray, Pillow, requests, pyyaml
 
-# 4. 一键安装（加用户 PATH + 桌面快捷方式）
+# 3. 一键装（加用户 PATH + 桌面快捷方式）
 .\install.bat
 
-# 5. 启动
+# 4. 启动
 codelang
-# 或：双击桌面 codelang.lnk
-# 或：cmd 里敲 dongwang（同一程序的中文别名）
 ```
 
-**启动成功的判断**：Windows 系统托盘右下角出现蓝色 "codelang" 图标。
+**启动成功的判断**：系统托盘右下角出现灰白色 codelang UFO 图标。
+
+### macOS
+
+```bash
+# 1. 确认 Python 可用
+python3 --version    # 需要 3.10+；没有就 brew install python@3.12
+
+# 2. 克隆
+cd ~
+git clone https://github.com/XiaoChu-1208/codelang.git
+cd codelang
+
+# 3. 一键装（pip --user + 软链 /usr/local/bin 或 ~/.local/bin）
+./install_mac.sh
+# 关键依赖：pynput, pyperclip, Pillow, requests, pyyaml,
+# pyobjc-framework-Quartz, pyobjc-framework-Cocoa
+
+# 4. 启动
+codelang
+```
+
+**启动成功的判断**：屏幕**顶部菜单栏**出现灰白色 codelang UFO 图标。
+
+**重要**：macOS 第一次启动会弹「辅助功能权限」请求。必须让用户去：
+
+> 系统设置 → 隐私与安全性 → 辅助功能 → 把正在跑 codelang 的 Python（或终端 App）勾上 → 重启 codelang
+
+如果用户跳过这步，Option + 划词完全没反应——这是必经流程，跟 Bob / PopClip / OpenAI Translator 完全一样。
 
 **如果失败**：
-- `mouse` / `pystray` 装不上 → 用 `py -m pip install --upgrade pip setuptools` 再试
-- 启动报错 → `py -m desktop.app` 在终端里直接跑看错误日志
-- 卡片不出来 → 让用户按住 Alt 在任意网页词上双击；如还不行，查 `~/.codelang/codelang.log`
+- Win：`mouse` / `pystray` 装不上 → 用 `py -m pip install --upgrade pip setuptools` 再试
+- Mac：`pyobjc-*` 装不上 → 一般是 Python 版本太老或没有 wheel，升级到 3.11+ 再试
+- 启动报错 → 直接跑 `py -m desktop.app`（Win）或 `python3 -m desktop.app`（Mac）看错误日志
+- 卡片不出来 → 让用户按住 Alt（Mac：Option）在任意网页词上双击；如还不行，查 `~/.codelang/codelang.log`
+- Mac 上完全没反应 → 99% 是辅助功能权限没勾，复检系统设置
 
 ## 启动流程
 
-三种方式都可以，挑一个用：
-
-| 方式 | 命令 |
-|---|---|
-| 命令行 | `codelang` 或 `dongwang` |
-| 桌面快捷方式 | 双击 `~/Desktop/codelang.lnk` |
-| 开机自启 | 把 `codelang.lnk` 拖进 `shell:startup` |
-| 调试模式（带控制台） | 双击 `desktop\run_console.bat` |
+| 方式 | Windows | macOS |
+|---|---|---|
+| 命令行 | `codelang` 或 `dongwang` | `codelang` 或 `dongwang` |
+| 桌面快捷方式 | 双击 `~/Desktop/codelang.lnk` | 暂无 .app bundle（v1）|
+| 开机自启 | `codelang.lnk` 拖进 `shell:startup` | 系统设置 → 通用 → 登录项 → 加 `bin/codelang` |
+| 调试模式 | `desktop\run_console.bat` | `python3 -m desktop.app`（直接看 stderr）|
 
 ## 增改词条
 
@@ -122,28 +145,35 @@ py tools\build_dict.py   # 重建浏览器扩展用的 dict.json（可选）
 
 ## 卸载流程
 
+### Windows
+
 ```powershell
-# 1. 一键反向卸载（去 PATH + 删快捷方式）
 cd path\to\codelang
-.\uninstall.bat
+.\uninstall.bat                                      # 1. 反向卸载
+py tools\uninstall_shortcuts.py --purge-config       # 2. 顺手清 ~/.codelang
+Remove-Item -Recurse codelang                        # 3. 彻底删项目
+```
 
-# 2. 也删用户配置（含 LLM 缓存、用户词、日志）
-py tools\uninstall_shortcuts.py --purge-config
+### macOS
 
-# 3. 彻底删项目代码
-cd ..
-Remove-Item -Recurse codelang
+```bash
+cd ~/codelang
+./uninstall_mac.sh                       # 1. 删软链
+./uninstall_mac.sh --purge-config        # 2. 顺手清 ~/.codelang
+rm -rf ~/codelang                        # 3. 彻底删项目
 ```
 
 ## 故障排查
 
 | 症状 | 检查 |
 |---|---|
-| 划词没反应 | 1) 托盘有图标吗？没有 → 重启；2) 在浏览器里测试（先简单环境）；3) 看 `~/.codelang/codelang.log` |
-| Alt 键卡住 | 托盘菜单 → "释放卡住的 Alt"；不行就重启 codelang |
+| 划词没反应（Mac） | **99% 是辅助功能权限没勾**：系统设置 → 隐私与安全性 → 辅助功能 → 加 Python / Terminal |
+| 划词没反应（Win） | 1) 托盘有图标吗？没有 → 重启；2) 在浏览器里测试；3) 看 `~/.codelang/codelang.log` |
+| Alt/Option 键卡住 | 托盘 / 菜单栏 → "释放卡住的 Alt/Option"；不行就重启 codelang |
 | 多显示器卡片位置错 | 0.1+ 版本应已修复，否则报 issue |
 | 高 DPI 字太小 | 同上 |
 | LLM 兜底不工作 | `~/.codelang/config.json` 里 `api_key` 填对了吗？`llm_fallback_enabled: true` 了吗？ |
+| Mac 终端取词失败 | iTerm2 / Terminal 把 Option+drag 占用做块选；先去浏览器或文本编辑器里测 |
 
 **实时日志**：托盘菜单点"查看日志" → 自动用记事本打开 `~/.codelang/codelang.log`。
 
@@ -153,30 +183,35 @@ Remove-Item -Recurse codelang
 codelang/
 ├── dict/*.yaml                 词库源（改这里加词）
 ├── desktop/
-│   ├── app.py                  主入口（py -m desktop.app）
+│   ├── app.py                  主入口（py / python3 -m desktop.app）
 │   ├── ui.py                   tooltip 卡片渲染
 │   ├── lookup.py               查询逻辑 + LLM 兜底
 │   ├── win.py                  Win32 API 封装
+│   ├── mac.py                  macOS Quartz/AppKit 封装（Option 键、Cmd+C、NSStatusBar）
+│   ├── platform_compat.py      win.py / mac.py 的派发器
+│   ├── mouse_backend.py        跨平台鼠标钩子（Win: mouse, Mac: pynput）
 │   └── config.py               配置加载
 ├── bin/
-│   ├── codelang.cmd            CLI 启动器
-│   └── dongwang.cmd            CLI 启动器（中文别名）
+│   ├── codelang.cmd / codelang        CLI 启动器（.cmd 是 Win，无后缀是 Mac shell）
+│   └── dongwang.cmd / dongwang        同上，中文拼音别名
 ├── tools/
 │   ├── build_dict.py           YAML → 浏览器扩展 dict.json
 │   ├── install_shortcuts.py    install.bat 调用的实际逻辑
-│   └── uninstall_shortcuts.py  反向卸载
+│   └── uninstall_shortcuts.py  反向卸载（Windows）
 ├── extension-browser/          Chromium 扩展（备用方案）
-├── install.bat                 双击一键装
-├── uninstall.bat               双击一键卸
-└── requirements.txt            Python 依赖
+├── install.bat / uninstall.bat        Windows 安装/卸载
+├── install_mac.sh / uninstall_mac.sh  macOS 安装/卸载
+└── requirements.txt            Python 依赖（含 platform_system 条件依赖）
 ```
 
 ## 配置文件位置
 
-- **运行时配置**：`%USERPROFILE%\.codelang\config.json`
-- **用户字典**：`%USERPROFILE%\.codelang\user.yaml`
-- **LLM 缓存**：`%USERPROFILE%\.codelang\llm_cache.json`
-- **运行日志**：`%USERPROFILE%\.codelang\codelang.log`
+Windows 用 `%USERPROFILE%\.codelang\...`，macOS 用 `~/.codelang/...`，两边路径一致：
+
+- **运行时配置**：`~/.codelang/config.json`
+- **用户字典**：`~/.codelang/user_dict.yaml`
+- **LLM 缓存**：`~/.codelang/llm_cache.json`
+- **运行日志**：`~/.codelang/codelang.log`
 
 ## 开 LLM 兜底（默认关）
 
@@ -218,4 +253,6 @@ OpenAI 也行：
 
 ## 一句话总结
 
-**装：clone → pip install → install.bat → 跑 codelang。改词：编辑 dict/*.yaml → 托盘"重新加载词典"。卸：uninstall.bat。**
+**Windows 装：clone → pip install → install.bat → 跑 codelang。**
+**macOS 装：clone → ./install_mac.sh → 跑 codelang → 给辅助功能权限。**
+**改词：编辑 dict/*.yaml → 托盘 / 菜单栏 "重新加载词典"。卸：uninstall.bat / ./uninstall_mac.sh。**

@@ -20,7 +20,7 @@ from tkinter import font as tkfont
 from PIL import Image, ImageTk, ImageDraw, ImageFilter, ImageChops
 
 from . import config
-from . import win as winhelp
+from . import platform_compat as winhelp
 
 
 ICON_PATH = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-512.png"
@@ -51,6 +51,11 @@ CHIP_FG     = "#2956E6"
 
 def _pick_family() -> str:
     families = set(tkfont.families())
+    if winhelp.IS_MAC:
+        for candidate in ("PingFang SC", "Helvetica Neue", "Lucida Grande"):
+            if candidate in families:
+                return candidate
+        return "TkDefaultFont"
     if "Microsoft YaHei UI" in families:
         return "Microsoft YaHei UI"
     if "Segoe UI" in families:
@@ -238,13 +243,26 @@ def show_welcome(root: tk.Tk) -> None:
     # Title + subtitle removed — that message is now compressed into the
     # bottom-row hint so the welcome card stays compact.
 
-    # Cards
+    # Cards — the wording differs slightly between platforms because
+    # the menu lives in the menubar on Mac, system tray on Windows, and
+    # "open at login" works through different mechanisms.
+    if winhelp.IS_MAC:
+        card1_title = "屏幕顶部菜单栏 灰白色小飞碟 图标"
+        card1_body = "点一下可以 查看日志 / 重新加载词典 / 退出"
+        card2_title = "想开机自启？"
+        card2_body = "系统设置 → 通用 → 登录项 → 把 codelang 启动脚本加进去"
+    else:
+        card1_title = "右下角托盘 灰白色小飞碟 图标"
+        card1_body = "右键可以 查看日志 / 重新加载词典 / 退出"
+        card2_title = "想开机自启？"
+        card2_body = "Win+R 输入 shell:startup，把桌面快捷方式拖进去"
+
     _build_card(
         right,
         icon_text="⌨",
         icon_bg=ICON1_BG, icon_fg=ICON1_FG,
-        title="右下角托盘 灰白色小飞碟 图标",
-        body="右键可以 查看日志 / 重新加载词典 / 退出",
+        title=card1_title,
+        body=card1_body,
         family=family,
     ).pack(fill="x", pady=(0, 5))
 
@@ -252,8 +270,8 @@ def show_welcome(root: tk.Tk) -> None:
         right,
         icon_text=">_",
         icon_bg=ICON2_BG, icon_fg=ICON2_FG,
-        title="想开机自启？",
-        body="Win+R 输入 shell:startup，把桌面快捷方式拖进去",
+        title=card2_title,
+        body=card2_body,
         family=family,
     ).pack(fill="x", pady=(0, 8))
 
@@ -290,8 +308,9 @@ def show_welcome(root: tk.Tk) -> None:
     bottom = tk.Frame(right, bg=BG)
     bottom.pack(fill="x", pady=(10, 0))
 
+    trigger_key = "Option" if winhelp.IS_MAC else "Alt"
     tk.Label(
-        bottom, text="codelang 已经在运行，按住 Alt 试试  ↗",
+        bottom, text=f"codelang 已经在运行，按住 {trigger_key} 试试  ↗",
         bg=BG, fg=TEXT_HINT, font=f_hint, anchor="w",
     ).pack(side="left")
 

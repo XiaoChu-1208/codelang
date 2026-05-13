@@ -1,9 +1,9 @@
 """Stdlib-only dependency error dialog.
 
-Used when third-party Python deps (mouse / pyperclip / pystray / Pillow) are
-missing. This is the failure that historically caused "shortcut clicked but
-nothing happened": pythonw has no console, so the ImportError was invisible.
-Now we catch it and show a real window the user can act on.
+Used when third-party Python deps are missing. This is the failure that
+historically caused "shortcut clicked but nothing happened": pythonw has no
+console, so the ImportError was invisible. Now we catch it and show a real
+window the user can act on.
 
 This module MUST stay stdlib-only — it is the fallback when third-party
 imports fail, so it cannot rely on anything beyond tkinter / pathlib / sys.
@@ -18,8 +18,33 @@ from tkinter import font as tkfont
 
 ICON_PATH = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-128.png"
 
+IS_MAC = sys.platform == "darwin"
 
-PIP_CMD = "py -m pip install --user -r requirements.txt"
+# pip command the dialog suggests / runs. Windows uses the py launcher;
+# macOS / Linux use python3.
+if IS_MAC:
+    PIP_CMD = "python3 -m pip install --user -r requirements.txt"
+else:
+    PIP_CMD = "py -m pip install --user -r requirements.txt"
+
+
+# Modules to require, per platform. Each entry is (display name, import name).
+# Windows uses the `mouse` package; macOS uses pynput + the pyobjc frameworks.
+# pystray works on Windows; on Mac we talk to NSStatusBar directly so it's
+# only soft-required (no entry here).
+_REQUIRED_WIN = [
+    ("mouse", "mouse"),
+    ("pyperclip", "pyperclip"),
+    ("pystray", "pystray"),
+    ("Pillow", "PIL"),
+]
+_REQUIRED_MAC = [
+    ("pynput", "pynput"),
+    ("pyperclip", "pyperclip"),
+    ("Pillow", "PIL"),
+    ("pyobjc-framework-Quartz", "Quartz"),
+    ("pyobjc-framework-Cocoa", "AppKit"),
+]
 
 
 def show(missing: list[str]) -> None:
@@ -32,7 +57,9 @@ def show(missing: list[str]) -> None:
     win.title("codelang 启动失败")
     win.attributes("-topmost", True)
     try:
-        win.iconbitmap(str(ICON_PATH.with_suffix(".ico"))) if ICON_PATH.with_suffix(".ico").exists() else None
+        ico = ICON_PATH.with_suffix(".ico")
+        if not IS_MAC and ico.exists():
+            win.iconbitmap(str(ico))
     except tk.TclError:
         pass
 
@@ -43,13 +70,18 @@ def show(missing: list[str]) -> None:
     btn_bg = "#1d4ed8"
 
     families = set(tkfont.families())
-    family = "Microsoft YaHei UI" if "Microsoft YaHei UI" in families else (
-        "Segoe UI" if "Segoe UI" in families else "TkDefaultFont"
-    )
+    if IS_MAC:
+        family = next((f for f in ("PingFang SC", "Helvetica Neue") if f in families), "TkDefaultFont")
+        mono_family = next((f for f in ("Menlo", "Monaco") if f in families), "TkFixedFont")
+    else:
+        family = "Microsoft YaHei UI" if "Microsoft YaHei UI" in families else (
+            "Segoe UI" if "Segoe UI" in families else "TkDefaultFont"
+        )
+        mono_family = "Consolas" if "Consolas" in families else "TkFixedFont"
     f_title = tkfont.Font(family=family, size=13, weight="bold")
-    f_body = tkfont.Font(family=family, size=9)
-    f_mono = tkfont.Font(family="Consolas" if "Consolas" in families else "TkFixedFont", size=9)
-    f_btn = tkfont.Font(family=family, size=9, weight="bold")
+    f_body = tkfont.Font(family=family, size=10 if IS_MAC else 9)
+    f_mono = tkfont.Font(family=mono_family, size=10 if IS_MAC else 9)
+    f_btn = tkfont.Font(family=family, size=10 if IS_MAC else 9, weight="bold")
 
     inner = tk.Frame(win, bg=bg, padx=20, pady=18)
     inner.pack(fill="both", expand=True)
@@ -64,20 +96,24 @@ def show(missing: list[str]) -> None:
         bg=bg, fg=text_dark, font=f_body, anchor="w",
     ).pack(anchor="w", pady=(6, 12))
 
+    hint_text = (
+        "在终端里粘贴下面这条命令，回车即可："
+        if IS_MAC
+        else "在 CMD 或 PowerShell 里粘贴下面这条命令，回车即可："
+    )
     tk.Label(
-        inner,
-        text="在 CMD 或 PowerShell 里粘贴下面这条命令，回车即可：",
+        inner, text=hint_text,
         bg=bg, fg=text_meta, font=f_body, anchor="w",
     ).pack(anchor="w")
 
-    cmd_box = tk.Entry(inner, font=f_mono, width=46, relief="solid", bd=1)
+    cmd_box = tk.Entry(inner, font=f_mono, width=52, relief="solid", bd=1)
     cmd_box.insert(0, PIP_CMD)
     cmd_box.config(state="readonly")
     cmd_box.pack(fill="x", pady=(4, 10))
 
     note = tk.Label(
         inner,
-        text="（命令已自动复制到剪贴板，Ctrl+V 即可粘贴）",
+        text="（命令已自动复制到剪贴板，Cmd+V / Ctrl+V 即可粘贴）",
         bg=bg, fg=text_meta, font=f_body, anchor="w",
     )
     note.pack(anchor="w")
@@ -86,21 +122,36 @@ def show(missing: list[str]) -> None:
     btn_row.pack(fill="x", pady=(14, 0))
 
     project_root = Path(__file__).resolve().parent.parent
-    req_file = project_root / "requirements.txt"
 
     def _copy():
         win.clipboard_clear()
         win.clipboard_append(PIP_CMD)
-        note.config(text="（已复制 ✓ 去 CMD 粘贴吧）")
+        note.config(text="（已复制 ✓ 去终端粘贴吧）")
 
     def _auto_install():
-        # Open a CMD window that actually runs the install (so user sees progress
-        # and any pip errors). /K keeps the window open afterwards so they can
-        # read the output.
-        note.config(text="（正在打开 CMD 跑 pip install，装完后请重新双击 codelang 启动）")
+        # Open a terminal window that actually runs the install (so user sees
+        # progress and any pip errors). Mac: osascript opens Terminal.app and
+        # runs the command. Windows: /K cmd window stays open afterwards.
         try:
-            cmd = f'cd /d "{project_root}" && py -m pip install --user -r requirements.txt && echo. && echo 装好了！重新双击桌面 codelang 启动即可。'
-            subprocess.Popen(["cmd.exe", "/K", cmd])
+            if IS_MAC:
+                note.config(text="（正在打开终端跑 pip install，装完后重新启动 codelang）")
+                shell_cmd = (
+                    f'cd "{project_root}" && '
+                    "python3 -m pip install --user -r requirements.txt && "
+                    'echo "" && echo "装好了！重新跑 codelang 即可。"'
+                )
+                # Escape for AppleScript string
+                escaped = shell_cmd.replace('\\', '\\\\').replace('"', '\\"')
+                osa = f'tell application "Terminal" to do script "{escaped}"\n' \
+                      f'tell application "Terminal" to activate'
+                subprocess.Popen(["osascript", "-e", osa])
+            else:
+                note.config(text="（正在打开 CMD 跑 pip install，装完后请重新双击 codelang 启动）")
+                cmd = (
+                    f'cd /d "{project_root}" && py -m pip install --user -r requirements.txt && '
+                    "echo. && echo 装好了！重新双击桌面 codelang 启动即可。"
+                )
+                subprocess.Popen(["cmd.exe", "/K", cmd])
         except Exception as e:
             note.config(text=f"启动 pip 失败：{e}")
 
@@ -148,15 +199,16 @@ def show(missing: list[str]) -> None:
 
 def check_required() -> list[str]:
     """Return the list of missing third-party modules. Empty list = all good."""
+    required = _REQUIRED_MAC if IS_MAC else _REQUIRED_WIN
     missing = []
-    for mod in ("mouse", "pyperclip", "pystray", "PIL"):
+    for display, import_name in required:
         try:
-            __import__(mod)
+            __import__(import_name)
         except ImportError:
-            missing.append(mod)
+            missing.append(display)
     return missing
 
 
 if __name__ == "__main__":
-    show(["mouse", "pystray"])
+    show(["mouse", "pystray"] if not IS_MAC else ["pynput", "Quartz"])
     sys.exit(0)

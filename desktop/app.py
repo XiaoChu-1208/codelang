@@ -1,13 +1,16 @@
 """codelang desktop app.
 
 Architecture:
-- Mouse hook (boppreh/mouse) lives in a daemon thread, posts events to a thread-safe Queue.
+- Mouse hook (Windows: boppreh/mouse, macOS: pynput) lives in a daemon thread,
+  posts events to a thread-safe Queue.
 - Main thread runs tk mainloop, polls the queue every 15ms via after().
-- On Alt+mouse-up: snapshot clipboard → set sentinel → SendInput Ctrl+C →
-  poll clipboard until changed → restore old clipboard → smart_lookup → show tooltip.
+- On Alt(Win) / Option(Mac) + mouse-up: snapshot clipboard → set sentinel →
+  synthesize Ctrl+C (Win) / Cmd+C (Mac) → poll clipboard until changed →
+  restore old clipboard → smart_lookup → show tooltip.
 - LLM (if enabled) runs in worker thread, posts result back via queue.
 
-Run:  py -m desktop.app
+Run:  py -m desktop.app    (Windows)
+      python3 -m desktop.app   (macOS / Linux)
 """
 from __future__ import annotations
 
@@ -28,10 +31,9 @@ if _missing:
     _deps_error.show(_missing)
     sys.exit(1)
 
-import mouse
 import pyperclip
 
-from . import config, dict_updater, win as winhelp
+from . import config, dict_updater, mouse_backend, platform_compat as winhelp
 from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
@@ -39,12 +41,14 @@ from .lookup import (
     Entry,
     LookupResult,
     Translator,
+    USER_DICT_JSON,
     USER_DICT_YAML,
     append_user_entry,
     llm_lookup,
 )
 from .ui import Tooltip
 
+IS_MAC = winhelp.IS_MAC
 
 SENTINEL = "\x00\x00CODELANG_SENTINEL\x00\x00"
 CLIPBOARD_POLL_MS = 5
@@ -67,7 +71,10 @@ def _safe_copy(text: str) -> None:
 
 
 def grab_selection(prev_clip: str) -> str | None:
-    """Set sentinel → Ctrl+C → poll for change → restore. Returns selected text or None."""
+    """Set sentinel → synthesize copy hotkey → poll for change → restore.
+    Returns the captured selection or None if nothing was copied within
+    CLIPBOARD_TIMEOUT_MS. The copy hotkey is Ctrl+C on Windows and Cmd+C on
+    macOS (platform_compat handles the difference)."""
     _safe_copy(SENTINEL)
     winhelp.send_ctrl_c()
     deadline = time.perf_counter() + CLIPBOARD_TIMEOUT_MS / 1000.0
@@ -146,8 +153,10 @@ class App:
         )
 
         self.queue: "queue.Queue[tuple]" = queue.Queue()
-        self._hook_thread_started = False
+        self._mouse_hook = None
         self._tray_icon = None
+        self._mac_status_item = None  # NSStatusItem on Mac; held to prevent GC
+        self._mac_menu_handler = None
         # Track the timestamp of the last real mouse activity. The background Alt
         # cleanup thread uses this to decide whether to nuke a stuck Alt state:
         # if we haven't seen any mouse motion/click for a few seconds AND Alt
@@ -163,29 +172,36 @@ class App:
             file=sys.stderr,
         )
 
-    # ---------- mouse hook ----------
+    # ---------- mouse hook (cross-platform) ----------
 
     def start_mouse_hook(self) -> None:
-        """Original-style synchronous mouse hook: on Alt+mouse-up we do the
-        clipboard dance inline. The earlier "deferred to worker thread" attempt
-        broke취ing in real-world apps (Claude / Chrome), even though it was
-        theoretically cleaner. Reverting to what worked.
-
-        Phantom Alt cleanup is handled separately by the background idle thread —
-        see start_alt_idle_cleanup.
+        """Install a single global mouse hook that drives both the trigger
+        flow (Alt/Option + drag) and the outside-click dismiss. We previously
+        had two separate hooks installed via the `mouse` package's additive
+        API, but pynput on macOS uses a single Listener per process, so we
+        consolidate.
         """
-        def on_event(event):
+        def on_event(evt: str) -> None:
             try:
-                if not isinstance(event, mouse.ButtonEvent):
-                    if isinstance(event, mouse.MoveEvent):
-                        self._last_mouse_activity = time.monotonic()
+                if evt == mouse_backend.EVT_MOVE:
+                    self._last_mouse_activity = time.monotonic()
                     return
-                # Any mouse event resets the idle timer
+                # Any button event also counts as activity for idle tracking.
                 self._last_mouse_activity = time.monotonic()
-                if event.event_type != mouse.UP or event.button != mouse.LEFT:
+
+                if evt == mouse_backend.EVT_DOWN_LEFT:
+                    # Outside-click dismiss: capture cursor position, let main
+                    # thread decide whether it falls inside any visible card.
+                    x, y = winhelp.get_cursor_pos()
+                    self.queue.put(("outside_click", x, y))
                     return
+
+                if evt != mouse_backend.EVT_UP_LEFT:
+                    return
+
                 if not winhelp.alt_pressed():
                     return
+
                 title, cls = winhelp.get_foreground_window_info()
                 print(f"[codelang] trigger in '{title}' (class={cls})", file=sys.stderr)
                 cx, cy = winhelp.get_cursor_pos()
@@ -207,23 +223,23 @@ class App:
                 print(f"[codelang] hook error: {e}", file=sys.stderr)
                 traceback.print_exc(file=sys.stderr)
 
-        mouse.hook(on_event)
-        self._hook_thread_started = True
-        print("[codelang] mouse hook installed (Alt+drag, sync)", file=sys.stderr)
+        self._mouse_hook = mouse_backend.install_hook(on_event)
+        mod_name = "Option" if IS_MAC else "Alt"
+        print(f"[codelang] mouse hook installed ({mod_name}+drag)", file=sys.stderr)
 
     def start_alt_idle_cleanup(self) -> None:
-        """Background daemon: silently force-release Alt when no mouse activity
-        for a while.
+        """Background daemon: silently force-release Alt/Option when no mouse
+        activity for a while.
 
-        The premise: real users hold Alt only when actively moving the mouse to
-        select text. If Alt looks held in OS state but the user hasn't moved the
-        mouse for a few seconds, it's almost certainly phantom — leftover from
-        send_ctrl_c's Alt UP/DOWN dance racing the user's physical release.
+        The premise: real users hold the modifier only while actively moving
+        the mouse to select text. If it looks held in OS state but the user
+        hasn't moved the mouse for a few seconds, it's almost certainly
+        phantom — leftover from the Ctrl+C dance racing the user's physical
+        release on Windows. (On Mac we don't do the Alt-up/down dance, so
+        phantom Option is much rarer; the cleanup still acts as a safety net.)
 
-        We periodically (every 1s) check this condition. The cleanup is a single
-        synthetic Alt-UP; harmless if Alt was already up. If a user is genuinely
-        idle with Alt physically held (rare), they'd need to re-press to do the
-        next codelang trigger — acceptable trade.
+        We periodically (every 1s) check this condition. The cleanup is a
+        single synthetic Alt/Option-UP; harmless if it was already up.
         """
         IDLE_THRESHOLD = 2.0  # seconds of mouse idle before considering Alt phantom
 
@@ -237,7 +253,8 @@ class App:
                         continue
                     # Alt looks held + no recent mouse activity → almost certainly phantom
                     winhelp.force_release_alt()
-                    print("[codelang] silently cleared phantom Alt (idle>2s)", file=sys.stderr)
+                    mod_name = "Option" if IS_MAC else "Alt"
+                    print(f"[codelang] silently cleared phantom {mod_name} (idle>2s)", file=sys.stderr)
                 except Exception as e:
                     print(f"[codelang] alt-cleanup error: {e}", file=sys.stderr)
 
@@ -337,25 +354,22 @@ class App:
 
         threading.Thread(target=worker, daemon=True).start()
 
-    # ---------- close-on-outside-click ----------
-
-    def start_outside_click_hook(self) -> None:
-        def on_event(event):
-            try:
-                if not isinstance(event, mouse.ButtonEvent):
-                    return
-                if event.event_type != mouse.DOWN or event.button != mouse.LEFT:
-                    return
-                x, y = winhelp.get_cursor_pos()
-                self.queue.put(("outside_click", x, y))
-            except Exception:
-                pass
-
-        mouse.hook(on_event)
-
     # ---------- tray ----------
 
     def start_tray(self) -> None:
+        """Install a system-tray (Windows) or menu bar (macOS) icon. On Mac
+        we go through PyObjC directly instead of pystray — pystray's macOS
+        backend requires the NSStatusBar item to be created on the main
+        thread, which conflicts with tk's mainloop on the same thread.
+        Talking to AppKit directly lets us add the menu inline before tk's
+        mainloop starts.
+        """
+        if IS_MAC:
+            self._start_mac_tray()
+        else:
+            self._start_win_tray()
+
+    def _start_win_tray(self) -> None:
         try:
             import pystray
             from PIL import Image, ImageDraw
@@ -409,12 +423,7 @@ class App:
             # User-triggered: fetch and report result via messagebox.
             # Runs on pystray's own thread, safe to do the blocking GET here.
             payload = dict_updater.check_remote(self.dict.version)
-            from tkinter import messagebox
             if payload is None:
-                # Either we're up to date or the request failed — try a HEAD-style
-                # distinction by re-fetching for "definitely no update" vs error.
-                # Simpler: just tell the user no update available; check_remote's
-                # internal print already logged any error.
                 self.queue.put(("show_info", "词库更新", f"已是最新（{self.dict.count} 条）"))
             else:
                 self.has_update = True
@@ -474,33 +483,219 @@ class App:
         self._tray_icon = icon
         threading.Thread(target=icon.run, daemon=True).start()
 
+    def _start_mac_tray(self) -> None:
+        """Create an NSStatusBar menu-bar item directly via PyObjC.
+
+        Coexists with tk's mainloop because tk on macOS is itself built on
+        Cocoa — both share the same NSApplication run loop. All NSMenu
+        actions land on the main thread, so callbacks can safely touch the
+        tk tree directly; we still post via the queue for consistency with
+        the Windows path.
+        """
+        try:
+            from AppKit import NSStatusBar, NSMenu, NSMenuItem, NSImage
+            from Foundation import NSObject
+        except ImportError as e:
+            print(f"[codelang] menubar disabled (pyobjc missing: {e})", file=sys.stderr)
+            return
+
+        from pathlib import Path
+        icon_path = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-32.png"
+
+        # Capture references for the inner NSObject subclass — we can't easily
+        # close over `self` because PyObjC selectors need NSObject methods.
+        app_ref = self
+
+        class _Handler(NSObject):
+            def reload_(self, _sender):
+                app_ref.dict.reload()
+                print(f"[codelang] reloaded dict: {app_ref.dict.count} entries", file=sys.stderr)
+
+            def releaseAlt_(self, _sender):
+                winhelp.force_release_alt()
+                print("[codelang] forced Option release", file=sys.stderr)
+
+            def openLogs_(self, _sender):
+                import subprocess
+                try:
+                    if not LOG_FILE.exists():
+                        LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+                        LOG_FILE.touch()
+                    subprocess.Popen(["open", str(LOG_FILE)])
+                except Exception as e:
+                    print(f"[codelang] open-logs failed: {e}", file=sys.stderr)
+
+            def openFolder_(self, _sender):
+                import subprocess
+                try:
+                    subprocess.Popen(["open", str(LOG_FILE.parent)])
+                except Exception as e:
+                    print(f"[codelang] open-folder failed: {e}", file=sys.stderr)
+
+            def checkUpdate_(self, _sender):
+                # Run network probe in a background thread so the menu click
+                # returns immediately and the menubar UI doesn't beachball.
+                def worker():
+                    payload = dict_updater.check_remote(app_ref.dict.version)
+                    if payload is None:
+                        app_ref.queue.put((
+                            "show_info", "词库更新",
+                            f"已是最新（{app_ref.dict.count} 条）",
+                        ))
+                    else:
+                        app_ref.has_update = True
+                        app_ref.pending_update = payload
+                        app_ref.queue.put((
+                            "show_info", "词库更新",
+                            f"发现新词库 {app_ref.dict.count} → "
+                            f"{payload.get('count', '?')} 条\n"
+                            "点菜单栏「下载新词库」即可应用。",
+                        ))
+                threading.Thread(target=worker, daemon=True).start()
+
+            def downloadUpdate_(self, _sender):
+                payload = app_ref.pending_update
+                if not payload:
+                    return
+                try:
+                    dict_updater.save_atomic(USER_DICT_JSON, payload)
+                    app_ref.dict.reload()
+                    app_ref.has_update = False
+                    app_ref.pending_update = None
+                    app_ref.queue.put((
+                        "show_info", "词库更新",
+                        f"已更新到 {app_ref.dict.count} 条",
+                    ))
+                except Exception as e:
+                    app_ref.queue.put(("show_info", "下载失败", f"写入失败：{e}"))
+
+            def quit_(self, _sender):
+                app_ref.queue.put(("quit",))
+
+        handler = _Handler.alloc().init()
+        self._mac_menu_handler = handler  # strong ref to prevent GC
+
+        bar = NSStatusBar.systemStatusBar()
+        item = bar.statusItemWithLength_(-1)  # NSVariableStatusItemLength
+        button = item.button()
+
+        img = None
+        if icon_path.exists():
+            try:
+                img = NSImage.alloc().initWithContentsOfFile_(str(icon_path))
+            except Exception as e:
+                print(f"[codelang] menubar icon load failed: {e}", file=sys.stderr)
+        if img is not None:
+            try:
+                img.setSize_((18, 18))
+                # template=False so the icon keeps its gray-white color in
+                # both light and dark menubars instead of being tinted black.
+                img.setTemplate_(False)
+                button.setImage_(img)
+            except Exception:
+                button.setTitle_("🛸")
+        else:
+            button.setTitle_("🛸")
+
+        menu = NSMenu.alloc().init()
+        menu.setAutoenablesItems_(False)
+
+        def _disabled_item(title: str):
+            mi = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(title, None, "")
+            mi.setEnabled_(False)
+            return mi
+
+        def _action_item(title: str, selector: str):
+            mi = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(title, selector, "")
+            mi.setTarget_(handler)
+            return mi
+
+        v = self.dict.version[:10] if self.dict.version else "—"
+        menu.addItem_(_disabled_item("codelang"))
+        menu.addItem_(_disabled_item(f"词库: {self.dict.count} 条 · {v}"))
+        menu.addItem_(NSMenuItem.separatorItem())
+        menu.addItem_(_action_item("查看日志", "openLogs:"))
+        menu.addItem_(_action_item("打开配置目录", "openFolder:"))
+        menu.addItem_(NSMenuItem.separatorItem())
+        menu.addItem_(_action_item("检查词库更新", "checkUpdate:"))
+        menu.addItem_(_action_item("下载新词库", "downloadUpdate:"))
+        menu.addItem_(_action_item("重新加载词典", "reload:"))
+        menu.addItem_(_action_item("释放卡住的 Option", "releaseAlt:"))
+        menu.addItem_(NSMenuItem.separatorItem())
+        menu.addItem_(_action_item("退出", "quit:"))
+
+        item.setMenu_(menu)
+        self._mac_status_item = item  # strong ref
+        print("[codelang] macOS menubar item installed", file=sys.stderr)
+
     # ---------- remote dict update ----------
 
     def _silent_check_for_update(self) -> None:
         """Background daemon: probe GitHub once at startup. Surfaces an
-        update via tray notification + dynamic 'download' menu item; stays
-        completely quiet when up to date or offline."""
+        update via tray notification (Windows) or in-app messagebox (macOS);
+        stays completely quiet when up to date or offline."""
         try:
             payload = dict_updater.check_remote(self.dict.version)
             if not payload:
                 return
             self.has_update = True
             self.pending_update = payload
-            if self._tray_icon is not None:
+            if not IS_MAC and self._tray_icon is not None:
                 self._tray_icon.notify(
                     f"发现新词库 {self.dict.count} → {payload.get('count', '?')} 条，"
                     "点托盘菜单下载",
                     "codelang",
                 )
                 self._tray_icon.update_menu()
+            elif IS_MAC:
+                # No native banner without bundling — surface via in-app dialog
+                self.queue.put((
+                    "show_info", "词库更新可用",
+                    f"发现新词库 {self.dict.count} → "
+                    f"{payload.get('count', '?')} 条\n"
+                    "点菜单栏 codelang → 「下载新词库」即可应用。",
+                ))
         except Exception as e:
             print(f"[codelang] silent update check error: {e}", file=sys.stderr)
+
+    # ---------- accessibility prompt (macOS) ----------
+
+    def _maybe_prompt_accessibility(self) -> None:
+        """On Mac, surface the Accessibility-permission requirement to the
+        user the first time. Silent on Windows / already-trusted Mac.
+
+        We can't grant the permission ourselves — the user has to add the
+        Python binary to System Settings → Privacy → Accessibility. The
+        dialog points them there and tells them what to look for.
+        """
+        if not IS_MAC:
+            return
+        check = getattr(winhelp, "is_accessibility_trusted", None)
+        if check is None:
+            return
+        if check(prompt=False):
+            return
+        # Trigger the system prompt and also show our own explainer dialog.
+        try:
+            check(prompt=True)
+        except Exception:
+            pass
+        from tkinter import messagebox
+        messagebox.showwarning(
+            "codelang 需要辅助功能权限",
+            "codelang 还没有获得「辅助功能（Accessibility）」权限，\n"
+            "Option + 划词 会没反应。\n\n"
+            "请打开：\n"
+            "  系统设置 → 隐私与安全性 → 辅助功能\n"
+            "然后把当前用来跑 codelang 的 Python（或终端 App）勾上。\n"
+            "勾完后重新启动 codelang 即可。\n\n"
+            "首次勾选系统会让你输密码确认，正常操作。",
+        )
 
     # ---------- run ----------
 
     def run(self) -> int:
         self.start_mouse_hook()
-        self.start_outside_click_hook()
         self.start_alt_idle_cleanup()
         self.start_tray()
         # Silent dict-update probe (opt-out via config). Daemon, so quitting
@@ -510,10 +705,14 @@ class App:
                 target=self._silent_check_for_update, daemon=True
             ).start()
         self.poll_queue()
+        # On Mac, prompt for Accessibility permission once mainloop is up so
+        # the messagebox parent has a real NSApp behind it.
+        if IS_MAC:
+            self.root.after(800, self._maybe_prompt_accessibility)
         # First-run welcome card (only shows once — see desktop/welcome.py).
         # Defer to after the mainloop spins up so the window has a stable
         # parent and the tray icon's already in place by the time the user
-        # reads "右下角灰白色小飞碟".
+        # reads "灰白色小飞碟".
         if _welcome_should_show():
             self.root.after(400, lambda: show_welcome(self.root))
         try:

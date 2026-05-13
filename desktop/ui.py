@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 from typing import Callable, Optional
 
-from . import win as winhelp
+from . import platform_compat as winhelp
 from .lookup import Entry
 
 CATEGORY_LABEL = {
@@ -94,9 +94,22 @@ class Tooltip:
         self.inner.pack(fill="both", expand=True, padx=1, pady=1)
 
         families = set(tkfont.families())
-        family = "Segoe UI" if "Segoe UI" in families else (
-            "Microsoft YaHei UI" if "Microsoft YaHei UI" in families else "TkDefaultFont"
-        )
+        # Pick a platform-appropriate UI font. Mac's stock San Francisco
+        # variants render badly in tk on some setups; Helvetica Neue +
+        # PingFang SC is the most reliable mac combo and tk falls back to
+        # PingFang for CJK glyphs automatically. Windows keeps the existing
+        # Segoe / YaHei pair.
+        if winhelp.IS_MAC:
+            for candidate in ("PingFang SC", "Helvetica Neue", "Lucida Grande"):
+                if candidate in families:
+                    family = candidate
+                    break
+            else:
+                family = "TkDefaultFont"
+        else:
+            family = "Segoe UI" if "Segoe UI" in families else (
+                "Microsoft YaHei UI" if "Microsoft YaHei UI" in families else "TkDefaultFont"
+            )
         self.font_title = tkfont.Font(family=family, size=11, weight="bold")
         self.font_cat = tkfont.Font(family=family, size=8)
         self.font_label = tkfont.Font(family=family, size=8)

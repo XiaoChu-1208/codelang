@@ -1,10 +1,29 @@
 # codelang 运行依赖
-# 安装：py -m pip install -r requirements.txt
+# 安装：
+#   Windows:  py -m pip install -r requirements.txt
+#   macOS:    python3 -m pip install --user -r requirements.txt
 
-mouse>=0.7.1          # 全局鼠标钩子
-pyperclip>=1.8.0      # 跨平台剪贴板（取词用）
-pystray>=0.19.0       # 系统托盘图标
-Pillow>=10.0.0        # 托盘图标渲染依赖
-requests>=2.30.0      # LLM 兜底 + 远程词库更新
-pyyaml>=6.0           # 词库 YAML 解析（运行时合并 user_dict.yaml + 构建 dict.json）
-resvg-py>=0.1.0       # 把 Gemini 原 SVG 渲染成 PNG/ICO（仅构建图标时用）
+# 跨平台剪贴板（取词用）
+pyperclip>=1.8.0
+# 托盘图标 / 欢迎卡 mascot 合成
+Pillow>=10.0.0
+# LLM 兜底 + 远程词库更新
+requests>=2.30.0
+# 词库 YAML 解析（运行时合并 user_dict.yaml + 构建 dict.json）
+pyyaml>=6.0
+# 把 Gemini 原 SVG 渲染成 PNG/ICO（仅构建图标时用）
+resvg-py>=0.1.0
+
+# ---- Windows 专用 ----
+# 全局鼠标钩子
+mouse>=0.7.1 ; platform_system == "Windows"
+# 系统托盘（macOS 走 PyObjC 直连，不用 pystray）
+pystray>=0.19.0 ; platform_system == "Windows"
+
+# ---- macOS 专用 ----
+# 全局鼠标钩子（需辅助功能权限）
+pynput>=1.7.6 ; platform_system == "Darwin"
+# CGEvent 合成 Cmd+C / 监听 Option
+pyobjc-framework-Quartz>=10.0 ; platform_system == "Darwin"
+# NSStatusBar 菜单栏 + NSScreen 几何
+pyobjc-framework-Cocoa>=10.0 ; platform_system == "Darwin"

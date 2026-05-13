@@ -1,0 +1,5 @@
+# Shell scripts and the extensionless Mac launchers MUST stay LF — CRLF
+# breaks the shebang on macOS / Linux (bash reports `bad interpreter`).
+*.sh           text eol=lf
+bin/codelang   text eol=lf
+bin/dongwang   text eol=lf

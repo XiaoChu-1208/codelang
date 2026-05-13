@@ -53,6 +53,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
+  <img alt="平台" src="https://img.shields.io/badge/macOS-12%2B-lightgrey">
   <img alt="协议" src="https://img.shields.io/badge/license-MIT-lightgrey">
 </p>
 
@@ -84,7 +85,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>怎么触发</b></td>
-    <td>按住 <kbd>Alt</kbd> + 鼠标划词 / 双击词（任何 Windows 窗口里都行）</td>
+    <td>Windows：按住 <kbd>Alt</kbd> + 鼠标划词 / 双击词 · macOS：按住 <kbd>⌥ Option</kbd> + 鼠标划词 / 双击词</td>
   </tr>
   <tr>
     <td><b>词库规模</b></td>
@@ -100,7 +101,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>平台</b></td>
-    <td>Windows 10 / 11（Mac/Linux 规划中）</td>
+    <td>Windows 10 / 11 · macOS 12+（Linux 规划中）</td>
   </tr>
   <tr>
     <td><b>协议</b></td>
@@ -350,6 +351,52 @@ py -m pip install -r requirements.txt
 - 双击 `desktop\run.bat` 静默启动
 - 双击 `desktop\run_console.bat` 带控制台启动（调试用）
 
+---
+
+### macOS 怎么用
+
+macOS 12+（Intel 或 Apple Silicon 都行）一条龙：
+
+```bash
+# 1. 装 Python 3.10+（已有可跳过）
+brew install python@3.12        # 或从 https://www.python.org/downloads/ 装
+
+# 2. 克隆仓库
+git clone https://github.com/XiaoChu-1208/codelang.git
+cd codelang
+
+# 3. 一键装（pip 装依赖 + 软链到 PATH）
+./install_mac.sh
+
+# 4. 跑
+codelang        # 或 dongwang
+```
+
+**第一次启动会弹「辅助功能权限」请求**。这是因为 codelang 要监听全局 ⌥ Option 键和合成 ⌘C 取选区——和所有 Mac 划词工具（Bob、PopClip、OpenAI Translator）一样的要求。
+
+操作：**系统设置 → 隐私与安全性 → 辅助功能** → 把正在跑 codelang 的 *Python*（或终端 App，如果你从 Terminal 启动的）勾上 → 重新跑 `codelang`。
+
+**触发方式：按住 ⌥ Option + 鼠标划词 / Option + 双击词**（和 Windows 的 Alt 一一对应，物理位置相同）。
+
+#### 菜单栏 vs 系统托盘
+
+Windows 的小图标在右下角托盘；Mac 在屏幕**顶部菜单栏**，点一下展开「重新加载词典 / 查看日志 / 退出」。
+
+#### 卸载
+
+```bash
+./uninstall_mac.sh                       # 只去软链，保留你的字典/缓存
+./uninstall_mac.sh --purge-config        # 连 ~/.codelang/ 一起删
+```
+
+#### 已知限制（v1.0 阶段）
+
+- 没有 `.app` bundle —— 通过 Python 跑，所以 Dock 图标是默认的 Python 图标。后续会出 `py2app` 打包的独立 `.app`。
+- 没有 macOS 原生通知（远程词库更新时用 in-app 对话框代替了 Windows 的托盘 banner）。
+- 触摸板「三指轻按」/「重压」取词暂不接管，建议先用 Option + 划词。
+
+---
+
 ### 卸载
 
 双击项目根目录的 `uninstall.bat` —— 干净反向操作：
@@ -368,7 +415,7 @@ py tools\uninstall_shortcuts.py --purge-config
 
 ### 4. 用
 
-**在任何窗口里**——浏览器、微信、Word、PDF、Cursor、Claude 桌面端——按住 **Alt 键**，鼠标划选一个不懂的词，松开鼠标的瞬间词的解释立刻弹在鼠标旁边。
+**在任何窗口里**——浏览器、微信、Word、PDF、Cursor、Claude 桌面端——按住 **Alt 键（Mac 上是 ⌥ Option 键）**，鼠标划选一个不懂的词，松开鼠标的瞬间词的解释立刻弹在鼠标旁边。
 
 #### 两种触发姿势
 
@@ -431,7 +478,7 @@ A：不要。断网状态下完全可以用，词库都在本地。
 A：本地命中 ~80 毫秒（含按 Alt → 取词 → 弹卡片 → 显示），体感是"瞬间"。
 
 **Q：支持 Mac / Linux 吗？**  
-A：目前只有 Windows 版（依赖 Win32 API 取剪贴板和监听全局热键）。Mac/Linux 版在规划中，欢迎贡献。
+A：**macOS 12+ 已支持**（按住 ⌥ Option 划词，触发逻辑和 Windows 一致）。详见下方 [macOS 安装](#macos-怎么用)。Linux 版规划中，欢迎贡献。
 
 **Q：和浏览器划词翻译比有什么优势？**  
 A：浏览器划词翻译只在浏览器里有效，codelang 在**任何窗口**都能用（Cursor、Claude 桌面端、PDF 阅读器、微信、Office 全覆盖）。而且我们不是翻译，是用比喻和场景化语言解释。
