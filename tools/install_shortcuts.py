@@ -124,7 +124,7 @@ def main() -> int:
     print("装好了！")
     print()
     print("- 双击桌面上的 codelang 图标启动")
-    print("- 启动后右下角托盘会出现一个蓝色小飞碟图标")
+    print("- 启动后右下角托盘会出现一个灰白色小飞碟图标")
     print("- 想开机自启？把桌面那个快捷方式拖进:")
     print("    Win+R 输入 shell:startup 打开的文件夹")
     print()

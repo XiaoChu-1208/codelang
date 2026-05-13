@@ -75,7 +75,7 @@ py -m pip install -r requirements.txt
 # 4. 双击桌面 codelang.lnk 启动，或在任意命令行敲 codelang / dongwang
 ```
 
-启动后系统托盘出现 codelang 蓝色小图标。
+启动后系统托盘出现 codelang 灰白色 UFO 小图标。
 
 ## 使用方法
 

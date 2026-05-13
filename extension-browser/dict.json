@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-12T17:08:52+00:00",
+  "version": "2026-05-13T01:45:45+00:00",
   "count": 1540,
   "entries": [
     {
@@ -15753,7 +15753,7 @@
       "category": "devterm",
       "literal": "",
       "meaning": "Windows 任务栏右边那一堆小图标的区域——常驻后台的程序（QQ、网盘、杀毒、codelang）都在这。Mac 上叫\"菜单栏\"在顶部。",
-      "example": "codelang 启动后在系统托盘出现蓝色小图标。"
+      "example": "codelang 启动后在系统托盘出现灰白色 UFO 小图标。"
     },
     {
       "term": "进程",
