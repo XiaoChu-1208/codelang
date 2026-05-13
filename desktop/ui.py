@@ -103,6 +103,18 @@ class Tooltip:
         self.font_body = tkfont.Font(family=family, size=9)
         self.font_btn = tkfont.Font(family=family, size=8, underline=True)
 
+        # Body Label wraplength, computed from actual font metrics so the card
+        # scales with whatever DPI / font size the user's system produces.
+        # Old behavior was a hardcoded 320 pixels which on HiDPI displays gave
+        # ~25 CJK chars per line — way too narrow, making typical 2-sentence
+        # meanings wrap into 4-5 visually noisy lines, and mixed CJK+ASCII
+        # sometimes broke into "two-words-per-line" looking stacks.
+        # 40 CJK chars per line keeps lines reading naturally without forcing
+        # the card to dominate the screen. measure("一") returns the actual
+        # rendered glyph width in physical pixels at the current font scale.
+        cjk_char_w = max(self.font_body.measure("一"), 8)
+        self.body_wraplength = cjk_char_w * 40
+
         # Loading row (used when waiting on LLM)
         self.lbl_loading = tk.Label(
             self.inner, text="", bg=self.bg, fg=self.text_meta, font=self.font_body, anchor="w"
@@ -273,7 +285,7 @@ class Tooltip:
                        font=self.font_title)
         err.pack(anchor="w")
         body = tk.Label(self.entries_frame, text=msg, bg=self.bg, fg="#b91c1c",
-                        font=self.font_body, wraplength=320, justify="left", anchor="w")
+                        font=self.font_body, wraplength=self.body_wraplength, justify="left", anchor="w")
         body.pack(fill="x", pady=(4, 0), anchor="w")
         self.lbl_source.pack_forget()
         self._reposition_if_needed()
@@ -513,7 +525,8 @@ class Tooltip:
                      font=self.font_label, width=4, anchor="w").pack(side="left", anchor="n", pady=(2, 0))
             tk.Label(row_frame, text=value, bg=self.bg,
                      fg=self.text_meta if muted else self.text_dark,
-                     font=self.font_body, wraplength=320, justify="left", anchor="w").pack(
+                     font=self.font_body, wraplength=self.body_wraplength,
+                     justify="left", anchor="w").pack(
                 side="left", fill="x", expand=True
             )
 
