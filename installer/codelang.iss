@@ -76,6 +76,8 @@ zh.NoPython=检测不到 Python (py 启动器)。codelang 需要 Python 3.10+，
 en.NoPython=Python (py launcher) was not detected. codelang requires Python 3.10+:%nhttps://www.python.org/downloads/%n%nYou can continue and install Python later. Continue?
 zh.OtherOptions=其他选项：
 en.OtherOptions=Additional options:
+zh.PipInstallStatus=正在装 codelang 运行所需的 Python 包（首次需要从 PyPI 下载几个包）...
+en.PipInstallStatus=Installing Python dependencies for codelang (one-time download from PyPI)...
 
 [Tasks]
 Name: "startupicon"; Description: "{cm:StartupTask}"; GroupDescription: "{cm:OtherOptions}"; Flags: unchecked
@@ -99,29 +101,44 @@ Source: "..\install.bat";         DestDir: "{app}";                   Flags: ign
 Source: "..\uninstall.bat";       DestDir: "{app}";                   Flags: ignoreversion
 
 [Icons]
+; Shortcuts launch via wscript.exe → codelang_launcher.vbs, NOT pythonw directly.
+; The VBS launcher first checks if Python is installed; if not it shows a
+; MsgBox offering winget install or a download link. With a direct pythonw
+; target, missing-Python failures are silent.
+
 ; Start Menu (always)
 Name: "{userprograms}\{#MyAppName}\codelang"; \
-  Filename: "{code:GetPythonwPath}"; Parameters: "{#MyAppExeArgs}"; \
+  Filename: "wscript.exe"; Parameters: """{app}\bin\codelang_launcher.vbs"""; \
   WorkingDir: "{app}"; IconFilename: "{app}\assets\logo\icon.ico"; \
   Comment: "{cm:IconComment}"
 Name: "{userprograms}\{#MyAppName}\卸载 codelang"; Filename: "{uninstallexe}"
 
 ; Desktop shortcut — always created per user's explicit request
 Name: "{userdesktop}\codelang"; \
-  Filename: "{code:GetPythonwPath}"; Parameters: "{#MyAppExeArgs}"; \
+  Filename: "wscript.exe"; Parameters: """{app}\bin\codelang_launcher.vbs"""; \
   WorkingDir: "{app}"; IconFilename: "{app}\assets\logo\icon.ico"; \
   Comment: "{cm:IconComment}"
 
 ; Startup folder shortcut (optional)
 Name: "{userstartup}\codelang"; \
-  Filename: "{code:GetPythonwPath}"; Parameters: "{#MyAppExeArgs}"; \
+  Filename: "wscript.exe"; Parameters: """{app}\bin\codelang_launcher.vbs"""; \
   WorkingDir: "{app}"; IconFilename: "{app}\assets\logo\icon.ico"; \
   Tasks: startupicon
 
 [Run]
-Filename: "{code:GetPythonwPath}"; Parameters: "{#MyAppExeArgs}"; \
+; First: pip-install the Python deps so the app can actually start.
+; Without this step the shortcut "doesn't open" because mouse/pyperclip/etc
+; aren't on the user's Python. Skipped silently if Python isn't installed
+; (the launcher VBS will catch that case at click time and guide the user).
+Filename: "{cmd}"; \
+  Parameters: "/C py -m pip install --user --disable-pip-version-check -r ""{app}\requirements.txt"""; \
+  WorkingDir: "{app}"; StatusMsg: "{cm:PipInstallStatus}"; \
+  Flags: runhidden; Check: HavePython
+
+; Then launch the app via the VBS launcher (handles missing-Python edge case).
+Filename: "wscript.exe"; Parameters: """{app}\bin\codelang_launcher.vbs"""; \
   WorkingDir: "{app}"; Description: "{cm:LaunchAppDesc}"; \
-  Flags: nowait postinstall skipifsilent runhidden
+  Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 ; Best effort: kill running instance before uninstall so files aren't locked
@@ -171,6 +188,14 @@ begin
       CachedPythonw := 'pythonw.exe';
   end;
   Result := CachedPythonw;
+end;
+
+function HavePython(): Boolean;
+begin
+  // Gates the [Run] pip-install step: only run it if py launcher is present.
+  // If Python isn't installed, skip silently — the VBS launcher will prompt
+  // the user to install Python when they click the shortcut.
+  Result := FindPythonw() <> '';
 end;
 
 function InitializeSetup(): Boolean;
