@@ -814,3 +814,358 @@
   category: jargon
   meaning: 创作内容的法律权利——你写的代码、文章、画的图自动有著作权。"代码版权属于雇主"是大多数雇佣合同的条款。
   example: 离职时把著作权交接清楚，自己业余项目除外。
+
+# ====================
+# 大厂职场邮件 / Slack / 管理缩写
+# 邮件、聊天、HR 公告里铺天盖地的两三个字母代号
+# ====================
+
+- term: OOO
+  aliases: [Out Of Office, OOF]
+  category: abbr
+  literal: Out Of Office
+  meaning: 不在岗——邮件/Slack 自动回复的标准措辞。"I'm OOO until Monday"=我休到周一。微软 Outlook 历史上叫 OOF (Out Of Facility)，意思一样。
+  example: 国庆我 OOO，紧急事找小王。
+
+- term: WFH
+  aliases: [Work From Home, 居家办公]
+  category: abbr
+  literal: Work From Home
+  meaning: 居家办公——疫情后变成全球通用语。"明天 WFH"=明天在家办公。大厂混合制（hybrid）通常允许每周 1-2 天 WFH。
+  example: 周五例行 WFH，会议照常开。
+
+- term: RTO
+  aliases: [Return To Office, 强制返岗]
+  category: abbr
+  literal: Return To Office
+  meaning: 强制回办公室上班——疫情后大厂集体推 RTO，员工怨声载道。"RTO 政策"是离职率核心驱动。和"完全 WFH"对立。
+  example: 公司宣布 RTO 5 天，一半人开始投简历。
+
+- term: EOD
+  aliases: [End Of Day, 今日下班前]
+  category: abbr
+  literal: End Of Day
+  meaning: 今天下班前——邮件 deadline 的标准说法。"send by EOD"=今天下班前发给我。具体几点看时区+岗位文化。
+  example: 这个 deck 你 EOD 给我，我连夜看。
+
+- term: COB
+  aliases: [Close Of Business, 今天收市前]
+  category: abbr
+  literal: Close Of Business
+  meaning: 今天收市前——和 EOD 几乎同义。金融行业更爱用 COB（对应交易市场收盘）。一般指当地时间 17:00 或 18:00。
+  example: 财报草稿请 COB 前 review 完。
+
+- term: ASAP
+  aliases: [as soon as possible, 越快越好]
+  category: abbr
+  literal: As Soon As Possible
+  meaning: 越快越好——但具体多快全看老板心情。"ASAP"在大厂邮件里基本等于"立刻"。年轻人现在反讽用 ASAP 暗示拖延。
+  example: 这事 ASAP 处理，下班前给我反馈。
+
+- term: TBC
+  aliases: [To Be Confirmed]
+  category: abbr
+  literal: To Be Confirmed
+  meaning: 待确认——日历邀请、议程、参会名单常用。"时间 TBC"=时间还要再定。和 TBD（待决定）区别细微，TBC 更偏"已知但需 confirm"。
+  example: 下周一开会，地点 TBC。
+
+- term: TBA
+  aliases: [To Be Announced]
+  category: abbr
+  literal: To Be Announced
+  meaning: 待公布——尚未对外/对全员宣布。新业务、新政策、嘉宾名单常见。"具体细节 TBA"是大厂公关标准措辞。
+  example: 新 CEO 人选 TBA，下周公告。
+
+- term: IIRC
+  aliases: [if I recall correctly, 如果我没记错]
+  category: abbr
+  literal: If I Recall Correctly
+  meaning: 如果我没记错——给陈述加个保险，万一记错不丢脸。Slack/邮件高频。和 AFAIK（As Far As I Know）类似。
+  example: IIRC 那个项目去年 Q3 就砍了。
+
+- term: TL;DR
+  aliases: [TLDR, too long didn't read, 太长不看]
+  category: abbr
+  literal: Too Long, Didn't Read
+  meaning: 太长不看——长文档/长邮件开头给的"精简版"。专业写作里"TL;DR" 段相当于摘要。Reddit 文化扩散到职场。
+  example: TL;DR 这次重构会让构建慢 10%，但运行时快 30%。
+
+- term: AMA
+  aliases: [ask me anything, 随便问]
+  category: abbr
+  literal: Ask Me Anything
+  meaning: 随便问——常用于 CEO 全员会、leader 公开问答环节。Reddit 起源。中国大厂叫"AMA 环节"或"高管 AMA"。
+  example: 周五 CEO AMA，提前在表单里提问题。
+
+- term: AAR
+  aliases: [after action review]
+  category: abbr
+  literal: After Action Review
+  meaning: 复盘——项目/事件结束后的回顾分析。"AAR 会议"是大事故后必备。中国互联网公司更爱直接说"复盘"。和 postmortem 同义。
+  example: 这次故障明天开 AAR，所有相关方都来。
+
+- term: SOP
+  aliases: [Standard Operating Procedure, 标准操作流程]
+  category: abbr
+  literal: Standard Operating Procedure
+  meaning: 标准操作流程——白纸黑字写下来的"步骤指南"，新人照着做不会错。客服、运营、运维强依赖 SOP。"没有 SOP"=每次都靠人肉记忆。
+  example: 上线流程要先走 SOP，缺一步都不行。
+
+- term: PTAL
+  aliases: [please take a look, 请看一下]
+  category: abbr
+  literal: Please Take A Look
+  meaning: 请你看一下——code review 请求审、文档求反馈最常用。比"can you review"更短。Google/Meta 工程文化标配。
+  example: PR 改完了 PTAL，主要看第二个 commit。
+
+- term: JFYI
+  aliases: [just for your information]
+  category: abbr
+  literal: Just For Your Information
+  meaning: 仅供参考，不需要你做什么——FYI 加强版"我就告诉你一声"。常用于抄送邮件或同步信息。
+  example: JFYI 这个 bug 我们已经在修，你那边不用动。
+
+- term: TIA
+  aliases: [thanks in advance, 提前感谢]
+  category: abbr
+  literal: Thanks In Advance
+  meaning: 提前感谢——邮件求人帮忙时的客气收尾。"Could you check this? TIA"。中国大厂英文邮件里高频。
+  example: 麻烦明天前给个反馈，TIA！
+
+- term: HRBP
+  aliases: [HR Business Partner]
+  category: abbr
+  literal: HR Business Partner
+  meaning: 派驻业务团队的 HR——和团队 leader 一起处理招聘、绩效、离职、调岗。"HRBP 三支柱"模型里的第一支柱（HRBP / COE / SSC）。绩效面谈常见 HRBP 在场。
+  example: 谈薪资找你的 HRBP，绕开 leader 没用。
+
+- term: CHRO
+  aliases: [Chief Human Resources Officer, 首席人力官]
+  category: abbr
+  literal: Chief Human Resources Officer
+  meaning: 首席人力资源官——C 级高管。大厂裁员公告通常 CHRO 出面。和 CEO 是直接对接关系。
+  example: 这次组织架构调整 CHRO 牵头，全员发邮件。
+
+- term: CEO
+  aliases: [Chief Executive Officer, 首席执行官]
+  category: abbr
+  literal: Chief Executive Officer
+  meaning: 首席执行官——公司一把手。中国互联网公司 CEO 常常也是创始人。"CEO 信"是给全员的重要公告。
+  example: CEO 周五全员信，预告组织调整。
+
+- term: CTO
+  aliases: [Chief Technology Officer, 首席技术官]
+  category: abbr
+  literal: Chief Technology Officer
+  meaning: 首席技术官——技术线最高领导。大厂 CTO 通常是 C 级里"技术布道+战略决策"双角色。和 VP Eng 区别：CTO 偏外、VP Eng 偏内。
+  example: 这次架构升级 CTO 亲自定方向。
+
+- term: CFO
+  aliases: [Chief Financial Officer, 首席财务官]
+  category: abbr
+  literal: Chief Financial Officer
+  meaning: 首席财务官——管钱的 C 级。融资、上市、财报、并购都要 CFO 拍板。上市公司 CFO 是和华尔街沟通的核心人。
+  example: CFO 上岗第一件事，往往是优化成本。
+
+- term: COO
+  aliases: [Chief Operating Officer, 首席运营官]
+  category: abbr
+  literal: Chief Operating Officer
+  meaning: 首席运营官——日常运营总管。CEO 管战略 vs COO 管执行。Facebook 的 Sheryl Sandberg 是 COO 传奇。
+  example: COO 把销售、运营、客服都管了，CEO 只用看大局。
+
+- term: CMO
+  aliases: [Chief Marketing Officer, 首席市场官]
+  category: abbr
+  literal: Chief Marketing Officer
+  meaning: 首席市场官——管品牌、广告、增长。To C 公司 CMO 权力大、To B 公司 CMO 相对弱。"CMO 离职率"是 C 级里最高的。
+  example: 新 CMO 上任三月就改了整套品牌视觉。
+
+- term: VP
+  aliases: [Vice President, 副总裁]
+  category: abbr
+  literal: Vice President
+  meaning: 副总裁——介于 director 和 C 级之间的中高管。美企 VP 通常管一条产品线或一大块业务。中国互联网公司 VP 头衔泛滥，有些公司一堆 VP。
+  example: 这事得 VP 拍板，director 决定不了。
+
+- term: EM
+  aliases: [Engineering Manager, 工程经理]
+  category: abbr
+  literal: Engineering Manager
+  meaning: 工程经理——一线技术团队 leader。在美企是"管理岗"（带人 7-10 人），区别于 IC（独立贡献者）。中国互联网叫"技术 leader"或"组长"。
+  example: 我家组的 EM 周五 1:1 跟我聊年终绩效。
+
+- term: TPM
+  aliases: [Technical Program Manager, 技术项目经理]
+  category: abbr
+  literal: Technical Program Manager
+  meaning: 技术项目经理——管跨团队大项目的进度、风险、依赖。和 PM 区别：TPM 更懂技术、协调工程师。Google/Amazon 大厂 TPM 是关键岗位。
+  example: 这次大版本上线请了个 TPM 协调三个团队。
+
+- term: HM
+  aliases: [Hiring Manager, 招聘负责人]
+  category: abbr
+  literal: Hiring Manager
+  meaning: 招聘负责人——岗位的实际用人 leader。"HM 终面"=未来你直属领导的最后一面。HM 同意才能 offer。
+  example: HM 反馈不错，等下周 HRBP 谈薪资。
+
+- term: TA
+  aliases: [Talent Acquisition, 招聘 BP]
+  category: abbr
+  literal: Talent Acquisition
+  meaning: 招聘 specialist——大厂 HR 里专门做招聘的人，区别于 HRBP（业务伙伴）和 HR ops。"TA 邀约"=招聘官打电话。
+  example: TA 周二联系我约面试时间。
+
+- term: DRI
+  aliases: [Directly Responsible Individual]
+  category: abbr
+  literal: Directly Responsible Individual
+  meaning: 直接责任人——苹果发明的概念，每个事一定有一个 DRI 兜底。中国互联网公司学的"一号位"思想同源。"谁是 DRI"是会议常问。
+  example: 这个项目 DRI 是张三，找他对接所有事。
+
+- term: DoD
+  aliases: [Definition of Done, 完成定义]
+  category: abbr
+  literal: Definition of Done
+  meaning: 完成定义——敏捷开发概念，任务做到什么程度才算"做完"。"代码写完≠DoD"，还要测试通过+code review 过+部署上线。
+  example: 这个 story 的 DoD 包含集成测试覆盖。
+
+- term: UAT
+  aliases: [User Acceptance Testing, 用户验收测试]
+  category: abbr
+  literal: User Acceptance Testing
+  meaning: 用户验收测试——开发完毕给真实用户/业务方测试，过了才能上线。To B SaaS 上线前必走 UAT。"UAT 环境"是测试用的镜像服务器。
+  example: 客户 UAT 还差 3 个问题没修，上线推迟一周。
+
+- term: BAU
+  aliases: [Business As Usual, 常规业务]
+  category: abbr
+  literal: Business As Usual
+  meaning: 常规业务——和"项目""临时活动"对应，指日常重复工作。"切回 BAU"=结束特殊项目回归日常。也指"没什么变化"。
+  example: 这周没大事，BAU 模式。
+
+- term: YTD
+  aliases: [Year To Date, 年度迄今]
+  category: abbr
+  literal: Year To Date
+  meaning: 从今年 1 月 1 日到今天为止——财务/数据报表常用。"YTD 收入"=今年到目前为止的累计收入。和 MTD（Month To Date）、QTD（Quarter To Date）配套。
+  example: YTD 营收 1.2 亿，超出预算 8%。
+
+- term: YoY
+  aliases: [year over year, 同比]
+  category: abbr
+  literal: Year over Year
+  meaning: 同比——今年这个月/季度 vs 去年同期。剔除季节性影响。"YoY +20%"=同比涨 20%。和 QoQ（环比季）、MoM（环比月）配套。
+  example: Q3 收入 YoY +35%，但 QoQ -5%。
+
+- term: QoQ
+  aliases: [quarter over quarter, 环比季]
+  category: abbr
+  literal: Quarter over Quarter
+  meaning: 环比上个季度——本季度 vs 上季度。看短期趋势用。SaaS/电商业务季度财报必出现 QoQ。
+  example: ARR QoQ +8%，订阅业务加速。
+
+- term: MoM
+  aliases: [month over month, 环比月]
+  category: abbr
+  literal: Month over Month
+  meaning: 环比上个月——本月 vs 上月。运营周报、增长团队最爱的指标。"DAU MoM +5%"=月活环比涨 5%。
+  example: 这个产品线 MoM 连续 3 个月负增长，要砍。
+
+- term: BI
+  aliases: [Business Intelligence, 商业智能]
+  category: abbr
+  literal: Business Intelligence
+  meaning: 商业智能——把数据加工成 dashboard/报表帮老板决策。Tableau、Power BI、帆软都是 BI 工具。"BI 团队"专门做数据可视化。
+  example: BI 团队帮老板拉了个 dashboard 看每天指标。
+
+- term: OT
+  aliases: [overtime, 加班]
+  category: abbr
+  literal: overtime
+  meaning: 加班——大厂英文邮件里常用。"OT till midnight"=加班到半夜。和 996/007 配套使用。"OT pay"在美国是法定加班费、在中国互联网是奢望。
+  example: 项目 deadline 临近，连续 OT 一周。
+
+- term: N/A
+  aliases: [not applicable]
+  category: abbr
+  literal: Not Applicable
+  meaning: 不适用——表格、问卷、报告里填"这一栏对我不适用"。也用作"没数据/不知道/略过"。Excel 单元格里 N/A 也代表"无值"。
+  example: 这家公司没融过资，估值这栏填 N/A。
+
+- term: CC
+  aliases: [carbon copy, 抄送]
+  category: abbr
+  literal: Carbon Copy
+  meaning: 邮件抄送——发给主收件人时附带通知其他人。来源是打字机时代的"复写纸"。中国互联网"+我抄送一下"= CC 我一份。"CC 老板"=让老板知道。
+  example: 这事抄送 CC 一下你 leader 比较稳。
+
+- term: BCC
+  aliases: [blind carbon copy, 密送]
+  category: abbr
+  literal: Blind Carbon Copy
+  meaning: 邮件密送——其他收件人看不到你 BCC 了谁。"BCC 老板"=偷偷让老板看到你已经发了，给自己留证据。办公政治常用。
+  example: 重要承诺类邮件，BCC 一份给自己存档。
+
+- term: RSVP
+  aliases: []
+  category: abbr
+  literal: Répondez s'il vous plaît
+  meaning: 法语"请回复确认"——活动邀请函的标准结尾。"RSVP by Friday"=周五前回复来不来。大厂年会、上市庆典邀请函常见。
+  example: 公司年会 RSVP 截止周三。
+
+- term: AOB
+  aliases: [Any Other Business]
+  category: abbr
+  literal: Any Other Business
+  meaning: 会议议程的最后一项「还有别的事吗？」——开放讨论环节。英美外企会议文化标配。中国会议常省略，但项目周会越来越多用 AOB。
+  example: 议程过完，AOB 大家有事说说。
+
+- term: FAQ
+  aliases: [Frequently Asked Questions, 常见问题]
+  category: abbr
+  literal: Frequently Asked Questions
+  meaning: 常见问题——产品官网、文档、Help Center 必备页面。"FAQ 答了"=问题已经在 FAQ 里写过了，自己去看。
+  example: 用户问的 80% 问题 FAQ 都有答案。
+
+- term: TAT
+  aliases: [Turn Around Time, 周转时间]
+  category: abbr
+  literal: Turn Around Time
+  meaning: 周转时间——一个请求从提交到完成的总时长。客服、HR、运维 SLA 核心指标。"TAT 缩短到 2 天"是常见目标。
+  example: 申诉工单 TAT 从 5 天压缩到 8 小时。
+
+- term: DEI
+  aliases: [Diversity Equity Inclusion, 多元包容]
+  category: abbr
+  literal: Diversity, Equity & Inclusion
+  meaning: 多元、公平、包容——欧美企业 HR 政治正确三件套。性别、种族、LGBTQ 比例、招聘公平性。2023 年后美企 DEI 政策因政治压力开始降温。
+  example: 这家美企 DEI 报告里女性高管占 35%。
+
+- term: L&D
+  aliases: [Learning and Development, 学习发展]
+  category: abbr
+  literal: Learning & Development
+  meaning: 学习发展——HR 里负责员工培训、技能提升的部门。"L&D 预算"=公司给你买课的钱。大厂常有内部学院、外部学习津贴。
+  example: L&D 给我批了 $2000 学习预算，报了个 ML 课。
+
+- term: CoE
+  aliases: [Center of Excellence, 卓越中心]
+  category: abbr
+  literal: Center of Excellence
+  meaning: 卓越中心——HR/技术里的专家中心，给业务团队提供专业咨询。HR 三支柱里的"COE"层（HRBP/COE/SSC）。技术 CoE 常见于安全、数据。
+  example: 数据 CoE 团队给所有业务线做支持。
+
+- term: SSC
+  aliases: [Shared Service Center, 共享服务中心]
+  category: abbr
+  literal: Shared Service Center
+  meaning: 共享服务中心——HR 三支柱里的执行层，处理工资、入离职手续、社保公积金。和 HRBP（业务伙伴）、CoE（专家中心）配套。"SSC 工单"是入职常见词。
+  example: 报销问题去 SSC 提工单，HRBP 不管。
+
+- term: HRD
+  aliases: [HR Director, 人力资源总监]
+  category: abbr
+  literal: HR Director
+  meaning: 人力总监——HR 部门的中高管。比 HRBP 高、比 CHRO 低。大厂里 HRD 负责一个 BU 或一个职能（如招聘 HRD）。
+  example: HRD 周五开全员宣讲新绩效政策。

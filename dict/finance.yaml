@@ -1302,8 +1302,8 @@
   aliases: [private fund, PE]
   category: jargon
   literal: private fund / private equity
-  meaning: 面向合格投资者的基金——100 万起、监管宽松、策略灵活（量化、多空、衍生品）。VC/PE 都是私募，二级私募是炒股的。
-  example: 这只量化私募收 2-20 费率，业绩还不错。
+  meaning: ① **PE 私募基金（资管含义）**——面向合格投资者的基金，100 万起、监管宽松、策略灵活（量化、多空、衍生品）。VC/PE 都是私募，二级私募是炒股的。② **P/E（市盈率）**——股价/每股收益的另一个常见缩写。茅台 P/E 30=30 年利润回本，成长股动辄 PE 50-100。详见 [P/E] 词条。判断语境：说"PE 50 倍"基本是市盈率；说"PE 募了 5 亿"基本是私募基金。③ **物理 PE = 聚乙烯**（塑料分类号）——和金融无关。
+  example: 资管圈 "这只 PE 基金 2-20 费率"；股市 "茅台 PE 30 不算贵"；化工 "PE 塑料"是聚乙烯。
 
 - term: 对冲基金
   aliases: [hedge fund]
@@ -2481,7 +2481,7 @@
   example: 我们模型 30 个因子，IC 0.05。
 
 - term: 动量
-  aliases: [momentum, MOM]
+  aliases: [momentum]
   category: jargon
   literal: momentum factor
   meaning: 涨过的股票继续涨的因子——经典 alpha 来源。"动量崩盘"=大幅反转时动量策略最惨（2009 年 4 月、2020 年 11 月）。

@@ -35,10 +35,10 @@
   example: 双 11 流量太大，淘宝主动关掉"猜你喜欢"模块，只让你下单付款，这叫降级。
 
 - term: 限流
-  aliases: [rate limit, rate limiting, throttle, throttling]
+  aliases: [rate limit, rate limiting, throttle, throttling, 限速, 限频]
   category: devterm
-  literal: 限制流量
-  meaning: 想象网红店门口的保安：每分钟只放十个人进去，超出的乖乖排队或者明天再来。代码限流一样，给某个接口规定"每秒最多 1000 个请求"，第 1001 个直接被拒在门外。不限流的话流量一暴涨服务就被挤爆。
+  literal: rate limit / throttle
+  meaning: ① **后端限流（默认含义）**——想象网红店门口的保安：每分钟只放十个人进去，超出的乖乖排队或者明天再来。代码限流一样，给某个接口规定"每秒最多 1000 个请求"，第 1001 个直接被拒在门外（返 HTTP 429）。不限流的话流量一暴涨服务就被挤爆。OpenAI 按 RPM/TPM、GitHub API 5000/h、Twitter 早期 150/h 都是 rate limit。② **常见实现**：token bucket（令牌桶，允许 burst）vs leaky bucket（漏桶，严格匀速）。③ **前端 throttle** 是不同概念——同名但指 UI 事件节流（scroll/input 每 200ms 触发一次），看 [节流] 词条。判断语境：后端 SRE/API 谈 throttle 是限流、前端工程师谈 throttle 是事件节流。
   example: 抢演唱会门票时网站让你"排队中"，那个排队就是限流在挡你。
 
 - term: 中间件
@@ -178,10 +178,10 @@
   example: 朋友圈点赞数走 BASE，几秒同步上没人在意。
 
 - term: CAP
-  aliases: [CAP 理论]
+  aliases: [CAP 理论, cap, capped]
   category: devterm
-  literal: Consistency, Availability, Partition tolerance
-  meaning: 分布式系统三个特性像不可能三角——一致（大家看到的数据完全一样）、可用（永远能响应）、能抗网络断裂——只能保两个。现实里网络总会断，所以实际选择变成"宁可暂时拒绝服务也要一致"还是"宁可数据暂时不同也要响应"。
+  literal: Consistency, Availability, Partition tolerance / cap (限额)
+  meaning: ① **CAP 定理（分布式系统，大写）**——三个特性像不可能三角：一致（大家看到的数据完全一样）、可用（永远能响应）、能抗网络断裂——只能保两个。现实里网络总会断，所以实际选择变成"宁可暂时拒绝服务也要一致"还是"宁可数据暂时不同也要响应"。② **cap（小写，限额封顶）**——花费/资源/收益的最大值。"capped at $100/month"=最多收 100 刀。和"unlimited / uncapped"相对。SaaS 套餐 "monthly cap $20"=月费封顶 20 刀。③ **市值 market cap**（金融，简称 cap）——total market capitalization 的缩写，公司值多少钱。"large cap / mid cap / small cap"=大/中/小盘股。判断语境：分布式系统的 CAP 必大写；定价/套餐里的 cap 是限额；股市 cap 是市值。
   example: 银行转账系统选 CP（不一致宁可拒服务），抖音首页选 AP（先给你看，可能不是最新的）。
 
 - term: 索引
@@ -1050,9 +1050,10 @@
   example: 写爬虫用 asyncio + aiohttp 同时拉 1000 个网页，比同步快几十倍。
 
 - term: pip
+  aliases: [PIP]
   category: devterm
-  meaning: 想象 App Store——你想要的 Python 库都在仓库里，一行命令就装上。pip 是 Python 的官方包管理器，3000 万开发者每天用它装第三方库。`pip install requests` 就是从仓库下载安装 requests 库。
-  example: 装个流行库：pip install pandas，几秒钟就能用上。
+  meaning: ① **Python 包管理器（开发圈默认含义）**——想象 App Store，你想要的 Python 库都在仓库里，一行命令就装上。3000 万开发者每天用它装第三方库。`pip install requests` 就是从 PyPI 下载安装 requests 库。② **PIP（HR 场景）= Performance Improvement Plan**，绩效改进计划——劝退式 30/60/90 天考察，过不了就走，外企尤其常见。"被 PIP 了"= 一只脚跨出门。详见 [PIP 绩效] 词条。
+  example: 开发里 `pip install pandas` 装库；HR 里"他被 PIP 了"=要被劝退。
 
 - term: venv
   aliases: [virtualenv, 虚拟环境]
@@ -2849,8 +2850,8 @@
 - term: Apple Silicon
   aliases: [M1, M2, M3, M4, 苹果芯片]
   category: devterm
-  meaning: 苹果自研的 ARM 架构 CPU——M1 起替代 Intel x86。性能强、功耗低。导致整个 macOS 生态从 Intel 迁移到 ARM。
-  example: 这台 MacBook 是 M3 芯，跑 AI 模型本地化。
+  meaning: ① **苹果自研芯片（开发/硬件默认含义）**——ARM 架构 CPU，M1 起替代 Intel x86。性能强、功耗低。导致整个 macOS 生态从 Intel 迁移到 ARM。② **M2（宏观经济含义）= 广义货币供应量**，全社会"流通现金+储蓄+定期存款"的总量——通胀和资产价格的根源。M2 增速远超 GDP=钱多东西少，资产涨价。新闻"中国 M2 同比 9%"说的就是这个 M2，和 MacBook 芯片没关系。
+  example: MacBook 用的是 M2 芯；央行报告里"M2 同比 +9%"是货币供应量。
 
 - term: provisioning profile
   aliases: [描述文件]
@@ -2992,3 +2993,85 @@
   category: platforms
   meaning: 腾讯的项目管理 SaaS——免费+收费。功能类似 Jira+禅道，主要在中国互联网中小公司流行。
   example: 这家公司全套腾讯系，TAPD + 企业微信。
+
+# ====================
+# 限流 / 容量 / 配额 / 弹性
+# 后端工程、SRE、SaaS 计费里"用多少给多少"那一类词
+# ====================
+
+- term: quota
+  aliases: [配额, 额度, 用量限额]
+  category: devterm
+  literal: quota / allocation
+  meaning: ① **资源配额（云/API/SaaS 默认含义）**——你能用多少资源的上限。AWS 每个 service 都有 quota（如 EC2 实例数）、OpenAI API 有 token quota、ChatGPT Plus 有 message quota、k8s 有 ResourceQuota 限制 namespace。② **销售配额（HR/销售含义）**——sales rep 季度/年度要达成的业绩目标（"完成 quota 拿奖金"），完不成丢饭碗。③ **政策配额**——录取/招聘里的"少数族裔 quota"、贸易里的"进口 quota"。④ **Linux disk quota**——给每个用户限磁盘空间。判断语境：技术里默认①、销售对话里①、新闻政策里③。
+  example: 技术 "AWS EC2 quota 默认 20 台，需要 case 提配"；销售 "Q4 还差 30% 没完成 quota"。
+
+- term: token bucket
+  aliases: [令牌桶]
+  category: devterm
+  literal: token bucket algorithm
+  meaning: 限流经典算法——桶里按固定速率往里加令牌（如 10 个/秒），请求来了消耗一个令牌，桶空了就拒。可以"攒余额"应对突发流量（最多攒满整桶）。和漏桶相比：token bucket 允许 burst，漏桶严格匀速。Nginx limit_req、AWS、GCP 都用 token bucket。
+  example: 用 token bucket 实现 burst-friendly 限流。
+
+- term: leaky bucket
+  aliases: [漏桶]
+  category: devterm
+  literal: leaky bucket algorithm
+  meaning: 限流算法——请求来了进桶（满了就丢），桶按固定速率"漏"出去处理。和 token bucket 区别：leaky 严格匀速、不允许 burst。适合需要平滑流量的场景（如对接外部支付系统）。
+  example: 出口流量用漏桶整形，避免下游被打挂。
+
+- term: 429
+  aliases: [Too Many Requests, HTTP 429]
+  category: devterm
+  literal: HTTP 429 Too Many Requests
+  meaning: HTTP 状态码——"你请求太多了，喘口气再来"。被 rate limit/throttle 时服务端返这个。OpenAI、GitHub、Twitter 都用 429。配合 `Retry-After` header 告诉客户端多久后再试。看见 429 第一反应：加退避重试 + 降并发。
+  example: OpenAI API 返 429，加 exponential backoff 重试。
+
+- term: jitter
+  aliases: [随机抖动, 退避抖动]
+  category: devterm
+  literal: jitter (in retry/scheduling)
+  meaning: 给重试等待时间加随机抖动——比如 backoff 算出"等 4 秒"，实际等 3.5-4.5 秒之间随机值。目的：避免所有失败客户端同步重试形成"惊群"。AWS 推荐 "full jitter"：实际等 random(0, base*2^n)。
+  example: backoff 必须加 jitter，否则同步雪崩。
+
+- term: thundering herd
+  aliases: [惊群效应, 雪崩重试]
+  category: devterm
+  literal: thundering herd problem
+  meaning: 服务一旦恢复，所有等待的客户端同时涌入把它再次打挂——"惊群"踩踏。缓存雪崩、CDN 回源、重试同步都是惊群典型。用 exponential backoff + jitter + 错峰重试避免。
+  example: 缓存全失效引发 thundering herd，DB 被打爆。
+
+- term: backpressure
+  aliases: [背压, 反压, 反压机制]
+  category: devterm
+  literal: backpressure
+  meaning: 下游处理不过来时"向上游施压"让它慢下来——流处理/反应式系统核心概念。Kafka 消费慢 → 生产者堆积 → 触发 backpressure。Reactive Streams、Flink、Akka 都内建。没 backpressure 的 pipeline 一旦下游卡住会爆 OOM。
+  example: 这个流处理没设 backpressure，下游慢 5 分钟内存就爆。
+
+- term: bulkhead
+  aliases: [bulkhead pattern, 隔板模式, 舱壁模式]
+  category: devterm
+  literal: bulkhead pattern
+  meaning: 弹性设计模式——像船的水密舱壁，一个舱进水不会沉全船。把不同业务的资源（线程池、连接池）隔开，A 业务挂了不会拖死 B 业务。Hystrix、Resilience4j 标配模式。和 circuit breaker（熔断）、retry（重试）合称"弹性三件套"。
+  example: 关键支付路径单独 bulkhead 一个线程池，不和其他业务挤。
+
+- term: hard limit
+  aliases: [硬限, 硬限制]
+  category: devterm
+  literal: hard limit
+  meaning: 不可超越的死线——触到就拒绝/报错。Linux ulimit 的 hard limit 是 root 才能改、user 只能在 soft limit 内动。和 soft limit（软限，警告但允许超）相对。SaaS quota 通常 hard limit（超了 429）。
+  example: 文件描述符 hard limit 65536，没法再开更多连接。
+
+- term: soft limit
+  aliases: [软限, 软限制]
+  category: devterm
+  literal: soft limit
+  meaning: 警告级上限——超过会提醒/降级但不立刻拒绝。Linux ulimit 里普通 user 可在 soft 和 hard 之间动。SaaS 常用"soft limit 警告 + hard limit 强制"两段式。
+  example: API quota soft limit 80% 时邮件提醒，100% 才 throttle。
+
+- term: fair-use policy
+  aliases: [公平使用政策, FUP]
+  category: devterm
+  literal: fair-use policy
+  meaning: 标榜"unlimited"但暗藏限制的政策——电信"无限流量"超过 100GB 后限速、SaaS "unlimited seats" 但单租户超 1000 人要谈商务。"无限"在合同里基本都是 fair-use 包装。注意和版权法的 fair use（合理使用，免侵权）不同。
+  example: 这个"unlimited" plan 实际有 fair-use cap，每天 10 万 API。

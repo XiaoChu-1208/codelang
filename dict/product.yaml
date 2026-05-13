@@ -344,10 +344,10 @@
   example: 画完用户旅程图，发现客服环节是最大流失点。
 
 - term: 产品经理
-  aliases: [PM, Product Manager]
+  aliases: [PM, Product Manager, Project Manager, 项目经理, PMP]
   category: jargon
-  meaning: 互联网公司岗位——负责定义产品做什么、怎么做、什么时候做。需求写得好坏直接决定产品命运。常被吐槽"啥也不会但啥都管"。
-  example: 这个产品经理写需求很细，开发抱怨也少。
+  meaning: ① **产品经理（中国互联网默认含义）**——负责定义产品做什么、怎么做、什么时候做。需求写得好坏直接决定产品命运。常被吐槽"啥也不会但啥都管"。② **项目经理（欧美/传统行业含义）**——管时间、资源、风险，推进项目按时上线。PMP 认证就是给这种 PM 考的。互联网公司里"PM"基本指产品经理，但和欧美/外企同事说 PM 多半指 Project Manager，要小心歧义。③ **TPM**（Technical Program Manager）介于两者之间，偏技术、跨团队协调。
+  example: 中国互联网公司说"我们 PM 还没出 PRD"——肯定是产品经理；美企 stand-up 里"PM is tracking the milestone"——多半是项目经理。
 
 - term: PRD
   aliases: [Product Requirements Document, 需求文档]
@@ -506,5 +506,101 @@
   literal: Customer Satisfaction Score
   meaning: 客户满意度——通常问"这次服务你打几分（1-5）"，算 4-5 分比例。客服/售后场景常用。和 NPS 互补，CSAT 看具体一次体验。
   example: 客服 CSAT 这季度 92%，达标。
+
+# ====================
+# SaaS 计费 / 套餐 / 用量
+# 订阅制时代的"定价模型"高频词
+# ====================
+
+- term: free tier
+  aliases: [免费版, 免费档]
+  category: jargon
+  literal: free tier
+  meaning: SaaS/云的免费档——通常限功能/限用量。AWS Free Tier 12 个月内 EC2 t2.micro 750 小时免费、OpenAI 给新用户 $5 试用、Notion 个人版功能基本全开。free tier 是 SaaS 标配获客手段，目标是把用户升级到付费档。
+  example: 先用 free tier 把团队拉上来，三个月后再谈 paid。
+
+- term: paid tier
+  aliases: [付费档, paid plan]
+  category: jargon
+  literal: paid tier / paid plan
+  meaning: SaaS 的付费档——常分 Starter/Pro/Business/Enterprise 几档，越往上越贵+越多功能/配额。SaaS 三层定价 freemium → paid → enterprise 是经典模式。Enterprise 通常"contact sales"不公开报价。
+  example: 用户量超 50 必须升 Business tier，每月多 200 刀。
+
+- term: freemium
+  aliases: [免费增值, free + premium]
+  category: jargon
+  literal: freemium (free + premium)
+  meaning: SaaS 商业模式——基础功能永久免费、高级功能付费。Spotify、Notion、Slack 都是典型。和"免费试用"区别：freemium 永远免费、试用版限时。"freemium 转化率"是 SaaS 健康度核心指标。
+  example: Notion 是 freemium，95% 用户永远免费 + 5% 付费养整个公司。
+
+- term: usage-based pricing
+  aliases: [按量计费, pay as you go, PAYG, consumption pricing]
+  category: jargon
+  literal: usage-based / consumption-based pricing
+  meaning: 按实际用量收费——AWS 按 CPU 小时、Snowflake 按查询计算单位、OpenAI 按 token、Twilio 按短信条数。和"按席位订阅"对立。"用多少花多少"看着合理但月底账单常常爆炸。
+  example: 这家从 seat-based 转 usage-based，ARPU 涨 3 倍但 churn 也涨。
+
+- term: seat-based pricing
+  aliases: [按席位计费, per-seat pricing]
+  category: jargon
+  literal: seat-based / per-seat pricing
+  meaning: 按用户数收费——Notion 每席 $10/月、Slack 每席 $7.25/月。SaaS 传统主流模式。优点：可预测；缺点：用户加得快公司利润涨不动（一个公司就一份钱）。
+  example: 这家 50 人团队 Notion 每月 $500，seat-based 模式。
+
+- term: overage
+  aliases: [超额, 超量费, overage fee]
+  category: jargon
+  literal: overage / overage charge
+  meaning: 超出套餐用量的额外收费——AWS 流量超 100GB 后 $0.09/GB、电信"流量包用完后按 5 元/GB"。"overage 收费"是 SaaS 利润大头之一。设计良好的定价让用户既不敢用太多（贵）也不敢用太少（不值）。
+  example: 上月超用 50GB，overage 多收 $4.5。
+
+- term: credit
+  aliases: [信用额, 积分, API credit]
+  category: jargon
+  literal: credit (in SaaS/API context)
+  meaning: SaaS/API 的"内部货币"——预充值 $10 credit 兑换 N 个 API 调用。OpenAI、Anthropic、Replicate 都用 credit 系统。优点：用户感觉不到具体金额、方便促销（送 $5 credit）；缺点：不透明（每个 endpoint 单价不同）。
+  example: 充 $20 送 $5 credit，活动期间转化暴涨。
+
+- term: billing cycle
+  aliases: [计费周期, billing period]
+  category: jargon
+  literal: billing cycle
+  meaning: 一个计费周期——通常按月或按年。月付灵活但贵 15-25%、年付便宜但绑死。"billing cycle reset"= 用量清零、月度限额重置。SaaS 财务/留存指标都按 billing cycle 算。
+  example: 月初 billing cycle reset，quota 重置。
+
+- term: annual contract
+  aliases: [年单, annual commit, ACV 合同]
+  category: jargon
+  literal: annual contract
+  meaning: 客户签 12 个月的合同——SaaS 销售最爱（一次锁住一年现金流）。常配合年付折扣（比月付便宜 15-20%）。"annual commit"是更弱版本（承诺一年但月付）。和 monthly subscription 相对。
+  example: 这家年单 $120k 比月付节省 $30k。
+
+- term: TCV
+  aliases: [Total Contract Value, 合同总额]
+  category: abbr
+  literal: Total Contract Value
+  meaning: 一份合同的总金额——多年合同尤其重要。3 年合同 $30k/年 → TCV $90k。和 ACV（Annual Contract Value，年度合同额）配套。投资人看 SaaS 估值常用 TCV 估算 backlog。
+  example: 签了 3 年合同，TCV $300k。
+
+- term: ACV
+  aliases: [Annual Contract Value, 年度合同额]
+  category: abbr
+  literal: Annual Contract Value
+  meaning: 一份合同每年贡献多少收入——多年合同就是 TCV/年数。和 ARR 区别：ARR 是全公司层面、ACV 是单合同层面。"new ACV"是销售团队的核心 KPI。
+  example: 销售季度目标是 new ACV $500k。
+
+- term: expansion revenue
+  aliases: [扩张收入, 增购]
+  category: jargon
+  literal: expansion revenue
+  meaning: 老客户多花的钱——加席位、升级套餐、买附加功能。NRR > 100% 全靠 expansion。"land and expand"是 SaaS 销售圣经：先小单进门，再做大。
+  example: Snowflake NRR 158% 几乎都是 expansion 贡献。
+
+- term: land and expand
+  aliases: [先入门后增购, 渗透增购]
+  category: jargon
+  literal: land and expand
+  meaning: SaaS 销售圣经——先签小单"落地"（land），再通过更多席位/部门/产品做大（expand）。Atlassian/Snowflake/Datadog 都是这套打法。bottom-up SaaS 必备策略。
+  example: 这家 land and expand 玩得溜，3 年单客户合同涨 10 倍。
 
 

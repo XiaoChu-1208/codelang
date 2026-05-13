@@ -241,10 +241,10 @@
   example: 给 User class 加一个 fullName method。
 
 - term: variable
-  aliases: [var, 变量]
+  aliases: [var, 变量, VaR]
   category: devterm
-  meaning: 字面"可变的盒子"——给一个值起个名字方便引用。比如 let name = "Alice" 这一句，name 就是变量。
-  example: 临时存数据用 variable，但别给变量起 a/b/x/y 这种无意义名字。
+  meaning: ① **变量（编程默认含义）**——字面"可变的盒子"，给一个值起个名字方便引用。比如 `let name = "Alice"`，name 就是变量。JS 里 `var` 是声明关键字。② **VaR（金融含义）= Value at Risk 在险价值**——风险量化的标准工具，"95% 概率下一天最多亏多少"。"VaR 100 万 / 95%"=有 5% 概率单日亏超 100 万。08 年危机后被诟病低估尾部风险。判断语境：代码/Python/JS 里是变量；交易/风控/资管报告里是 VaR。
+  example: 编程 "用 variable 存数据"；风控 "这组合 95% VaR 200 万"。
 
 - term: constant
   aliases: [const, 常量]

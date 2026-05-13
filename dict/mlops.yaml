@@ -70,11 +70,11 @@
   example: 数仓从 Hive 切到 Iceberg，能做 schema 演化了。
 
 - term: Delta Lake
-  aliases: [Delta]
+  aliases: [Delta, delta]
   category: platforms
   literal: Delta Lake
-  meaning: Databricks 推的"湖仓"格式——和 Iceberg、Hudi 是同一类东西，给数据湖加事务/版本/时间旅行能力。三家在抢同一个生态位。
-  example: 数据湖用 Delta Lake，能直接 upsert。
+  meaning: ① **Delta Lake / Delta（数据工程默认含义）**——Databricks 推的"湖仓"格式，和 Iceberg、Hudi 是同一类东西，给数据湖加事务/版本/时间旅行能力。三家在抢同一个生态位。② **delta（期权希腊字母）**——期权价格对标的资产价格的敏感度，0 到 1（call）或 -1 到 0（put）。平值期权 delta≈0.5。"delta 中性"=多空 delta 相抵无方向敞口。和 gamma/theta/vega 合称 Greeks。③ **数学/科学含义 Δ**——变化量、增量符号。
+  example: 数据湖 "用 Delta Lake 做 upsert"；期权 "这单 delta 0.5"；数学 "Δx = 微小变化量"。
 
 - term: Parquet
   aliases: []
