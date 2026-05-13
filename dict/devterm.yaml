@@ -2998,6 +2998,236 @@
   example: 这家公司全套腾讯系，TAPD + 企业微信。
 
 # ====================
+# Git 基操高频词 + 邮件会议日常英文
+# 看似简单但漏了一堆，补齐
+# ====================
+
+- term: main
+  aliases: [main branch, 主分支]
+  category: devterm
+  literal: main branch
+  meaning: Git 仓库的默认主分支——2020 年起 GitHub/GitLab 把默认分支名从 `master` 改成 `main`（去掉奴隶制隐喻）。`git checkout main` 切到主分支。新项目都是 main、老项目（5 年前）大概率还是 master。"推到 main"=部署生产前的最后一步。
+  example: PR 合到 main 之后 CI 自动部署 staging。
+
+- term: master
+  aliases: [master branch]
+  category: devterm
+  literal: master branch (legacy)
+  meaning: Git 老的默认主分支名——2020 年因奴隶制语义争议，业界陆续改名 main。GitHub 新建仓库默认 main、老仓库仍叫 master。Linux 内核、PostgreSQL 等老项目仍保留 master。和 main 在功能上完全等价。
+  example: 老项目还是 master 分支，合并 PR 时注意目标。
+
+- term: pull
+  aliases: [git pull, 拉取]
+  category: devterm
+  literal: git pull
+  meaning: 把远程仓库最新代码"拉"到本地——本质是 fetch + merge。"先 pull 再 push"是协作铁律，不然容易冲突。"pull 出冲突"=别人改了同一行你也改了。
+  example: 早上来公司第一件事 git pull，同步队友昨晚的提交。
+
+- term: push
+  aliases: [git push, 推送]
+  category: devterm
+  literal: git push
+  meaning: 把本地 commit "推"到远程仓库——别人才能看到。"push 失败"通常是远程有新提交、需要先 pull。"force push"（-f）危险，会覆盖远程历史，只能在自己的分支上用。
+  example: 改完代码 git push origin feature/login，等 PR review。
+
+- term: fetch
+  aliases: [git fetch]
+  category: devterm
+  literal: git fetch
+  meaning: 只下载远程更新但不合并到当前分支——pull 的"温和版"（pull = fetch + merge）。想先看看远程有啥变化再决定怎么合，用 fetch。`git fetch origin && git log origin/main` 是常见姿势。
+  example: 用 fetch 看下队友改了啥，再决定 merge 还是 rebase。
+
+- term: clone
+  aliases: [git clone, 克隆]
+  category: devterm
+  literal: git clone
+  meaning: 把远程仓库整个"克隆"到本地——拿到完整代码+完整 git 历史。`git clone <url>` 是开 Day 1 第一条命令。"shallow clone"（--depth 1）只克隆最近 N 条提交、省磁盘。
+  example: 新人入职第一步：git clone 项目地址。
+
+- term: checkout
+  aliases: [git checkout, 切分支]
+  category: devterm
+  literal: git checkout
+  meaning: 切换分支或恢复文件——`git checkout main` 切到 main 分支、`git checkout -b new-branch` 新建+切换。Git 2.23 后拆成 `git switch`（切分支）和 `git restore`（恢复文件）但老习惯仍用 checkout。
+  example: git checkout -b feature/login 新开分支干活。
+
+- term: revert
+  aliases: [git revert, 回滚提交]
+  category: devterm
+  literal: git revert
+  meaning: 撤销某次提交的影响——不删历史，而是生成一个"反向 commit"。和 `git reset` 区别：revert 安全（已推出去的提交也能用）、reset 危险（会改历史）。生产环境出 bug 紧急回退用 revert。
+  example: 上线后发现 bug，git revert 那个 commit 立刻回滚。
+
+- term: reset
+  aliases: [git reset, 重置]
+  category: devterm
+  literal: git reset
+  meaning: 把分支指针往回挪——`--soft` 保留改动、`--hard` 全删（危险）。"reset 后丢代码"是新手常见悲剧。已推到远程的提交别 reset，用 revert。
+  example: 不小心 commit 了密码，git reset --soft HEAD~1 退回再改。
+
+- term: git tag
+  aliases: [version tag, release tag]
+  category: devterm
+  literal: git tag
+  meaning: 给某次 commit 打个永久"标签"——通常用来标记 release 版本（v1.0.0、v2.1.3）。`git tag v1.0` 创建、`git push --tags` 推到远程。GitHub Release 基于 tag 创建。
+  example: 发版前 git tag v2.3.0，CI 检测到 tag 自动构建 release。
+
+- term: remote
+  aliases: [git remote, 远程仓库]
+  category: devterm
+  literal: git remote
+  meaning: 一个 git 仓库可以挂多个"远程地址"——默认叫 origin。`git remote -v` 看所有远程、`git remote add upstream <url>` 加上游仓库。开源项目 fork 后常配 origin（你的 fork）+ upstream（原仓库）。
+  example: 加个 upstream 远程同步原项目的更新。
+
+- term: amend
+  aliases: [git commit --amend, 修补提交]
+  category: devterm
+  literal: git commit --amend
+  meaning: 修改最近一次 commit——加遗漏的文件、改 commit message。本质是用新 commit 替换上一个。**已推出去的 commit 别 amend**（会改历史，必须 force push 又得罪队友）。
+  example: 漏加文件了 git commit --amend --no-edit 一下。
+
+- term: blame
+  aliases: [git blame, 追责]
+  category: devterm
+  literal: git blame
+  meaning: 看每一行代码"是谁什么时候改的"——bug 排查神器。"git blame 一下"=找出甩锅对象，结果常常是"哦原来是我自己写的"。IDE/GitHub 都集成 blame 视图。
+  example: 这行诡异代码 git blame 一下，发现是三年前的自己。
+
+- term: reflog
+  aliases: [git reflog]
+  category: devterm
+  literal: git reflog
+  meaning: 记录所有 HEAD 移动操作的日志——丢失的 commit/分支救星。误 `reset --hard` 删了 commit？`git reflog` 找到 hash 再 `git reset` 回去。"Git 没有真正的删除"全靠 reflog。
+  example: 不小心 reset 删了 3 个 commit，reflog 找回来。
+
+- term: log
+  aliases: [git log, 提交历史]
+  category: devterm
+  literal: git log
+  meaning: 看 commit 历史——`git log --oneline --graph` 一屏看完。"翻 log"=查项目历史。配合 `--author=<name>` 查特定人改了啥、`--since="2 weeks"` 看近期提交。
+  example: git log --oneline -10 看最近 10 个提交。
+
+- term: status
+  aliases: [git status]
+  category: devterm
+  literal: git status
+  meaning: 看当前仓库的"健康状态"——哪些文件改了、哪些 staged、当前在哪个分支。Git 用户每天敲几十遍。"敲 git status 是肌肉记忆"。
+  example: 每写几行代码就 git status 一下确认状态。
+
+- term: trunk
+  aliases: [trunk-based development, 主干开发]
+  category: devterm
+  literal: trunk-based development
+  meaning: 所有人直接往主干提交、不开长期分支的开发模式——和 git-flow（多分支）相对。Google、Facebook 大厂主流。优点：合并冲突少、CI 简单；代价：要严格的代码 review + feature flag。
+  example: 我们从 git-flow 切 trunk-based 后发版频率翻倍。
+
+- term: recap
+  aliases: [回顾, 总结, recap meeting]
+  category: jargon
+  literal: recap
+  meaning: 简短回顾上次/本次内容——"会议 recap"是开完会发邮件总结 action items 和决议。"recap 一下"=快速过一遍要点。比"summary"更口语+轻量。Slack 里"recap 给没参加的同事"是常见操作。
+  example: 我会后发个 recap 邮件，把决议同步给没参会的人。
+
+- term: follow-up
+  aliases: [followup, 跟进, follow up]
+  category: jargon
+  literal: follow-up
+  meaning: 后续跟进——"send a follow-up"=发个跟进邮件催进度。"follow-up meeting"=后续会议。中国互联网混搭说"follow 一下这个事"。是职场最高频英文动词之一。
+  example: 这事我 follow-up 一下，下周给你结果。
+
+- term: circle back
+  aliases: [come back to, get back to]
+  category: jargon
+  literal: circle back
+  meaning: 美式职场"等会儿再聊"的客气说法——"let's circle back on this next week"=下周再聊这事。常用于会议里把话题暂时搁置不撕破脸。被吐槽是企业黑话冠军之一。
+  example: We'll circle back on the pricing strategy next sprint.
+
+- term: loop in
+  aliases: [loop you in, looping in]
+  category: jargon
+  literal: loop in
+  meaning: 把某人拉进对话/邮件链——"loop in @张三"=把张三加进来一起讨论。Slack/邮件高频。和"+我一下"中文版同义。
+  example: Loop in 设计师看下这个改动，UI 要重做。
+
+- term: touch base
+  aliases: [tag up]
+  category: jargon
+  literal: touch base
+  meaning: 美式职场"简单同步一下进展"——"let's touch base on Friday"=周五简单聊聊。比 sync 更随意、比 meeting 更轻。和 circle back 一起被吐槽企业黑话。
+  example: Let's touch base tomorrow on the migration plan.
+
+- term: action item
+  aliases: [AI, 待办事项]
+  category: jargon
+  literal: action item
+  meaning: 会议产出的"具体要做的事+负责人+deadline"三件套——例如 action item：张三 周五前出方案。开完会有 action items 才算有效。会议纪要核心。注意 AI 这缩写在 AI 时代有歧义、写全更安全。
+  example: 这次会议出了 5 个 action items，每个都有 owner。
+
+- term: standup
+  aliases: [stand-up, 站会, daily standup]
+  category: jargon
+  literal: daily standup
+  meaning: 敏捷开发的每日站会——每人说三件事：昨天干啥、今天干啥、有啥阻塞。15 分钟内站着开（强制不超时）。Scrum 流程核心。远程团队改坐着开但还叫 standup。
+  example: 每天 10 点 standup，每人 1 分钟内说完。
+
+- term: cheatsheet
+  aliases: [cheat sheet, 速查表, 小抄]
+  category: devterm
+  literal: cheat sheet
+  meaning: 一页纸把常用命令/快捷键全列出来——程序员桌上必备。Git cheatsheet、Vim cheatsheet、Regex cheatsheet 都是新手救星。"cheat" 字面是作弊但语义是"快速参考"。
+  example: 学正则之前先打印一份 regex cheatsheet。
+
+- term: gist
+  aliases: [GitHub Gist]
+  category: devterm
+  literal: GitHub Gist
+  meaning: GitHub 的"代码片段托管"——分享一小段代码不用建仓库。可以是公开/私有、支持版本控制。教程、StackOverflow 答案常配 gist 链接。
+  example: 这段配置太长，扔 gist 里贴链接给你。
+
+- term: sunset
+  aliases: [sunsetting, 下线]
+  category: devterm
+  literal: sunset (product/service)
+  meaning: 产品/服务即将"日落下线"的委婉说法——比"shutdown"温和。Google 是 sunset 大户（Reader、Hangouts、Inbox 一个接一个）。"sunset 公告"通常提前 6-12 个月通知。
+  example: Google 宣布 sunset Hangouts，2024 年彻底关停。
+
+- term: EOL
+  aliases: [End Of Life, 生命周期结束]
+  category: abbr
+  literal: End Of Life
+  meaning: 产品/版本"寿命终结"——之后不再维护、不出补丁、不修 bug。Python 2 2020 年 EOL、Windows 7 2020 年 EOL。"EOL 还在用"是企业 IT 的安全噩梦。
+  example: Node 14 已 EOL，必须升级到 18 LTS。
+
+- term: migrate
+  aliases: [migration, 迁移]
+  category: devterm
+  literal: migrate / migration
+  meaning: 把数据/系统/代码从一个地方搬到另一个地方——数据库迁移、云迁移、框架升级都叫 migration。"零停机迁移"是高级活。Django/Rails 的 "migration" 是数据库 schema 变更的特定术语。
+  example: 这次从 MySQL 迁到 PostgreSQL，migration 计划做了一个月。
+
+- term: backport
+  aliases: [向后移植]
+  category: devterm
+  literal: backport
+  meaning: 把新版本的修复/功能"反向移植"到老版本——LTS 版本常要 backport 安全补丁。和 forward port（往新版本搬）相反。Linux 内核、Python、Kubernetes 都有 backport 政策。
+  example: 这个 CVE 修复要 backport 到 v5.10 LTS。
+
+- term: hunk
+  aliases: [代码块, diff hunk]
+  category: devterm
+  literal: hunk (in diff)
+  meaning: diff 里的一段连续修改——一个文件可以有多个 hunks。`git add -p` 让你按 hunk 选择性 staging（commit 一部分改动）。code review 工具按 hunk 显示评论。
+  example: git add -p 一个一个 hunk 选要 commit 的。
+
+- term: patch
+  aliases: [补丁, patch file]
+  category: devterm
+  literal: patch (file/concept)
+  meaning: ① **补丁文件**——diff 的可应用版本。`git format-patch` 生成、`git apply` 应用。邮件列表协作（Linux 内核）的传统方式。② **打补丁**——给软件修 bug 的代码改动。"安全 patch"=安全补丁。
+  example: 内核贡献流程：发 patch 到邮件列表等 review。
+
+
+# ====================
 # 限流 / 容量 / 配额 / 弹性
 # 后端工程、SRE、SaaS 计费里"用多少给多少"那一类词
 # ====================

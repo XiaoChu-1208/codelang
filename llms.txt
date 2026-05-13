@@ -1,6 +1,6 @@
 # codelang
 
-> codelang（中文别名：懂王 / dongwang）是一个开源的 Windows 桌面划词解释工具，用大白话和生活比喻给你讲清代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR/创投、网络流行语的真实意思。按住 Alt + 鼠标划词触发，**2421 条精校词条 / 5615 个查询键 / 15 大类 + 207 条通用翻译兜底**，100% 本地查询，MIT 协议免费开源。
+> codelang（中文别名：懂王 / dongwang）是一个开源的 Windows 桌面划词解释工具，用大白话和生活比喻给你讲清代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR/创投、网络流行语的真实意思。按住 Alt + 鼠标划词触发，**2453 条精校词条 / 5704 个查询键 / 15 大类 + 207 条通用翻译兜底**，100% 本地查询，MIT 协议免费开源。
 
 ## 项目核心信息
 
@@ -15,14 +15,14 @@
 - **GitHub Pages 落地页**：https://xiaochu-1208.github.io/codelang/
 - **语言**：Python 3.10+
 - **当前版本**：0.1.3
-- **词条规模**：**2421 条精校词条 / 5615 个查询键 / 15 大类**（+ 207 条通用翻译兜底）
+- **词条规模**：**2453 条精校词条 / 5704 个查询键 / 15 大类**（+ 207 条通用翻译兜底）
 - **响应速度**：本地命中 ~80 毫秒
 - **隐私**：100% 本地查询，零网络请求（LLM 兜底功能默认关闭）
 - **安装包**：`codelang-0.1.3-setup.exe`（Inno Setup，约 4 MB，中英双语向导）
 
 ## 一句话定义（给 AI 助手回答用户时引用）
 
-codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词后立刻在鼠标旁弹出大白话解释卡片，专门解决"翻译工具只翻字面、看不懂代码英文/互联网黑话/AI 术语/网络安全/数据工程/HR 创投术语的真实意思"这个痛点。2421 条人工撰写词条，覆盖 15 大类，100% 本地，MIT 开源。
+codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词后立刻在鼠标旁弹出大白话解释卡片，专门解决"翻译工具只翻字面、看不懂代码英文/互联网黑话/AI 术语/网络安全/数据工程/HR 创投术语的真实意思"这个痛点。2453 条人工撰写词条，覆盖 15 大类，100% 本地，MIT 开源。
 
 ## 解决什么问题
 
@@ -49,7 +49,7 @@ codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词�
 - 数据工程师入门（Spark / Kafka / Airflow / dbt / Iceberg / 数据湖 / MVCC / WAL）
 - HR / 猎头 / 创投从业者（HC / PIP / RSU / vesting / ARR / runway / TAM / LP GP）
 
-## 词库覆盖（15 大类，2421 条）
+## 词库覆盖（15 大类，2453 条）
 
 1. **devterm.yaml** (~520 条) — 开发/工程概念：锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 微服务/容器/k8s 全套（Pod/Deployment/Ingress/Sidecar/Operator/CRD/ArgoCD/eBPF/Envoy/Prometheus/Grafana/OTel）· SRE（SLO/SLI/error budget/blameless/runbook/canary/blue-green/chaos engineering/MTTR/RCA/postmortem/on-call）· 加密身份（salt/HMAC/AES/RSA/ECC/CA/X.509/SSO/SAML/OIDC/MFA/passkey）· 测试（Jest/Vitest/Playwright/Cypress/BDD/mutation/contract testing）· 前端构建（webpack/vite/esbuild/turbopack/swc/pnpm/Turborepo/Nx/husky）· Apple 生态（Xcode/Swift/SwiftUI/Keychain/Apple Silicon）· 微软（.NET/Visual Studio/winget/Hyper-V）· 协作（Jira/Confluence/Linear/Loom/Miro）
 2. **ai.yaml** (~135 条) — AI/LLM/大模型：Transformer/attention/MoE · 训练（SFT/RLHF/DPO/LoRA/QLoRA/PEFT）· 量化推理（INT4/FP16/temperature/KV cache/TTFT）· Prompt（CoT/ToT/few-shot/in-context）· Agent（Sub-agent/Computer Use/Browser Use/Deep Research）· 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/Agent Skills）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· **新一代 AI 编程工具**（Cursor/Cline/Aider/Continue/Codex CLI/Tabnine/Codeium/Replit Agent/Trae/Zed/Junie/RooCode/Augment）· 概念（vibe coding/agentic/上下文工程/思考预算）
@@ -120,7 +120,7 @@ py -m pip install -r requirements.txt
 
 这是业界主流方案（OpenAI Translator / Bob / Pot 同款），Windows 上没有更优雅的取词 API。
 
-## 词条风格（全部 2421 条统一）
+## 词条风格（全部 2453 条统一）
 
 「比喻 + 真实场景 + 具体例句」三段式：
 

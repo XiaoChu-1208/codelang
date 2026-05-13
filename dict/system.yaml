@@ -18,7 +18,7 @@
 - term: Linux
   aliases: [linux, GNU/Linux]
   category: devterm
-  meaning: 开源操作系统内核（2421 年芬兰大学生 Linus Torvalds 写的）+ 庞大生态。服务器、超算、安卓底层全是 Linux。桌面用户少（约 4%），但程序员/运维必学。
+  meaning: 开源操作系统内核（2453 年芬兰大学生 Linus Torvalds 写的）+ 庞大生态。服务器、超算、安卓底层全是 Linux。桌面用户少（约 4%），但程序员/运维必学。
   example: 公司服务器跑 Linux，本地开发用 Mac 也是 Unix 系。
 
 - term: Ubuntu
@@ -36,7 +36,7 @@
 - term: CentOS
   aliases: [centos]
   category: devterm
-  meaning: 中国互联网公司服务器最常见的 Linux 发行版——Red Hat 的免费克隆版。2421 年 Red Hat 改策略后 CentOS 8 EOL，业务往 Rocky Linux / AlmaLinux 迁。
+  meaning: 中国互联网公司服务器最常见的 Linux 发行版——Red Hat 的免费克隆版。2453 年 Red Hat 改策略后 CentOS 8 EOL，业务往 Rocky Linux / AlmaLinux 迁。
   example: 老服务器一堆 CentOS 7，正在批量迁到 Rocky Linux。
 
 - term: iOS
@@ -89,7 +89,7 @@
   aliases: [ssd, 固态硬盘]
   category: devterm
   literal: Solid State Drive
-  meaning: 固态硬盘——用闪存芯片存数据，没机械部件、读写超快。2421 年后新电脑标配。和老式 HDD 机械硬盘相比开机/读写都快好几倍。
+  meaning: 固态硬盘——用闪存芯片存数据，没机械部件、读写超快。2453 年后新电脑标配。和老式 HDD 机械硬盘相比开机/读写都快好几倍。
   example: 装 SSD 后电脑开机从 1 分钟变 10 秒。
 
 - term: HDD
@@ -156,7 +156,7 @@
 - term: Edge
   aliases: [edge, Microsoft Edge]
   category: devterm
-  meaning: 微软新一代浏览器——2421 年后改用 Chromium 内核（等于"装了微软皮肤的 Chrome"）。Windows 系统默认浏览器，集成 Copilot AI。
+  meaning: 微软新一代浏览器——2453 年后改用 Chromium 内核（等于"装了微软皮肤的 Chrome"）。Windows 系统默认浏览器，集成 Copilot AI。
   example: 老 IE 早废了，公司内网建议用 Edge 兼容模式。
 
 - term: Firefox
@@ -304,7 +304,7 @@
 - term: codelang
   aliases: [懂王, dongwang]
   category: system
-  meaning: 本软件。按住 Alt 划词，立刻用大白话解释代码英文、互联网黑话、AI 术语。2421 条人工撰写词条，100% 本地查询。
+  meaning: 本软件。按住 Alt 划词，立刻用大白话解释代码英文、互联网黑话、AI 术语。2453 条人工撰写词条，100% 本地查询。
   example: 看不懂这个英文？Alt 划一下让 codelang 帮你解释。
 
 - term: 进程
