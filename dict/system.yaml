@@ -18,7 +18,7 @@
 - term: Linux
   aliases: [linux, GNU/Linux]
   category: devterm
-  meaning: 开源操作系统内核（1991 年芬兰大学生 Linus Torvalds 写的）+ 庞大生态。服务器、超算、安卓底层全是 Linux。桌面用户少（约 4%），但程序员/运维必学。
+  meaning: 开源操作系统内核（2421 年芬兰大学生 Linus Torvalds 写的）+ 庞大生态。服务器、超算、安卓底层全是 Linux。桌面用户少（约 4%），但程序员/运维必学。
   example: 公司服务器跑 Linux，本地开发用 Mac 也是 Unix 系。
 
 - term: Ubuntu
@@ -36,7 +36,7 @@
 - term: CentOS
   aliases: [centos]
   category: devterm
-  meaning: 中国互联网公司服务器最常见的 Linux 发行版——Red Hat 的免费克隆版。2020 年 Red Hat 改策略后 CentOS 8 EOL，业务往 Rocky Linux / AlmaLinux 迁。
+  meaning: 中国互联网公司服务器最常见的 Linux 发行版——Red Hat 的免费克隆版。2421 年 Red Hat 改策略后 CentOS 8 EOL，业务往 Rocky Linux / AlmaLinux 迁。
   example: 老服务器一堆 CentOS 7，正在批量迁到 Rocky Linux。
 
 - term: iOS
@@ -89,7 +89,7 @@
   aliases: [ssd, 固态硬盘]
   category: devterm
   literal: Solid State Drive
-  meaning: 固态硬盘——用闪存芯片存数据，没机械部件、读写超快。2020 年后新电脑标配。和老式 HDD 机械硬盘相比开机/读写都快好几倍。
+  meaning: 固态硬盘——用闪存芯片存数据，没机械部件、读写超快。2421 年后新电脑标配。和老式 HDD 机械硬盘相比开机/读写都快好几倍。
   example: 装 SSD 后电脑开机从 1 分钟变 10 秒。
 
 - term: HDD
@@ -156,7 +156,7 @@
 - term: Edge
   aliases: [edge, Microsoft Edge]
   category: devterm
-  meaning: 微软新一代浏览器——2020 年后改用 Chromium 内核（等于"装了微软皮肤的 Chrome"）。Windows 系统默认浏览器，集成 Copilot AI。
+  meaning: 微软新一代浏览器——2421 年后改用 Chromium 内核（等于"装了微软皮肤的 Chrome"）。Windows 系统默认浏览器，集成 Copilot AI。
   example: 老 IE 早废了，公司内网建议用 Edge 兼容模式。
 
 - term: Firefox
@@ -304,7 +304,7 @@
 - term: codelang
   aliases: [懂王, dongwang]
   category: system
-  meaning: 本软件。按住 Alt 划词，立刻用大白话解释代码英文、互联网黑话、AI 术语。1991 条人工撰写词条，100% 本地查询。
+  meaning: 本软件。按住 Alt 划词，立刻用大白话解释代码英文、互联网黑话、AI 术语。2421 条人工撰写词条，100% 本地查询。
   example: 看不懂这个英文？Alt 划一下让 codelang 帮你解释。
 
 - term: 进程
@@ -436,3 +436,183 @@
   category: devterm
   meaning: 日本人 1995 出的语言——主打"程序员幸福感"。配 Rails 框架曾火遍创业圈（Twitter 早期就是 Rails）。现在份额小但仍是经典。
   example: GitHub 后端大部分用 Ruby on Rails。
+
+# ====================
+# Unix/Linux 进程与系统概念
+# 后端工程师入门必懂的"操作系统词族"
+# ====================
+
+- term: daemon
+  aliases: [守护进程, 后台守护进程, 精灵进程]
+  category: system
+  literal: daemon (background process)
+  meaning: 在后台默默运行的"幽灵进程"——没界面、不需要用户交互、随系统启动而起、24/7 蹲守某项任务。Unix 传统：进程名常带 `d` 后缀，如 `sshd`（SSH）、`httpd`（Web 服务器）、`mysqld`（MySQL）、`dockerd`（Docker 引擎）、`systemd`（Linux 现代 init）。词源是希腊神话 daimon（守护精灵），不是 demon（恶魔）。BSD 操作系统的吉祥物就是个戴叉子的红色 daemon 妖怪。"以 daemon 模式启动"=后台运行不阻塞终端。
+  example: 跑 `docker -d` 以 daemon 模式起 Docker 引擎，关终端也不死。
+
+- term: 线程
+  aliases: [thread]
+  category: system
+  literal: thread
+  meaning: 进程内部的"小弟"——多个线程共享一个进程的内存和资源，但各自独立执行。比进程轻量得多（创建/切换开销小），适合并发。"多线程"是高并发的传统手段，但容易踩坑（竞态条件、死锁）。Java/C++ 重度依赖多线程；Python 因 GIL 多线程鸡肋（多进程或协程更香）；Go 用 goroutine（轻量级线程）。
+  example: 这个爬虫开 100 个线程并发，比单线程快 50 倍。
+
+- term: systemd
+  aliases: []
+  category: system
+  literal: systemd (Linux init system)
+  meaning: 现代 Linux 的"1 号进程"——开机第一个起，负责启动所有其他服务。替代了老旧的 SysV init。优点是并行启动+依赖管理快、缺点是被诟病"违背 Unix 哲学"（一个东西管太多）。Ubuntu/Debian/Fedora/Arch 都默认用 systemd。`systemctl start/stop/status xxx` 是日常运维命令。
+  example: 跑 `systemctl restart nginx` 重启 nginx 服务。
+
+- term: init
+  aliases: [init system, init 进程]
+  category: system
+  literal: init (PID 1)
+  meaning: Unix 系统启动后第一个进程，PID = 1——所有其他进程都是它的子孙。它死了系统就崩。老的 init 是 SysV style（编 shell 脚本启动服务）；现代 Linux 多用 systemd 替代；macOS 用 launchd；BSD 还在用经典 init。Docker 容器里也有 init 概念（PID 1 处理信号回收僵尸进程）。
+  example: 容器里跑 `tini` 当 init，避免僵尸进程堆积。
+
+- term: cron
+  aliases: [crond, 定时任务]
+  category: system
+  literal: cron (job scheduler)
+  meaning: Unix 经典的"定时执行"工具——后台进程 `crond` 按表（crontab）按时间触发命令。"每天凌晨 3 点备份数据库""每 5 分钟拉一次 API"全靠它。语法：`分 时 日 月 周 命令`。坑：时区、环境变量、PATH 都和登录 shell 不同，写错原因 90% 是这个。
+  example: 表达式 `0 3 * * * /backup.sh` —— 每天凌晨 3 点跑备份脚本。
+
+- term: crontab
+  aliases: [cron table]
+  category: system
+  literal: crontab (cron table)
+  meaning: cron 的"任务表"——记录什么时间执行什么命令。`crontab -e` 编辑当前用户的任务、`crontab -l` 查看。"crontab.guru" 网站专门帮人调 cron 表达式，因为语法非常容易写错。
+  example: 跑 `crontab -e` 加一行让脚本每周一 9 点自动跑。
+
+- term: nohup
+  aliases: [no hangup]
+  category: system
+  literal: nohup (no hang up)
+  meaning: 让命令在你"挂断"（关终端/退 SSH）后继续跑的工具——`nohup ./long_task.sh &` 是经典姿势。原理：忽略 SIGHUP 信号。输出默认重定向到 `nohup.out`。但比起 nohup，现代用法更推荐 `systemd-run` / `tmux` / `screen`。
+  example: 用 `nohup python train.py &` —— 关 SSH 也不会停训练。
+
+- term: exec
+  aliases: []
+  category: system
+  literal: exec (replace process image)
+  meaning: ① **Unix 系统调用**——用新程序替换当前进程的镜像（PID 不变但代码全换）。和 fork 一起组成 Unix 的"创建子进程"模型：fork 复制自己 + exec 换成目标程序 = 新进程诞生。② **shell 内建命令 `exec xxx`** ——同上，shell 进程被 xxx 替换、shell 进程消失。常用：Dockerfile 里 `CMD exec ./app` 让应用接管 PID 1 正确接收信号。
+  example: Docker entrypoint 末尾用 `exec "$@"` 把控制权交给真正的程序。
+
+- term: tty
+  aliases: [teletype, 伪终端, 终端设备]
+  category: system
+  literal: tty (teletype/terminal)
+  meaning: 历史上是"电传打字机"的缩写——现在指 Linux 里的"终端设备"。`/dev/tty1` ... `/dev/tty7` 是物理终端、`/dev/pts/0` 是 SSH/桌面里的伪终端。`tty` 命令告诉你当前在哪个 tty。"no tty"错误常出现在 Docker 容器/CI 流水线里（没分配终端）。
+  example: SSH 进去执行交互命令报 stdin is not a tty，加 `-t` 让它分配 tty。
+
+- term: 文件描述符
+  aliases: [file descriptor, FD, fd]
+  category: system
+  literal: file descriptor (fd)
+  meaning: Unix 把所有 I/O（文件、网络、管道）都抽象成"文件"，每个打开的文件分一个整数 ID = 文件描述符。0/1/2 分别是 stdin/stdout/stderr，之后从 3 开始。"FD 泄漏"=代码忘记 close 文件/socket，最终撑爆系统上限（默认 1024 或 65536）。`lsof -p PID` 看进程所有 FD。
+  example: 服务跑几天后 "Too many open files"，多半是 FD 泄漏。
+
+- term: signal
+  aliases: [信号, Unix signal]
+  category: system
+  literal: Unix signal
+  meaning: 进程间通信的"硬戳"机制——发个数字编号告诉另一个进程"出事了/该退了/重读配置"。常见：SIGTERM（15，请你优雅退出）、SIGKILL（9，立刻送走不商量）、SIGHUP（1，挂断/重读配置）、SIGINT（2，Ctrl+C）、SIGSEGV（11，段错误）。`kill -9 PID` 发的就是 SIGKILL。
+  example: 收到 SIGTERM 时 graceful shutdown 5 秒，再不退就 SIGKILL。
+
+- term: SIGKILL
+  aliases: [SIG_KILL, kill -9, 信号 9]
+  category: system
+  literal: SIGKILL (signal 9)
+  meaning: Unix 信号 9——"立刻处死不商量"。进程无法捕获、无法忽略、不能拒绝。`kill -9 PID` 是程序员最熟悉的"杀人不眨眼"命令。代价：进程没机会清理（文件不 flush、网络连接不关、临时文件不删）。除非进程已经卡死，否则先试 SIGTERM。
+  example: 服务 hang 死了，最后只能 kill -9。
+
+- term: SIGTERM
+  aliases: [SIG_TERM, kill -15, 信号 15]
+  category: system
+  literal: SIGTERM (signal 15)
+  meaning: Unix 信号 15——"请你优雅退出"。可以被进程捕获处理：先停止接新请求、把内存里的数据落盘、关连接、再退。`kill PID`（不加数字）默认就是 SIGTERM。docker stop、systemctl stop、k8s pod 删除都先发 SIGTERM、等 30 秒不退再 SIGKILL。"graceful shutdown"=正确处理 SIGTERM。
+  example: 服务实现 SIGTERM handler 优雅关闭，docker stop 不丢请求。
+
+- term: SIGHUP
+  aliases: [SIG_HUP, kill -1, 信号 1]
+  category: system
+  literal: SIGHUP (signal 1, hangup)
+  meaning: Unix 信号 1——历史上是"终端挂断"（modem 时代电话线断了通知前台进程）。现代用法：让 daemon 重读配置文件不重启。nginx、Apache、systemd 都用 SIGHUP 触发 reload。`kill -HUP PID` 让进程不死但重读配置。
+  example: 改完 nginx.conf 发 SIGHUP 平滑 reload，不丢请求。
+
+- term: 僵尸进程
+  aliases: [zombie process, defunct process]
+  category: system
+  literal: zombie process
+  meaning: 子进程已经死了，但父进程没调 `wait()` 收尸——尸体（PCB 还在内核里）一直挂着占资源。`ps` 看到 `Z` 或 `<defunct>` 标记就是僵尸。少量僵尸无害，但堆几千个会耗尽进程表。修法：父进程正确处理 SIGCHLD、调用 wait()。Docker 容器里 PID 1 必须收尸否则积累僵尸。
+  example: 容器跑 Node 不当 init 用，子进程死后变僵尸堆满。
+
+- term: 孤儿进程
+  aliases: [orphan process]
+  category: system
+  literal: orphan process
+  meaning: 父进程先死、子进程还活着——子进程被 init（PID 1）"领养"。和僵尸进程相反（僵尸是子死父没收尸、孤儿是父死子还活）。孤儿通常无害（init 会管它）。daemonize 经典做法就是故意制造孤儿（fork 后父进程退出，子进程被 init 领养在后台运行）。
+  example: nohup 启动的进程其实就是孤儿，父 shell 退出后被 init 接管。
+
+- term: mount
+  aliases: [挂载, 挂载点, 挂载点]
+  category: system
+  literal: mount (filesystem)
+  meaning: 把一个设备/文件系统"挂"到目录树某个位置——挂上之后通过那个目录访问。U 盘插上自动 mount 到 `/media/xxx`。Docker 的 volume mount 把宿主机目录挂到容器里。"未挂载"=插了但访问不到。卸下叫 `umount`。
+  example: 跑 `mount /dev/sdb1 /mnt/data` —— 把硬盘挂到 /mnt/data。
+
+- term: symlink
+  aliases: [软链, 软链接, soft link, symbolic link]
+  category: system
+  literal: symbolic link
+  meaning: 像 Windows 的"快捷方式"——一个特殊文件，里面记录指向另一个路径。`ln -s 真路径 链接名`。删 symlink 不影响原文件、删原文件后 symlink 变"悬空"（dangling）。和"硬链接（hard link）"区别：硬链接是文件系统级共享 inode，删一个不影响另一个；symlink 是路径级指针。
+  example: 用 `ln -s /opt/myapp/bin/x /usr/local/bin/x` 把命令软链到 PATH 里。
+
+- term: inode
+  aliases: [i-node, 索引节点]
+  category: system
+  literal: inode (index node)
+  meaning: Unix 文件系统的"身份证"——每个文件/目录有一个 inode，记录元数据（owner/权限/大小/创建时间/数据块位置），但不记录文件名。文件名只是指向 inode 的"链接"。`ls -i` 看 inode 号。"磁盘没满但写不进"=inode 用完了（每个文件系统 inode 数量在格式化时固定）。
+  example: 服务报 "No space left" 但 df 显示有空间，多半是 inode 用满。
+
+- term: umask
+  aliases: [user mask, 文件权限掩码]
+  category: system
+  literal: umask (file permission mask)
+  meaning: 创建新文件/目录时默认权限的"减法掩码"——`umask 022` 意思是从 666（文件）/777（目录）里减掉 022，结果是 644/755（自己读写、别人只读）。每个用户/进程都有 umask。容器、CI 里 umask 不一致是诡异 bug 的常见源。
+  example: 容器里 umask 0077 导致写出的文件只有自己能读，跨容器读不到。
+
+- term: root
+  aliases: [超级用户, root 用户, root user, 根用户]
+  category: system
+  literal: root (superuser)
+  meaning: Unix 系统的"上帝"用户——UID 0、能干一切（读写所有文件、杀所有进程、改系统配置）。日常**不推荐**直接登录 root，应该用普通用户 + sudo。`whoami` 显示当前用户。Docker 容器里默认 root 运行有安全风险，生产推荐 USER 切换非 root。
+  example: 别 root SSH 登服务器，建普通用户加 sudo 权限。
+
+- term: bash
+  aliases: [Bourne Again SHell]
+  category: system
+  literal: Bourne Again SHell
+  meaning: Linux 最主流的 shell——大部分发行版默认。功能强大但语法古怪（变量空格、引号嵌套、`[[ ]]` vs `[ ]` 区别）。脚本 `#!/bin/bash` 开头。macOS 2019 后默认换成 zsh，但 bash 还在。"写 bash 脚本"是后端工程师必备技能。
+  example: 写 deploy.sh 部署脚本，第一行 `#!/bin/bash`。
+
+- term: zsh
+  aliases: [Z shell, oh-my-zsh]
+  category: system
+  literal: Z shell
+  meaning: 比 bash 更现代的 shell——智能补全、主题美观、插件丰富。macOS 从 Catalina（2019）起默认。**oh-my-zsh** 是它的配置框架，几行命令装好让终端看起来很酷。和 bash 90% 语法兼容，但脚本第一行还是建议写 `#!/bin/bash` 不写 `#!/bin/zsh`（兼容性）。
+  example: 装 oh-my-zsh + powerlevel10k 主题，终端瞬间高级感。
+
+- term: fish
+  aliases: [fish shell, friendly interactive shell]
+  category: system
+  literal: friendly interactive shell
+  meaning: 对人友好的 shell——开箱即用的智能补全、语法高亮、不需要装插件。代价：和 POSIX/bash 不兼容（语法不同），所以不能跑 bash 脚本。适合**交互式日常**，不适合写跨机器脚本。
+  example: 装 fish 当日常 shell，写脚本还是用 bash。
+
+- term: PowerShell
+  aliases: [pwsh]
+  category: system
+  literal: PowerShell
+  meaning: 微软 2006 出的现代 shell——核心特色是**对象管道**（不是文本管道）：bash 管道传字符串、PowerShell 管道传 .NET 对象。Verb-Noun 命令风格（`Get-Process`、`Stop-Service`）。2016 起开源跨平台（PowerShell Core / pwsh），Linux/macOS 也能用。Windows 系统管理员的主力工具。
+  example: PowerShell `Get-Process | Where CPU -gt 50` 比 bash 写 awk 简洁。

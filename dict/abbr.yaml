@@ -592,7 +592,7 @@
   example: 公司客服接了 LLM 自动答用户问题，节省一半客服人力。
 
 - term: RAG
-  aliases: [rag]
+  aliases: [rag, 检索增强, 检索增强生成]
   category: abbr
   literal: Retrieval-Augmented Generation
   meaning: 想象闭卷考试 vs 开卷考试——RAG 是给 LLM 开卷的方法。问问题前先去知识库捞最相关的几段塞进 prompt，让 LLM 基于这些段落回答而不是凭"记忆"。能大幅减少幻觉、引用最新数据。

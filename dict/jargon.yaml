@@ -1080,7 +1080,7 @@
 
 
 - term: Material Design
-  aliases: [Material, MD3]
+  aliases: [MD3, Material 设计语言]
   category: jargon
   meaning: Google 2014 年推的设计语言——卡片、阴影、扁平+轻拟物。Android、Google 全家桶视觉基础。当前版本是 MD3。
   example: Android App 跟随 Material Design 3 规范设计。

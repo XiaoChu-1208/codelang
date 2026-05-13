@@ -444,7 +444,8 @@
 - term: CD
   aliases: [continuous deployment, 持续部署]
   category: devterm
-  meaning: 顺着 CI 往下：CI 把代码验过了，CD 自动把它送到测试环境/灰度/生产。从程序员按下 commit 到代码真正跑在用户眼前，全程自动化无需手动登服务器拷文件。
+  meaning: ① **Continuous Deployment / 持续部署（DevOps 默认含义）**——顺着 CI 往下：CI 把代码验过了，CD 自动把它送到测试环境/灰度/生产。从程序员按下 commit 到代码真正跑在用户眼前，全程自动化无需手动登服务器拷文件。② **游戏圈 CD = cooldown 技能冷却**——MOBA/MMO/ARPG 里"这技能 60 秒 CD"就是"用完要等 60 秒"。和持续部署的 CD 同字母不同概念。判断语境：DevOps 文档/CI 流水线里是持续部署、游戏对话/职业讨论里是冷却。
+  example: DevOps "推 main 触发 CI/CD 自动发版"；游戏 "这大招 CD 太长，关键团战放不出"。
   example: 公司 CI/CD 流水线打通后，merge 代码后 20 分钟内自动到达灰度环境。
 
 - term: docker
@@ -2194,7 +2195,8 @@
 - term: ping
   aliases: [PING]
   category: devterm
-  meaning: 测试网络连通性的命令——往目标服务器发个小包看它回不回。回了说明网络通、延迟多少毫秒；不回说明网不通或对方挂了。网络排障第一步永远是 ping。
+  meaning: ① **网络命令（运维默认含义）**——往目标服务器发个小包看它回不回。回了说明网络通、延迟多少毫秒；不回说明网不通或对方挂了。网络排障第一步永远是 ping。② **游戏圈 ping = RTT**——网络延迟毫秒数。"我 ping 50ms 流畅、ping 200ms 难受、ping 红了打不了团"。FPS、MOBA、MMO 玩家最敏感的数字。
+  example: 运维 "ping baidu.com 60ms 网络正常"；游戏 "今晚网吧 ping 才 12ms，开打"。
   example: ping google.com 看看能不能上外网，延迟多少。
 
 - term: scp
@@ -2836,9 +2838,10 @@
   example: App 把 token 存 Keychain，比 UserDefaults 安全。
 
 - term: Sandbox
-  aliases: [沙箱, iOS sandbox]
+  aliases: [沙箱, 沙盒, iOS sandbox, sandbox game]
   category: devterm
-  meaning: iOS/macOS 应用都跑在沙箱里——只能访问自己的目录，碰别的 App 要走系统授权。安全模型基石，让一个 App 出问题不影响其他。
+  meaning: ① **安全沙箱（系统/安全默认含义）**——iOS/macOS/浏览器应用都跑在沙箱里，只能访问自己的目录，碰别的 App 要走系统授权。Docker 容器、Chrome 标签页都是沙箱。让一个 App 出问题不影响其他。② **沙盒游戏（游戏品类）**——自由玩法不强制目标的游戏：Minecraft、Terraria、GTA（部分）、ARK。给玩家工具+世界让他们自己玩，和"叙事驱动"对立。"我的世界"是 sandbox 游戏鼻祖。
+  example: 安全 "iOS 应用跑在 sandbox 里，互相隔离"；游戏 "Minecraft 是经典 sandbox 游戏"。
   example: iOS App 全跑在 sandbox 里，文件互相隔离。
 
 - term: entitlement

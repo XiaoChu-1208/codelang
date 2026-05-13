@@ -167,4 +167,4 @@ def show_warning(parent: tk.Misc | None, title: str, body: str) -> None:
 
 
 if __name__ == "__main__":
-    show_info(None, "词库更新", "已是最新（1991 条）")
+    show_info(None, "词库更新", "已是最新（2421 条）")

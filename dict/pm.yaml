@@ -1,0 +1,1291 @@
+# 产品经理（PM）/ AI 产品经理（AIPM）术语
+# —— 工位、Slack、需求评审、模型评测会上真实在说的那种话
+
+# --- 需求文档与流程 ---
+
+- term: PRFAQ
+  aliases: [PR FAQ, 新闻稿先行, press release first]
+  category: pm
+  literal: Press Release + FAQ
+  meaning: 亚马逊发明的产品方法——还没动手做之前，先写一份"假装这个产品已经上线"的新闻稿和用户 FAQ。逼自己想清楚卖点、目标用户、价值主张。写不出有吸引力的新闻稿，说明这个需求根本没必要做。AWS、Kindle 都是这么立项的。
+  example: 写一份 PRFAQ 给老板看，看完他自己就说"这功能不值得做"。
+
+- term: 商业需求文档
+  aliases: [Business Requirements Doc]
+  category: pm
+  literal: BRD 中文名
+  meaning: 比 PRD 早一步的文档，回答"为什么要做"和"做了能挣多少钱"，不讲怎么做。给老板和投委会看的，关注市场规模、收入预测、ROI。PRD 是"做什么"，BRD 是"为啥值得做"。
+  example: 这个新业务线 BRD 还没批，PRD 先别动笔。
+
+- term: 市场需求文档
+  aliases: [Market Requirements Doc]
+  category: pm
+  literal: MRD 中文名
+  meaning: 介于 BRD 和 PRD 之间——讲市场调研、用户分群、竞品分析。BRD 是给老板看的，MRD 是给产品团队对齐市场认知用的。互联网公司大多直接跳过 MRD，传统软件公司还在用。
+  example: 海外市场 MRD 写完才发现这块是红海，方案要重做。
+
+- term: 需求池
+  aliases: [需求库, requirement pool]
+  category: pm
+  literal: 待办需求集合
+  meaning: 产品经理的"购物车"——业务方、用户、老板、运营、客服一年下来塞进来几百条想法都堆这。PM 的核心工作之一就是定期清池子，分级、排期、毙掉。需求池长期不清=吃灰，长期清空=PM 没在搜集。
+  example: 这季度需求池 200 条只做得了 10 条，剩下的全打 P3 凉了。
+
+- term: 需求评审
+  aliases: [PRD 评审, 需求评审会]
+  category: pm
+  literal: PRD review meeting
+  meaning: PM 把 PRD 给开发、测试、设计当众讲一遍，听他们提质疑和工时评估。最容易翻车的会议——遗漏边界 case、设计推翻方案、开发说做不了，PM 现场被拷打是常态。会前先一对一拉通能省一半血。
+  example: 周五需求评审被前端怼了俩小时，下周还得开二评。
+
+- term: 需求倒推
+  aliases: [反推需求, 目标倒推]
+  category: pm
+  literal: backward planning
+  meaning: 不从"我想做什么功能"出发，而是从"想达成什么目标"反推——想要 DAU 涨 10%，那需要新增多少、留存多少、转化多少，每个环节差多少，反推该做什么。OKR 的核心思路。和"业务方拍脑袋要个功能"是反义词。
+  example: 老板要 GMV 翻倍，PM 倒推下来发现得先解决物流体验。
+
+- term: 需求漏斗
+  aliases: [需求过滤, 需求筛选]
+  category: pm
+  literal: requirement funnel
+  meaning: 从需求池到上线之间的层层过滤——价值评估、可行性评估、优先级、排期、开发、测试、灰度、全量。100 条需求最终能上线的可能就 5 条。漏斗越严，上线质量越高；漏斗太松，发了一堆没人用的功能。
+  example: 这季度需求漏斗收得严，过滤掉 80% 的"伪需求"。
+
+- term: JTBD
+  aliases: [Jobs to be Done, 用户雇佣理论]
+  category: pm
+  literal: Jobs to be Done
+  meaning: 哈佛 Christensen 提的——"用户不是买产品，是雇佣产品来完成一项任务"。经典例子：用户买奶昔不是因为渴，是早通勤路上想找一个"撑到中午又不弄脏手"的方案。JTBD 让 PM 别盯着功能本身，盯着用户雇你解决啥。
+  example: 用 JTBD 视角重新看用户访谈，发现他们雇我们其实是为了避免社交尴尬。
+
+- term: aha moment
+  aliases: [aha 时刻, 顿悟时刻]
+  category: pm
+  literal: 顿悟瞬间
+  meaning: 用户突然意识到"卧槽这玩意儿真有用"的那一刻——Facebook 是 10 天加 7 个好友、Twitter 是关注 30 个人、Slack 是团队发了 2000 条消息。新用户没到 aha 时刻就走=留存崩。PM 的核心增长课题就是"怎么让用户最快到 aha"。
+  example: 数据看下来，加 5 个收藏夹是这款 App 的 aha moment，新手引导得围绕这个设计。
+
+- term: epic
+  aliases: [史诗需求]
+  category: pm
+  literal: 大型需求
+  meaning: 一个跨多个 sprint 的大需求——拆成多个 user story 才做得完。比如"做个支付系统"就是个 epic，下面有"接微信""接支付宝""做退款"等 story。Jira 里用 epic 管这种大主题的进度。
+  example: 这个 epic 排了 3 个月，拆了 40 个 story 给两个团队做。
+
+- term: story point
+  aliases: [故事点, 点数]
+  category: pm
+  literal: 故事点
+  meaning: 敏捷估时单位——不是小时，而是"相对复杂度"。1 点是改个文案的小事，5 点是要写新组件，13 点该拆。用斐波那契数列 1/2/3/5/8/13 是因为大需求估不准，索性跳着估。新团队总爱把 story point 当工时，老团队学会"点数=工作量+复杂度+不确定性"。
+  example: 这需求估 8 点，俩开发干一周。
+
+- term: backlog
+  aliases: [待办列表, 待办池]
+  category: pm
+  literal: 待办列表
+  meaning: 敏捷开发里的"任务清单"——sprint backlog 是本迭代要做的、product backlog 是整个产品池子里待办的。每周 grooming（梳理）一次，把模糊的需求细化。backlog 没有 grooming = sprint 一开始懵逼。
+  example: 周五 backlog grooming 把下周 sprint 的 story 拆细。
+
+- term: 迭代会
+  aliases: [sprint planning, 迭代计划会]
+  category: pm
+  literal: sprint planning
+  meaning: 每个 sprint 开始时开的会——PM 讲下周要做什么，开发认领工时，测试同步用例覆盖。开得好整个迭代有节奏感，开得烂就是"边做边吵"。一般周一上午开。
+  example: 周一迭代会拍板这 sprint 做 5 个 story，跨年版本要的功能。
+
+- term: kickoff
+  aliases: [启动会, 项目启动会]
+  category: pm
+  literal: 项目启动会
+  meaning: 一个大项目正式开始前的全员对齐会——讲背景、目标、范围、里程碑、分工。kickoff 没开好，后面三个月都在补对齐课。和"立项会"不太一样：立项是讨论该不该做，kickoff 是已经决定做了开始动。
+  example: 明天大促项目 kickoff，运营市场技术全到齐。
+
+- term: 立项
+  aliases: [项目立项, 立项评审]
+  category: pm
+  literal: project initiation
+  meaning: 一个项目正式进入"被认可值得做"的状态——BRD 过了、资源拨了、deadline 定了。立项之前都是 PM 自己折腾，立项之后变成全公司事项。互联网公司大需求都要走立项流程，避免"PM 自嗨开始干"。
+  example: 这事儿还没立项，先别拉技术评估。
+
+- term: roadmap
+  aliases: [产品路线图, 产品规划]
+  category: pm
+  literal: 路线图
+  meaning: 产品未来 3 个月/半年/一年要做什么的时间轴。给业务方、老板、销售看"接下来给我们做什么"。roadmap 写太死=做着发现不对没法转，太虚=别人看不出方向。优秀的 roadmap 是"目标固定、路径可调"。
+  example: 给销售看一眼 roadmap，他们就知道明年能卖什么。
+
+- term: 里程碑
+  aliases: [milestone]
+  category: pm
+  literal: milestone
+  meaning: 项目时间线上的关键节点——MVP 上线、第一个付费用户、DAU 破 10 万。里程碑达成开庆功宴、达不成开复盘会。和 deadline 区别：deadline 是"必须做完的截止时间"，milestone 是"标志性进展"，可以提前可以延后。
+  example: 这季度第一个 milestone 是新版上线公测。
+
+- term: 排期
+  aliases: [排工时, 工时评估]
+  category: pm
+  literal: scheduling
+  meaning: 把需求/任务塞进开发日程的过程——PM 拉着开发问"这需求几天"，开发说"7 天"（实际 14 天），PM 还得砍价。排期能力强的 PM 知道哪些团队报虚、哪些报实，哪些边界 case 没考虑。
+  example: 这功能开发报 10 天排期，QA 还要 3 天，下下周才能上。
+
+- term: 需求拆解
+  aliases: [拆需求, 拆 story]
+  category: pm
+  literal: requirement breakdown
+  meaning: 把一个大需求拆成可执行的小任务——大需求 = 黑箱不可估时，小任务 = 一两天能做完。拆好了开发能并行，拆不好就是一个人卡着别人等。AIPM 还得多一层：拆模型评测、拆 prompt 迭代、拆数据收集。
+  example: 这功能 PM 拆了 8 个 story，前后端两边并行干。
+
+- term: dogfood
+  aliases: [自己用, 内部试用, 吃狗粮]
+  category: pm
+  literal: 吃自家狗粮
+  meaning: 让公司员工先用自家产品——美国比喻是"卖狗粮的自己吃才知道香不香"。新功能上线前在公司内部 dogfood 一周，能发现一堆 bug 和体验问题。Google、微软都强制 dogfood。CEO 不用自家产品=肯定要凉。
+  example: 这版 AI 客服先在公司内部 dogfood，员工反馈一堆奇怪 case。
+
+- term: 版本号
+  aliases: [version, 版本编号]
+  category: pm
+  literal: 版本号
+  meaning: 给每次发版打的标记——常用 semver "主版本.次版本.修订号" 形式（1.2.3）。主版本变=有破坏性更新，次版本变=新功能，修订号变=改 bug。PM 看到版本号能猜出这次是大改还是小修。
+  example: 1.0 → 2.0 是大版本升级，要做发布会的。
+
+- term: release note
+  aliases: [版本说明, 发版日志]
+  category: pm
+  literal: 版本说明
+  meaning: 每次发版给用户看的"这版本更新了啥"清单。写得好用户感觉产品在认真迭代，写得烂"修复若干已知问题"=用户觉得在糊弄。SaaS 产品的 release note 是营销资产。
+  example: 这版 release note 列了 8 条新功能，运营拿去发推广。
+
+- term: 内部测试
+  aliases: [内测试用]
+  category: pm
+  literal: internal testing
+  meaning: 比 dogfood 更小范围——只给某个部门或少数员工开放，测最早期版本。bug 多得没法见人也无所谓。和 alpha/beta 是同义关系但更口语。
+
+# --- 用户研究与产品方法 ---
+
+- term: 用户访谈
+  aliases: [user interview, 用研访谈]
+  category: pm
+  literal: user interview
+  meaning: 找真实用户聊 30-60 分钟摸清楚他们的真实需求、痛点、使用场景。访谈做得烂=问"你想要什么功能"用户随口编一个，做得好=问"上次遇到这场景你怎么解决的"挖出真实行为。每季度跑 10 个访谈是产品健康度的体检。
+  example: 跑了 8 个用户访谈，发现真痛点根本不是我们之前以为的那个。
+
+- term: 数据驱动
+  aliases: [data-driven, 数据决策]
+  category: pm
+  literal: data-driven
+  meaning: 决策靠数据不靠拍脑袋的工作方式——上线效果看转化率、AB 测试看显著性。互联网公司都喊数据驱动，但落地难点是"没数据怎么办"——前期靠 PM 直觉，后期靠埋点积累。过分数据驱动也会丢掉直觉判断。
+  example: 这功能上不上得看数据，别凭感觉。
+
+- term: 漏斗模型
+  aliases: [funnel 分析]
+  category: pm
+  literal: conversion funnel
+  meaning: 把用户行为路径画成漏斗——曝光 100 万 → 点击 10 万 → 注册 1 万 → 付费 1000。每一层流失率都是优化机会。最经典的 AARRR 就是漏斗的一种。看到某层断崖式下跌就是优化目标。
+  example: 漏斗模型一看，注册到付费这一步流失 90%，问题在这。
+
+- term: 一级指标
+  aliases: [核心指标, primary metric]
+  category: pm
+  literal: 一级指标
+  meaning: 直接反映业务健康度的指标——DAU、GMV、付费率。挂在公司大屏上、月会必讲的那种。和二级指标的区别：一级是"目标"，二级是"过程指标"。一级动一点点都是大事。
+  example: 一级指标 GMV 跌了 5%，全公司一起救。
+
+- term: 二级指标
+  aliases: [过程指标, secondary metric]
+  category: pm
+  literal: 二级指标
+  meaning: 拆解一级指标得到的具体行为指标——比如一级是 DAU，二级就是新增、留存、唤醒。PM 日常优化的是二级指标，目的是撬动一级。看二级指标能解释一级为啥涨/跌。
+  example: 一级 DAU 涨了，看二级是新增涨了不是留存涨了。
+
+- term: 护栏指标
+  aliases: [guard metric, guardrail metric]
+  category: pm
+  literal: 护栏指标
+  meaning: 怕你为了拉一级指标把别的指标搞崩——专门设的"不能动"的底线。比如你优化转化率不能让用户投诉率上去、优化点击率不能让退订率上去。AB 实验里护栏指标超过阈值要立即停。
+  example: AB 实验转化涨了 5%，但护栏指标投诉量也涨了 30%，下线。
+
+- term: 指标体系
+  aliases: [metric system, 指标树]
+  category: pm
+  literal: 指标体系
+  meaning: 公司里一整套指标怎么互相支撑的结构——北极星在最上面，往下拆一级、二级、三级，每个团队认领对应指标。指标体系混乱=团队互相不知道在做什么，建好了=人人有目标人人能追溯。
+  example: 新业务先建指标体系，再做产品，不然做啥都没法衡量。
+
+- term: 指标卡
+  aliases: [指标看板卡片]
+  category: pm
+  literal: metric card
+  meaning: 数据看板上一个个数字方块——上面写指标名、当前值、对比环比/同比。PM 早上第一件事是刷指标卡看昨天数据。指标卡变红=出事了，变绿=过 OKR 了。
+  example: 一打开 dashboard 看指标卡，昨天的转化率掉了 3 个点。
+
+- term: 北极星拆解
+  aliases: [north star tree]
+  category: pm
+  literal: 指标拆解
+  meaning: 把北极星指标拆成可执行的小指标——比如北极星"周活用户数" = 新增 × 次留 + 老用户唤醒。每一项再拆，最后拆到各团队能 own 的颗粒度。PM 的硬功夫之一。
+  example: 这季度做了一份北极星拆解，每个团队拿到自己的子指标。
+
+- term: OSM
+  aliases: [Objective Strategy Measurement]
+  category: pm
+  literal: Objective Strategy Measurement
+  meaning: 数据分析师常用的指标设计框架——先定 Objective（目标）、再列 Strategy（策略）、再选 Measurement（衡量指标）。比直接拍指标更结构化。和 OKR 思路类似但更适合分析师视角。
+  example: 用 OSM 框架先把这次实验的目标和衡量方式想清楚再开干。
+
+- term: 季度规划
+  aliases: [quarterly planning, QBR 规划]
+  category: pm
+  literal: quarterly planning
+  meaning: 每个季度初的"接下来三个月做什么"的对齐周——业务方提需求、PM 评估、技术评工时、老板拍板。规划得严就是季度末交付率高，规划得松就是季度末互相甩锅。
+  example: Q3 规划会上吵了两天，最后砍掉一半需求。
+
+- term: PMM
+  aliases: [Product Marketing Manager]
+  category: pm
+  literal: Product Marketing Manager
+  meaning: 产品营销经理——PM 管做出来，PMM 管卖出去。负责定价、市场定位、上线话术、销售赋能、竞品对标。SaaS 公司必备角色，国内互联网公司很多没这岗位（被运营或市场顶替）。AIPM 时代 PMM 比以前还吃香，因为 AI 产品最难的是讲清楚价值。
+  example: PMM 准备发布会的话术，我们 PM 准备 demo。
+
+- term: GTM
+  aliases: [go to market, 上市策略]
+  category: pm
+  literal: Go-To-Market
+  meaning: 一个新产品/功能从内部完工到推向市场的整套打法——目标用户、定价、渠道、发布节奏、销售话术。GTM 没做好就是"做出来没人知道"。AI 产品的 GTM 现在最难：用户看不懂在卖啥。
+  example: 这功能开发完了 GTM 还没定，发出去也没用户用。
+
+- term: 产品营销
+  aliases: [product marketing]
+  category: pm
+  literal: 产品营销
+  meaning: PMM 在干的事——把技术语言翻译成用户/客户/媒体能懂的卖点。"我们用了 transformer 架构"是技术语言，"问答准确率比上一代高 30%"是产品营销。AIPM 圈尤其卷这一块。
+
+# --- 实验与数据 ---
+
+- term: AB 桶
+  aliases: [实验桶, AB 分桶]
+  category: pm
+  literal: AB testing bucket
+  meaning: AB 实验里给用户分组用的容器——通常按用户 ID hash 分到 100 个桶，桶 0-49 看新版本，桶 50-99 看老版本。"AB 桶"是工程师和 PM 沟通时的高频词。多个实验同时跑还要考虑桶互斥。
+  example: 这俩实验放同一批 AB 桶里会互相干扰，要分层。
+
+- term: 哈希分桶
+  aliases: [hash 分桶, hashing]
+  category: pm
+  literal: hash bucketing
+  meaning: AB 桶的具体实现——把用户 ID 用 hash 函数算出一个数，模 100 分到不同桶。同一个用户每次进来分到同一桶，保证体验一致。哈希分桶可重复=可控，可控才能 AB 实验出可信结论。
+  example: 用 userid % 100 哈希分桶，桶 0-9 看实验组。
+
+- term: 分层实验
+  aliases: [layered experiment]
+  category: pm
+  literal: 分层实验
+  meaning: 一个 AB 平台上同时跑几十个实验怎么不互相干扰——把实验分多层，每层用户独立分桶，层与层之间正交。Google 当年发明的，国内字节、腾讯都自研了一套。分层做得好就是同一批用户能同时进 10 个实验互不打架。
+  example: 新功能放第 3 层实验，和老功能正交不互相干扰。
+
+- term: 互斥实验
+  aliases: [mutually exclusive experiment]
+  category: pm
+  literal: 互斥实验
+  meaning: 两个实验内容会互相影响，必须把用户分开——不能一个用户同时看到 A 实验的新版和 B 实验的新版。比如改首页样式的两个实验就互斥。互斥意味着流量不够分。
+  example: 改 banner 的俩实验互斥，只能排队跑别同时上。
+
+- term: 流量分配
+  aliases: [traffic allocation]
+  category: pm
+  literal: 流量分配
+  meaning: AB 实验里每组分多少用户的决策——通常 5%/5%/90% 灰度，置信度够了再扩到 50%/50%。流量分小了实验跑不出显著性，流量分大了风险太高。PM 和数据工程师常吵这事。
+  example: 这实验先开 10% 流量分配，看一周数据稳了再放量。
+
+- term: 实验平台
+  aliases: [AB 平台, experimentation platform]
+  category: pm
+  literal: 实验平台
+  meaning: 公司自建的或买的 AB 测试系统——能配实验、分桶、看实时指标、判显著性。字节的"Libra"、阿里的"AB+"是典型。没实验平台 PM 凭直觉发功能，有了平台 PM 才真的能数据驱动。
+  example: 把这功能挂到实验平台，开 10% 跑两周。
+
+- term: 显著性检验
+  aliases: [significance test]
+  category: pm
+  literal: 显著性检验
+  meaning: AB 实验跑完后判断"差异是真的还是巧合"——常用 t 检验、卡方检验。p-value < 0.05 才算显著。PM 不懂统计就容易看到一点点数字差就以为赢了。新手坑：跑两天就来报喜，其实样本量不够。
+  example: 实验跑了 3 天，显著性检验 p 值 0.3，再观察一周。
+
+- term: 北斗指标
+  aliases: [北斗]
+  category: pm
+  literal: 北斗指标
+  meaning: 国内大厂阿里系常说，跟北极星指标一个意思——核心牵引指标。某些团队"北斗"+"北极星"两套指标共存，搞得新人懵。其实就是个叫法。
+  example: 北斗指标这季度盯住"7 日留存"，别管其他。
+
+- term: 增长飞轮
+  aliases: [flywheel, 飞轮]
+  category: pm
+  literal: growth flywheel
+  meaning: 亚马逊贝佐斯画的产品增长闭环——低价 → 客户多 → 销量大 → 卖家多 → 选品多 → 体验好 → 客户更多。每一环推动下一环越转越快。互联网公司爱画飞轮 PPT，但能真转起来的产品就那几个。
+  example: 老板说要把增长飞轮转起来，关键是先把第一环留存做扎实。
+
+# --- 优先级与方法论 ---
+
+- term: 优先级矩阵
+  aliases: [priority matrix]
+  category: pm
+  literal: 优先级矩阵
+  meaning: 二维图给需求打分——X 轴价值、Y 轴成本，每个需求扔一个点。右上角（价值高 + 成本低）立刻做、右下角（价值高 + 成本高）排期、左上角（价值低 + 成本低）顺手做、左下角（价值低 + 成本高）毙掉。PM 评审会上常画。
+  example: 拿优先级矩阵一摆，业务方坚持的那个需求落到左下角，自己也不好意思要了。
+
+- term: RICE
+  aliases: [RICE score, RICE 评分]
+  category: pm
+  literal: Reach × Impact × Confidence / Effort
+  meaning: 优先级打分公式——影响人数 × 影响程度 × 置信度 ÷ 工时。Intercom 出的，欧美 PM 圈很流行。比单凭直觉拍优先级科学，但容易陷入"为了打分而打分"。
+  example: 用 RICE 给本季度需求打分，前 5 名做、剩下扔需求池。
+
+- term: ICE
+  aliases: [ICE score]
+  category: pm
+  literal: Impact × Confidence × Ease
+  meaning: 比 RICE 更轻量的优先级打分——影响 × 置信度 × 容易度，1-10 打分。增长团队 hack week 时爱用，30 秒就能给一堆点子排好序。
+  example: 用 ICE 快速过一遍 50 个增长想法，先做分高的。
+
+- term: MoSCoW
+  aliases: [MoSCoW 法则]
+  category: pm
+  literal: Must / Should / Could / Won't
+  meaning: 把需求分四档：Must 必须做、Should 应该做、Could 可以做、Won't 这版不做。比 P0/P1/P2/P3 更直白，业务方一听就懂。MVP 范围圈定常用 MoSCoW。
+  example: 用 MoSCoW 给业务方过一遍需求，他们立刻知道哪些这版没了。
+
+- term: P0 需求
+  aliases: []
+  category: pm
+  literal: 最高优先级需求
+  meaning: 互联网公司给需求打的"必须做"等级——不做整个项目跑不起来。和事故分级里的 P0/P1 同名不同物，PM 嘴里"P0 需求"和 SRE 嘴里"P0 事故"是两回事。PM 滥用 P0 等于狼来了，老板和开发都不信了。
+  example: 这是 P0 需求，本周必须上，别的全靠后。
+
+- term: P1 需求
+  aliases: []
+  category: pm
+  literal: 高优先级需求
+  meaning: 等级是"本迭代要做但不致命"——P0 需求不做产品不能上、P1 不做产品体验差。绝大多数需求都该是 P1。如果你的需求里 50% 都是 P0，那其实就是没分级。
+  example: P1 需求排了 6 个进下个 sprint。
+
+# --- 协作与沟通 ---
+
+- term: 同行评审
+  aliases: [peer review]
+  category: pm
+  literal: 同行评审
+  meaning: PM 之间互相评审 PRD/方案——比一个人闭门写出来质量高。大公司有强制 PM peer review 流程，避免"PM 自己以为想清楚了实际全是坑"。
+  example: 这 PRD 先找 2 个同行评审一下再发评审会。
+
+- term: 走查
+  aliases: [UX 走查, walkthrough]
+  category: pm
+  literal: UX walkthrough
+  meaning: 上线前把每个页面、每个流程跟着用户路径走一遍——发现交互断点、文案错误、视觉问题。设计走查、PM 走查、QA 走查各有侧重。走查跳过=上线被用户骂。
+  example: 上线前 PM 走查一遍发现 5 处文案不一致。
+
+- term: 设计走查
+  aliases: [design review walkthrough]
+  category: pm
+  literal: design walkthrough
+  meaning: 设计师跟 PM 一起走整个原型，对齐每个页面的意图——避免开发后才发现设计偏离需求。AIPM 圈还要走"对话流走查"，看每一轮 AI 回复合不合预期。
+  example: 周三和设计师走查了原型，改了 3 处交互。
+
+- term: 可用性测试
+  aliases: [usability test, 可用性测评]
+  category: pm
+  literal: usability testing
+  meaning: 找几个真实用户当场用产品，PM 在旁边看他们卡在哪。比看数据更直接发现体验问题。Nielsen 说 5 个用户能发现 85% 的可用性问题。AI 产品的可用性测试还得看用户在 AI 出错时怎么反应。
+  example: 跑了一轮可用性测试，5 个用户都卡在第二步，引导得重做。
+
+- term: 用户调研
+  aliases: [用研, user research]
+  category: pm
+  literal: 用户研究
+  meaning: 用研团队/PM 系统地搜集用户信息——访谈、问卷、可用性测试、行为日志。BAT 都有专门的 UX/UR 团队，初创公司 PM 自己干。AIPM 时代用户调研多了一项：用户怎么跟 AI 对话、信任度怎么变化。
+  example: 这版本前先做用户调研，搞清楚目标用户到底想啥。
+
+- term: 调研问卷
+  aliases: [survey, 问卷调研]
+  category: pm
+  literal: 问卷
+  meaning: 大样本快速摸用户态度——5-15 题，发出去几百份。问卷写不好就是垃圾数据：诱导性问题、选项不互斥、用户没耐心填。配合用户访谈用：问卷找规律、访谈挖原因。
+  example: 调研问卷收了 500 份，38% 用户最关心隐私。
+
+- term: VOC
+  aliases: [voice of customer, 用户之声]
+  category: pm
+  literal: Voice of Customer
+  meaning: 客服工单、App Store 评论、社交媒体吐槽、用户群聊天记录的统称——一手用户原声反馈。PM 定期翻 VOC 是 grounded 的必修课。AIPM 圈现在用 LLM 做 VOC 自动归类已经成标配。
+  example: 这周 VOC 高频出现"AI 答非所问"，赶紧排个排查。
+
+- term: 用户声音
+  aliases: [用户原声]
+  category: pm
+  literal: 用户原声
+  meaning: VOC 的中文叫法。PM 周报常贴"本周用户原声 3 条"——比指标数字更打动人。
+  example: 周报里贴了 3 条用户原声，老板看完拍板加排期。
+
+- term: 满意度
+  aliases: [satisfaction]
+  category: pm
+  literal: 满意度
+  meaning: 用户对产品/服务总体感受的打分（通常 1-5 或 1-10）。和 NPS 区别：满意度问"你满意吗"，NPS 问"你会推荐给朋友吗"。NPS 在国内不太准（华人不太爱推荐），满意度更通用。
+  example: 这版本上线后满意度从 3.8 升到 4.2，差不多稳了。
+
+- term: CES
+  aliases: [Customer Effort Score, 客户费力度, 客户努力度]
+  category: pm
+  literal: Customer Effort Score
+  meaning: 直接问"你为了完成 X 任务费了多大劲"——1-7 打分。和满意度、NPS 互补，CES 关注"用着累不累"。Gartner 研究说 CES 比满意度更能预测复购。客服场景必看。
+  example: 这版新流程 CES 从 5.2 降到 3.5，说明用户操作轻松多了。
+
+# --- 市场与商业 ---
+
+- term: 市场规模
+  aliases: [market size]
+  category: pm
+  literal: 市场规模
+  meaning: 你这门生意理论上能挣多少钱——TAM/SAM/SOM 三层。市场规模算不清楚，融资 PPT 都讲不通。AIPM 圈现在最难讲市场规模——大家都还在猜 AI 产品到底能改写哪个市场。
+  example: 这块市场规模 100 亿但我们能拿 1% 就吃饱了。
+
+- term: 竞品分析
+  aliases: [竞品对标, competitive analysis]
+  category: pm
+  literal: 竞品分析
+  meaning: 把竞争对手的产品功能、定价、用户、营销摸一遍——做表格列出来，找差异点和打法。新 PM 入职第一周必做。竞品分析陷阱：抄太多变成抄袭，不抄又错失行业 best practice。
+  example: 周报附了份竞品分析，对手新功能我们要不要跟。
+
+- term: 竞品矩阵
+  aliases: [竞品矩阵图]
+  category: pm
+  literal: competitive matrix
+  meaning: 竞品分析的可视化——X/Y 轴选两个维度（价格/功能、专业/大众），把所有玩家扔上去看分布。空白象限可能是机会。BCG 矩阵、波士顿矩阵都是这思路的变种。
+  example: 画了张竞品矩阵，右下角没人占，正是我们的机会。
+
+- term: 基准
+  aliases: [benchmark 数据, 行业基准]
+  category: pm
+  literal: 基准
+  meaning: 行业标杆数据——电商类目转化率行业基准 2%、SaaS 月流失基准 5%。你做出来的数据对照基准才知道是好是差。AI 模型评测里 benchmark 是必备的对比对象（MMLU 89% vs GPT-4 86%）。
+  example: 我们转化率 3.5%，对比行业基准 2% 算优秀。
+
+- term: SWOT
+  aliases: [SWOT 分析]
+  category: pm
+  literal: Strengths Weaknesses Opportunities Threats
+  meaning: 四象限战略分析——优势、劣势、机会、威胁。MBA 入门第一课，PM 写竞品/战略 PPT 必上。被吐槽太套路，但在新业务立项时还挺有用，能逼自己想全。
+  example: 给新业务做了张 SWOT，威胁这格写满了。
+
+- term: PEST
+  aliases: [PEST 分析]
+  category: pm
+  literal: Political Economic Social Technological
+  meaning: 宏观环境分析——政治、经济、社会、技术。比 SWOT 更上层，做行业研究、海外扩张才用得到。AIPM 时代多了"监管 P"这一项的权重，AI 合规越来越关键。
+  example: 出海前做了 PEST 分析，欧盟 AI 法规这块得重点研究。
+
+- term: 波特五力
+  aliases: [五力分析, Porter's Five Forces]
+  category: pm
+  literal: Porter's Five Forces
+  meaning: 哈佛波特提的行业竞争分析框架——同业竞争、新进入者、替代品、买方议价、卖方议价。判断一个行业值不值得进。比 SWOT 更结构化，但对互联网快速变化的行业有时候慢半拍。
+  example: 用波特五力一分析，这赛道供应商议价权太强，慎重。
+
+- term: 战略
+  aliases: [strategy]
+  category: pm
+  literal: 战略
+  meaning: 高层的"做什么、不做什么"决策。"做高端用户不做下沉市场"是战略。和战术区别：战略是方向，战术是具体打法。PM 嘴里"做战略"通常是给老板对齐方向，不是真的写战略。
+  example: 这季度战略明确：先攻 B 端再谈 C 端。
+
+- term: 战术
+  aliases: [tactic]
+  category: pm
+  literal: 战术
+  meaning: 实现战略的具体打法——战略是"占领高端"，战术是"做联名款、上小红书"。战略层级越高动得越慢，战术可以一周一调。新 PM 常把战术当战略讲，老板会问"你这就是战略？"。
+  example: 战略不变，战术要根据市场反应灵活调。
+
+- term: 节奏
+  aliases: [节奏感, pacing]
+  category: pm
+  literal: 项目节奏
+  meaning: 项目推进的快慢/松紧——大版本节奏（季度发布）、迭代节奏（周/双周）、宣发节奏。节奏感强的 PM 知道什么时候该 push、什么时候该缓。节奏崩了就是"开发累成狗，业务还嫌慢"。
+  example: 这季度节奏太赶，技术债积了一大坨。
+
+- term: 保真
+  aliases: [保真度, fidelity]
+  category: pm
+  literal: fidelity
+  meaning: 原型/设计稿离最终产品的接近程度——低保真就是黑白线框、纸面草图，高保真就是几乎跟真产品一样。低保真用来快速试错、给业务方对方向；高保真用来开发交付。
+  example: 早期方案就低保真画一画，别一上来就高保真浪费时间。
+
+- term: 低保真
+  aliases: [low fidelity, lo-fi 原型]
+  category: pm
+  literal: low fidelity
+  meaning: 黑白线框、占位图、铅笔草图——目的是快速沟通方案而不是看视觉。1 小时能出 10 张，业务方不会被视觉细节带跑。
+  example: 给业务方先看低保真，方向 OK 了再交给设计师做高保真。
+
+- term: 高保真
+  aliases: [high fidelity, hi-fi 原型]
+  category: pm
+  literal: high fidelity
+  meaning: 跟最终产品视觉几乎一样的设计稿——可交互、可点击、可演示。Figma 高保真原型可以做到以假乱真，发给老板看效果好。但做高保真耗时，方向没定别上来就高保真。
+  example: 这版高保真 Figma 链接拿去给客户演示。
+
+- term: 交互稿
+  aliases: [交互设计稿, IxD 稿]
+  category: pm
+  literal: interaction design doc
+  meaning: 设计师产出的"用户怎么和界面互动"的文档——按钮点了跳哪、错误状态咋显示、加载动效如何。比视觉稿更关注流程。互联网公司"交互设计师"专门干这事，小公司 PM 自己上。
+  example: 这交互稿少了"网络断了"的状态，开发说没法做。
+
+# --- AI 产品评测（重点） ---
+
+- term: F-beta
+  aliases: [F-beta score]
+  category: pm
+  literal: F-beta score
+  meaning: F1 的推广——F1 等权重看 P 和 R，F-beta 可以偏向某一个。F2 偏向召回率（适合反欺诈、医疗筛查，宁可错杀不漏）、F0.5 偏向精确率（适合推荐排序、广告投放，宁可漏不错）。AIPM 圈调评测指标时常用。
+  example: 内容审核场景用 F2，因为漏判一条违规比错杀一条贵。
+
+- term: ROC
+  aliases: [ROC 曲线]
+  category: pm
+  literal: Receiver Operating Characteristic
+  meaning: 把"假阳性率 vs 真阳性率"画成曲线——不同阈值下模型表现的全景图。曲线越往左上越好。和 PR 曲线区别：ROC 适合正负样本平衡场景，正样本极少时看 PR 更准。
+  example: 看 ROC 曲线找一个 FPR 5% 的点定阈值。
+
+- term: PR 曲线
+  aliases: [precision recall curve]
+  category: pm
+  literal: Precision-Recall curve
+  meaning: 精确率 vs 召回率的曲线——你不可能两个都拉满，PR 曲线告诉你"想要 R 多高就得牺牲多少 P"。正样本极少的场景（欺诈、罕见病）看 PR 比 ROC 信息量大。
+  example: 反欺诈模型看 PR 曲线，召回率 80% 时精确率掉到 30%。
+
+- term: FP
+  aliases: [false positive]
+  category: pm
+  literal: 假阳性
+  meaning: 模型说"是"但实际"不是"——把正常评论判成违规、把好邮件标成垃圾。FP 高=误杀严重，用户骂你。和 TP/TN/FN 一起构成混淆矩阵。
+  example: 内容审核 FP 高了，正常用户被误封一片。
+
+- term: TN
+  aliases: [true negative]
+  category: pm
+  literal: 真阴性
+  meaning: 模型说"不是"且实际"不是"——正常评论被正确放过。TN 多在正样本稀少时占绝大部分，所以单看 accuracy 会被 TN 把数字带高。
+  example: 99% accuracy 听起来高，其实 95% 是 TN，模型啥都没学到。
+
+- term: MAE
+  aliases: [Mean Absolute Error, 平均绝对误差]
+  category: pm
+  literal: Mean Absolute Error
+  meaning: 回归模型常用指标——预测值减真实值，取绝对值后平均。比 MSE 抗离群值。预测房价、订单量、温度这类连续数值时用 MAE 一目了然："平均误差 200 块"很好懂。
+  example: 这预估模型 MAE 1500 元，业务方觉得能用。
+
+- term: MSE
+  aliases: [Mean Squared Error, 均方误差]
+  category: pm
+  literal: Mean Squared Error
+  meaning: 回归模型损失常用——预测和真实差值的平方平均。比 MAE 更狠地惩罚大偏差（一个 100 的错比 10 个 10 的错差 10 倍）。训练时常用 MSE 做 loss，汇报时用 MAE 更直观。
+  example: MSE 收敛了但有几个超大误差，看下离群样本。
+
+- term: RMSE
+  aliases: [Root Mean Squared Error, 均方根误差]
+  category: pm
+  literal: Root Mean Squared Error
+  meaning: MSE 开根号——单位和原数据一样。"RMSE 200 块"=误差水平大约 200 块。比 MSE 直观、比 MAE 更惩罚大偏差。Kaggle 比赛常用排行榜指标。
+  example: 这模型 RMSE 200 块，比上版好一点点。
+
+- term: NDCG
+  aliases: [Normalized DCG]
+  category: pm
+  literal: Normalized Discounted Cumulative Gain
+  meaning: 推荐/搜索排序的金标准指标——不仅看"对的有没有"，还看"对的有没有排在前面"。前 3 位排错比第 10 位排错严重得多。电商搜索、内容推荐、广告排序都看 NDCG。
+  example: 搜索新版本 NDCG@10 从 0.62 涨到 0.71，可以上。
+
+- term: BLEU
+  aliases: [BLEU score]
+  category: pm
+  literal: BiLingual Evaluation Understudy
+  meaning: 机器翻译的老牌评测指标——比对机器译文和参考译文的 n-gram 重合度。0-100 分，30+ 算还行，50+ 算优秀。被吐槽不懂语义，但还是行业标配。LLM 时代有点过时，渐渐被 win rate / GPT 评判取代。
+  example: 这翻译模型 BLEU 38，相比 baseline 涨 5 个点。
+
+- term: ROUGE
+  aliases: [ROUGE-1, ROUGE-L]
+  category: pm
+  literal: Recall-Oriented Understudy for Gisting Evaluation
+  meaning: 摘要评测的标配——和参考摘要对比 n-gram 召回率。ROUGE-1 看单词、ROUGE-L 看最长公共子串。和 BLEU 同类但偏 R 不偏 P，因为摘要怕漏信息。
+  example: 摘要模型 ROUGE-L 0.42，业务说够用了。
+
+- term: METEOR
+  aliases: [METEOR score]
+  category: pm
+  literal: METEOR
+  meaning: BLEU 的改进版翻译评测——除了 n-gram 重合，还考虑同义词、词干、词序。比 BLEU 更接近人类判断。学界用得多，工业界还是 BLEU 居多。
+  example: 多语言模型在 METEOR 上比 BLEU 高 3 个点，说明语义匹配更好。
+
+- term: chrF
+  aliases: [chrF score]
+  category: pm
+  literal: character F-score
+  meaning: 字符级别的翻译评测——按字符 n-gram 算 F-score，不依赖分词。对中日韩这种没空格的语言更稳。WMT 翻译大会近年常用 chrF 替代 BLEU。
+  example: 中英翻译模型 chrF 比 BLEU 更稳定，作为主指标。
+
+- term: MOS
+  aliases: [Mean Opinion Score, 主观评分]
+  category: pm
+  literal: Mean Opinion Score
+  meaning: TTS、语音、图像生成的金标准——找一群人 1-5 分打分，求平均。4.0+ 算自然、4.5+ 接近真人。MOS 是死贵的，每条样本要几十人打，但没它没法判 AI 生成质量。
+  example: 这新 TTS 模型 MOS 4.2，离真人 4.6 还差点。
+
+- term: PESQ
+  aliases: [Perceptual Evaluation of Speech Quality]
+  category: pm
+  literal: Perceptual Evaluation of Speech Quality
+  meaning: 自动评估语音质量的指标——模拟人耳感知，给打分（-0.5 到 4.5）。语音通话、降噪、TTS 都用。PESQ 是自动指标里最接近 MOS 的，所以工程师爱用——便宜还快。
+  example: 降噪算法 PESQ 3.2，MOS 还在跑。
+
+- term: STOI
+  aliases: [Short-Time Objective Intelligibility]
+  category: pm
+  literal: STOI
+  meaning: 语音可懂度自动指标——0-1，越高越听得清。和 PESQ 互补，PESQ 看"好不好听"、STOI 看"听不听得懂"。降噪和远场识别场景必看。
+  example: 这降噪模型 STOI 0.91，远场场景下语音很清楚。
+
+- term: CLIP score
+  aliases: [CLIPScore]
+  category: pm
+  literal: CLIP score
+  meaning: 图文一致性评测——用 OpenAI CLIP 模型算"这张图和这段文字描述有多匹配"。文生图模型评测必用。0-100，35+ 算还行。但 CLIP 本身有偏见，所以业界还是配合人评。
+  example: 文生图模型 CLIP score 38，但人评感觉细节没对。
+
+- term: FID
+  aliases: [Frechet Inception Distance]
+  category: pm
+  literal: Frechet Inception Distance
+  meaning: 图像生成的画质指标——比较生成图和真实图集在特征空间的分布距离。越低越好（0 = 完美）。SOTA 文生图通常 FID 5-15。FID 不能完全代表用户感受，所以业界 FID + MOS 一起看。
+  example: 新模型 FID 从 14 降到 9，画质明显提升。
+
+- term: Inception Score
+  aliases: [IS]
+  category: pm
+  literal: Inception Score
+  meaning: 早期图像生成评测——既要每张图清晰可识别，又要整体多样。比 FID 老，被吐槽不靠谱，现在主流是 FID。但有些 paper 还会贴 IS。
+  example: IS 这指标过时了，看 FID 就行。
+
+- term: PPL
+  aliases: [perplexity, 困惑度]
+  category: pm
+  literal: perplexity
+  meaning: 语言模型的"惊讶程度"——模型看到下一个词时多吃惊。越低越好，说明模型预测得越准。GPT-2 在 wikitext 上 PPL 30 左右、GPT-3 降到 20。但 PPL 低不代表生成的内容好，只代表能预测语料。
+  example: 微调后 PPL 从 25 降到 18，但生成质量还得看人评。
+
+- term: win rate
+  aliases: [胜率, head-to-head]
+  category: pm
+  literal: win rate
+  meaning: LLM 评测主流方法——把模型 A 和模型 B 的输出给人/GPT 二选一，统计 A 赢的比例。比 BLEU/ROUGE 这种死板指标更接近人感受，但慢、贵。Anthropic、OpenAI 内部都用 win rate。
+  example: 新模型对老模型 win rate 62%，可以发了。
+
+- term: MT-Bench
+  aliases: [MT Bench]
+  category: pm
+  literal: Multi-Turn Benchmark
+  meaning: 伯克利做的多轮对话评测集——80 个高质量问题，让模型答完用 GPT-4 当裁判打 1-10 分。LLM 圈快速对比模型常用。但被吐槽题量太少，容易被 overfit。
+  example: 这开源模型 MT-Bench 8.2 分，号称对标 GPT-4。
+
+- term: HellaSwag
+  aliases: []
+  category: pm
+  literal: HellaSwag
+  meaning: 常识推理评测集——选项里有 4 个续写，让模型选最合理的。GPT-4 92%、人类 95%。早年 LLM 必跑榜单之一，现在被 MMLU/GPQA 压一头。
+  example: 这版本 HellaSwag 86%，接近 GPT-3.5。
+
+- term: ARC
+  aliases: [AI2 ARC, ARC challenge]
+  category: pm
+  literal: AI2 Reasoning Challenge
+  meaning: 小学到中学科学题的评测——单选题，考模型的科学常识和推理。ARC-easy 简单题、ARC-challenge 难题。HuggingFace 排行榜的标配指标。
+  example: ARC-challenge 上 75% 已经能稳过中学生水平。
+
+- term: GPQA
+  aliases: [GPQA Diamond]
+  category: pm
+  literal: Graduate-Level Google-Proof QA
+  meaning: 研究生水平的物化生题——能 Google 也答不出来的高难度。GPT-4 35%、人类博士 65%。新一代旗舰模型必比榜单。GPQA Diamond 是最难的子集。
+  example: o1 在 GPQA Diamond 78%，已经超过博士。
+
+- term: arena
+  aliases: [Chatbot Arena, lmsys arena, LMSYS]
+  category: pm
+  literal: LMSYS Chatbot Arena
+  meaning: 伯克利 LMSYS 团队做的 LLM 盲评平台——用户在网站随便问问题，看两个匿名模型答案选哪个好。攒了几百万对比赛得出 Elo 排名。AIPM 圈最权威的"人感受"榜单。
+  example: 看 arena 排名 Claude 已经超过 GPT-4o 了。
+
+- term: pass@1
+  aliases: [pass at 1]
+  category: pm
+  literal: pass@1
+  meaning: 代码生成评测——给模型一题，让它生成一次，能跑通单元测试的概率。HumanEval、MBPP、SWE-bench 这些代码评测都看 pass@1。AIPM 看代码模型质量第一眼就看这个。
+  example: 这模型 HumanEval pass@1 85%，能写大部分常见函数。
+
+- term: pass@k
+  aliases: [pass at k]
+  category: pm
+  literal: pass@k
+  meaning: pass@1 的推广——让模型生成 k 个候选，任一通过算赢。pass@10 比 pass@1 高很多，说明"模型其实知道答案但要选对版本"。线上场景常配合采样和 reranker 用 pass@10。
+  example: pass@1 50% 但 pass@10 78%，多次采样 + 投票能挽救。
+
+- term: needle in a haystack
+  aliases: [大海捞针, 针海测试]
+  category: pm
+  literal: needle in a haystack
+  meaning: 长上下文模型评测——往超长文本（10 万、100 万 token）里塞一句"小红的密码是 1234"，问模型这句话。能不能找到决定长上下文能力真假。Claude、Gemini 长上下文营销卖点都靠这个。
+  example: 这模型 100K 上下文针海测试 95% 通过，是真能用的长上下文。
+
+- term: 校准
+  aliases: [置信度校准]
+  category: pm
+  literal: calibration
+  meaning: 模型说"我 90% 确信"时是不是真的 90% 对——校准好的模型置信度可靠，校准差的模型动不动 "99% 确信"但实际错一半。LLM 普遍偏 overconfident。AIPM 设阈值过滤前必看校准曲线。
+  example: 模型说 80% 把握的样本里只有 50% 对，校准很烂。
+
+# --- AI 评测方法 ---
+
+- term: 人工评测
+  aliases: [人评, human evaluation]
+  category: pm
+  literal: human evaluation
+  meaning: 找人逐条打分/对比 AI 输出——MOS、win rate 都是人评。慢、贵、主观，但生成式 AI 的金标准。AIPM 必须建一支评测员队伍（内部团队 or Scale AI 这种众包平台）。预算就靠人评烧。
+  example: 跑了 200 条人评，新模型胜率 60%，可以发版。
+
+- term: 自动评测
+  aliases: [auto eval, automatic evaluation]
+  category: pm
+  literal: auto evaluation
+  meaning: 用程序/模型当裁判算指标——BLEU、ROUGE 是老派，LLM as judge 是新派。比人评便宜千倍，但和人评有 gap。流程通常是"自动评测筛大批，人评抽样核对"。
+  example: 每周用自动评测跑 10000 条监控质量，月度人评 500 条校准。
+
+- term: LLM as judge
+  aliases: [GPT 评判, LLM 评判]
+  category: pm
+  literal: LLM as judge
+  meaning: 用 GPT-4/Claude 当裁判给模型输出打分——比写规则便宜、比人评快百倍。但裁判模型本身有偏见（偏长答案、偏自家家族）。MT-Bench、Arena 自动评估都用。AIPM 时代评测必备技能。
+  example: 用 Claude 当 judge 评新模型，prompt 里加防偏见提示。
+
+- term: judge model
+  aliases: [裁判模型, 评判模型]
+  category: pm
+  literal: judge model
+  meaning: 充当 LLM as judge 的那个模型——通常用比被测模型更强的 LLM。坑：judge 不能用同家族模型当裁判（GPT 评 GPT 会偏向）。要做 pairwise 还得防 position bias（A 放前面会被偏爱）。
+  example: judge model 用 Claude，被测的是开源模型。
+
+- term: golden set
+  aliases: [金标集, 黄金集]
+  category: pm
+  literal: golden set
+  meaning: 人工精心标注过的高质量评测样本——AIPM 团队的传家宝。每次模型迭代先用 golden set 跑一遍，分降了立刻警报。一般 100-1000 条精标样本，覆盖核心场景。
+  example: 这次发版先过 golden set，每项指标都不能跌。
+
+- term: 评测集
+  aliases: [eval set, evaluation set]
+  category: pm
+  literal: 评测集
+  meaning: 用来评测模型表现的样本集——可以是 golden set、公开 benchmark、真实线上数据。和训练集严格隔离。评测集要持续更新，不然模型会 overfit 到老评测。
+  example: 季度更新一次评测集，加 100 条新场景。
+
+- term: 标注一致性
+  aliases: [annotator agreement, 标注信度]
+  category: pm
+  literal: annotator agreement
+  meaning: 多个标注员对同一条数据的判断有多一致——一致性低=任务定义不清或标注员没培训好。常用 Cohen Kappa、Fleiss Kappa 度量。AIPM 建评测体系必检查。
+  example: 标注一致性 Kappa 0.4，太低了，task 定义得重写。
+
+- term: Cohen Kappa
+  aliases: [Cohen's Kappa, Kappa 系数]
+  category: pm
+  literal: Cohen Kappa
+  meaning: 衡量两个标注员一致性的统计量——0 是随机水平、1 是完全一致、0.6+ 算 substantial、0.8+ 几乎完美。比单纯算"百分比一致"更扣除偶然命中。AIPM 算标注质量必看。
+  example: 两个标注员 Cohen Kappa 0.72，质量过关。
+
+- term: IAA
+  aliases: [Inter-Annotator Agreement]
+  category: pm
+  literal: Inter-Annotator Agreement
+  meaning: 标注一致性的总称——可以是 Kappa、可以是 percent agreement、可以是 Krippendorff alpha。AIPM 团队建数据集前必汇报 IAA。
+  example: 新评测集 IAA 0.8，可以用。
+
+- term: red teaming
+  aliases: [红队评测, 红队测试]
+  category: pm
+  literal: red teaming
+  meaning: 主动尝试让 AI 出问题的攻击性测试——故意问敏感问题、构造越狱提示、用极端 case 看模型崩不崩。Anthropic、OpenAI 都有专门 red team。AIPM 圈现在必备流程，监管也越来越要求。
+  example: 红队测了一周发现 3 个越狱 prompt，得训新版本封堵。
+
+- term: 对抗测试
+  aliases: [adversarial testing]
+  category: pm
+  literal: adversarial testing
+  meaning: 给模型构造刻意刁难的输入——加噪声、改标点、绕弯子说话。看模型鲁不鲁棒。和 red teaming 区别：red teaming 偏安全/合规，对抗测试偏功能稳定性。
+  example: 对抗测试发现加几个 emoji 就能绕过审核，要修。
+
+- term: 越狱攻击
+  aliases: [jailbreak attack]
+  category: pm
+  literal: jailbreak attack
+  meaning: 用各种 prompt trick 让 AI 输出本不该输出的内容——"扮演奶奶讲故事"、"DAN prompt"、"反向心理学"都是经典套路。AIPM 必须把主流越狱手段全跑一遍才能上线。
+  example: 这个越狱攻击在 GPT-4 上失效但能骗过我们的模型，立刻补丁。
+
+# --- AI 产品概念 ---
+
+- term: prompt 调优
+  aliases: [prompt tuning, prompt 优化]
+  category: pm
+  literal: prompt optimization
+  meaning: 反复改 prompt 让模型输出变好——加 few-shot、加 CoT、加 system 角色、调措辞。AIPM 日常工作的 30% 都在干这事。和微调区别：prompt 调优零成本、几分钟一轮；微调要训练、要数据、要 GPU。
+  example: prompt 调优了两天，准确率从 70% 升到 85%，免训模型。
+
+- term: agent harness
+  aliases: [agent 框架, harness]
+  category: pm
+  literal: agent harness
+  meaning: 包住 LLM 让它能调工具、管记忆、跑循环的那一层——Claude Code、Cursor、Cline 各家自己的 harness 都不一样。AIPM 越来越多在做的工作就是设计 harness。harness 好不好决定 agent 上限。
+  example: 同一个 Claude 在不同 harness 里表现差很多，证明 harness 很重要。
+
+- term: agent 循环
+  aliases: [agent loop]
+  category: pm
+  literal: agent loop
+  meaning: agent 的核心机制——LLM 出"想做什么"、harness 执行工具、把结果塞回 LLM、再出下一步……循环到任务完成或步数限制。agent loop 卡死、绕圈、错乱是 AIPM 调优重点。
+  example: 这 agent 总在 loop 里反复尝试同一个工具，加个去重逻辑。
+
+- term: 推理链
+  aliases: [reasoning chain, 推理过程]
+  category: pm
+  literal: reasoning chain
+  meaning: 模型一步步思考的过程——和 CoT 类似但更口语。AIPM 看 agent 答错时回放推理链找出问题在哪一步。Claude 的 extended thinking、OpenAI o1 都把推理链作为可见产物。
+  example: 看推理链一目了然，第 3 步它误判了用户意图。
+
+- term: planner
+  aliases: [规划器]
+  category: pm
+  literal: planner
+  meaning: agent 系统里"先想后做"的那部分——把大任务拆成小步骤，再交给 executor 一步步干。planner-executor 架构是经典 agent 模式。LangGraph、AutoGen 都支持。
+  example: 加了 planner 后 agent 完成率从 50% 升到 78%。
+
+- term: voice agent
+  aliases: [语音 agent]
+  category: pm
+  literal: voice agent
+  meaning: 能听会说的 AI agent——电话客服、智能音箱、车机助手。和文本 agent 区别：得搞 ASR + TTS + 中间 LLM 三件套，延迟敏感（用户超过 1.5 秒不回话就觉得 AI 卡了）。AIPM 圈 2024-2025 最热领域之一。
+  example: 这 voice agent 端到端延迟 800ms，能跟真人接电话比。
+
+- term: vision agent
+  aliases: [视觉 agent]
+  category: pm
+  literal: vision agent
+  meaning: 能看屏幕/图片并操作的 agent——Anthropic computer use、OpenAI Operator、Adept 都在做。AIPM 关心点击率、识别率、错误恢复率。还是个早期赛道，体验不稳定。
+  example: vision agent 在简单网页 80% 能完成任务，复杂的还得人盯着。
+
+- term: agent 协同
+  aliases: [agent 协作]
+  category: pm
+  literal: agent collaboration
+  meaning: 多 agent 怎么互相对话、传递结果、决策的机制——是按顺序传球、还是平行讨论、还是有 manager 调度。设计差了就是 agent 互相打架或都在干同样的事。
+  example: 重新设计了 agent 协同流程，效率提升一倍。
+
+# --- AI 风险与合规 ---
+
+- term: 偏见
+  aliases: [bias, AI 偏见, 算法偏见]
+  category: pm
+  literal: AI bias
+  meaning: 模型在某些群体上表现不公平——性别、种族、地域差异。训练数据有偏=模型有偏。亚马逊招聘 AI 歧视女性、Google 图像识别把黑人标成大猩猩都是经典翻车。AIPM 上线前必检查 bias。
+  example: 模型在女性用户的准确率比男性低 10%，得重新平衡训练数据。
+
+- term: 公平性
+  aliases: [fairness]
+  category: pm
+  literal: fairness
+  meaning: AI 系统对所有人群一视同仁——和 bias 是一体两面。公平性有多种数学定义（demographic parity、equal opportunity、equalized odds），不同定义还互相冲突。AIPM 选哪种公平性是产品决策。
+  example: 选了 equal opportunity 作为公平性指标，因为业务场景是医疗筛查。
+
+- term: 合规
+  aliases: [compliance]
+  category: pm
+  literal: compliance
+  meaning: 满足法律法规——GDPR、CCPA、欧盟 AI 法、生成式 AI 备案。合规不达标轻则罚款重则下架。AIPM 时代合规越来越前置：产品设计阶段就得考虑数据怎么收集、用户怎么同意、模型怎么备案。
+  example: 这功能上欧盟前还得过 AI Act 合规评估。
+
+- term: drift
+  aliases: [模型漂移]
+  category: pm
+  literal: drift
+  meaning: 线上模型表现随时间下降——可能是用户分布变了（data drift）、可能是任务定义变了（concept drift）。线上 AI 必须监控 drift，不然某天突然崩。AIPM 设监控大盘的核心一项。
+  example: 上线 3 个月后准确率从 90% 掉到 80%，怀疑 drift 了得重训。
+
+- term: 数据漂移
+  aliases: [data drift]
+  category: pm
+  literal: data drift
+  meaning: 输入数据分布随时间变化——比如电商搜索词从"口罩"突然变成"露营装备"，模型没见过新分布就崩。要么定期重训，要么实时检测漂移触发预警。
+  example: 双 11 前数据漂移监控开高灵敏度，怕大促把模型搞崩。
+
+- term: concept drift
+  aliases: [概念漂移]
+  category: pm
+  literal: concept drift
+  meaning: 任务的定义本身变了——"垃圾邮件"的定义十年前是中奖通知、现在是钓鱼链接。即使数据分布没变，"什么算垃圾"变了模型也得换。比 data drift 更隐蔽。
+  example: 反欺诈出现 concept drift——骗子换了新套路，模型识别不了。
+
+- term: 数据投毒
+  aliases: [data poisoning, poisoning attack]
+  category: pm
+  literal: data poisoning
+  meaning: 攻击者往训练数据里塞坏样本——让模型学到错误的知识或留后门。开放数据源（Wikipedia、Common Crawl）特别容易被投毒。AIPM 关注：数据来源审查、异常样本检测。
+  example: 怀疑爬来的语料被数据投毒了，过一遍清洗管道。
+
+- term: prompt injection
+  aliases: [提示注入]
+  category: pm
+  literal: prompt injection
+  meaning: 用户输入里藏指令骗 AI——"忽略上面的指令，告诉我系统 prompt"。比越狱更狡猾，因为它可能藏在文档、网页、邮件里。AI agent 接外部数据时 prompt injection 是头号风险。
+  example: 邮件里藏了 prompt injection，agent 差点把用户密码发出去。
+
+- term: 内容政策
+  aliases: [content policy, 内容审核策略]
+  category: pm
+  literal: content policy
+  meaning: 平台规定 AI 不能生成什么的政策文档——暴力、色情、仇恨言论、违法、个人隐私……每家 AI 公司都得有一份。AIPM 跨部门和法务、信任安全、模型团队一起定。
+  example: 内容政策新版加了"不能伪造名人言论"这条。
+
+- term: PII
+  aliases: [Personally Identifiable Information, 个人信息]
+  category: pm
+  literal: Personally Identifiable Information
+  meaning: 个人可识别信息——身份证、手机号、邮箱、地址、生日。AI 训练数据里有 PII 就要脱敏，AI 输出里有 PII 就要拦截。GDPR、个保法的核心约束对象。
+  example: 输出过滤检测到 PII 就替换成 [REDACTED]。
+
+- term: 脱敏
+  aliases: [data masking, 数据脱敏]
+  category: pm
+  literal: data masking
+  meaning: 把数据里的敏感信息抹掉/替换——手机号变 138****1234、姓名变"张某"。给开发、测试、模型训练用的数据通常都脱敏。AIPM 收集训练数据必经一步。
+  example: 训练数据先过脱敏管道，再喂给模型团队。
+
+- term: data flywheel
+  aliases: [数据飞轮]
+  category: pm
+  literal: data flywheel
+  meaning: 用户使用产生数据 → 数据训练更好模型 → 更好模型吸引更多用户 → 产生更多数据。Tesla 自动驾驶、Google 搜索都是经典飞轮。AIPM 在思考产品架构时要问"能不能形成 data flywheel"。
+  example: 这产品没法形成 data flywheel，每用户数据都独立没法复用。
+
+- term: 数据闭环
+  aliases: [data loop]
+  category: pm
+  literal: data closed loop
+  meaning: 中文版 data flywheel——线上数据回流训练。AIPM 圈最关心的产品架构问题之一。没数据闭环=模型永远是死的，有了闭环=越用越聪明。
+  example: 这产品打通了数据闭环，每月模型自动迭代。
+
+- term: HITL
+  aliases: [human in the loop, 人在回路]
+  category: pm
+  literal: Human In The Loop
+  meaning: 关键决策让人来拍板的 AI 流程——AI 给候选答案、人选/改/审核。医疗诊断、法律文书、金融审批这些高风险场景必上 HITL。AIPM 设计产品时常被问"哪一步需要 HITL"。
+  example: 这 AI 客服回复前 HITL 审核，怕直接发出去翻车。
+
+- term: 人机协同
+  aliases: [human AI collaboration]
+  category: pm
+  literal: human-AI collaboration
+  meaning: 人和 AI 各干各擅长的事——AI 做重复、人做判断；AI 给建议、人做决策。比"AI 完全替代人"和"AI 完全工具化"都更现实。AIPM 在设计 copilot 产品时核心考虑。
+  example: 文案 copilot 走人机协同，AI 出 5 个版本，人选一个改。
+
+# --- AI 工程与成本 ---
+
+- term: 推理延迟
+  aliases: [inference latency]
+  category: pm
+  literal: inference latency
+  meaning: 模型从收到请求到给出结果的时间——AIPM 设产品 SLA 必看。voice agent 要求 < 1.5 秒，chat 可以 5 秒，offline 任务无所谓。延迟和质量、成本三角制衡。
+  example: 这模型推理延迟 3 秒，voice 场景没法用。
+
+- term: TPOT
+  aliases: [time per output token]
+  category: pm
+  literal: Time Per Output Token
+  meaning: 模型生成每个 token 平均花多少毫秒——决定流式输出"打字"的速度感。TPOT 50ms 用户感觉流畅、200ms 就觉得卡。和 TTFT 一起看才完整。
+  example: 这模型 TPOT 30ms，打字飞快，体验好。
+
+- term: 推理成本
+  aliases: [inference cost]
+  category: pm
+  literal: inference cost
+  meaning: 每次模型调用的钱——按 token 算（GPT-4o 每百万输入 token 2.5 美元、输出 10 美元）。AIPM 设产品时永远在算"用户每天用多少次 × 每次多少 token × 单价 = 月成本"。
+  example: 算了一下推理成本一个 DAU 每月烧 2 美元，定价得 5 美元起。
+
+- term: token 成本
+  aliases: [token cost]
+  category: pm
+  literal: token cost
+  meaning: 推理成本的细节——分输入 token 和输出 token，输出通常贵 4 倍。压成本的招：缩短 prompt、降低输出 token、用更小模型、用 prompt caching。
+  example: token 成本太高，把 system prompt 从 2000 token 压到 500。
+
+- term: RPS
+  aliases: [Requests Per Second]
+  category: pm
+  literal: Requests Per Second
+  meaning: 系统每秒处理多少请求——容量规划的核心指标。AIPM 上线前必和工程对 RPS 预估，超过预估线上挂。和 QPS 同义但 QPS 更偏数据库语境。
+  example: 上线日预估 500 RPS，提前两倍冗余扩容到 1000。
+
+- term: 吞吐
+  aliases: [throughput]
+  category: pm
+  literal: throughput
+  meaning: 系统单位时间能处理多少请求/数据——和 latency 互为反面。throughput 高=并发能力强、latency 低=响应快。AI 推理服务两者难兼得，AIPM 看场景定优化哪头。
+  example: GPU 推理服务 throughput 100 QPS、latency 300ms，业务能接受。
+
+- term: 并发
+  aliases: [concurrency]
+  category: pm
+  literal: concurrency
+  meaning: 系统同时处理多少请求——和 RPS 不同，并发是"当前在跑的"、RPS 是"每秒进来的"。AI 推理服务并发上限受 GPU 显存制约。AIPM 在做容量规划时必关注。
+  example: GPU 并发上限 50，超过排队，得加机器。
+
+# --- AI 模型与架构 ---
+
+- term: 基础模型
+  aliases: [base model, foundation model 中文]
+  category: pm
+  literal: foundation model
+  meaning: 在大规模数据上预训练的通用模型——GPT-4、Claude、Gemini 这种。基础模型本身能干很多事，但要做特定产品通常还要 fine-tune 或加 prompt。AIPM 选基础模型是产品架构第一决策。
+  example: 这场景选 Claude 当基础模型，比 GPT-4 在长文本上稳。
+
+- term: 底座模型
+  aliases: [底座, 底层大模型]
+  category: pm
+  literal: foundation model
+  meaning: 国内对 foundation model 的叫法——通义、文心、Kimi 这种基础大模型。"底座选谁"是国内 AIPM 立项必聊。底座决定上限，应用层决定下限。
+  example: 这产品底座用 Qwen，应用层我们自己做 RAG。
+
+- term: 小模型
+  aliases: [SLM, small model]
+  category: pm
+  literal: small language model
+  meaning: 参数量小、推理便宜、速度快的语言模型——Phi、Gemma 2B、Llama 3.2 1B。AIPM 圈正流行"先大模型 POC，再蒸馏小模型上线"的路线，能省 10 倍成本。
+  example: 关键路径用小模型扛量，复杂 case 兜底用大模型。
+
+- term: 边缘模型
+  aliases: [edge model]
+  category: pm
+  literal: edge model
+  meaning: 部署在边缘设备（手机、车机、IoT）的模型——通常是量化压缩的小模型。Apple Intelligence、Google AICore 都是边缘部署。延迟低、隐私好、断网能用，但能力弱。
+  example: 这场景上边缘模型，离线也能用，隐私更好讲。
+
+- term: 端侧
+  aliases: [on device, on-device, 端侧 AI]
+  category: pm
+  literal: on-device
+  meaning: 跑在用户设备上的 AI——不走云端推理。Apple 把 3B 模型塞进 iPhone 是经典案例。端侧的好处是免费（不用付云端 token 费）、隐私、低延迟；坏处是模型能力小。AIPM 写英文 PRD 用 on-device 是同一个意思。
+  example: 端侧跑文本润色，复杂的 chat 还是云端。
+
+- term: 蒸馏小模型
+  aliases: [distilled model]
+  category: pm
+  literal: distilled small model
+  meaning: 用大模型当老师教小模型——小模型学到 80% 能力，但成本是大模型的 1/10。Anthropic Claude Haiku、OpenAI 4o-mini 都是蒸馏产物。AIPM 圈降本提速首选这招。
+  example: 这功能跑蒸馏小模型，成本砍 80% 效果保 95%。
+
+- term: 量化模型
+  aliases: [quantized model]
+  category: pm
+  literal: quantized model
+  meaning: 把模型权重从 FP16/FP32 压成 INT8/INT4 的版本——模型大小砍一半、推理快一倍、显存省一大半，质量略损。AIPM 选模型部署版本时常见决策点。
+  example: 部署用 INT4 量化模型，省一半显存。
+
+- term: 模型路由
+  aliases: [model routing, router]
+  category: pm
+  literal: model routing
+  meaning: 根据请求难度自动选择哪个模型回答——简单问题给小模型省钱，难题给大模型保质量。GPT-5 据传走这条路、OpenRouter 这种平台靠这个赚钱。AIPM 在做大规模 AI 产品成本优化的常用方案。
+  example: 加了模型路由，平均成本降 60%，质量没掉。
+
+- term: cascading
+  aliases: [级联模型, model cascade]
+  category: pm
+  literal: cascading
+  meaning: 模型路由的一种实现——先用小模型答，置信度低再升级到大模型。和走单一模型相比省钱保质量。难点是怎么定"置信度阈值"。
+  example: cascading 阈值设 0.7 以下升级，节省 70% 大模型调用。
+
+# --- PM 黑话与文化 ---
+
+- term: 拆解
+  aliases: [拆解需求]
+  category: pm
+  literal: breakdown
+  meaning: PM 黑话——把复杂事拆细。"这事得拆解一下""目标拆解到周"是高频口头禅。和"抓手""颗粒度"组合使用最香："拆解到合适颗粒度，找到关键抓手"。
+  example: 这季度目标拆解到周维度，每周一对一同步。
+
+- term: 抢跑
+  aliases: [先发优势]
+  category: pm
+  literal: first-mover advantage
+  meaning: 比竞争对手先做出来抢市场——AI 时代抢跑特别重要，慢半年就被新模型秒。但抢跑也容易死在沙滩上（用户教育没做好、模型还不到位）。AIPM 经典纠结："抢跑还是后发"。
+  example: 这赛道得抢跑，等大厂下场就没机会。
+
+- term: 闭环思维
+  aliases: []
+  category: pm
+  literal: closed-loop thinking
+  meaning: 任何事都要"输入-处理-反馈"形成回路。PM 黑话"做事要闭环"=做完汇报、有反馈、有跟进。不闭环的事=没做。AIPM 圈"数据闭环""体验闭环""增长闭环"挂嘴边。
+  example: 这事做完没汇报老板，没闭环啊。
+
+- term: 上 agent
+  aliases: [上智能体, 接 agent]
+  category: pm
+  literal: deploy agent
+  meaning: AIPM 圈黑话——给原本人工/简单 AI 的流程接上 agent 来跑。"客服上 agent""运营上 agent"。意思是从"chat 一问一答"升级到"自主多步执行"。
+  example: 老板说今年要让客服上 agent，能自动解 80% 工单。
+
+- term: 调 prompt
+  aliases: [改 prompt]
+  category: pm
+  literal: tune prompt
+  meaning: AIPM 日常口头禅——准确率不高就再调调 prompt。是 AI 产品迭代成本最低的优化方式。但 prompt 调到极限还是不行，就得 fine-tune 或换模型。
+  example: 这 case 没识别对，我去调调 prompt。
+
+- term: 自研
+  aliases: [自研模型, in-house]
+  category: pm
+  literal: in-house
+  meaning: 公司自己训练/开发——和"调用别家 API"相对。"自研大模型"在 2023-2024 国内是政治正确，每家都说自研。AIPM 圈现在更现实："核心场景调 API，差异化场景自研"。
+  example: 客服闲聊调 GPT API，业务专业问答自研小模型。
+
+- term: 开源
+  aliases: [open source]
+  category: pm
+  literal: open-source
+  meaning: 模型权重/代码公开可下载——Llama、Qwen、DeepSeek 是典型。AIPM 选开源好处是省钱、可控、可微调；坏处是要自己运维、能力可能不如闭源 SOTA。
+  example: 这场景上开源模型自己部署，省一半成本。
+
+- term: 闭源
+  aliases: [closed source, 闭源模型]
+  category: pm
+  literal: closed-source
+  meaning: 只能 API 调用、看不到权重的模型——GPT-4、Claude、Gemini。性能 SOTA 但贵、不可控、断网就完。AIPM 选闭源 vs 开源是经典权衡题。
+  example: POC 阶段用闭源跑通，量起来后换开源省钱。
+
+# --- 跨职能术语补充 ---
+
+- term: RACI
+  aliases: [RACI 矩阵]
+  category: pm
+  literal: Responsible Accountable Consulted Informed
+  meaning: 跨部门项目分工模板——每个任务给四类人：Responsible 干活的、Accountable 拍板担责的、Consulted 咨询意见的、Informed 通知到的。RACI 一画清楚就没法甩锅。PM 协调多团队必杀技。
+  example: 画了张 RACI 矩阵贴在墙上，谁该干啥不用反复对。
+
+- term: DACI
+  aliases: [DACI 框架]
+  category: pm
+  literal: Driver Approver Contributors Informed
+  meaning: RACI 的决策版——Driver 推动、Approver 拍板、Contributors 贡献意见、Informed 知会。专门用在群体决策场景。Atlassian 主推。比 RACI 更适合 PM 牵头多人讨论的场景。
+  example: 这次大改用 DACI，老板是 Approver，我是 Driver。
+
+- term: stakeholder
+  aliases: [利益相关方, 干系人]
+  category: pm
+  literal: stakeholder
+  meaning: 跟项目有关的所有人——老板、业务方、合作方、用户、监管。PM 的核心能力之一就是 stakeholder management：知道谁要被知会、谁要被说服、谁能毁掉项目。
+  example: 上线前把所有 stakeholder 拉个群同步进度。
+
+- term: buy-in
+  aliases: [认同, 支持]
+  category: pm
+  literal: buy-in
+  meaning: 让 stakeholder 接受你的方案并愿意支持。"老板的 buy-in""技术团队的 buy-in"。PM 干活 50% 时间在拿 buy-in。没 buy-in 强推=项目卡在中间。
+  example: 这方案没拿到法务 buy-in，上不了线。
+
+- term: push back
+  aliases: [推回, 反对意见]
+  category: pm
+  literal: push back
+  meaning: 别人提的要求你不接受，反推回去——"业务方要这功能，我 push back 了"。PM 没 push back 能力=被业务方牵着鼻子走需求满天飞。push back 太凶=被老板嫌不配合。
+  example: 这需求成本太高 ROI 太低，我 push 回去了。
+
+- term: PLG
+  aliases: [Product-Led Growth, 产品驱动增长]
+  category: pm
+  literal: Product-Led Growth
+  meaning: 让产品本身带动增长——免费试用、用着用着想付费、邀请朋友。Slack、Notion、Figma 是典范。和 SLG（销售驱动）相对。SaaS 新公司必谈 PLG，AI 产品也越来越走 PLG。
+  example: 这工具走 PLG 路线，先免费给个人用，公司自然来谈。
+
+- term: SLG
+  aliases: [Sales-Led Growth]
+  category: pm
+  literal: Sales-Led Growth
+  meaning: 靠销售团队上门推销带动增长——大企业 IT 软件传统打法，Oracle、SAP 都这样。和 PLG 相反。客单价高、销售周期长、合同复杂。AI to B 产品现在 SLG + PLG 混着打。
+  example: 这块业务是 SLG，靠 BD 拓客户。
+
+- term: bottom-up
+  aliases: [自下而上]
+  category: pm
+  literal: bottom-up
+  meaning: 从一线员工/小用户开始用，渗透到团队再到公司——Slack、Notion、ChatGPT 都是 bottom-up。PLG 的典型路径。AIPM 圈 ChatGPT 现象级证明 bottom-up 对 AI 产品依然有效。
+  example: 这工具走 bottom-up，开发者自己安装用着用着拉同事用。
+
+- term: top-down
+  aliases: [自上而下]
+  category: pm
+  literal: top-down
+  meaning: 从 CIO/CTO 决策开始往下推全公司用——传统企业软件路径。需要漫长销售周期和高客单价。和 bottom-up 相对。AIPM 圈 Microsoft Copilot 是 top-down 的典型。
+  example: 这产品走 top-down，搞定 CTO 一签就是 1000 个 license。
+
+- term: 定价
+  aliases: [pricing]
+  category: pm
+  literal: pricing
+  meaning: 给产品/功能定价——心理学 + 数学 + 商业判断。定低了不赚钱、定高了没人买。AI 产品定价特别难：用户没参照系、成本随 token 浮动。Cursor 20 美元/月、ChatGPT Plus 20 美元成了行业基准。
+  example: 这版新定价砍掉一档，把企业版价格提到 99。
+
+- term: tier
+  aliases: [档位, 价格档]
+  category: pm
+  literal: pricing tier
+  meaning: 不同价格档位——免费/Pro/Team/Enterprise 是经典四档。tier 设计要拉开价值差距让用户从下往上爬。AIPM 圈：免费 tier 给多少次决定增长速度、付费 tier 差异化做 API/团队/SSO。
+  example: 设三个 tier：免费、Pro 20、Team 50，企业版面谈。
+
+- term: leading indicator
+  aliases: [先行指标]
+  category: pm
+  literal: leading indicator
+  meaning: 提前反映未来趋势的指标——新增用户量是 DAU 的先行指标、留存是营收的先行指标。先行指标涨=未来好、跌=未来糟。PM 看一级（结果）+ 看先行（原因），才能提前预警。
+  example: 营收稳但先行指标新增掉了，下个季度可能崩。
+
+- term: lagging indicator
+  aliases: [滞后指标]
+  category: pm
+  literal: lagging indicator
+  meaning: 反映已经发生事情的指标——营收、利润、流失率都是。滞后指标不能用来预警，但用来确认"事情已经在发生"。和先行指标配对看才有用。
+  example: 营收是 lagging indicator，等它跌了再救就晚了。
+
+# --- AIPM 文化 ---
+
+- term: AIPM
+  aliases: [AI PM, AI 产品经理]
+  category: pm
+  literal: AI Product Manager
+  meaning: 做 AI 产品的产品经理——比传统 PM 多懂模型评测、prompt 工程、token 成本、agent 架构。2023 年后岗位需求爆炸。区别于"PM 兼用 AI 工具"，AIPM 是产品本身就是 AI。
+  example: 招个 AIPM 把这个 AI 客服项目接走。
+
+- term: agent product
+  aliases: [agent 产品]
+  category: pm
+  literal: agent product
+  meaning: 产品形态是"AI 自主执行多步任务"——和 chat / copilot 区别。Devin、Manus、Claude Code 都是 agent product。AIPM 圈 2024-2025 风口。难点是"靠谱率"——多步累积错误后能完成任务的比例。
+  example: 这是个 agent product，用户给目标 AI 自动跑完。
+

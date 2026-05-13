@@ -120,7 +120,7 @@ def build_large() -> Image.Image:
     draw.rounded_rectangle((cx - 16, 245, cx + 16, 248), radius=2, fill=ACCENT)
 
     # Footer micro-tagline
-    draw_centered_text(canvas, draw, "Alt + 划词 · 1991 词 · 100% 本地", font_micro, y=260, fill=MUTED)
+    draw_centered_text(canvas, draw, "Alt + 划词 · 2421 词 · 100% 本地", font_micro, y=260, fill=MUTED)
 
     return canvas.convert("RGB")
 

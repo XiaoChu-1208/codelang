@@ -131,7 +131,7 @@
   example: ChatGPT 一边打字一边出字，就是 decoder 一个 token 一个 token 往外吐。
 
 - term: MoE
-  aliases: [Mixture of Experts, 专家混合]
+  aliases: [Mixture of Experts, 专家混合, 混合专家, 混合专家模型]
   category: devterm
   literal: Mixture of Experts
   meaning: 想象医院里几十个专家科室——病人来时只看症状被分给最对口的两三个专家，不用全院出动。MoE 就是这种大模型架构：模型里有几十个"专家"子网络，每个 token 进来只激活几个相关专家。总参数巨大但每次推理便宜。Mixtral / DeepSeek 都是 MoE。
@@ -187,10 +187,10 @@
   example: 让 LLM 写报告引用论文，它编了三篇根本不存在的——典型幻觉。
 
 - term: pre-training
-  aliases: [预训练, pretrain]
+  aliases: [预训练, pretrain, 预训]
   category: devterm
-  meaning: 想象培养一个通识学者——让他读完互联网上所有能找到的书、文章、代码。pre-training 就是这阶段：用海量文本训练基础模型让它学会语言规律和通用知识。烧几百万到几亿美元的就是这步。
-  example: Llama 3 在 15 万亿 token 上 pre-training，把人类大部分公开文本读了一遍。
+  meaning: 想象培养一个通识学者——让他读完互联网上所有能找到的书、文章、代码。pre-training 就是这阶段：用海量文本训练基础模型让它学会语言规律和通用知识。是大模型训练第一阶段（之后才是 post-training 的 SFT/RLHF）。这一步最烧钱：GPT-4 估烧 1 亿美金、Llama 3 在 15 万亿 token 上训。"预训练 + 微调"是大模型训练经典范式。
+  example: 这家从头预训练 70B 模型烧了 2000 万美金算力。
 
 - term: fine-tuning
   aliases: [fine tuning, 微调, finetune]
@@ -199,7 +199,7 @@
   example: 用 10 万条法律文书 fine-tune 一个律所专用模型，比通用 GPT 准得多。
 
 - term: SFT
-  aliases: [supervised fine-tuning]
+  aliases: [supervised fine-tuning, 监督微调, 指令微调, instruction tuning, instruct tuning]
   category: devterm
   literal: Supervised Fine-Tuning
   meaning: 想象老师教学生作文——一边出题一边告诉"这种题该这样答"，给一万套范例。SFT 就是给 LLM 喂"问题 → 标准回答"成对的数据，教它学会按指令回答。这是从只会续写的基座模型变成会对话的 Chat 模型的第一步。
@@ -509,7 +509,7 @@
   example: 2021 年 Copilot 出来时大家担心程序员失业，现在习惯它跟习惯输入法补全一样。
 
 - term: emergence
-  aliases: [emergent ability]
+  aliases: [emergent ability, 涌现, 涌现能力, 涌现现象]
   category: devterm
   meaning: 想象孩子学说话——一岁前只会咿呀，某天突然蹦出一个完整词组。LLM 也有类似神奇：参数从 1B 涨到 10B 再到 100B，某些能力（few-shot 学习、CoT 推理）突然冒出来，小模型完全没有。这种"量变到质变"叫涌现。
   example: GPT-3 突然展现的少样本学习能力，是 AI 涌现现象的经典例子。
@@ -527,10 +527,10 @@
   example: alignment 是 AI 安全核心问题——能力很强又听话才安全，能力强不听话最危险。
 
 - term: jailbreak
-  aliases: [越狱, 提示越狱]
+  aliases: [越狱, 提示越狱, jailbreaking, prompt jailbreak]
   category: devterm
-  meaning: 想象诱骗保险柜——保险柜本来不开，但你绕过密码用社会工程让它开。jailbreak 就是用特殊 prompt 绕过 LLM 安全护栏让它输出本来禁止的内容（教暴力、写黄文、说脏话）。AI 安全攻防的主要战场。
-  example: DAN ("Do Anything Now") 是早期经典 jailbreak prompt，能让 GPT 卸下伦理限制。
+  meaning: ① **AI 越狱（当代默认含义）**——想象诱骗保险柜：本来不开，但绕过密码用社会工程让它开。jailbreak 就是用特殊 prompt 绕过 LLM 安全护栏让它输出本来禁止的内容（教暴力、写黄文、说脏话）。"奶奶漏洞""DAN 模式""扮演故事"是经典套路。模型公司不停打补丁、越狱者不停想新招——AI 安全攻防的主要战场。② **iOS 越狱（历史含义）**——iPhone 解锁系统限制装非 App Store 应用，2010 年代盛行，现在因 iOS 越来越开放（侧载、第三方输入法都合法了）已经没落，年轻人都不知道这词了。
+  example: AI "用扮演故事方法越狱 ChatGPT 写禁内容"；iOS "10 年前 iPhone 越狱才能装第三方输入法"（如今已无人在意）。
 
 - term: red team
   aliases: [红队]
@@ -975,3 +975,210 @@
   category: ai
   meaning: Perplexity 推出的 AI 浏览器——内嵌 AI agent，能自动总结网页/对比商品/填表/订机票。和 Arc、The Browser Company 等 AI 浏览器赛道竞争。
   example: 装了 Comet 浏览器，购物前自动比价超方便。
+
+# ====================
+# 中文 AI 圈高频词（媒体/产品/职场语境必备）
+# ====================
+
+- term: AIGC
+  aliases: [AI Generated Content, AI 生成内容, 生成式 AI 内容]
+  category: abbr
+  literal: AI Generated Content
+  meaning: AI 生成的内容——文字、图片、视频、音乐、代码全算。中文媒体最爱用的"统称"词。2022 年底 ChatGPT 出来后"AIGC 元年"叫了一整年。国内监管层"AIGC 服务管理办法"也是这词。和"生成式 AI（GenAI）"几乎同义，但 AIGC 偏内容产物视角、GenAI 偏技术能力视角。
+  example: 这家做 AIGC 营销文案工具，月活破百万。
+
+- term: GenAI
+  aliases: [Generative AI, 生成式 AI, 生成式人工智能]
+  category: abbr
+  literal: Generative AI
+  meaning: 能"生成新东西"的 AI——和"判别式"（判断猫/狗）相对。LLM、Stable Diffusion、Sora 都是 GenAI。麦肯锡 2023 年《GenAI 的经济影响》报告把这词推向主流。Gartner 把它列入 Top 10 战略技术多年。
+  example: GenAI 让普通员工的产能拔升 30%——麦肯锡口径。
+
+- term: 大模型
+  aliases: [foundation model, 基础大模型, 通用大模型]
+  category: ai
+  literal: large (language) model / foundation model
+  meaning: 中国 AI 圈对 LLM 的本土化叫法——一般指千亿参数级别、能干多种任务的预训练大模型。Stanford 2021 年提"foundation model"的官方对应。GPT-4、Claude、Gemini、Llama、DeepSeek、文心、通义、豆包都是大模型。和"小模型/专用模型"对应。"百模大战"是 2023-24 中国 AI 圈奇景。
+  example: 这家创业公司又自研了一个大模型，市场反应平平。
+
+- term: 具身智能
+  aliases: [embodied AI, embodied intelligence, 具身 AI]
+  category: ai
+  literal: embodied intelligence
+  meaning: 有"身体"的 AI——不只是聊天框里的 LLM，而是装在机器人/无人车/穿戴设备上、能感知物理世界并动手做事的 AI。2024-25 中国 AI 圈最大风口之一（人形机器人浪潮）。宇树科技、智元、银河通用是国内代表。Tesla Optimus、Figure 01 是海外代表。
+  example: 具身智能赛道国内一年融了 200 亿。
+
+- term: 世界模型
+  aliases: [world model]
+  category: ai
+  literal: world model
+  meaning: AI 在脑内"模拟物理世界"的能力——看几帧视频就能预测下一帧、想象一个不存在的场景。Yann LeCun 2022 年起力推 LeCun 的 JEPA 路线就是世界模型，反对纯 LLM 路线。Sora、Genie、Cosmos 也算。"AI 有没有世界模型"是路线之争核心。
+  example: LeCun 说 LLM 没有世界模型，永远到不了 AGI。
+
+- term: 文生图
+  aliases: [text-to-image, T2I]
+  category: ai
+  literal: text-to-image
+  meaning: 输入一句话生成一张图——Stable Diffusion、Midjourney、DALL-E、即梦、可灵图都是。2022-23 引爆 AIGC 风口。和"图生图"（image-to-image，参考图改图）配套。中国"文生图"app 月活前三：即梦/可灵/通义万相。
+  example: 用文生图给小说插画，10 秒一张。
+
+- term: 文生视频
+  aliases: [text-to-video, T2V]
+  category: ai
+  literal: text-to-video
+  meaning: 输入一句话生成一段视频——OpenAI Sora 引爆。国内可灵（快手）、即梦（字节）、Vidu、Hailuo 都是文生视频代表。和"图生视频""视频续写"配套。一分钟生成一段视频的成本从几十美金降到几毛钱。
+  example: 文生视频做短视频开头，一天能产 50 条素材。
+
+- term: 算力
+  aliases: [compute, computing power, AI compute]
+  category: ai
+  literal: compute / computing power
+  meaning: AI 训练/推理需要的 GPU 计算能力——衡量单位 TFLOPS / FLOPs。"算力是 AI 时代的电力"是 2023 年最火比喻。OpenAI 训 GPT-4 据估烧了 1 亿美金算力。"国产算力"指华为昇腾、寒武纪等替代 NVIDIA。"算力荒"是真实存在的——H100 在中国限制出口。
+  example: 这家初创公司光算力预算就 5 亿一年。
+
+- term: 算力卡
+  aliases: [GPU 卡, AI 芯片]
+  category: ai
+  literal: AI accelerator chip
+  meaning: 专用于 AI 训练/推理的芯片——NVIDIA H100/H200/B200、华为昇腾 910B/910C、寒武纪思元、AMD MI300。一张 H100 黑市曾炒到 40 万人民币。"显存大小"是算力卡的核心指标（决定能跑多大模型）。
+  example: 公司囤了 1000 张 H100 算力卡，估值翻倍。
+
+- term: 百模大战
+  aliases: []
+  category: ai
+  literal: war of 100+ Chinese LLMs
+  meaning: 2023 年中国互联网公司+创业公司+大学+央企集体下场训练大模型的盛况——一年内冒出 100+ 大模型。"清华系六小虎"、"BAT+字节+华为"+"AI 四小龙" 都来。2024 年开始洗牌，DeepSeek、智谱、阶跃、月之暗面 等留下。
+  example: 百模大战烧了 200 亿，活下来不超过 20 家。
+
+- term: AI 元年
+  aliases: [Year of AI]
+  category: ai
+  literal: the year AI went mainstream
+  meaning: 中文媒体最爱给"某年是 AI 元年"贴标签——2017（AlphaGo）、2018（BERT）、2022（ChatGPT）、2023（GPT-4 + 文生图 + AIGC）、2024（Sora + 智能体）都被叫过。叫得多了反讽——"AI 元年喊了 5 年还在元年"。
+  example: 2025 又被叫 "智能体元年"，听腻了。
+
+- term: 知识库
+  aliases: [knowledge base, KB, vectorstore]
+  category: ai
+  literal: knowledge base (RAG)
+  meaning: RAG 系统里检索的"外脑"——把公司文档/产品 wiki/法规条文切片+向量化存起来。用户提问时先去知识库找最相关几段塞进 prompt。Coze、Dify、扣子、Notion AI 都做知识库。和"通用大模型"区别：知识库提供专有数据。
+  example: 给客服 bot 接公司知识库，准确率从 60% 提到 92%。
+
+- term: 提示词工程师
+  aliases: [prompt engineer, AI 训练师]
+  category: ai
+  literal: prompt engineer
+  meaning: 2023 年炒得最热的新职业——专门给 LLM 写 prompt 让它干活。年薪一度被传 30-50 万美金。但 2024 后被 Claude / GPT-4 的"自然语言能听懂"打回原形，专职岗位大减、变成所有岗位都该会的基础技能。
+  example: 这岗位 JD 写"3 年提示词工程师经验"，明显是泡沫。
+
+- term: AI 工程师
+  aliases: [AI engineer, ML engineer]
+  category: ai
+  literal: AI engineer
+  meaning: 偏工程实现的 AI 岗位——和算法工程师区别：算法偏研究和模型开发、AI 工程师偏把模型集成进产品。Latent Space 团队推广的"新岗位"叫法。月薪国内 30-80k、硅谷 30-50w 美金。"AI 全栈"=前端+后端+模型微调全包。
+  example: 这家招 AI 工程师，要求会 LangChain + FastAPI + 微调 LLM。
+
+- term: 算法工程师
+  aliases: [algorithm engineer, ML scientist, 算法工程]
+  category: ai
+  literal: algorithm engineer
+  meaning: 中国互联网公司的核心技术岗——做推荐、广告、CV、NLP、风控算法。和 AI 工程师区别：算法工程师偏研究和模型本身、AI 工程师偏工程集成。字节跳动算法工程师"七天速成"梗源于这岗位。月薪 30-80k、大厂顶尖能上百万。
+  example: 字节算法工程师卷度全行业第一。
+
+- term: 数据标注师
+  aliases: [data labeler, data annotator, 标注员]
+  category: ai
+  literal: data annotator
+  meaning: 给训练数据打标签的人——AI 训练的"流水线工人"。低端：图片框框、文字分类；高端：RLHF 评分员（要 PhD）。2023 后 AI 大厂为 RLHF 招"高端标注师"开 5-10w 美金，"数据标注"从血汗工厂变白领新岗。Scale AI 是巨头。
+  example: 数据标注师月薪 3w 看起来低，但 Scale AI 高端标注 5 万刀年薪。
+
+- term: 跑模型
+  aliases: [训模型]
+  category: slang
+  literal: training/running ML models
+  meaning: AI 工程师 / 研究员日常术语——可以指训练（"跑实验"）也可以指推理（"用 vLLM 跑模型"）。"跑通了" =实验跑出基线，"跑挂了" =训练崩溃 OOM 或 NaN loss。互联网公司面试"你跑过什么模型"是核心问题。
+  example: 这家招人要求"跑过 70B 以上大模型"。
+
+- term: 炼丹
+  aliases: [alchemy, ML alchemy]
+  category: slang
+  literal: ML alchemy
+  meaning: 训练神经网络的"调参"过程像炼丹——加入数据/参数像加药材，烧炉子（GPU）几小时几天，开炉看效果好坏全靠玄学。"炼丹师"=ML 工程师自嘲。"炼丹失败"=训了很久 loss 不降。"丹方"=超参数配置。
+  example: 这次炼了一周丹效果还不如上次，玄学。
+
+- term: 后训练
+  aliases: [post-training, alignment training]
+  category: ai
+  literal: post-training
+  meaning: 预训练完后让模型"会说话/听话"的阶段——SFT（监督微调）+ RLHF（人类反馈强化学习）+ DPO。预训练学的是"什么字接什么字"，后训练教它"如何当一个有用、无害、诚实的助手"。Anthropic、OpenAI 的 secret sauce 大半在后训练。
+  example: 这模型预训练强但后训练拉胯，回答动不动开始胡说。
+
+- term: DeepSeek 时刻
+  aliases: [DeepSeek moment]
+  category: slang
+  literal: DeepSeek moment
+  meaning: 2025 年 1 月 DeepSeek-R1 发布——以 1/20 的训练成本做出和 OpenAI o1 持平的推理模型。NVIDIA 单日跌 17%、美国 AI 行业集体震动。"DeepSeek 时刻"成中国 AI 出海里程碑、也是"算力护城河"叙事的最大裂痕。
+  example: DeepSeek 时刻之后，硅谷再也不敢小看中国 AI 团队。
+
+- term: 国产替代
+  aliases: [domestic substitution]
+  category: jargon
+  literal: domestic substitution (semiconductor / AI)
+  meaning: 用国产产品替代被卡脖子的进口——AI 圈主要指芯片（华为昇腾替 H100）、框架（昇思替 PyTorch）、生态（飞桨/MindSpore 替 PyTorch）。2022 年美国出口管制后成主旋律。资本市场最大主题之一。
+  example: 这家全栈国产替代，从训练框架到推理芯片都不用 NVIDIA。
+
+- term: AI 教父
+  aliases: [Godfather of AI]
+  category: ai
+  literal: Godfather of AI
+  meaning: 通常指深度学习三巨头 Geoffrey Hinton（多伦多）、Yann LeCun（NYU/Meta）、Yoshua Bengio（蒙特利尔）——2018 年图灵奖共同获奖人。Hinton 2023 年从 Google 离职公开担忧 AI 风险后"AI 教父"标签更猛。也偶尔加 Andrew Ng、Karpathy（年轻一代叫"AI 网红"更多）。
+  example: AI 教父 Hinton 警告 AI 风险，业界震动。
+
+- term: 奇点
+  aliases: [singularity, technological singularity, AI 奇点]
+  category: ai
+  literal: technological singularity
+  meaning: 假设 AI 智能超越人类后引发的连锁飞跃点——技术发展进入无法预测的指数曲线。Ray Kurzweil 2005 年《奇点临近》预言 2045 年到来。Sam Altman、Elon Musk 都引用过。AI 末日论 vs AI 加速论的核心分歧词。
+  example: Kurzweil 还在坚持 2045 奇点，越来越多人觉得更早。
+
+- term: 超对齐
+  aliases: [superalignment]
+  category: ai
+  literal: superalignment
+  meaning: 让"比人类聪明的 AI"和人类目标一致的技术——OpenAI 2023 年专门成立 superalignment 团队、Ilya Sutskever 领衔，承诺 20% 算力投入。2024 年 Ilya 离开、团队解散，引发"OpenAI 是否还认真做安全"的质疑。Anthropic 在做类似工作但叫"Constitutional AI / RSP"。
+  example: 超对齐团队解散后，OpenAI 安全叙事崩了一半。
+
+- term: AI 安全
+  aliases: [AI safety]
+  category: ai
+  literal: AI safety
+  meaning: 防止 AI 造成大规模伤害的研究——包括对齐（让 AI 听话）、可解释性（看懂 AI 在想啥）、能力评估（测 AI 多危险）、policy（监管协调）。Anthropic 的存在意义、OpenAI 的争议焦点、英国 AI Safety Institute、Frontier Model Forum 都围绕这个。
+  example: Anthropic 整个公司就是为 AI 安全而生。
+
+- term: AI 平权
+  aliases: [democratize AI, AI 民主化]
+  category: ai
+  literal: democratize AI
+  meaning: 让 AI 能力下放给每个人——开源模型（Llama、DeepSeek）、低门槛工具（Coze、Dify）、教育普及（吴恩达课程）。Meta 用"AI 平权"为开源策略背书、对抗 OpenAI 闭源。中国"百模大战"+"DeepSeek 平价"也是平权叙事。
+  example: 开源模型让 AI 平权，小公司也能跑 70B 模型。
+
+- term: AI 取代
+  aliases: [AI replacement, AI 替代人]
+  category: ai
+  literal: AI replacement of jobs
+  meaning: 2023 后最热的社会焦虑——"AI 会不会取代我"。最早倒下的：内容审核、初级翻译、文案、客服、平面设计、入门程序员。Goldman Sachs 预测 3 亿岗位"暴露"AI 影响。Anthropic CEO Dario 估计 5 年内白领初级岗 50% 消失。
+  example: 文案岗 AI 取代率最高，3 年内被 GenAI 卷得换岗。
+
+- term: 大模型应用
+  aliases: [LLM app, GenAI app, AI 应用]
+  category: ai
+  literal: LLM-powered application
+  meaning: 基于 LLM API 做的产品——Chatbot、AI 搜索、AI 写作、AI 翻译、AI 客服。"套壳"是早期 AI 应用的贬义说法，但"套壳+场景理解+数据"也能做出值钱产品（Perplexity、Cursor 都是）。AI 应用 vs 大模型本体之争是 2024-25 商业化主线。
+  example: 这家做大模型应用，把 Claude API 包装成法律助手，年 ARR 500w。
+
+- term: 套壳
+  aliases: [LLM wrapper, GPT wrapper]
+  category: slang
+  literal: LLM API wrapper
+  meaning: 直接调用别人家大模型 API 做产品的贬义说法——"你这不就是套了个 GPT 壳吗"。早期被嘲讽，后来发现套壳得好的（Perplexity / Cursor / Notion AI）反而盈利，比自研大模型公司更早赚钱。"套壳与否"已经不是问题、"套壳套得是否聪明"才是。
+  example: 这家"套壳"做了 500 万 ARR，比某些自研大模型公司活得好。

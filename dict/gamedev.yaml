@@ -1,0 +1,1460 @@
+# 游戏开发术语
+# —— 引擎 / 图形 / 物理 / 网络 / 性能 / 关卡 / 玩法 / 商业 / 中文游戏圈黑话
+# 风格：比喻 + 真实场景 + 具体例句
+
+# ====================
+# 一、引擎 / Engines
+# ====================
+
+- term: Unity
+  aliases: [Unity 引擎, Unity Engine, Unity3D]
+  category: gamedev
+  literal: Unity Engine
+  meaning: 全球最流行的游戏引擎之一——2005 年丹麦人做的。主打"上手快+跨平台"（一键打包到 PC/手机/主机/Web/VR）。手游半壁江山是 Unity 做的（原神、王者荣耀都是）。脚本用 C#。2023 年宣布按安装次数收费引爆开发者怒潮、CEO 下台、政策撤回。
+  example: 这家手游团队用 Unity 一年出三款产品。
+
+- term: Unreal Engine
+  aliases: [UE, UE4, UE5, 虚幻引擎, 虚幻]
+  category: gamedev
+  literal: Unreal Engine
+  meaning: Epic Games 的旗舰引擎——3A 大作首选。从 UE3 时代起就是次世代代名词。UE5（2022）引入 Nanite（动态 LOD）和 Lumen（实时全局光照）两个革命性技术。脚本用 C++ 或 Blueprint（可视化编程）。授权模式按收入分成。黑神话悟空、堡垒之夜、Valorant 都用 UE。
+  example: 黑神话悟空用 UE5 做出主机级画面。
+
+- term: Godot
+  aliases: [Godot Engine]
+  category: gamedev
+  literal: Godot Engine
+  meaning: 开源免费的游戏引擎——MIT 协议、完全免费、无版权抽成。Unity 2023 收费风波后大批独立开发者转 Godot。脚本用 GDScript（Python 风）或 C#/C++。社区驱动、迭代很快，但生态比 Unity/UE 小一截。
+  example: 独立开发者 Unity 跑路后，一半人转 Godot。
+
+- term: Cocos
+  aliases: [Cocos2d, Cocos Creator]
+  category: gamedev
+  literal: Cocos Engine
+  meaning: 中国出的开源 2D 游戏引擎——海外是 Cocos2d，国内主推 Cocos Creator（2D/3D 都支持）。小游戏（微信小游戏、抖音小游戏）半壁江山。轻量、JS/TS 脚本。和 Laya、白鹭一起竞争国内小游戏赛道。
+  example: 这款微信小游戏用 Cocos Creator 做，包体只有 4MB。
+
+- term: GameMaker
+  aliases: [GameMaker Studio]
+  category: gamedev
+  literal: GameMaker Studio
+  meaning: 主打 2D、上手最低门槛的引擎——Undertale、Hotline Miami、Hyper Light Drifter 都用它做。可视化拖拽 + GML 脚本。独立 2D 游戏神器。
+  example: Undertale 一个人用 GameMaker 做出来火遍全球。
+
+- term: Bevy
+  aliases: []
+  category: gamedev
+  literal: Bevy (Rust game engine)
+  meaning: Rust 写的开源新生代引擎——2020 起步，ECS 架构原生支持。性能强、内存安全、零运行时开销。还在快速演进，生态比 Unity/UE 小很多，但 Rust 党最爱。
+  example: 这款独立游戏用 Bevy 做，开源 + 高性能两手抓。
+
+- term: RPG Maker
+  aliases: [RPG Maker MV, RPG Maker MZ]
+  category: gamedev
+  literal: RPG Maker
+  meaning: 日本人 1992 起做的 RPG 制作工具——零代码也能做完整 RPG。To the Moon、OneShot、Yume Nikki 都是 RPG Maker 出品。生态自带美术资源、剧情、战斗模板。
+  example: 这部催泪 RPG 是一个人用 RPG Maker MZ 做的。
+
+- term: Roblox Studio
+  aliases: [Roblox]
+  category: gamedev
+  literal: Roblox Studio
+  meaning: Roblox 平台的官方游戏制作工具——脚本用 Luau（Lua 变体）。10 岁小孩都能上手发布游戏赚钱，UGC（用户生成内容）模式让 Roblox 成全球青少年最大游戏平台。"做 Roblox 游戏"是欧美小学生的 side hustle。
+  example: 那个 14 岁少年用 Roblox 做的游戏月入 50 万刀。
+
+- term: CryEngine
+  aliases: []
+  category: gamedev
+  literal: CryEngine
+  meaning: 德国 Crytek 的引擎——孤岛危机（Crysis）系列起家。技术力强（画面顶级），但工具链难用、文档少、生态弱，主流地位已被 UE 抢走。星际公民（Star Citizen）的前身基础。
+  example: 当年 Crysis 用 CryEngine 把所有显卡打趴下。
+
+- term: Source Engine
+  aliases: [Source 引擎, Source 2]
+  category: gamedev
+  literal: Source Engine (Valve)
+  meaning: Valve 的引擎——半条命 2、CS、Dota 2、传送门都是它做的。Source 2 是新版（CS2 用）。物理引擎特别强（Source 时代的纸箱物理是教科书）。Mod 文化的发源地之一。
+  example: CS2 切到 Source 2 引擎，画面和手感全升级。
+
+# ====================
+# 二、图形 API
+# ====================
+
+- term: Vulkan
+  aliases: []
+  category: gamedev
+  literal: Vulkan Graphics API
+  meaning: OpenGL 的接班人——Khronos 组织 2016 出。比 OpenGL 底层得多（开发者要管 GPU 内存、同步），换来极致性能。Doom Eternal、原神 PC 版用 Vulkan。AAA 引擎首选。
+  example: 这游戏切到 Vulkan 后 FPS 涨 30%。
+
+- term: OpenGL
+  aliases: [GL]
+  category: gamedev
+  literal: OpenGL (Open Graphics Library)
+  meaning: 老牌跨平台图形 API——1992 出。市场地位被 Vulkan/DX12 蚕食，但因为简单+老老旧旧的兼容性还在用（Minecraft、网页 WebGL）。手游/老引擎主力。
+  example: 上一代 Unity 默认 OpenGL，新版本切 Vulkan。
+
+- term: DirectX
+  aliases: [DX, DX11, DX12, D3D, Direct3D]
+  category: gamedev
+  literal: DirectX (Microsoft Graphics API)
+  meaning: 微软的图形 API——Windows + Xbox 平台主力。DX11 是稳定老大哥、DX12 是新一代（接近 Vulkan 的底层程度）。AAA 大作 PC 版基本都支持 DX12。"DX12 Ultimate" 加了光追、Mesh Shader、VRS。
+  example: PC 版可选 DX11 或 DX12，DX12 才能开光追。
+
+- term: Metal
+  aliases: [Metal API]
+  category: gamedev
+  literal: Apple Metal API
+  meaning: 苹果的图形 API——iOS/macOS 独占。代替 OpenGL ES（Apple 2018 弃用 GL）。Metal 性能强但只跑 Apple 设备。iOS 游戏必须支持。MoltenVK 可以把 Vulkan 调用翻译到 Metal。
+  example: iOS 游戏切 Metal 渲染后续航更好。
+
+- term: WebGL
+  aliases: []
+  category: gamedev
+  literal: WebGL (web 3D graphics)
+  meaning: 浏览器里跑 3D 的标准——基于 OpenGL ES。three.js、Babylon.js 都基于它。性能不如原生但能在网页里跑 3D。已被 WebGPU 替代趋势中。
+  example: 这款小游戏用 three.js + WebGL 直接在浏览器跑。
+
+- term: WebGPU
+  aliases: []
+  category: gamedev
+  literal: WebGPU (next-gen web graphics)
+  meaning: WebGL 的接班人——浏览器里跑现代图形 API。底层对接 Vulkan/DX12/Metal。Chrome、Edge 2023 起默认开启。性能比 WebGL 高 3-5 倍。WebGPU 时代会让"网页跑 AAA 游戏"变现实。
+  example: WebGPU 让网页跑 3D 游戏接近原生帧率。
+
+# ====================
+# 三、Shader / 着色
+# ====================
+
+- term: shader
+  aliases: [着色器]
+  category: gamedev
+  literal: shader
+  meaning: 跑在 GPU 上的小程序——决定一个像素显示什么颜色、一个顶点摆在哪。游戏里的水波、火焰、卡通描边、毛发、玻璃折射全是 shader 写出来的。优化好的 shader 是性能命脉。
+  example: 写个 toon shader 让模型卡通化，立刻一股二次元味。
+
+- term: vertex shader
+  aliases: [顶点着色器]
+  category: gamedev
+  literal: vertex shader
+  meaning: 处理"顶点位置"的 shader——把模型空间的顶点坐标变换到屏幕空间。每个顶点跑一次。变形、风吹草动、骨骼蒙皮都在 vertex shader 算。
+  example: 风吹草用 vertex shader 在 GPU 算偏移，CPU 一点不卡。
+
+- term: fragment shader
+  aliases: [pixel shader, 片段着色器, 像素着色器]
+  category: gamedev
+  literal: fragment / pixel shader
+  meaning: 处理"每个像素颜色"的 shader——光照、贴图采样、特效全在这。屏幕 1080p 一帧要跑 200 万次。fragment shader 慢就 GPU 瓶颈、帧率掉。优化 fragment shader 是性能优化重头戏。
+  example: fragment shader 里少一次纹理采样，整体帧率涨 5%。
+
+- term: compute shader
+  aliases: [计算着色器]
+  category: gamedev
+  literal: compute shader
+  meaning: 不渲染、纯用 GPU 算并行任务的 shader——粒子系统、布料模拟、GPU 粒子、AI 计算都用。"GPU 通用计算（GPGPU）"在游戏里的入口。Unity 的 VFX Graph、UE 的 Niagara 大量靠 compute shader。
+  example: 100 万粒子用 compute shader 模拟，CPU 完全空闲。
+
+- term: HLSL
+  aliases: [High Level Shading Language]
+  category: gamedev
+  literal: High-Level Shading Language
+  meaning: 微软 DirectX 的 shader 语言——语法像 C。UE 用 HLSL、Unity 也支持。"DX 系" shader 默认 HLSL。
+  example: UE 引擎所有 shader 都用 HLSL 写。
+
+- term: GLSL
+  aliases: [OpenGL Shading Language]
+  category: gamedev
+  literal: OpenGL Shading Language
+  meaning: OpenGL/Vulkan 的 shader 语言——语法像 C。和 HLSL 差不多但语法略不同。OpenGL/Vulkan 系生态首选。
+  example: WebGL shader 用 GLSL 写。
+
+- term: ShaderGraph
+  aliases: [Shader Graph]
+  category: gamedev
+  literal: Shader Graph (visual shader editor)
+  meaning: Unity 的可视化 shader 编辑器——拖节点连线写 shader，不用记语法。UE 的对标是 Material Editor。非程序员美术也能上手做特效 shader。
+  example: 美术用 ShaderGraph 连节点做出溶解特效，零代码。
+
+- term: PBR
+  aliases: [Physically Based Rendering, 基于物理的渲染]
+  category: gamedev
+  literal: Physically Based Rendering
+  meaning: 用物理规律算光照的渲染范式——金属度（metallic）+ 粗糙度（roughness）+ 法线 = 真实材质。2014 起成行业标准。代替老的"高光+漫反射"经验式。所有现代引擎默认 PBR。
+  example: 把贴图改成 PBR 工作流后，金属质感立刻提一档。
+
+# ====================
+# 四、渲染概念
+# ====================
+
+- term: rasterization
+  aliases: [光栅化]
+  category: gamedev
+  literal: rasterization
+  meaning: 把 3D 三角形画到 2D 屏幕的过程——传统渲染范式。所有 GPU 都为光栅化优化。简单+快+不够真实（光照得靠技巧近似）。和"光线追踪"对应。
+  example: 这游戏支持光栅化（基础）和光追（高质量）两种模式。
+
+- term: ray tracing
+  aliases: [光线追踪, 光追, RT]
+  category: gamedev
+  literal: ray tracing
+  meaning: 真实模拟光线物理行为的渲染技术——每个像素射一根光线，碰到物体反射/折射追下去。效果真实（反射、阴影、全局光照都自然），但贵到爆。NVIDIA RTX 2018 起硬件支持。"开光追"=买更贵显卡。
+  example: 开光追后帧率减半但画面好到犯规。
+
+- term: path tracing
+  aliases: [路径追踪]
+  category: gamedev
+  literal: path tracing
+  meaning: 比光追更狠的渲染——每个像素射几千根光线模拟所有可能反射路径。离线渲染（Pixar 动画、效果图）的金标准，实时游戏太贵。但 2023 年起 Cyberpunk、Alan Wake 2 都开始上 path tracing + DLSS 强行实时。
+  example: Cyberpunk 开 path tracing 一帧渲 30ms，没 DLSS 玩不了。
+
+- term: GI
+  aliases: [Global Illumination, 全局光照]
+  category: gamedev
+  literal: Global Illumination
+  meaning: 算上"光的间接反射"的光照——光从天花板反射到墙上再到地上，地面有微弱蓝色。让场景看着真实自然。实时 GI 贵，传统靠"烘焙"预算好。UE5 的 Lumen 是革命性实时 GI。
+  example: Lumen 实时 GI 让黑神话场景看起来像离线渲染。
+
+- term: LOD
+  aliases: [Level of Detail, 细节层次]
+  category: gamedev
+  literal: Level of Detail
+  meaning: 远的物体用低模、近的用高模——远处一棵树只要 100 个三角形，近处可以 5 万。极大省渲染开销。UE5 的 Nanite 是动态 LOD 的终极进化（不需要手工做不同 LOD）。
+  example: 给所有远景树挂 LOD3，帧率涨 20%。
+
+- term: mipmap
+  aliases: [Mipmap, MIP, 多级渐远纹理]
+  category: gamedev
+  literal: mipmap
+  meaning: 一张贴图预生成多个缩小版（1/2、1/4、1/8...），远的物体用低分辨率版——避免远处贴图闪烁锯齿。每张贴图多 1/3 内存换性能提升。所有引擎默认开。
+  example: 关 mipmap 后远处贴图闪烁严重。
+
+- term: MSAA
+  aliases: [Multi-Sample Anti-Aliasing]
+  category: gamedev
+  literal: Multi-Sample Anti-Aliasing
+  meaning: 多采样抗锯齿——一个像素采几个点求平均消除"边缘锯齿"。质量好但 VRAM 占用大。x2/x4/x8 是不同强度。延迟渲染管线不太兼容 MSAA。
+  example: 开 MSAA x4 后边缘平滑，但 VRAM 多吃 1GB。
+
+- term: TAA
+  aliases: [Temporal Anti-Aliasing, 时间抗锯齿]
+  category: gamedev
+  literal: Temporal Anti-Aliasing
+  meaning: 时间维度抗锯齿——利用前几帧的信息平均当前帧。效果好+开销低，但有"鬼影""模糊"副作用。当前 AAA 游戏默认 AA 方案。
+  example: TAA 开了边缘干净但运动时模糊明显。
+
+- term: FXAA
+  aliases: [Fast Approximate Anti-Aliasing]
+  category: gamedev
+  literal: Fast Approximate Anti-Aliasing
+  meaning: 后处理抗锯齿——便宜但效果一般、整体画面会糊。低端设备/手游常用。和 MSAA/TAA 是不同实现路径。
+  example: 手游开 FXAA 保帧率，画质轻微糊。
+
+- term: DLSS
+  aliases: [Deep Learning Super Sampling]
+  category: gamedev
+  literal: Deep Learning Super Sampling
+  meaning: NVIDIA 的 AI 超分技术——以 1080p 渲染然后用 AI 放大到 4K，质量接近原生 4K 但帧率翻倍。需要 RTX 显卡的 Tensor Core。开 DLSS 是 2020 年起 AAA 游戏的"性能逆袭"主力。
+  example: 4K 开光追只能跑 30FPS，开 DLSS Quality 立刻 60FPS。
+
+- term: FSR
+  aliases: [FidelityFX Super Resolution, AMD FSR]
+  category: gamedev
+  literal: FidelityFX Super Resolution
+  meaning: AMD 的开源超分技术——不靠 AI，纯空间算法。所有 GPU 都能用（不限 AMD）。FSR 3 加了帧生成。质量稍逊 DLSS 但兼容性广。
+  example: A 卡党靠 FSR 玩光追游戏。
+
+- term: HDR
+  aliases: [High Dynamic Range]
+  category: gamedev
+  literal: High Dynamic Range
+  meaning: 高动态范围——能显示比传统 SDR 更亮的高光和更深的阴影，颜色更鲜艳。需要 HDR 显示器（HDR400/600/1000）。开 HDR 看一次就回不去 SDR。但 Windows HDR 适配仍是灾难。
+  example: 大表哥 2 HDR 模式下天空亮到刺眼，真实感拉满。
+
+# ====================
+# 五、灯光 / 阴影
+# ====================
+
+- term: lightmap
+  aliases: [Light Map, 光照贴图]
+  category: gamedev
+  literal: lightmap (baked lighting)
+  meaning: 预先算好的光照信息存成贴图——运行时不算光照只贴图，超省 GPU。代价：只对静态物体有效、要重新烘焙才能改。手游/VR 大量依赖 lightmap。
+  example: 把所有静态光烘到 lightmap，手机也能 60FPS。
+
+- term: baking
+  aliases: [light baking, asset baking, bake, 烘焙, 烘焙光照]
+  category: gamedev
+  literal: baking (precompute and cache)
+  meaning: 把动态计算的东西预先算好存成静态资源——光照烘焙（lightmap baking）、NavMesh 烘焙、阴影烘焙、贴图烘焙（normal map baking）。运行时直接读、超省 GPU/CPU。代价：场景改一点就要重烤，大场景一次几小时到几天。和"实时计算"对应。
+  example: 设计师改完场景，等 4 小时烘焙光照。
+
+- term: shadow map
+  aliases: [Shadow Mapping, 阴影贴图]
+  category: gamedev
+  literal: shadow mapping
+  meaning: 算阴影的标准技术——从光源视角渲染深度图，再用它判断每个像素是否被遮挡。分辨率越高阴影越细，但越吃显存。
+  example: 把 shadow map 从 1k 升到 4k，阴影瞬间锐利。
+
+- term: bloom
+  aliases: [辉光, 泛光]
+  category: gamedev
+  literal: bloom (post-processing)
+  meaning: 亮的地方"溢出"光晕的后处理效果——模拟相机过曝。让灯光、太阳、火焰看着更亮丽。后处理（post-processing）经典手段之一。用过头会糊。
+  example: 这游戏 bloom 拉太满，所有灯都瞎眼。
+
+- term: SSAO
+  aliases: [Screen Space Ambient Occlusion]
+  category: gamedev
+  literal: Screen Space Ambient Occlusion
+  meaning: 屏幕空间环境光遮蔽——在物体接缝、角落加暗影增强立体感。便宜但效果有限（屏幕外的物体无法贡献遮蔽）。所有现代游戏标配。
+  example: 关掉 SSAO 后场景立刻"平"了。
+
+# ====================
+# 六、贴图 / 材质
+# ====================
+
+- term: texture
+  aliases: [纹理, 贴图]
+  category: gamedev
+  literal: texture
+  meaning: 贴在模型表面的图——决定颜色、花纹、细节。一个角色身上常有几十张 texture（皮肤、衣服、武器各一套）。texture 越大越好看但越吃显存。
+  example: 模型 4K texture 太吃显存，压成 2K 后帧率涨。
+
+- term: normal map
+  aliases: [法线贴图]
+  category: gamedev
+  literal: normal map
+  meaning: 用颜色编码"表面凹凸方向"的特殊贴图——模型本身是平的，但渲染时光照会按 normal map 表现凹凸细节（砖墙缝、布料皱褶）。能用平面假装"高模"细节，省 90% 三角形。
+  example: 把 100 万面高模烘成 normal map 贴到 1 万面低模，肉眼几乎一样。
+
+- term: roughness map
+  aliases: [粗糙度贴图]
+  category: gamedev
+  literal: roughness map
+  meaning: PBR 工作流的核心贴图——决定表面"光滑（镜面反射）"还是"粗糙（漫反射）"。0=完美镜面、1=完全磨砂。和 metallic map 一起决定 PBR 材质质感。
+  example: 调高 roughness 让金属看起来旧旧的、磨损过。
+
+- term: metallic map
+  aliases: [金属度贴图]
+  category: gamedev
+  literal: metallic map
+  meaning: PBR 工作流的核心贴图——决定"是金属还是非金属"。金属反射环境而非反光，非金属反高光。和 roughness 配合决定 PBR 材质。
+  example: 武器调高 metallic + 低 roughness 看着像新刀。
+
+- term: UV mapping
+  aliases: [UV 展开, UV 拆分]
+  category: gamedev
+  literal: UV mapping / UV unwrap
+  meaning: 把 3D 模型表面"展开"成 2D 平面以便贴图——像剥橘子皮平铺。UV 拆得不好贴图会扭曲、接缝明显。游戏美术核心技能。
+  example: 这模型 UV 没拆好，肚子上贴图扭得像被拉伸。
+
+- term: texture atlas
+  aliases: [图集, 贴图集]
+  category: gamedev
+  literal: texture atlas
+  meaning: 把多张小贴图合到一张大贴图里——减少 draw call、省显存切换。UI、Sprite、地形 tile 大量用。每张图记自己在 atlas 里的 UV 坐标。
+  example: 把 50 个 UI 图标合到一张 atlas，draw call 从 50 降到 1。
+
+- term: material
+  aliases: [材质]
+  category: gamedev
+  literal: material
+  meaning: shader + 贴图 + 参数 的组合——一个 material 描述"这块表面看起来怎样"。模型挂 material 才能渲染。"material instance"是同一个 material 不同参数复用。
+  example: 同一个金属 material 改 roughness 参数做出新旧两种武器。
+
+# ====================
+# 七、动画 / 骨骼
+# ====================
+
+- term: skeletal animation
+  aliases: [骨骼动画]
+  category: gamedev
+  literal: skeletal animation
+  meaning: 给角色装"骨头"再让骨头动，外表皮肤跟着变形——3D 角色动画的主流方式。和"逐帧动画"（每一帧画一张）对应。一个人形角色一般 50-200 根骨头。
+  example: 跑步动画一套 skeletal animation，骨骼曲线驱动模型。
+
+- term: rigging
+  aliases: [绑定, 装骨骼]
+  category: gamedev
+  literal: rigging
+  meaning: 给模型装骨骼+蒙皮的过程——TA（技术美术）的活。绑得好动画师轻松、绑不好动画扭曲变形。Maya/Blender 都有 auto-rig 工具。
+  example: rig 师周末加班绑了 3 个新角色。
+
+- term: bone
+  aliases: [骨骼, joint]
+  category: gamedev
+  literal: bone (in rigging)
+  meaning: 骨骼动画里的"关节"——每根 bone 有位置和旋转，控制周围皮肤的变形。bone 越多动画细节越丰富但开销越大。手指、脸、衣服都可以加 bone。
+  example: 角色加了 12 根手指 bone，做手势动画立刻细腻。
+
+- term: IK
+  aliases: [Inverse Kinematics, 反向动力学]
+  category: gamedev
+  literal: Inverse Kinematics
+  meaning: 反向动力学——给末端位置（手要摸到把手），引擎自动算手肘、肩膀怎么转。和 FK（正向，逐节调骨骼）相反。脚踩台阶、手抓物体、瞄准都用 IK。
+  example: 用 IK 让角色脚总踩在不平地面上不飘。
+
+- term: blend shape
+  aliases: [morph target, 表情融合]
+  category: gamedev
+  literal: blend shape / morph target
+  meaning: 不靠骨骼、靠"变形目标"做的动画——一张笑脸 + 一张哭脸，按 0-1 权重混合。表情系统、口型同步、变形动画必备。和 skeletal animation 互补。
+  example: 角色 30 个 blend shape 做出不同表情。
+
+- term: sprite sheet
+  aliases: [Sprite Sheet, 精灵图集]
+  category: gamedev
+  literal: sprite sheet
+  meaning: 2D 动画把每一帧画在同一张图上——逐帧切换显示就是动画。2D 游戏角色行走、攻击全靠 sprite sheet。和 atlas 类似但专用于动画。
+  example: 角色跑步 8 帧画在一张 sprite sheet 上，循环播放。
+
+- term: rigify
+  aliases: [Auto-Rig Pro]
+  category: gamedev
+  literal: rigify / auto-rigging tool
+  meaning: Blender 自带的自动绑骨骼工具——一键给人形模型装好可动骨架。给独立开发者省下 rig 师工资。Auto-Rig Pro 是它的付费进阶版。
+  example: 用 rigify 半小时把模型绑好，不用学复杂 rig。
+
+# ====================
+# 八、粒子 / VFX
+# ====================
+
+- term: particle system
+  aliases: [粒子系统]
+  category: gamedev
+  literal: particle system
+  meaning: 渲染大量小粒子的系统——火焰、烟、雨、雪、爆炸、魔法特效全靠它。每个粒子有位置、速度、生命周期、贴图。引擎自带 GPU 加速版（Unity Shuriken/VFX Graph、UE Niagara）。
+  example: 法术爆炸用 200 个粒子撑场面。
+
+- term: VFX
+  aliases: [Visual Effects, 视觉特效]
+  category: gamedev
+  literal: Visual Effects
+  meaning: 游戏里的视觉特效——爆炸、火花、魔法光圈、刀光、屏幕震动。和电影 VFX（CGI）区别：游戏 VFX 必须实时。VFX 美术（VFX artist）是专门岗位。
+  example: 这套技能 VFX 一出招满屏特效。
+
+- term: Niagara
+  aliases: []
+  category: gamedev
+  literal: Niagara (UE particle system)
+  meaning: UE4/5 的新一代粒子系统——基于 GPU compute shader、可编程性极强。代替老的 Cascade。学习曲线陡但能做几乎任何特效。
+  example: UE5 项目所有特效都用 Niagara 重做。
+
+- term: Shuriken
+  aliases: []
+  category: gamedev
+  literal: Shuriken (Unity legacy particle system)
+  meaning: Unity 老的粒子系统——CPU 驱动、好上手、性能一般。新项目推荐用 VFX Graph（GPU、强大）。Shuriken 还在用主要因为兼容性。
+  example: 老 Unity 项目所有特效都是 Shuriken。
+
+- term: VAT
+  aliases: [Vertex Animation Texture]
+  category: gamedev
+  literal: Vertex Animation Texture
+  meaning: 把顶点动画烘到贴图里、运行时 GPU 读贴图驱动顶点——避开骨骼系统、能做超复杂动画（布料、流体、群体）。Houdini → Unity/UE 工作流标配。
+  example: 用 VAT 让 1000 只鸟同步飞行，CPU 零开销。
+
+# ====================
+# 九、物理
+# ====================
+
+- term: collider
+  aliases: [碰撞体, collision shape]
+  category: gamedev
+  literal: collider
+  meaning: 物体的"碰撞形状"——盒子、球、胶囊、网格几种基本形。决定物体相互碰撞的范围。和"渲染外形"分开（视觉上是复杂模型、碰撞用简单 box 就够）。
+  example: 角色用 capsule collider 简化碰撞，不卡墙。
+
+- term: rigidbody
+  aliases: [刚体]
+  category: gamedev
+  literal: rigidbody
+  meaning: 受物理引擎管的物体——会落、会撞、会被推。挂 rigidbody 后物体自动响应重力、碰撞、力。"kinematic rigidbody"=不受物理但能撞别人（脚本控制）。
+  example: 木桶加 rigidbody 就能被撞飞，立刻有手感。
+
+- term: raycast
+  aliases: [射线检测]
+  category: gamedev
+  literal: raycast
+  meaning: 从一点射一根虚拟射线检测碰到什么——FPS 子弹判定、UI 点击、AI 视线、传送门入口全靠 raycast。`raycast(origin, direction, distance)` 返回碰到的物体。
+  example: 子弹判定 raycast 一发命中敌人 collider。
+
+- term: trigger
+  aliases: [触发器, trigger zone]
+  category: gamedev
+  literal: trigger (non-physical collider)
+  meaning: 不阻挡物体但能检测进入的特殊 collider——踩到地雷、进入对话区、跨过关卡终点全靠 trigger。和实体 collider 区别：trigger 没物理阻挡。
+  example: 在房间门口放个 trigger，玩家进门触发剧情。
+
+- term: PhysX
+  aliases: [NVIDIA PhysX]
+  category: gamedev
+  literal: NVIDIA PhysX
+  meaning: NVIDIA 的物理引擎——Unity 和 UE4 都内置。覆盖刚体、布料、流体、破坏。专业级开源软件。市场地位被 Havok 抢一部分。
+  example: Unity 默认用 PhysX 算所有刚体碰撞。
+
+- term: Box2D
+  aliases: []
+  category: gamedev
+  literal: Box2D (2D physics)
+  meaning: 开源的 2D 物理引擎——愤怒的小鸟、刺猬索尼克手游都用它。简洁、稳定、零授权费。Cocos、Unity 2D、Godot 都内置 Box2D。
+  example: 这款 2D 益智游戏物理全靠 Box2D。
+
+- term: Havok
+  aliases: []
+  category: gamedev
+  literal: Havok Physics
+  meaning: 老牌商业物理引擎——半条命 2、塞尔达旷野之息用过。被微软 2015 收购。AAA 项目首选。Unity 也支持 Havok 作为可选物理引擎。
+  example: 塞尔达旷野之息物理交互那么自然，Havok 立功。
+
+- term: ragdoll
+  aliases: [布娃娃, ragdoll physics]
+  category: gamedev
+  literal: ragdoll physics
+  meaning: 角色死亡后切换成被关节限制的刚体串——尸体瘫倒到地上的自然效果。GTA、半条命的死亡演出经典。
+  example: NPC 死亡切 ragdoll 模式，瘫成一摊。
+
+# ====================
+# 十、性能 / 优化
+# ====================
+
+- term: FPS
+  aliases: [Frames Per Second, 帧率]
+  category: gamedev
+  literal: Frames Per Second
+  meaning: ① **帧率（性能指标，默认含义）**——每秒渲染多少帧。60FPS 流畅、30FPS 勉强、144FPS 电竞标准。FPS 高需要 GPU 够强 + CPU 不卡。② **First-Person Shooter（第一人称射击游戏）**——CS、Valorant、CoD、CF。语境区别：性能讨论里 FPS 是帧率、游戏类型讨论里 FPS 是射击游戏。
+  example: 性能 这游戏锁 60 FPS 体感丝滑；类型 这是款竞技 FPS 游戏。
+
+- term: frame time
+  aliases: [帧时间]
+  category: gamedev
+  literal: frame time
+  meaning: 一帧花多少毫秒——比平均 FPS 更准的指标。60FPS = 16.67ms/帧。frame time 抖动（一帧 5ms、下一帧 30ms）即使平均 FPS 高也卡顿。专业人士看 frame time 不看 FPS。
+  example: 平均 60FPS 但 frame time 有 100ms 尖峰，体感卡。
+
+- term: V-Sync
+  aliases: [Vertical Sync, 垂直同步]
+  category: gamedev
+  literal: Vertical Sync
+  meaning: 锁帧率到显示器刷新率防止画面撕裂——60Hz 显示器锁 60FPS。代价：增加输入延迟。竞技玩家不开 V-Sync 接受撕裂。新一代 G-Sync/FreeSync 解决了这个问题（动态刷新）。
+  example: FPS 竞技关 V-Sync 减少延迟，可视的撕裂忽略不计。
+
+- term: G-Sync
+  aliases: [NVIDIA G-Sync]
+  category: gamedev
+  literal: NVIDIA G-Sync
+  meaning: NVIDIA 的动态刷新率技术——显示器刷新率跟着 GPU 输出动态变。无撕裂+低延迟。需要专门 G-Sync 显示器（贵）。
+  example: 144Hz G-Sync 显示器玩竞技 FPS 体验拉满。
+
+- term: FreeSync
+  aliases: [AMD FreeSync]
+  category: gamedev
+  literal: AMD FreeSync
+  meaning: AMD 的动态刷新率技术——开源标准 VESA Adaptive-Sync 的实现。比 G-Sync 便宜+普及。质量略逊。
+  example: A 卡 + FreeSync 显示器是性价比高画质组合。
+
+- term: draw call
+  aliases: [绘制调用]
+  category: gamedev
+  literal: draw call
+  meaning: CPU 告诉 GPU"画一个物体"的一次调用——每次都有 CPU 开销。AAA 游戏一帧上千 draw call、手游想压到 100 以内。减 draw call 是核心优化方向（batching/instancing）。
+  example: 把所有静态地形合 batch，draw call 从 800 降到 30。
+
+- term: batching
+  aliases: [合批]
+  category: gamedev
+  literal: draw call batching
+  meaning: 把多个同样材质的物体合成一次 draw call——大幅减 CPU 开销。Static Batching（静态预合）和 Dynamic Batching（动态合）。手游必做。
+  example: UI 元素加 batching，渲染开销减半。
+
+- term: GPU instancing
+  aliases: [实例化, instancing]
+  category: gamedev
+  literal: GPU instancing
+  meaning: 同一个网格画很多次只用一次 draw call——画 1000 棵同样的树、1000 个粒子都用 instancing。CPU 几乎无开销。比 batching 更强。
+  example: 草地 10 万根草用 instancing，CPU 1% 占用。
+
+- term: object pooling
+  aliases: [对象池, pooling]
+  category: gamedev
+  literal: object pooling
+  meaning: 频繁创建/销毁的对象（子弹、敌人、特效）改成"预创建一批+循环复用"——避免运行时 new 触发 GC 卡顿。所有打子弹的游戏都用。
+  example: 子弹用 object pool 复用，开火 100 发零 GC。
+
+- term: hitch
+  aliases: [卡顿, stutter]
+  category: gamedev
+  literal: hitch / stutter
+  meaning: 偶发的"突然一卡"——单帧 frame time 飙到 100ms 以上。原因：GC 触发、shader 编译、资源加载、IO 阻塞。AAA 游戏首发的"shader hitch"是 2020-23 PC 玩家最大投诉。
+  example: 进新区域有 shader hitch，0.5 秒卡顿。
+
+- term: profiler
+  aliases: [性能分析器]
+  category: gamedev
+  literal: profiler
+  meaning: 看每帧 CPU/GPU 时间分布的工具——Unity Profiler、UE Insights、PIX、RenderDoc。性能优化第一步：profile，找瓶颈在哪。猜不如测。
+  example: profiler 显示 80% 时间在 physics，砍多余 collider。
+
+# ====================
+# 十一、游戏循环
+# ====================
+
+- term: game loop
+  aliases: [游戏循环, 主循环]
+  category: gamedev
+  literal: game loop
+  meaning: 游戏运行的核心循环——每帧 input → update → render，循环到关游戏。是所有游戏程序的骨架。引擎帮你写好了，开发者只填 update 内容。
+  example: 引擎的 game loop 帮你处理 input/render，你只关心 update。
+
+- term: Update
+  aliases: [update, FixedUpdate, LateUpdate]
+  category: gamedev
+  literal: Update / FixedUpdate / LateUpdate
+  meaning: Unity 的三个更新回调——Update 每帧（变化频率随 FPS）、FixedUpdate 固定时间步（默认 50Hz，物理用它）、LateUpdate 所有 Update 后（相机跟随用它）。搞混 3 个的用途是 Unity 新手最常见坑。
+  example: 角色移动写 Update、物理推力写 FixedUpdate、相机跟在 LateUpdate。
+
+- term: delta time
+  aliases: [deltaTime, dt, 帧间时间]
+  category: gamedev
+  literal: delta time
+  meaning: 上一帧到这一帧花了多少时间——所有"每秒"逻辑都要乘 delta time 才能跨帧率一致。`position += velocity * deltaTime`。不乘 dt 的代码在 60FPS 和 144FPS 表现完全不同。
+  example: 忘了乘 delta time，玩家在 144Hz 显示器上跑得比 60Hz 快 2 倍。
+
+- term: tick
+  aliases: [game tick, server tick]
+  category: gamedev
+  literal: tick
+  meaning: 游戏服务器/物理引擎的"一次更新"——Tick Rate（每秒多少 tick）决定精度和服务器开销。Valorant 128 tick、CS2 64 tick、原神服务器 30 tick。tick 越高越精细但服务器越贵。
+  example: Valorant 升到 128 tick 后命中判定更精准。
+
+- term: ECS
+  aliases: [Entity Component System, 实体组件系统]
+  category: gamedev
+  literal: Entity Component System
+  meaning: 把游戏对象拆成"实体 ID + 一堆组件 + 系统处理组件"的架构——数据导向，性能极强（缓存友好）。代替老的 OOP 继承。Unity DOTS、Bevy、Overwatch 都用 ECS。学习曲线陡。
+  example: 切 ECS 重写后帧率涨 3 倍，1 万单位无压力。
+
+# ====================
+# 十二、网络 / Netcode
+# ====================
+
+- term: netcode
+  aliases: [网络代码, 联机代码]
+  category: gamedev
+  literal: netcode (network code)
+  meaning: 游戏的网络同步代码——决定多人游戏体验。烂 netcode = 延迟、抽风、对方瞬移、判定不准。"netcode 好坏"是格斗游戏/FPS 玩家的核心评价维度。
+  example: 街霸 6 的 netcode 大幅改善后，跨大洲对战可玩。
+
+- term: authoritative server
+  aliases: [权威服务器]
+  category: gamedev
+  literal: authoritative server
+  meaning: 服务器说了算的模式——客户端只发输入、服务器算结果。防外挂的基本姿势。Valorant、CS、LoL 都是。代价：所有操作有服务器延迟。
+  example: 切 authoritative server 后透视外挂被根除。
+
+- term: lockstep
+  aliases: [帧同步]
+  category: gamedev
+  literal: lockstep / deterministic simulation
+  meaning: 所有客户端只同步输入、各自跑相同逻辑得相同结果——节省带宽（只发输入）、需要绝对确定性（同样输入 → 同样结果）。RTS（星际、英雄连）、MOBA（王者荣耀）经典。坑：浮点不确定性、平台差异。
+  example: 王者荣耀用 lockstep，所以一人卡全队等。
+
+- term: rollback netcode
+  aliases: [回滚网络代码]
+  category: gamedev
+  literal: rollback netcode
+  meaning: 格斗游戏的圣杯网络方案——本地预测对手输入，错了就回滚重算几帧。让跨大洲对战感觉跟本地一样。街霸 6、罪恶装备 Strive 都改用 rollback 后口碑炸裂。
+  example: 罪恶装备从 delay-based 换 rollback netcode 玩家齐声欢呼。
+
+- term: prediction
+  aliases: [客户端预测, client prediction]
+  category: gamedev
+  literal: client-side prediction
+  meaning: 客户端不等服务器确认就先演——按下"前进"立刻动，服务器确认后再校正。让网络游戏感觉本地流畅。FPS、MMO 标配。Half-Life 2002 论文奠基。
+  example: WASD 走路客户端预测，服务器延迟也不卡。
+
+- term: lag compensation
+  aliases: [延迟补偿]
+  category: gamedev
+  literal: lag compensation
+  meaning: 服务器判定命中时"回放"到玩家开枪的瞬间——补偿网络延迟让命中判定公平。开枪那一刻你看到的状态，判定就用那个状态。CS、Valorant 标配。
+  example: lag compensation 让 100ms 延迟玩家也能正常打。
+
+- term: tick rate
+  aliases: [服务器刷新率]
+  category: gamedev
+  literal: server tick rate
+  meaning: 服务器每秒处理多少次状态更新——直接决定网络游戏精度。Valorant 128、CS2 64、Overwatch 60、原神 30。tick rate 高 = 命中判定准 = 服务器贵。
+  example: 提到 128 tick 后子弹判定细节差异肉眼可见。
+
+- term: RTT
+  aliases: [Round Trip Time]
+  category: gamedev
+  literal: Round Trip Time
+  meaning: 数据从你发出到收到回复的总时间——网络游戏的核心延迟指标。RTT 50ms 流畅、100ms 可玩、200ms 难受、300ms+ 不可玩。游戏圈说的"ping"就是 RTT。
+  example: 网吧测了 RTT 12ms，电竞流畅。
+
+- term: matchmaking
+  aliases: [匹配系统]
+  category: gamedev
+  literal: matchmaking
+  meaning: 把玩家配对成对局的系统——按段位、延迟、队友水平算"最公平的对手"。MOBA、FPS 必备。烂 matchmaking = 对手太强或太菜或队友坑。是玩家投诉重灾区。
+  example: 这游戏 matchmaking 算法不公平，连胜立刻匹配大神。
+
+- term: MMR
+  aliases: [Matchmaking Rating, 隐藏分]
+  category: gamedev
+  literal: Matchmaking Rating
+  meaning: matchmaking 用的"隐藏分"——不直接显示但决定匹配难度。和"显式段位"区别：段位是展示给玩家的（钻石/王者）、MMR 是内部真实水平。"MMR 高+段位低"=代练痕迹明显。
+  example: 我钻石段位但 MMR 是王者，所以匹配都打到王者对手。
+
+- term: ELO
+  aliases: [Elo rating, 等级分]
+  category: gamedev
+  literal: Elo rating system
+  meaning: 美国物理学家 Arpad Elo 给国际象棋设计的评分系统——后来被所有竞技游戏采用。赢强者加分多、输弱者扣分多。LoL、Dota 2、棋类 AI（AlphaGo 评分）都用 Elo 衍生。
+  example: 国际象棋 Elo 2500 = 大师级。
+
+# ====================
+# 十三、AI / 寻路
+# ====================
+
+- term: behavior tree
+  aliases: [行为树, BT]
+  category: gamedev
+  literal: behavior tree
+  meaning: 游戏 AI 主流决策模型——一棵树，节点是行为/条件/选择，从根遍历到叶子决定 NPC 干啥。比 FSM 灵活。UE 内置 Behavior Tree 编辑器。可视化拖拽。
+  example: BOSS AI 用 behavior tree，根据玩家距离切换攻击模式。
+
+- term: A* pathfinding
+  aliases: [A 星寻路, A-star]
+  category: gamedev
+  literal: A* pathfinding algorithm
+  meaning: 寻路经典算法——在网格/图上找最短路径，启发式比 Dijkstra 快。游戏里 NPC 走最短路绕开障碍的标准方案。
+  example: 怪物用 A* 算法绕过障碍追玩家。
+
+- term: NavMesh
+  aliases: [Navigation Mesh, 寻路网格]
+  category: gamedev
+  literal: navigation mesh
+  meaning: 给 AI 寻路用的"可行走面"——把场景烘成一张网格，NPC 只在网格上走。Unity NavMesh、UE Navigation System 都内置。3D 游戏 AI 寻路标准。
+  example: 烘焙 NavMesh 后 NPC 自动绕开障碍找路。
+
+- term: steering behaviors
+  aliases: [转向行为]
+  category: gamedev
+  literal: steering behaviors (Craig Reynolds)
+  meaning: 群体 AI 的简单规则——seek（追）、flee（逃）、wander（游荡）、align（对齐邻居）、cohesion（向邻居中心）、separation（避开邻居）。组合出鸟群、鱼群、人群效果。
+  example: NPC 群体用 steering behaviors 模拟人潮散开效果。
+
+- term: boids
+  aliases: [群体模拟]
+  category: gamedev
+  literal: boids (bird-like flocking simulation)
+  meaning: 1986 Craig Reynolds 提的群体模拟算法——基于 alignment / cohesion / separation 三规则。鸟群、鱼群的经典实现。后被无数游戏沿用。
+  example: 海底鱼群用 boids 算法，看起来活灵活现。
+
+- term: GOAP
+  aliases: [Goal-Oriented Action Planning]
+  category: gamedev
+  literal: Goal-Oriented Action Planning
+  meaning: 给 NPC 一个目标，让它自己规划行动序列达成——F.E.A.R. (2005) 经典 AI。比 FSM/behavior tree 智能，但计算开销大。
+  example: 警卫用 GOAP，会自己找掩体、绕后、补血。
+
+# ====================
+# 十四、关卡 / 场景
+# ====================
+
+- term: scene
+  aliases: [场景]
+  category: gamedev
+  literal: scene
+  meaning: 引擎里的"一个场景"——一个关卡/一个地图/一个 UI 界面。Unity 用 scene 加载切换、UE 用 level。一个游戏几十到几百 scene。
+  example: 打开 main_menu.scene 改主菜单 UI。
+
+- term: open world
+  aliases: [开放世界]
+  category: gamedev
+  literal: open world
+  meaning: 无限制探索的大地图设计——GTA、巫师 3、原神、塞尔达旷野之息、艾尔登法环都是开放世界。开发成本高（要填海量内容）、对工程要求极高（流式加载、LOD、网络同步）。和"线性关卡"对应。
+  example: 这家做开放世界，地图 200 平方公里。
+
+- term: spawn point
+  aliases: [出生点, 复活点]
+  category: gamedev
+  literal: spawn point
+  meaning: 玩家/NPC/物品"出生"的位置——FPS 出生点、MOBA 复活点、刷怪点、宝箱点。设计不好导致"出生即死"或"刷怪不公平"。
+  example: 这张图 T 阵营 spawn point 离 A 点近，进攻有优势。
+
+- term: checkpoint
+  aliases: [存档点, 检查点]
+  category: gamedev
+  literal: checkpoint
+  meaning: 玩家死亡后复活的位置——线性游戏的常见设计。"Souls-like 篝火""达克迷宫存档点"。和"任意存档"对应。
+  example: 这关 checkpoint 间隔太长，死一次倒退半小时。
+
+- term: tilemap
+  aliases: [瓦片地图]
+  category: gamedev
+  literal: tilemap
+  meaning: 用小方块拼出来的 2D 地图——像素游戏、像 Stardew Valley、Terraria 都是 tilemap。Unity/Godot 内置 Tilemap 编辑器。占内存小、复用率高。
+  example: 像素 RPG 用 tilemap 拼地图，一张图 10KB。
+
+- term: voxel
+  aliases: [体素]
+  category: gamedev
+  literal: voxel (volumetric pixel)
+  meaning: 3D 的"像素方块"——Minecraft 的方块世界、Roblox 都是 voxel。优点：可破坏、易生成（procgen）；缺点：精细度有限。
+  example: Minecraft 整个世界都是 voxel 构建。
+
+# ====================
+# 十五、UI
+# ====================
+
+- term: HUD
+  aliases: [Heads-Up Display, 抬头显示]
+  category: gamedev
+  literal: Heads-Up Display
+  meaning: 游戏中常驻屏幕的 UI——血量、弹药、小地图、十字准星。源自飞机驾驶舱的抬头显示。HUD 设计影响游戏体验：太少没信息、太多遮挡视野。
+  example: 这游戏 HUD 简洁，只有血条和十字准星。
+
+- term: UMG
+  aliases: [Unreal Motion Graphics]
+  category: gamedev
+  literal: Unreal Motion Graphics
+  meaning: UE 的 UI 系统——可视化拖拽设计 UI。所有 UE 游戏的菜单、HUD、对话框都用 UMG。和 Unity 的 UGUI 对应。
+  example: UE 项目 UI 全部用 UMG 做。
+
+- term: UGUI
+  aliases: [Unity UI]
+  category: gamedev
+  literal: Unity UI
+  meaning: Unity 的 UI 系统——基于 Canvas 节点。简单但旧。新项目推荐用 UI Toolkit（更现代+性能好）。
+  example: 老 Unity 项目 UI 都是 UGUI。
+
+- term: canvas
+  aliases: []
+  category: gamedev
+  literal: UI canvas
+  meaning: UI 的"画布"——所有 UI 元素挂在 canvas 下渲染。Unity UGUI、HTML5 都有 canvas 概念。一个游戏常有多个 canvas（HUD canvas、菜单 canvas、对话 canvas）。
+  example: 主菜单和 HUD 分两个 canvas，各自独立显示。
+
+- term: minimap
+  aliases: [小地图]
+  category: gamedev
+  literal: minimap
+  meaning: 屏幕角落的小地图——显示玩家位置+周围信息。MOBA、MMO、开放世界标配。设计核心：信息密度+不遮主视野。
+  example: 这游戏小地图能看 200m，太近不利于战术规划。
+
+# ====================
+# 十六、音频
+# ====================
+
+- term: 3D audio
+  aliases: [spatial audio, 空间音频]
+  category: gamedev
+  literal: 3D / spatial audio
+  meaning: 根据声源 3D 位置算声音方向——左边敌人脚步声从左耳响。FPS 听声辨位的核心。VR 必备。Dolby Atmos for Headphones 是消费级实现。
+  example: 听到右后方脚步，凭 3D audio 转身爆头。
+
+- term: Wwise
+  aliases: []
+  category: gamedev
+  literal: Audiokinetic Wwise
+  meaning: 游戏音频中间件之王——80% AAA 项目用它。可视化设计音效、混音、3D 空间化、动态参数。集成 Unity/UE 一键。
+  example: 音频师用 Wwise 做了 1000 个音效事件，工程师只调 API。
+
+- term: FMOD
+  aliases: []
+  category: gamedev
+  literal: FMOD
+  meaning: 游戏音频中间件——Wwise 主要竞争对手。功能类似、定价更友好。Celeste、Hollow Knight 用 FMOD。Unity/UE 都支持。
+  example: 独立游戏小预算用 FMOD 比 Wwise 便宜很多。
+
+- term: foley
+  aliases: [拟音]
+  category: gamedev
+  literal: foley sound
+  meaning: 拟音师录的"真实物体的声音"——脚步、衣服摩擦、按键。游戏不靠合成而靠录真实声音让"真实感"翻倍。AAA 游戏都有 foley 团队。
+  example: 这游戏脚步声是录真皮鞋踩石板，foley 师辛苦。
+
+- term: VO
+  aliases: [Voice Over, 配音]
+  category: gamedev
+  literal: Voice Over
+  meaning: 配音——角色台词。AAA 大作可能录几千条 VO，多语言版本各录一遍（巫师 3、博德之门 3）。专业配音演员+导演+录音棚，是预算大头。
+  example: 中文 VO 阵容豪华，玩家好感度爆表。
+
+# ====================
+# 十七、工具链
+# ====================
+
+- term: Maya
+  aliases: [Autodesk Maya]
+  category: gamedev
+  literal: Autodesk Maya
+  meaning: 3D 建模/动画工业标准软件——AAA 工作室主力。订阅 1800 美元/年（贵）。Pixar、Sony 都用 Maya。和 3ds Max 同公司不同侧重。
+  example: 角色组用 Maya 做模型+绑骨+动画。
+
+- term: Blender
+  aliases: []
+  category: gamedev
+  literal: Blender (open-source 3D)
+  meaning: 开源免费 3D 软件——曾经被嘲业余、现在已经能和 Maya 掰手腕。独立开发者首选。建模、雕刻、绑骨、动画、渲染、视频剪辑全包。社区驱动迭代凶。
+  example: 独立游戏全套 Blender 做完模型，零软件成本。
+
+- term: ZBrush
+  aliases: []
+  category: gamedev
+  literal: ZBrush (digital sculpting)
+  meaning: 数字雕刻软件——做高细节角色、生物模型。像捏黏土一样雕。AAA 角色都先在 ZBrush 雕高模、再 retopo 成低模。和 Blender 雕刻模块对应（但更专业）。
+  example: 角色师在 ZBrush 雕了 500 万面高模，烘成 normal map 用。
+
+- term: Substance Painter
+  aliases: []
+  category: gamedev
+  literal: Adobe Substance 3D Painter
+  meaning: PBR 贴图绘制工具——直接在 3D 模型上画。智能材质（"金属磨损"一笔刷上去）让贴图效率翻倍。被 Adobe 收购后订阅制。
+  example: 武器贴图全 Substance Painter 画，效果碾压老 Photoshop 工作流。
+
+- term: FBX
+  aliases: []
+  category: gamedev
+  literal: FBX (3D file format)
+  meaning: 3D 模型交换格式——Autodesk 出，AAA 工业标准。Maya/Blender/Unity/UE 互导都用 FBX。包含模型+骨骼+动画+材质引用。
+  example: 美术导出 FBX 给程序导入 Unity，工作流标配。
+
+- term: glTF
+  aliases: [GL Transmission Format]
+  category: gamedev
+  literal: glTF (GL Transmission Format)
+  meaning: 现代 3D 模型格式——Khronos 出，号称"3D 界的 JPG"。文件小、加载快、Web 友好。three.js、WebGL 主力格式。
+  example: WebGL 游戏所有模型用 glTF，加载比 FBX 快 3 倍。
+
+- term: Perforce
+  aliases: [P4, Helix Core]
+  category: gamedev
+  literal: Perforce (P4)
+  meaning: AAA 游戏行业的版本控制工具——比 Git 更适合大文件、二进制资源、超大仓库（100GB+）。Epic、Ubisoft、Bethesda 都用 P4。学习成本高、贵。
+  example: 这家 3A 工作室 200GB 仓库全在 Perforce 上。
+
+- term: Git LFS
+  aliases: [Git Large File Storage]
+  category: gamedev
+  literal: Git Large File Storage
+  meaning: Git 大文件扩展——把贴图、音频、模型存到 LFS 服务器，仓库里只存指针。让 Git 也能扛 5-50GB 项目。独立/中小游戏团队用 Git LFS 替代 Perforce。
+  example: Unity 项目用 Git LFS，3GB 美术资源也能 Git 管理。
+
+- term: cook
+  aliases: [cooking, asset cook]
+  category: gamedev
+  literal: cook / cooking (UE term)
+  meaning: UE 的"打包资源"过程——把 .uasset 编辑器格式转成运行时格式（压缩+优化）。`Cook for Windows` 烤几小时。出包前必跑。
+  example: 这次 cook 半小时，构建 build 才能发测试。
+
+# ====================
+# 十八、游戏类型 / 玩法
+# ====================
+
+- term: RPG
+  aliases: [Role-Playing Game, 角色扮演游戏]
+  category: gamedev
+  literal: Role-Playing Game
+  meaning: 玩家扮演角色升级打怪的类型——巫师 3、上古卷轴、博德之门 3、最终幻想。核心：成长系统+剧情+战斗。子类：ARPG（动作）、CRPG（西式）、JRPG（日式）、SRPG（策略）。
+  example: 上古卷轴是开放世界 RPG 的标杆。
+
+- term: MMORPG
+  aliases: [大型多人在线角色扮演游戏]
+  category: gamedev
+  literal: Massively Multiplayer Online RPG
+  meaning: 大型多人在线 RPG——魔兽世界、剑网三、最终幻想 14、原神（一半算）。几千上万人同服。开发成本天文数字，运营更难。运营寿命 10 年起步是健康。
+  example: 魔兽世界 20 年了还在更新，MMORPG 标杆。
+
+- term: MOBA
+  aliases: [Multiplayer Online Battle Arena, 多人在线战斗竞技场]
+  category: gamedev
+  literal: Multiplayer Online Battle Arena
+  meaning: 5v5 / 3v3 推塔游戏——LoL、Dota 2、王者荣耀、决战平安京。起源于魔兽 RTS 的 DotA 自定义地图。中国游戏圈最赚钱品类。
+  example: 王者荣耀月活破亿，MOBA 在中国封神。
+
+- term: RTS
+  aliases: [Real-Time Strategy, 即时战略]
+  category: gamedev
+  literal: Real-Time Strategy
+  meaning: 即时战略游戏——星际、魔兽 3、红警、帝国时代。建基地、攒资源、爆兵打仗。曾是 90 末 00 初最火品类、被 MOBA 抢走。最近 2024-25 有点回暖。
+  example: 星际争霸 2 是 RTS 最后一座高峰。
+
+- term: ARPG
+  aliases: [Action RPG, 动作角色扮演]
+  category: gamedev
+  literal: Action Role-Playing Game
+  meaning: 战斗即时操作的 RPG——暗黑破坏神、流亡之路（POE）、原神、艾尔登法环都算 ARPG。和回合制 RPG（最终幻想老作品）对应。
+  example: 暗黑 4 还是经典 ARPG 公式，刷装备直到天荒地老。
+
+- term: battle royale
+  aliases: [大逃杀, BR]
+  category: gamedev
+  literal: Battle Royale
+  meaning: 100 人空降，最后一个活下来——PUBG、Fortnite、Apex、Warzone。源自日本电影《大逃杀》和模组 H1Z1。2017-19 全球席卷。
+  example: PUBG 2017 引爆 battle royale 浪潮。
+
+- term: soulslike
+  aliases: [魂系, soulsborne]
+  category: gamedev
+  literal: soulslike (Souls-inspired)
+  meaning: 模仿黑暗之魂的难、惩罚式、篝火存档的动作 RPG——只狼、艾尔登法环、仁王、卧龙。"魂系玩家"是被虐还吹爆的群体。中国黑神话悟空 2024 把魂系推向 3A 主流。
+  example: 这游戏被吹"魂味十足"，硬核到劝退新手。
+
+- term: metroidvania
+  aliases: [类银河恶魔城]
+  category: gamedev
+  literal: metroidvania (Metroid + Castlevania)
+  meaning: 类银河恶魔城——一张相连的大地图、玩家逐渐解锁能力开启新区域。空洞骑士、奥日、银河战士、恶魔城。"探索 + 成长"是核心。独立游戏经典品类。
+  example: 空洞骑士是 metroidvania 当代神作。
+
+- term: roguelike
+  aliases: [肉鸽, 类银河战士恶魔城]
+  category: gamedev
+  literal: roguelike
+  meaning: 每局随机生成 + 死了重来 + 永久死亡——以 1980 年游戏 Rogue 命名。Slay the Spire、以撒、雨中冒险 2 都是。中文圈昵称"肉鸽"。
+  example: 杀戮尖塔是 roguelike 神作，死 50 次还想再玩。
+
+- term: roguelite
+  aliases: []
+  category: gamedev
+  literal: roguelite (lite roguelike)
+  meaning: roguelike 的"温柔版"——死了重来但有永久解锁（角色、技能）。Hades、死亡细胞、暖雪都是。比纯 roguelike 友好，留住更多玩家。
+  example: Hades 是 roguelite 标杆，叙事+爽快战斗。
+
+- term: survival
+  aliases: [生存游戏]
+  category: gamedev
+  literal: survival game
+  meaning: 收集资源 + 制作 + 生存到最后——绿色地狱、ARK、僵尸世界大战、漫漫长夜。压力+希望的玩法循环。
+  example: ARK 那种生存游戏对抗恐龙就硬肝几百小时。
+
+# ====================
+# 十九、商业 / 数值
+# ====================
+
+- term: F2P
+  aliases: [Free to Play, 免费游戏]
+  category: gamedev
+  literal: Free to Play
+  meaning: 免费下载 + 内购的商业模式——王者荣耀、原神、堡垒之夜、LoL。主流手游标配。靠 1-5% 重度付费玩家养整个游戏。
+  example: F2P 模型靠头部大鲸鱼 1% 玩家贡献 50% 收入。
+
+- term: P2W
+  aliases: [Pay to Win, 氪金变强]
+  category: gamedev
+  literal: Pay to Win
+  meaning: 花钱直接变强——传奇、放置类手游、部分卡牌都是 P2W。被欧美玩家深恶痛绝、中国玩家某些品类却心甘情愿。"P2W"基本是负面标签。
+  example: 这游戏从 F2P 变 P2W 后口碑崩塌。
+
+- term: DLC
+  aliases: [Downloadable Content, 下载内容]
+  category: gamedev
+  literal: Downloadable Content
+  meaning: 游戏发售后的付费扩展内容——巫师 3 的血与酒、艾尔登法环的黄金树幽影。和"本体"对应。优质 DLC 等于半个续作。
+  example: 艾尔登法环 DLC 黄金树幽影发售一周卖 500 万份。
+
+- term: battle pass
+  aliases: [通行证, Battle Pass]
+  category: gamedev
+  literal: Battle Pass
+  meaning: 季度制付费奖励赛道——堡垒之夜 2018 引爆，Apex、Valorant、原神都跟。按时玩任务领奖励，季末重置。每季 10 刀左右收入稳定。
+  example: 这季 battle pass 又肝完了，下季还得续费。
+
+- term: loot box
+  aliases: [开箱, 战利品箱]
+  category: gamedev
+  literal: loot box
+  meaning: 花钱开随机奖励的"宝箱"——CS:GO 武器箱、Overwatch 战利品箱、FIFA 球员包。被多国监管为"赌博"，欧盟、比利时、荷兰部分禁止。
+  example: CS:GO 武器箱开出 AWP 龙狙转手卖 10000 刀。
+
+- term: gacha
+  aliases: [抽卡, 卡池]
+  category: gamedev
+  literal: gacha (gambling-style draw)
+  meaning: 日本扭蛋演化来的随机抽卡——原神、明日方舟、阴阳师、FGO 都是 gacha。每抽 1-2%概率出 SSR。靠保底（抽 90 发必出）控玩家心态。中日韩手游主流变现模型。
+  example: 这角色被吹爆，gacha 池开放当晚流水破 2 亿。
+
+- term: 保底
+  aliases: [pity, pity system, 软保底, 硬保底]
+  category: gamedev
+  literal: pity system
+  meaning: 抽卡 N 次没出 SSR 就强制送一个——给玩家"不会真的非到家破人亡"的安全感。原神 90 抽硬保底、明日方舟 50 抽起递增概率。设计师调保底数值像走钢丝。
+  example: 这池 90 抽硬保底，最坏情况花 1500 元必出。
+
+- term: 欧皇
+  aliases: [非酋]
+  category: gamedev
+  literal: lucky / unlucky gacha player
+  meaning: 抽卡运气极好（欧皇 = "欧洲皇族"运气）or 极差（非酋 = "非洲酋长"运气）的玩家——抽卡游戏圈最常见自嘲。一发出货的是"欧皇"、800 抽出不了的是"非酋"。
+  example: 一发就出限定，妥妥欧皇本欧。
+
+- term: skin
+  aliases: [皮肤, cosmetic]
+  category: gamedev
+  literal: skin / cosmetic
+  meaning: 角色/武器的外观皮肤——纯外观、不影响数值。LoL、CS、Valorant 主力收入。"皮肤是 F2P 救星"——不破坏平衡又能赚钱。
+  example: LoL 全球收入 50% 来自皮肤销售。
+
+- term: power creep
+  aliases: [数值膨胀, 数值通胀]
+  category: gamedev
+  literal: power creep
+  meaning: 新出的角色/装备越来越强——老角色被淘汰，玩家被逼抽新池。运营式游戏的慢性病。最终破坏平衡。原神、明日方舟、FGO 都遭遇过。
+  example: 这版本新角色破防、老角色变废铁，典型 power creep。
+
+- term: tier list
+  aliases: [梯队榜, T 表]
+  category: gamedev
+  literal: tier list
+  meaning: 玩家社区给角色/卡分梯队（S/A/B/C/D/F）的强度榜——抽卡游戏、格斗、卡牌都有。T0/T1 是顶级、T3 以下基本垫底。新手抽卡前先看 tier list。
+  example: 这角色 tier list 排 S+，所有人都在抽。
+
+# ====================
+# 二十、战斗 / 数值
+# ====================
+
+- term: buff
+  aliases: [增益, 加成]
+  category: gamedev
+  literal: buff
+  meaning: 让自己/队友变强的状态——加攻、加防、加速。和 debuff（削弱）对立。MMO/MOBA 标配。"开 buff"=打开增益状态。
+  example: 这技能全队 buff 30% 攻速，团战 op。
+
+- term: debuff
+  aliases: [减益, 负面状态]
+  category: gamedev
+  literal: debuff
+  meaning: 让敌人变弱的状态——减攻、减防、减速、中毒、灼烧。buff 的反面。冰系/毒系技能多 debuff。
+  example: 这 BOSS 给全队上沉默 debuff，治疗瞬间瘫痪。
+
+- term: DPS
+  aliases: [Damage Per Second, 每秒伤害]
+  category: gamedev
+  literal: Damage Per Second
+  meaning: ① **每秒伤害值（数值含义）**——衡量输出能力的核心指标。"DPS 高"=伤害猛。② **职业定位（团队角色）**——"输出位"（区别于 tank 坦克和 healer 治疗）。MMO/团队 RAID 三角铁三角职业之一。
+  example: 数值 这把武器 DPS 比上把高 30%；定位 我打 DPS 位，跟着 tank 后面输出。
+
+- term: cooldown
+  aliases: [技能冷却, 冷却时间]
+  category: gamedev
+  literal: cooldown (skill cooldown)
+  meaning: 技能用完后无法再用的等待时间——5 秒 cooldown = 5 秒后才能再放。所有 MOBA、MMO、ARPG 都有冷却系统。"冷却长"=技能强但用不勤、"冷却短"=技能弱但常用。游戏圈常缩写为 CD（这个 CD 和"持续部署 CD"是不同概念，看语境）。
+  example: 这大招 60 秒冷却，关键时刻得算准。
+
+- term: aggro
+  aliases: [仇恨, 嘲讽]
+  category: gamedev
+  literal: aggro / threat
+  meaning: 怪物的"仇恨值"——决定它打谁。tank 拉满 aggro 让自己被打、保护脆皮。"丢仇恨"是 tank 失职。"嘲讽"=强制把 aggro 转到自己身上。
+  example: tank 没拉好 aggro，怪冲过去撕了治疗。
+
+- term: tank
+  aliases: [坦克, 肉]
+  category: gamedev
+  literal: tank (role)
+  meaning: 高血量+高防御+吸引仇恨的职业——MMO/MOBA 团队三角之一。任务是保护脆皮输出。和 DPS / healer 配。MOBA 里 tank 通常前排扛伤害+开团。
+  example: 这把没 tank，团战谁开都先死。
+
+- term: healer
+  aliases: [辅助, 治疗]
+  category: gamedev
+  literal: healer / support
+  meaning: 治疗+辅助的职业——MMO 三角之一，回血+群体增益。MOBA 里"辅助"角色定位类似。"团队没 healer"=团灭速通。
+  example: healer 走位不行整个团崩，是关键岗。
+
+- term: crit
+  aliases: [暴击, critical hit]
+  category: gamedev
+  literal: critical hit
+  meaning: 概率性放大伤害——通常 1.5-2 倍。"crit 率"+"crit 伤"是 ARPG 数值核心。暗黑、原神、流亡都靠堆暴击撑 DPS。
+  example: 这套搭配 70% 暴击率 + 300% 暴击伤，DPS 翻三倍。
+
+# ====================
+# 二十一、中文游戏圈黑话
+# 玩家社群、直播间、贴吧、B 站游戏区高频用语
+# ====================
+
+- term: 肝
+  aliases: [肝爆, 肝度, 爆肝]
+  category: slang
+  literal: grind (Chinese gaming slang)
+  meaning: 长时间反复刷游戏内容——熬夜爆肝。"肝度高"=游戏内容必须长时间投入才能爽。原神肝深渊、剑网三肝团本、明日方舟肝活动都是。"我肝不动了"=投入产出比劝退我。和"氪"对应：钱不够时间凑。
+  example: 这游戏肝度太大，每天 3 小时还跟不上进度。
+
+- term: 氪
+  aliases: [氪金, 充值]
+  category: slang
+  literal: pay in F2P game
+  meaning: 充值——给游戏花钱。源自日语"課金"。氪程度分：0 氪（白嫖）、微氪（每月 30-100）、中氪（月 500-3000）、重氪（月几千上万）、巨氪/超氪/648 战神（不眨眼买所有礼包）。"氪佬"=重度付费玩家。
+  example: 这角色我必氪 648 包月卡，错过等一年。
+
+- term: 648
+  aliases: [一发 648]
+  category: slang
+  literal: 648 RMB (max top-up)
+  meaning: 中国手游充值面值——648 元，单笔最高档（受腾讯/苹果支付政策影响）。"氪 648"成"花一笔大钱"代名词。"648 战神"=每次大版本都氪 648。
+  example: 这次池子值不值氪 648？我先看看池子保底。
+
+- term: 抽穿
+  aliases: [抽到爆, 抽歪了]
+  category: slang
+  literal: gacha gone wrong
+  meaning: 抽卡花光所有积蓄/资源也没出想要的——非洲到底。和"一发出货"的欧皇对应。"抽穿了"=已经放弃。"抽歪了"=出了 SSR 但不是想要的那个。
+  example: 这池抽穿了，800 抽没出限定，开摆。
+
+- term: 国服
+  aliases: [中国服, CN 服]
+  category: slang
+  literal: China server (Chinese version)
+  meaning: 中国官方代理的服务器——内容审核+本地化+和谐版本。和"外服"（美服/日服/亚服/国际服）对应。LoL 国服特色：版本慢、皮肤删、内容删、UI 改。
+  example: 国服更新比国际服慢两个版本，玩家用爱发电吐槽。
+
+- term: 体验服
+  aliases: [测试服, beta server]
+  category: slang
+  literal: test server
+  meaning: 新内容上正式服前的"提前测试"服务器——抢先体验+反馈 bug。LoL PBE、王者荣耀体验服都是。资源/进度通常不通正式服。
+  example: 体验服爆出新英雄，玩家急着抢号。
+
+- term: 公测
+  aliases: [open beta]
+  category: slang
+  literal: open beta / public release
+  meaning: 游戏面向所有人开放的阶段——和"内测"（限定玩家）对应。公测是"游戏正式上线"，运营周期从这一天算。"删档公测"=数据会清、"不删档公测"=数据保留。
+  example: 这游戏 6 月 1 日公测，老玩家不删档。
+
+- term: 内测
+  aliases: [closed beta, 封测]
+  category: slang
+  literal: closed beta
+  meaning: 小范围测试——只有受邀玩家能进。"删档内测"是常态：测完数据全删、公测重新开始。给开发团队收 bug、平衡数值的机会。
+  example: 这游戏发了 1 万个内测码，秒抢光。
+
+- term: 删档测试
+  aliases: [删档]
+  category: slang
+  literal: data-wipe beta test
+  meaning: 测试期玩家进度会被清除——内测/部分公测前的玩家心理预警。"我都肝到 60 级了不会删档吧"是中国玩家典型担忧。和"不删档"对应。
+  example: 这游戏删档测试满级了也没成就感，等不删档再玩。
+
+- term: 上分
+  aliases: [冲分]
+  category: slang
+  literal: rank up
+  meaning: 在排位/段位赛里赢上去——MOBA、FPS 必备目标。"上分速度"决定季度奖励。"今晚上分"是约队友打排位的标准开场。
+  example: 我从黄金上分到钻石，连胜 8 局。
+
+- term: 上车
+  aliases: [组队]
+  category: slang
+  literal: join a team / get carried
+  meaning: 加入队伍上排位——MOBA/FPS 黑话。"求大佬带"=求强者带我上分。"上车收费"是代练黑话。和"翻车"（输掉）对应。
+  example: 兄弟在线吗，王者上车，差 50 分。
+
+- term: 带飞
+  aliases: [hard carry]
+  category: slang
+  literal: hard carry the team
+  meaning: 一个人带四个队友赢——MOBA/FPS 中"凭一己之力翻盘"。"我带飞你"是高玩自信表达。极端版叫"1 打 5"。
+  example: 这局王者带飞，0 死 18 杀。
+
+- term: 速通
+  aliases: [speedrun, RTA]
+  category: slang
+  literal: speedrun
+  meaning: 用最短时间通关游戏——专门玩法。每个游戏都有 speedrun 社区+排行榜，世界纪录精确到帧。塞尔达、马里奥、艾尔登法环 speedrun 都有完整规则系。"%glitchless""any%"是不同分类。
+  example: 艾尔登法环 any% 速通世界纪录 13 分钟。
+
+- term: 开服
+  aliases: [新服, 服务器开放]
+  category: slang
+  literal: server launch
+  meaning: 游戏新服务器开放——给新玩家"重头开始"的机会。MMO 老服各种垄断、开新服=洗牌机会。"首发开服"是公测时刻。
+  example: 周五开服我守 0 点开冲首充号。
+
+- term: 开荒
+  aliases: [首通, blind run]
+  category: slang
+  literal: blind run / first clear
+  meaning: 新副本/新版本玩家集体探索未知机制——没攻略时的乐趣。MMO 大型公会"开荒"团本几十晚才首杀。"开荒成本"=死了很多次才打通。
+  example: 这副本我们公会开荒一周才首杀。
+
+- term: 副本
+  aliases: [本, 副本]
+  category: slang
+  literal: instance / dungeon
+  meaning: MMO/ARPG 里"独立小地图"——只有你和队友进，每次进自动重置。魔兽副本、原神深渊、剑网三大型团本。"刷副本"是日常。
+  example: 公会今晚 8 点集合刷高难副本。
+
+- term: 公会
+  aliases: [工会, guild, 战队]
+  category: slang
+  literal: guild / clan
+  meaning: 玩家组成的"社团"——一起打副本、占地盘、做活动。MMO 核心社交单位（魔兽公会、剑网三门派）。MOBA/FPS 类似"战队"或"俱乐部"。"会长"是公会头号人物。
+  example: 这家公会 200 人，每周三晚团本。
+
+- term: 外挂
+  aliases: [挂, cheat]
+  category: slang
+  literal: cheat / hack tool
+  meaning: 第三方修改程序——透视、自瞄、加速、修改数据。FPS 重灾区（瓦罗兰特/CS）。手游脚本、模拟器多开都广义算外挂。"开挂"=用外挂、"挂逼"=外挂使用者。
+  example: 这场遇到 3 个挂逼，瓦罗反作弊系统失效。
+
+- term: 代练
+  aliases: [代肝, boost]
+  category: slang
+  literal: account boosting
+  meaning: 花钱雇人帮你打游戏升级/上分——MOBA 重灾区。LoL 代练王者一次几百到上千。官方禁但屡禁不止。"代肝"是衍生（帮你肝重复任务）。
+  example: 这账号一看就代练，操作和段位明显不匹配。
+
+- term: 搬砖
+  aliases: [打金, gold farming]
+  category: slang
+  literal: gold farming / repetitive grind
+  meaning: 在游戏里重复打金币卖钱——曾经 RMT（real money trading）灰产，"金币农民"职业玩家月入过万。DNF、魔兽是经典搬砖游戏。和"肝"区别：肝是为自己玩，搬砖是为变现。
+  example: 国庆假期搬砖 8 小时，换了 200 块。
+
+- term: 开黑
+  aliases: [组排, party]
+  category: slang
+  literal: play together in a squad
+  meaning: 和熟人组队玩游戏——区别于单排。"晚上 8 点开黑"是中国玩家约局标准用语。开黑队伍配合默契，胜率显著高于单排。
+  example: 今晚 8 点开黑王者，需要双 C。
+
+- term: 首杀
+  aliases: [世界首杀, world first]
+  category: slang
+  literal: world first kill
+  meaning: 全球第一个击败某个 BOSS 的公会——MMO 顶级荣誉。魔兽世界各个大版本团本首杀都是大事。Method、Echo 是欧美顶级首杀公会。中文圈"首杀党"是这种玩家。
+  example: 这版本团本首杀，欧美公会争了 3 天。
+
+- term: 演员
+  aliases: [挂机演员, 摆烂队友]
+  category: slang
+  literal: troll teammate
+  meaning: 故意打输/不努力的队友——可能是想换边、想下班、心情不好。MOBA/FPS 排位最恨的人。"演员率"=队友演的频率。
+  example: 这局有演员，对面优势但我们 4 个不打。
+
+- term: 大版本
+  aliases: [major patch, expansion]
+  category: slang
+  literal: major patch / season
+  meaning: 游戏的"赛季"或"大更新"——通常 2-3 个月一次。原神 2.0、王者新赛季、堡垒之夜新章都算大版本。"大版本节奏"决定运营周期。
+  example: 大版本 8 月 30 号上线，新地图新角色新玩法。
+
+- term: 小版本
+  aliases: [minor patch, 周更]
+  category: slang
+  literal: minor patch / hotfix
+  meaning: 大版本之间的"补丁更新"——修 bug、调数值、加小活动。MOBA 周更平衡（数值调整）、原神 2 周更小内容。
+  example: 这个小版本砍了一刀，我家英雄废了。
+
+- term: 阴阳师
+  aliases: []
+  category: slang
+  literal: passive-aggressive comment
+  meaning: 阴阳怪气说话——在游戏聊天里讽刺队友/对手。MOBA 排位常态。"阴阳师"是"阴阳怪气"的拟人化称呼。"互喷"演化品。
+  example: 队友输了开始阴阳，举报麻了。
+
+- term: GG
+  aliases: [good game]
+  category: slang
+  literal: good game (GG)
+  meaning: ① **风度致敬（默认）**——比赛结束敲 GG = "打得好"。FPS、MOBA、星际传统。② **认输投降**——比赛中途敲 GG 意思"我输了不打了"。③ **凉了/完蛋**——日常聊天里"这次 GG 了"=完了。从游戏圈扩散到生活。
+  example: 比赛 "对面打得好，敲个 GG"；生活 "项目 ddl 还剩 2 小时没动笔，GG"。
+
+- term: AOE
+  aliases: [Area of Effect, 范围伤害]
+  category: slang
+  literal: Area of Effect
+  meaning: 范围伤害技能——一招打一片人。MOBA 团战核心（火女大招、安妮大招）。MMO 群怪刷副本必备。和"单体伤害"对应。
+  example: 法师 AOE 拉满，团战开大一波带走。
+
+- term: PvP
+  aliases: [Player versus Player, 玩家对战]
+  category: slang
+  literal: Player versus Player
+  meaning: 玩家对玩家——FPS、MOBA、格斗都是 PvP。和 PvE 对应。"开 PvP"=允许互相攻击。
+  example: 这游戏 PvP 平衡好坏决定竞技寿命。
+
+- term: PvE
+  aliases: [Player versus Environment]
+  category: slang
+  literal: Player versus Environment
+  meaning: 玩家对电脑/环境——MMO 副本、刷怪、剧情任务都是 PvE。和 PvP 对应。"PvE 玩家"=不愿和人打的群体。
+  example: 这游戏 PvE 内容丰富，PvP 平衡稀烂。
+
+- term: 装备
+  aliases: [gear, equipment]
+  category: slang
+  literal: gear / equipment
+  meaning: 角色身上穿的武器/防具/饰品——MMO/ARPG 核心追求。"刷装备"是终极目标。"装等"（item level）是数值化体现。"毕业装"=终极配装、"换装"=换更好的。
+  example: 这只 BOSS 必须毕业装才能稳过。
+
+- term: 战斗力
+  aliases: [战力, 战斗评分]
+  category: slang
+  literal: combat power / battle rating
+  meaning: 数值化的角色实力——装备+技能+属性汇总成一个数字。中国手游标配（原神战斗力、剑网三装备分）。"战力榜"是社群攀比体现。"战力虚高"=数字大但实战拉。
+  example: 战力 8 万的兄弟你别让我带，门票都不够。
+
+- term: 抽不出
+  aliases: [非到家破]
+  category: slang
+  literal: failed gacha
+  meaning: 抽卡运气背——抽 N 次没出。"非到家破"是绝望版（非洲酋长抽到家产破败）。和"欧到爆"对应。
+  example: 800 抽不出限定，破防了。
+
+- term: 速通党
+  aliases: []
+  category: slang
+  literal: speedrunner
+  meaning: 专门刷速通记录的玩家——研究 glitch、最优路径、最少操作通关。社区分 any%、100%、glitchless 不同分类。塞尔达、艾尔登法环、马里奥都有活跃速通党。
+  example: 速通党研究出新 bug 后世界纪录又破。
+
+- term: 装等
+  aliases: [item level, ilvl, gear score]
+  category: slang
+  literal: item level / gear score
+  meaning: MMO 里装备的"等级数字"——综合反映装备强度。魔兽 ilvl、剑网三装等。"装等 600+ 才能进 RAID"是门槛。装等是 MMO 第二根命脉（一根是等级）。
+  example: 装等 580 进副本被秒，先去刷点装备。
+
+- term: 元素反应
+  aliases: []
+  category: slang
+  literal: elemental reaction
+  meaning: 原神等元素系游戏的核心战斗机制——水火 → 蒸发、冰雷 → 超导、雷电 → 超载。不同元素组合触发不同伤害+效果。原神"元素反应"成为 2020 后元素系游戏标杆设计。
+  example: 队伍蒸发反应输出 3w+，比单元素强。
+
+- term: 卡 BOSS
+  aliases: [farm BOSS]
+  category: slang
+  literal: BOSS farming (exploit)
+  meaning: 利用机制 BUG 或地形让 BOSS 卡死/无敌——玩家爽刷无回击。设计师最不愿看到的玩家创造性。MOBA "卡野怪"也类似。
+  example: 这只 BOSS 卡墙角不动，全队站撸十分钟搞定。
+
+- term: 一血
+  aliases: [first blood]
+  category: slang
+  literal: first blood (MOBA)
+  meaning: MOBA 里游戏开局第一个击杀——奖励额外金币和优势。中文圈也用作"第一个干到"。CS 一血也指开局首个击杀。"拿一血"在 LoL/Dota 是开局关键。
+  example: 上路一血拿到，对面打野失误。
+
+- term: 死亡之舞
+  aliases: []
+  category: slang
+  literal: pull-and-kite combat
+  meaning: 不停拉怪+跑+回血+再打的战斗节奏——魂系、ARPG 高难度玩家必备。"风筝怪"基本同义。
+  example: 这只 BOSS 死亡之舞 5 分钟才打死，毛血进退两难。
+
+- term: P 图
+  aliases: [phase]
+  category: slang
+  literal: BOSS phase
+  meaning: BOSS 战分阶段——P1、P2、P3 不同机制。MMO 团本/魂系 BOSS 标配。"P3 难"=最难的阶段在第三阶段。和 PS 修图的"P 图"完全不同语境。
+  example: 这 BOSS P2 召小怪 P3 狂暴，配合要好。
