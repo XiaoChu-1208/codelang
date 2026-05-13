@@ -31,7 +31,7 @@ if _missing:
 import mouse
 import pyperclip
 
-from . import config, dict_updater, win as winhelp
+from . import config, dict_updater, quickquery, win as winhelp
 from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
@@ -189,10 +189,28 @@ class App:
                 title, cls = winhelp.get_foreground_window_info()
                 print(f"[codelang] trigger in '{title}' (class={cls})", file=sys.stderr)
                 cx, cy = winhelp.get_cursor_pos()
-                prev_clip = _safe_paste()
-                selected = grab_selection(prev_clip)
+                selected: str | None = None
+
+                # Terminals (Windows Terminal, conhost, mintty) hijack Alt+drag
+                # for block selection, so the clipboard dance fails silently.
+                # Try UI Automation first there — it can read the selection
+                # without forcing a clipboard roundtrip.
+                if winhelp.is_terminal_window(cls):
+                    selected = winhelp.read_terminal_selection()
+                    if selected:
+                        print(f"[codelang] terminal UIA grabbed: {selected[:50]!r}", file=sys.stderr)
+
+                # Non-terminal apps (or UIA found nothing): standard Ctrl+C path.
                 if not selected:
-                    print(f"[codelang] no selection captured at ({cx},{cy})", file=sys.stderr)
+                    prev_clip = _safe_paste()
+                    selected = grab_selection(prev_clip)
+
+                if not selected:
+                    # Last resort: pop the quick-query input box so user has SOME
+                    # path forward. Otherwise the failure is invisible — which
+                    # was the original "no popup window" bug report.
+                    print(f"[codelang] no selection captured at ({cx},{cy}) — opening quick query", file=sys.stderr)
+                    self.queue.put(("show_quick_query", cx, cy, ""))
                     return
                 print(f"[codelang] grabbed: {selected[:50]!r}", file=sys.stderr)
                 if not is_reasonable(selected, int(self.cfg.get("selection_max_len", 32))):
@@ -291,6 +309,15 @@ class App:
             _, title, body = msg
             from tkinter import messagebox
             messagebox.showinfo(title, body)
+        elif kind == "show_quick_query":
+            _, cx, cy, prefill = msg
+
+            def on_submit(text: str) -> None:
+                # Route through the normal trigger path so lookup + tooltip
+                # behave exactly as if the user had Alt+drag'd this text.
+                self.queue.put(("trigger", cx, cy, text))
+
+            quickquery.show(self.root, on_submit, x=cx, y=cy)
         elif kind == "quit":
             self.root.destroy()
 
@@ -494,11 +521,37 @@ class App:
 
     # ---------- run ----------
 
+    def _start_quick_query_hotkey(self) -> None:
+        """Bind Alt+Q globally → universal fallback dialog.
+
+        Why a hotkey instead of just relying on the Alt+drag failure path:
+        plenty of places have no draggable text at all (PDFs with selection
+        disabled, image viewers, the lock screen, a printed-out spec sitting
+        on the desk). Alt+Q gives the user a way to type/paste any term and
+        get the same lookup result — no selection required.
+        """
+        try:
+            import keyboard
+        except ImportError:
+            print("[codelang] keyboard lib missing — Alt+Q disabled", file=sys.stderr)
+            return
+
+        def trigger():
+            cx, cy = winhelp.get_cursor_pos()
+            self.queue.put(("show_quick_query", cx, cy, ""))
+
+        try:
+            keyboard.add_hotkey("alt+q", trigger)
+            print("[codelang] global hotkey Alt+Q armed", file=sys.stderr)
+        except Exception as e:
+            print(f"[codelang] hotkey registration failed: {e}", file=sys.stderr)
+
     def run(self) -> int:
         self.start_mouse_hook()
         self.start_outside_click_hook()
         self.start_alt_idle_cleanup()
         self.start_tray()
+        self._start_quick_query_hotkey()
         # Silent dict-update probe (opt-out via config). Daemon, so quitting
         # before the request returns doesn't hang shutdown.
         if self.cfg.get("dict_update_check_on_startup", True):

@@ -191,6 +191,76 @@ def get_foreground_window_info() -> tuple[str, str]:
     return title_buf.value, cls_buf.value
 
 
+# Window class names of terminals that don't play well with the Ctrl+C grab
+# trick. Windows Terminal hijacks Alt+drag for block selection (text never
+# reaches the clipboard); legacy conhost requires QuickEdit mode and even
+# then has a fiddly mouse model. Detecting these lets us skip the dead-end
+# Ctrl+C dance and read the selection via UI Automation instead.
+_TERMINAL_CLASSES = frozenset({
+    "CASCADIA_HOSTING_WINDOW_CLASS",  # Windows Terminal (wt.exe)
+    "ConsoleWindowClass",             # legacy cmd / PowerShell console
+    "PseudoConsoleWindow",            # ConPTY host
+    "mintty",                         # Git Bash / Cygwin
+})
+
+
+def is_terminal_window(class_name: str) -> bool:
+    """True if `class_name` (from get_foreground_window_info) belongs to a
+    terminal emulator where Alt+drag selection won't reach the clipboard."""
+    return class_name in _TERMINAL_CLASSES
+
+
+def read_terminal_selection() -> str | None:
+    """Use UI Automation to read the current selection from a terminal window.
+
+    Modern terminals (Windows Terminal, conhost on Win10+) implement the UIA
+    TextPattern, which exposes the visible buffer and the user's selection
+    without requiring a clipboard roundtrip. This sidesteps the "Alt+drag does
+    nothing in terminals" problem entirely.
+
+    Returns the selected text on success, None on any failure (no selection,
+    no TextPattern support, UIA initialization error). All failures are
+    silent — caller decides whether to fall back to the quick-query dialog.
+    """
+    try:
+        # Lazy import: uiautomation drags in comtypes and adds ~200ms to first
+        # call (COM init). Only pay that cost if we actually need it.
+        import uiautomation as auto
+    except ImportError:
+        return None
+    try:
+        # GetFocusedControl finds whatever has keyboard focus — the terminal's
+        # text area in our case. Cheaper and more accurate than walking from
+        # the foreground HWND down through Pane → Edit, which Windows Terminal
+        # nests several layers deep.
+        ctrl = auto.GetFocusedControl()
+        if ctrl is None:
+            return None
+        pattern = ctrl.GetTextPattern()
+        if pattern is None:
+            return None
+        ranges = pattern.GetSelection()
+        if not ranges:
+            return None
+        # GetSelection returns a list of TextRange (multi-select is rare but
+        # possible). Join them in order.
+        parts = []
+        for r in ranges:
+            try:
+                txt = r.GetText(-1)
+            except Exception:
+                continue
+            if txt:
+                parts.append(txt)
+        out = "".join(parts).strip()
+        return out or None
+    except Exception as e:
+        # uiautomation can throw arbitrary COMErrors. Treat any failure as
+        # "no selection available" — the quick-query fallback handles it.
+        print(f"[codelang] UIA read failed: {e}", file=sys.stderr)
+        return None
+
+
 def get_monitor_work_rect(x: int, y: int) -> tuple[int, int, int, int]:
     """Return (left, top, right, bottom) of the work area on the monitor containing (x,y)."""
     pt = POINT(x, y)
