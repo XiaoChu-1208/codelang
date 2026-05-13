@@ -33,7 +33,7 @@ if _missing:
 
 import pyperclip
 
-from . import config, dict_updater, mouse_backend, platform_compat as winhelp
+from . import config, dialog, dict_updater, mouse_backend, platform_compat as winhelp
 from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
@@ -310,8 +310,7 @@ class App:
             self.tooltip.on_user_save_done(gen, ok, info)
         elif kind == "show_info":
             _, title, body = msg
-            from tkinter import messagebox
-            messagebox.showinfo(title, body)
+            dialog.show_info(self.root, title, body)
         elif kind == "quit":
             self.root.destroy()
 
@@ -680,14 +679,13 @@ class App:
             check(prompt=True)
         except Exception:
             pass
-        from tkinter import messagebox
-        messagebox.showwarning(
+        dialog.show_warning(
+            self.root,
             "codelang 需要辅助功能权限",
-            "codelang 还没有获得「辅助功能（Accessibility）」权限，\n"
+            "codelang 还没有获得「辅助功能（Accessibility）」权限，"
             "Option + 划词 会没反应。\n\n"
-            "请打开：\n"
-            "  系统设置 → 隐私与安全性 → 辅助功能\n"
-            "然后把当前用来跑 codelang 的 Python（或终端 App）勾上。\n"
+            "请打开：系统设置 → 隐私与安全性 → 辅助功能\n"
+            "把当前用来跑 codelang 的 Python（或终端 App）勾上，"
             "勾完后重新启动 codelang 即可。\n\n"
             "首次勾选系统会让你输密码确认，正常操作。",
         )
