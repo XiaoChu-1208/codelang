@@ -2,11 +2,9 @@
 # 安装：py -m pip install -r requirements.txt
 
 mouse>=0.7.1          # 全局鼠标钩子
-keyboard>=0.13.5      # 全局键盘钩子（Alt+Q 快查热键）
 pyperclip>=1.8.0      # 跨平台剪贴板（取词用）
 pystray>=0.19.0       # 系统托盘图标
 Pillow>=10.0.0        # 托盘图标渲染依赖
 requests>=2.30.0      # LLM 兜底 + 远程词库更新
 pyyaml>=6.0           # 词库 YAML 解析（运行时合并 user_dict.yaml + 构建 dict.json）
-uiautomation>=2.0.18  # 终端窗口（Windows Terminal / conhost）选区读取
 resvg-py>=0.1.0       # 把 Gemini 原 SVG 渲染成 PNG/ICO（仅构建图标时用）

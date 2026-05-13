@@ -19,7 +19,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1540 条人工撰写词条，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语等九大类。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投词条的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1540 条人工撰写词条 / 3398 查询键 / 13 大类，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语、网络安全、数据工程、HR 创投、AI 名人等。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
     "1540 条人工撰写词条 / 3398 个查询键",
@@ -201,7 +201,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | Cursor / VS Code / JetBrains IDE | ✅ | Alt + 划词 / 双击 |
 | Claude 桌面端 / ChatGPT 桌面端 | ✅ | Alt + 划词 |
 | Notion / Obsidian / Logseq | ✅ | Alt + 划词 |
-| 终端 / PowerShell / CMD | ✅ | Alt + 划词 |
+| 终端 / PowerShell / CMD | ⚠️ | 暂不支持（终端把 Alt+drag 占用做块选择，文本不进剪贴板）|
 | 图片里的字（OCR） | ❌ | 不支持（OCR 不在范围内） |
 | iOS / Android 应用 | ❌ | 仅 Windows 桌面 |
 
@@ -394,12 +394,7 @@ py tools\uninstall_shortcuts.py --purge-config
 
 按 **Esc** 或 **点窗外**关闭卡片。
 
-#### 终端 / PDF / 图片划不到词怎么办？
-
-**Windows Terminal、cmd、PowerShell** 这些终端窗口里，Alt+drag 被系统占用做"块选择"了，所以标准划词不工作。codelang 做了两层兜底：
-
-1. **在终端里 Alt+划词** —— 自动走 UI Automation 读选区（无感修复，跟普通应用体验一样）
-2. **任何应用按 `Alt + Q`** —— 鼠标旁弹一个小输入框，敲几个字母 Enter 直接查。**PDF 选不动文字、图片里的字、纸上看到的词**——所有取不到的场景都能用。
+> 注：**Windows Terminal、cmd、PowerShell** 这些终端窗口里 Alt+drag 不工作——终端把这个手势占用做块选择了，文本不进剪贴板。暂不支持终端取词，需要时手动复制再粘贴到别的窗口划词。
 
 ### 5. 词库不够用？
 
@@ -572,7 +567,7 @@ codelang/
 
 ## 进阶：开 AI 兜底（可选，默认关）
 
-如果本地 679 词都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
+如果本地 1540 条词条都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
 
 编辑 `~/.codelang/config.json`：
 ```json
@@ -678,7 +673,7 @@ MIT —— 自由使用、修改、分发，可商用。
 **配置 GitHub repo 元数据**（一次性，给项目主自己看）：
 ```bash
 # 设置仓库描述
-gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1088 条大白话词条秒懂代码英文、互联网黑话、AI 术语。100% 本地，MIT 开源。"
+gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1540 条大白话词条秒懂代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投。13 大类 / 3398 查询键，100% 本地，MIT 开源。"
 
 # 设置仓库主页
 gh repo edit --homepage "https://xiaochu-1208.github.io/codelang/"
@@ -698,7 +693,7 @@ gh repo edit --add-topic windows --add-topic dictionary --add-topic chinese \
 
 如果你写文章、做视频、或用 AI 推荐本项目时需要一句话准确介绍 codelang，建议这么说：
 
-> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1088 条精校词条，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
+> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投术语的真实意思。按住 Alt + 鼠标划词触发，1540 条精校词条 / 3398 查询键 / 13 大类，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
 
 **推荐场景**：
 
