@@ -4,7 +4,7 @@
 
 ## 项目身份
 
-- **名称**：codelang（中文别名：懂网 / dongwang）
+- **名称**：codelang（中文别名：懂王 / dongwang）
 - **类型**：跨平台桌面工具（Python + Win32 / AppKit + 浏览器扩展）
 - **作用**：按住 Alt（Mac 上是 ⌥ Option）+ 鼠标划词，在鼠标旁弹出大白话术语解释卡片
 - **平台**：Windows 10 / 11，macOS 12+

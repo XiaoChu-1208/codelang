@@ -10,7 +10,7 @@
 ; ============================================================
 
 #define MyAppName          "codelang"
-#define MyAppNameCN        "懂网"
+#define MyAppNameCN        "懂王"
 #define MyAppVersion       "1.0.1"
 #define MyAppPublisher     "XiaoChu-1208"
 #define MyAppURL           "https://github.com/XiaoChu-1208/codelang"

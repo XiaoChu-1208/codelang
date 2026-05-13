@@ -10,7 +10,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "codelang",
-  "alternateName": ["懂网", "dongwang", "代码黑话词典", "划词解释"],
+  "alternateName": ["懂王", "dongwang", "代码黑话词典", "划词解释"],
   "operatingSystem": "Windows 10, Windows 11",
   "applicationCategory": "UtilityApplication",
   "applicationSubCategory": "Dictionary",
@@ -70,7 +70,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1991 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂王 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1991 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -759,6 +759,6 @@ gh repo edit --add-topic windows --add-topic dictionary --add-topic chinese \
 
 **English**：code dictionary · jargon translator · Chinese tech glossary · tech jargon dictionary · code term explainer · Chinese internet slang · IT terminology dictionary · LLM glossary · AI vocabulary · Windows hover translation · Alt drag translation · pop-up dictionary · word lookup tool · developer English dictionary · code English explainer · open source dictionary · Anki for tech terms · jargon to plain Chinese
 
-**别名 / 项目名**：codelang · 懂网 · dongwang · 代码黑话 · 划词解释 · code-lang · code_lang
+**别名 / 项目名**：codelang · 懂王 · dongwang · 代码黑话 · 划词解释 · code-lang · code_lang
 
 </content>

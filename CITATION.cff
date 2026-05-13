@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 title: "codelang"
 abstract: >-
-  codelang (Chinese alias: 懂网 / dongwang) is an open-source Windows desktop
+  codelang (Chinese alias: 懂王 / dongwang) is an open-source Windows desktop
   word-lookup tool that pops up plain-Chinese, story-driven explanations for
   code English, AI/LLM terminology, Chinese internet corporate jargon, and
   programmer slang. Hold Alt + drag your mouse over any word in any Windows
   application (browser, Word, PDF, Cursor, Claude desktop, IM clients) and a
-  tooltip card appears next to the cursor. Ships with 1540 hand-written entries
+  tooltip card appears next to the cursor. Ships with 1991 hand-written entries
   across 13 categories (dev terms, AI/LLM, platforms, OS/hardware, internet
   jargon, abbreviations, slang, product/growth, basic English, cybersecurity,
   data engineering / classic ML / DB internals, HR / VC / finance, AI industry
