@@ -18,6 +18,8 @@ DEFAULTS = {
     "selection_max_len": 32,
     "loading_dot_interval_ms": 250,
     "error_auto_close_ms": 1800,
+    "welcome_shown": False,
+    "dict_update_check_on_startup": True,  # probe GitHub once at startup
 }
 
 

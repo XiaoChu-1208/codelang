@@ -398,7 +398,14 @@ py tools\uninstall_shortcuts.py --purge-config
 
 **自己加词** —— 卡片弹出"未收录"时点「我录入这个词」按钮，输入含义保存，下次同样的词直接命中。不用懂代码、不用碰文件。
 
+> 💡 自加的词存在你的用户目录 `~/.codelang/user_dict.yaml`，**不会被远程词库更新或重装覆盖**——这是你私人的词条层，永远叠在主词库上面。
+
 **改现有的** —— 觉得某条解释不够生动？打开 `dict/*.yaml` 任何一个文件改这条 meaning 字段，存盘后托盘菜单点「重新加载词典」立即生效。
+
+**远程拉新词库** —— codelang 启动时会**静默检查一次**有没有新词库（只访问本仓库的 dict.json，不传任何隐私）。有更新时托盘冒泡通知 + 菜单出现「下载新词库 (N 条)」选项，点一下即可应用。
+
+- 也可以手动点托盘菜单「检查词库更新」主动查
+- 不喜欢联网？打开 `~/.codelang/config.json` 把 `dict_update_check_on_startup` 改成 `false` 即可
 
 ---
 
@@ -470,8 +477,9 @@ codelang/
 │   ├── security.yaml       ✨ 网络安全 ~55（0day/CVE/RCE/SSRF/红队蓝队/APT/钓鱼/OWASP/SIEM/EDR）
 │   ├── mlops.yaml          ✨ 数据工程/经典 ML/数据库底层 ~75（Spark/Kafka/dbt/XGBoost/MVCC/WAL/binlog）
 │   ├── finance.yaml        ✨ HR/招聘/创投/财务 ~65（JD/HC/PIP/RSU/vesting/ARR/runway/独角兽/LP GP/PMF）
-│   ├── people.yaml         ✨ AI/互联网圈名人 ~40（Sam Altman/Karpathy/李飞飞/梁文锋/黄仁勋/Dario Amodei）
-│   └── user.yaml               你录入的词（运行时自动追加）
+│   └── people.yaml         ✨ AI/互联网圈名人 ~40（Sam Altman/Karpathy/李飞飞/梁文锋/黄仁勋/Dario Amodei）
+│                               （你自己加的词存在 ~/.codelang/user_dict.yaml，
+│                                不在项目目录，远程更新/重装都不会覆盖）
 ├── desktop/                    桌面应用（Alt+划词触发）
 │   ├── app.py                  主入口
 │   ├── ui.py                   tooltip 卡片

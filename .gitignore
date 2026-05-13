@@ -39,3 +39,10 @@ icons-proposal-*.html
 dist/
 installer/wizard-large.bmp
 installer/wizard-small.bmp
+
+# 用户旧版自加词文件（迁移后会被改名为这个后缀，新位置在 ~/.codelang/user_dict.yaml）
+dict/user.yaml
+dict/user.yaml.migrated
+
+# 项目根的临时测试脚本（手动跑的 throwaway，不进仓库）
+_test_*.py

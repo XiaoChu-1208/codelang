@@ -17,19 +17,31 @@ import threading
 import time
 import tkinter as tk
 
+# Preflight: if third-party deps are missing the shortcut would otherwise
+# silently fail under pythonw (no console = no visible ImportError). Show a
+# real dialog so the user can fix it. Must happen BEFORE the heavy imports
+# below or this module won't even load.
+from . import deps_error as _deps_error
+
+_missing = _deps_error.check_required()
+if _missing:
+    _deps_error.show(_missing)
+    sys.exit(1)
+
 import mouse
 import pyperclip
 
-from . import config, win as winhelp
+from . import config, dict_updater, win as winhelp
+from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
     DictIndex,
     Entry,
     LookupResult,
     Translator,
+    USER_DICT_YAML,
     append_user_entry,
     llm_lookup,
-    rebuild_dict_json,
 )
 from .ui import Tooltip
 
@@ -82,13 +94,45 @@ def is_reasonable(text: str, max_len: int) -> bool:
     return True
 
 
+def _migrate_legacy_user_yaml() -> None:
+    """One-shot: move pre-refactor user additions from dict/user.yaml (in the
+    project tree, clobbered by remote updates/reinstalls) into
+    ~/.codelang/user_dict.yaml (safe in the user dir). Idempotent — once the
+    legacy file has been moved we rename it .yaml.migrated so we don't try
+    again on subsequent startups.
+
+    The size threshold (>80 bytes) is to distinguish a real user dict from a
+    template containing just the comment header. False positives are harmless
+    (we'd just copy a slightly larger comment file once).
+    """
+    from pathlib import Path
+    legacy = Path(__file__).resolve().parent.parent / "dict" / "user.yaml"
+    if not legacy.exists() or legacy.stat().st_size <= 80:
+        return
+    try:
+        USER_DICT_YAML.parent.mkdir(parents=True, exist_ok=True)
+        if not USER_DICT_YAML.exists():
+            USER_DICT_YAML.write_text(legacy.read_text(encoding="utf-8"), encoding="utf-8")
+            print(f"[codelang] migrated user dict: {legacy} → {USER_DICT_YAML}", file=sys.stderr)
+        legacy.rename(legacy.with_suffix(".yaml.migrated"))
+    except OSError as e:
+        print(f"[codelang] user dict migration skipped: {e}", file=sys.stderr)
+
+
 class App:
     def __init__(self):
         setup_logging()
         winhelp.set_dpi_aware()
         self.cfg = config.load_config()
+        _migrate_legacy_user_yaml()
         self.dict = DictIndex()
         self.translator = Translator()
+        # Remote-update state, populated by _silent_check_for_update().
+        # has_update flips True when a newer dict.json is available on main;
+        # pending_update holds the already-downloaded payload so the "下载"
+        # menu click is instant (no second network roundtrip).
+        self.has_update: bool = False
+        self.pending_update: "dict | None" = None
 
         self.root = tk.Tk()
         self.root.withdraw()
@@ -243,6 +287,10 @@ class App:
         elif kind == "user_save_done":
             _, gen, ok, info = msg
             self.tooltip.on_user_save_done(gen, ok, info)
+        elif kind == "show_info":
+            _, title, body = msg
+            from tkinter import messagebox
+            messagebox.showinfo(title, body)
         elif kind == "quit":
             self.root.destroy()
 
@@ -272,14 +320,14 @@ class App:
             print(f"[codelang] chip lookup error: {e}", file=sys.stderr)
 
     def _on_user_save(self, gen: int, term: str, meaning: str, example: str) -> None:
-        """Called from UI when user submits a manual entry. Persist + reload + show."""
+        """Called from UI when user submits a manual entry. Persist to the
+        user YAML overlay and reload — no subprocess build step anymore, since
+        DictIndex._load() reads user_dict.yaml directly at runtime."""
         def worker():
             try:
                 append_user_entry(term, meaning, example)
-                ok, info = rebuild_dict_json()
-                if ok:
-                    self.dict.reload()
-                self.queue.put(("user_save_done", gen, ok, info))
+                self.dict.reload()
+                self.queue.put(("user_save_done", gen, True, f"saved «{term}»"))
             except Exception as e:
                 self.queue.put(("user_save_done", gen, False, str(e)[:120]))
 
@@ -353,13 +401,66 @@ class App:
             icon.stop()
             self.queue.put(("quit",))
 
+        def on_check_update(icon, item):
+            # User-triggered: fetch and report result via messagebox.
+            # Runs on pystray's own thread, safe to do the blocking GET here.
+            payload = dict_updater.check_remote(self.dict.version)
+            from tkinter import messagebox
+            if payload is None:
+                # Either we're up to date or the request failed — try a HEAD-style
+                # distinction by re-fetching for "definitely no update" vs error.
+                # Simpler: just tell the user no update available; check_remote's
+                # internal print already logged any error.
+                self.queue.put(("show_info", "词库更新", f"已是最新（{self.dict.count} 条）"))
+            else:
+                self.has_update = True
+                self.pending_update = payload
+                self._tray_icon.update_menu()
+                self.queue.put((
+                    "show_info",
+                    "词库更新",
+                    f"发现新词库 {self.dict.count} → {payload.get('count', '?')} 条\n"
+                    f"远程时间 {str(payload.get('version', ''))[:19]}\n"
+                    "点托盘菜单「下载新词库」即可应用。",
+                ))
+
+        def on_download_update(icon, item):
+            payload = self.pending_update
+            if not payload:
+                return
+            try:
+                dict_updater.save_atomic(USER_DICT_JSON, payload)
+                self.dict.reload()
+                count = self.dict.count
+                self.has_update = False
+                self.pending_update = None
+                self._tray_icon.update_menu()
+                self._tray_icon.notify(f"已更新到 {count} 条", "codelang")
+                print(f"[codelang] dict updated → {count} entries", file=sys.stderr)
+            except Exception as e:
+                self.queue.put(("show_info", "下载失败", f"写入失败：{e}"))
+
+        def update_label(item):
+            v = self.dict.version[:10] if self.dict.version else "—"
+            return f"词库: {self.dict.count} 条 · {v}"
+
+        def download_label(item):
+            n = self.pending_update.get("count", "?") if self.pending_update else "?"
+            return f"下载新词库 ({n} 条)"
+
         menu = pystray.Menu(
             pystray.MenuItem("codelang", lambda *_: None, enabled=False),
-            pystray.MenuItem(lambda item: f"词库: {self.dict.count} 条", lambda *_: None, enabled=False),
+            pystray.MenuItem(update_label, lambda *_: None, enabled=False),
             pystray.Menu.SEPARATOR,
             pystray.MenuItem("查看日志", on_open_logs),
             pystray.MenuItem("打开配置目录", on_open_log_folder),
             pystray.Menu.SEPARATOR,
+            pystray.MenuItem("检查词库更新", on_check_update),
+            pystray.MenuItem(
+                download_label,
+                on_download_update,
+                visible=lambda _: self.has_update,
+            ),
             pystray.MenuItem("重新加载词典", on_reload),
             pystray.MenuItem("释放卡住的 Alt", on_release_alt),
             pystray.Menu.SEPARATOR,
@@ -369,6 +470,28 @@ class App:
         self._tray_icon = icon
         threading.Thread(target=icon.run, daemon=True).start()
 
+    # ---------- remote dict update ----------
+
+    def _silent_check_for_update(self) -> None:
+        """Background daemon: probe GitHub once at startup. Surfaces an
+        update via tray notification + dynamic 'download' menu item; stays
+        completely quiet when up to date or offline."""
+        try:
+            payload = dict_updater.check_remote(self.dict.version)
+            if not payload:
+                return
+            self.has_update = True
+            self.pending_update = payload
+            if self._tray_icon is not None:
+                self._tray_icon.notify(
+                    f"发现新词库 {self.dict.count} → {payload.get('count', '?')} 条，"
+                    "点托盘菜单下载",
+                    "codelang",
+                )
+                self._tray_icon.update_menu()
+        except Exception as e:
+            print(f"[codelang] silent update check error: {e}", file=sys.stderr)
+
     # ---------- run ----------
 
     def run(self) -> int:
@@ -376,7 +499,19 @@ class App:
         self.start_outside_click_hook()
         self.start_alt_idle_cleanup()
         self.start_tray()
+        # Silent dict-update probe (opt-out via config). Daemon, so quitting
+        # before the request returns doesn't hang shutdown.
+        if self.cfg.get("dict_update_check_on_startup", True):
+            threading.Thread(
+                target=self._silent_check_for_update, daemon=True
+            ).start()
         self.poll_queue()
+        # First-run welcome card (only shows once — see desktop/welcome.py).
+        # Defer to after the mainloop spins up so the window has a stable
+        # parent and the tray icon's already in place by the time the user
+        # reads "右下角灰白色小飞碟".
+        if _welcome_should_show():
+            self.root.after(400, lambda: show_welcome(self.root))
         try:
             self.root.mainloop()
         except KeyboardInterrupt:

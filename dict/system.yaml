@@ -301,6 +301,12 @@
   meaning: Windows 任务栏右边那一堆小图标的区域——常驻后台的程序（QQ、网盘、杀毒、codelang）都在这。Mac 上叫"菜单栏"在顶部。
   example: codelang 启动后在系统托盘出现灰白色 UFO 小图标。
 
+- term: codelang
+  aliases: [懂网, dongwang]
+  category: system
+  meaning: 本软件。按住 Alt 划词，立刻用大白话解释代码英文、互联网黑话、AI 术语。1540 条人工撰写词条，100% 本地查询。
+  example: 看不懂这个英文？Alt 划一下让 codelang 帮你解释。
+
 - term: 进程
   aliases: [process]
   category: devterm

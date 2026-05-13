@@ -35,7 +35,13 @@ def main() -> int:
     entries: list[dict] = []
     seen_terms: set[str] = set()
 
-    yaml_files = sorted(DICT_DIR.glob("*.yaml"))
+    # user.yaml is a per-user overlay (now at ~/.codelang/user_dict.yaml) and
+    # must never be baked into the shipping bundle — DictIndex merges it at
+    # runtime instead. Filter out any stray `dict/user.yaml` defensively in
+    # case a contributor's local copy lingers.
+    yaml_files = [
+        f for f in sorted(DICT_DIR.glob("*.yaml")) if f.name != "user.yaml"
+    ]
     if not yaml_files:
         sys.stderr.write(f"No YAML files in {DICT_DIR}\n")
         return 1

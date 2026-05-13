@@ -1,7 +1,15 @@
 """Dict lookup with smart selection cleanup + multi-result + ECDICT translation fallback.
 
+Main dict is layered:
+  - bundled `extension-browser/dict.json` (ships with the app, read-only)
+  - user-cache `~/.codelang/dict.json` (downloaded remote updates land here)
+  - user overlay `~/.codelang/user_dict.yaml` (entries the user adds in-app)
+
+DictIndex picks whichever of bundled/user-cache has the newer ISO `version`,
+then merges the user YAML on top (user terms win on collision).
+
 Lookup chain (in order):
-  1. Local dict (curated, including user.yaml)
+  1. Local dict (main + user overlay)
   2. Selection cleanup: strip punct → try again
   3. Selection split: split on separators, look up each part
   4. ECDICT translation fallback (if available, marked as 通用翻译)
@@ -24,8 +32,14 @@ import requests
 from . import config
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DICT_JSON = PROJECT_ROOT / "extension-browser" / "dict.json"
-USER_YAML = PROJECT_ROOT / "dict" / "user.yaml"
+
+# Main dict has two possible homes — bundled (ships with the app, read-only) and
+# user-cache (downloaded updates land here). DictIndex picks whichever has the
+# newer `version`. User-curated entries live in their own YAML overlay in the
+# user dir so neither remote updates nor reinstalls can clobber them.
+BUNDLED_DICT = PROJECT_ROOT / "extension-browser" / "dict.json"
+USER_DICT_JSON = config.CONFIG_DIR / "dict.json"
+USER_DICT_YAML = config.CONFIG_DIR / "user_dict.yaml"
 ECDICT_JSON = PROJECT_ROOT / "extension-browser" / "ecdict.json"
 
 # Stripped from start/end of selection before lookup
@@ -102,20 +116,118 @@ class LookupResult:
         return bool(self.entries)
 
 
+def _peek_version(path: Path) -> str:
+    """Read only the `version` field from a dict.json — avoid parsing the
+    whole file just to compare. Returns '' on any failure or missing file."""
+    if not path.exists():
+        return ""
+    try:
+        with path.open(encoding="utf-8") as f:
+            # JSON is generally small enough that streaming a few KB to find
+            # "version" is more code than it's worth — just load and pluck.
+            data = json.load(f)
+        return str(data.get("version", "") or "")
+    except Exception:
+        return ""
+
+
+def _pick_main_dict() -> tuple[Optional[Path], str, str]:
+    """Return (path, version, source_label) for whichever main-dict JSON has
+    the newer ISO-timestamp `version`. source_label is 'bundled', 'user-cache',
+    or '' when neither file exists."""
+    bundled_v = _peek_version(BUNDLED_DICT)
+    user_v = _peek_version(USER_DICT_JSON)
+    if user_v and user_v > bundled_v:
+        return USER_DICT_JSON, user_v, "user-cache"
+    if bundled_v:
+        return BUNDLED_DICT, bundled_v, "bundled"
+    # Neither exists — DictIndex will just be empty, app stays usable.
+    return None, "", ""
+
+
+def _load_user_yaml() -> list[dict]:
+    """Parse ~/.codelang/user_dict.yaml into entry dicts matching the
+    main-dict shape. Returns [] when the file's missing or malformed."""
+    if not USER_DICT_YAML.exists():
+        return []
+    try:
+        import yaml  # lazy: pyyaml only loaded when user has additions
+        with USER_DICT_YAML.open(encoding="utf-8") as f:
+            raw = yaml.safe_load(f) or []
+    except Exception as e:
+        # Don't kill the app over a broken user file — log and skip.
+        import sys
+        print(f"[codelang] user_dict.yaml parse error: {e}", file=sys.stderr)
+        return []
+    if not isinstance(raw, list):
+        return []
+    out = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        term = item.get("term")
+        if not term:
+            continue
+        out.append(
+            {
+                "term": str(term),
+                "aliases": [str(a) for a in (item.get("aliases") or [])],
+                "category": str(item.get("category", "user")),
+                "literal": str(item.get("literal", "") or ""),
+                "meaning": str(item.get("meaning", "") or ""),
+                "example": str(item.get("example", "") or ""),
+            }
+        )
+    return out
+
+
 class DictIndex:
-    def __init__(self, path: Path = DICT_JSON):
-        self.path = path
+    def __init__(self):
         self.entries: list[dict] = []
         self.index: dict[str, int] = {}
+        self.version: str = ""  # ISO timestamp of the loaded main dict
+        self.source: str = ""   # "bundled" | "user-cache" — which file we loaded
         self._load()
 
     def _load(self) -> None:
-        if not self.path.exists():
-            return
-        with self.path.open(encoding="utf-8") as f:
-            data = json.load(f)
-        self.entries = data.get("entries", [])
-        self.index = data.get("index", {})
+        # Pick the newer of the two main-dict candidates by `version` string
+        # (ISO 8601 timestamps are lexicographically comparable).
+        main_path, main_version, source = _pick_main_dict()
+        self.entries = []
+        self.index = {}
+        self.version = main_version
+        self.source = source
+
+        if main_path is not None:
+            with main_path.open(encoding="utf-8") as f:
+                data = json.load(f)
+            self.entries = data.get("entries", [])
+            self.index = dict(data.get("index", {}))
+
+        # Layer the user dict on top. User entries override main-dict entries
+        # with the same normalized term, so a user-curated nuance always wins.
+        user_entries = _load_user_yaml()
+        for ue in user_entries:
+            term = ue.get("term", "")
+            if not term:
+                continue
+            keys = [term, *ue.get("aliases", [])]
+            # If any normalized key already points to a main-dict entry, replace
+            # that entry. Otherwise append.
+            replaced = False
+            for k in keys:
+                nk = normalize(k)
+                if nk and nk in self.index:
+                    self.entries[self.index[nk]] = ue
+                    replaced = True
+                    break
+            if not replaced:
+                idx = len(self.entries)
+                self.entries.append(ue)
+                for k in keys:
+                    nk = normalize(k)
+                    if nk:
+                        self.index[nk] = idx
 
     def reload(self) -> None:
         self._load()
@@ -573,8 +685,13 @@ _USER_LOCK = threading.Lock()
 
 
 def append_user_entry(term: str, meaning: str, example: str = "", category: str = "user") -> None:
-    """Append a user-curated entry to dict/user.yaml. Caller should reload dict afterwards."""
-    USER_YAML.parent.mkdir(parents=True, exist_ok=True)
+    """Append a user-curated entry to ~/.codelang/user_dict.yaml.
+
+    Lives in the user config dir (not the project tree) so remote dict updates
+    and reinstalls can never clobber it. DictIndex._load() merges these entries
+    on top of the main dict at runtime — no rebuild step needed.
+    """
+    USER_DICT_YAML.parent.mkdir(parents=True, exist_ok=True)
 
     def yaml_escape(s: str) -> str:
         if not s:
@@ -593,30 +710,11 @@ def append_user_entry(term: str, meaning: str, example: str = "", category: str 
     block = "\n".join(block_lines) + "\n\n"
 
     with _USER_LOCK:
-        if not USER_YAML.exists():
-            USER_YAML.write_text("# 用户自建词条（codelang 内自动追加）\n\n", encoding="utf-8")
-        with USER_YAML.open("a", encoding="utf-8") as f:
+        if not USER_DICT_YAML.exists():
+            USER_DICT_YAML.write_text(
+                "# 用户自建词条（codelang 内自动追加）\n"
+                "# 这个文件存在用户目录里，不会被远程词库更新或重装覆盖。\n\n",
+                encoding="utf-8",
+            )
+        with USER_DICT_YAML.open("a", encoding="utf-8") as f:
             f.write(block)
-
-
-def rebuild_dict_json() -> tuple[bool, str]:
-    """Run build_dict.py in-process to regenerate dict.json. Returns (ok, message)."""
-    import subprocess
-    import sys
-
-    script = PROJECT_ROOT / "tools" / "build_dict.py"
-    if not script.exists():
-        return False, f"build_dict.py not found at {script}"
-    try:
-        proc = subprocess.run(
-            [sys.executable, str(script)],
-            capture_output=True,
-            text=True,
-            timeout=30,
-            cwd=str(PROJECT_ROOT),
-        )
-        if proc.returncode != 0:
-            return False, f"build failed: {proc.stderr[:200] or proc.stdout[:200]}"
-        return True, (proc.stdout or "").strip().split("\n")[-1]
-    except Exception as e:
-        return False, f"build error: {e}"
