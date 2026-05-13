@@ -119,12 +119,12 @@
   meaning: 公司给你"持有公司份额"的权利——可能是股票（RSU）、期权（option）或限制性股票。创业公司常用 equity 补 base 不够的部分。"画饼"很多时候指 equity。
   example: 这家给 base 偏低但给 1% 股权。
 
-- term: 期权
-  aliases: [stock option, option]
+- term: 员工期权
+  aliases: [ESOP, employee stock option, 股票期权, 股权激励]
   category: jargon
-  literal: stock option
-  meaning: 字面是"未来用低价买公司股票"的权利——比如行权价一刀，公司股价涨到十刀你赚九刀。和 RSU 区别：option 要花钱行权，RSU 自动给你。早期创业公司常用 option。
-  example: 这家给 5 万股期权，行权价 $0.5。
+  literal: employee stock option (ESOP)
+  meaning: 字面是"未来用低价买公司股票"的权利——比如行权价一刀，公司股价涨到十刀你赚九刀。和 RSU 区别：option 要花钱行权，RSU 自动给你。早期创业公司常用 option 招人。
+  example: 这家给 5 万股员工期权，行权价 $0.5。
 
 - term: 调岗
   aliases: [transfer, internal move]
@@ -452,7 +452,7 @@
   example: 财务造假爆出来，连续 3 个跌停板。
 
 - term: 大盘
-  aliases: [指数, index]
+  aliases: [指数]
   category: jargon
   literal: stock index
   meaning: 一个市场所有股票的"总和指标"——A 股看上证指数/沪深 300、美股看标普/纳指。"大盘红/绿"代表整体涨跌。个股可以背离大盘走。
@@ -603,7 +603,7 @@
   example: 沪深 300 跌破 3500，机构抱团瓦解。
 
 - term: 上证指数
-  aliases: [SHCOMP, 上证综指, 大盘]
+  aliases: [SHCOMP, 上证综指]
   category: jargon
   literal: Shanghai Composite Index
   meaning: 上交所所有股票的指数——A 股最有名的指标，新闻里"上证 3000 点保卫战"说的就是它。但权重失衡（银行石油大），实际涨跌不代表多数股票。
@@ -617,7 +617,7 @@
   example: VIX 跳到 30，市场要崩。
 
 - term: 国债收益率
-  aliases: [yield, treasury yield, 10Y, 美债]
+  aliases: [treasury yield, 10Y, 美债]
   category: jargon
   literal: treasury bond yield
   meaning: 美国国债的利息回报率——10 年期美债收益率（10Y）是全球资产定价的锚。10Y 上行 → 股票估值挨锤、美元走强。日常说"10 年期破 5%"是大事。
@@ -863,14 +863,14 @@
   example: 涨停后平仓走人，落袋为安。
 
 - term: 做多
-  aliases: [go long, long]
+  aliases: [go long]
   category: jargon
   literal: go long
   meaning: 买入并持有等价格上涨——多头操作。最朴素的赚钱方式。"做多 XX"=看好 XX 买入。和"做空"相对。
   example: 我做多英伟达，看 2 倍空间。
 
 - term: 做空
-  aliases: [go short, short]
+  aliases: [go short]
   category: jargon
   literal: go short / short selling
   meaning: 借股票卖掉等跌回来低价买回还人——价格跌才赚钱。A 股做空难，美股/港股/期货/合约方便。"裸卖空"=不借直接卖（多数市场禁止）。
@@ -964,13 +964,6 @@
   meaning: 一个国家一年内生产的所有商品和服务总值——经济规模总指标。"GDP 增速"是政策制定参考核心。中国 GDP 季度数据全球关注。
   example: Q2 GDP 增速 5.2%，符合预期。
 
-- term: M2
-  aliases: [广义货币供应量]
-  category: jargon
-  literal: M2 money supply
-  meaning: 全社会"流通现金+储蓄+定期存款"的总量——通胀和资产价格的根源。M2 增速远超 GDP=钱多东西少，资产涨价。
-  example: 中国 M2 同比 9%，钱依然在变多。
-
 - term: 加息
   aliases: [rate hike]
   category: jargon
@@ -1021,7 +1014,7 @@
   example: 美联储缩表持续，流动性继续抽水。
 
 - term: 基点
-  aliases: [bp, basis point, BPS]
+  aliases: [basis point, BPS]
   category: abbr
   literal: basis point (0.01%)
   meaning: 0.01%——利率/收益率的最小单位。"加息 25 bp"=加 0.25%。债券、利率新闻的标准计量单位。
@@ -1122,13 +1115,6 @@
   meaning: 期权每过一天损失多少价值——"时间价值衰减"。期权买方每天被 theta 抽血、卖方每天躺收 theta。临近到期 theta 加速。
   example: 周五卖 0DTE 期权吃 theta，最爽。
 
-- term: delta
-  aliases: []
-  category: jargon
-  literal: delta
-  meaning: 标的涨 1 块期权涨多少——0 到 1（call）或 -1 到 0（put）。平值期权 delta≈0.5。"delta 中性"=多空 delta 相抵无方向敞口。
-  example: 这组合 delta 中性，赚波动率不赌方向。
-
 - term: 平值
   aliases: [ATM, at the money]
   category: jargon
@@ -1190,7 +1176,7 @@
 # ====================
 
 - term: BTC
-  aliases: [Bitcoin, 比特币, 大饼]
+  aliases: [Bitcoin, 比特币]
   category: abbr
   literal: Bitcoin
   meaning: 第一个加密货币——总量 2100 万枚封顶。币圈"大盘"，BTC 涨跌带动整个币市。"减半"行情每 4 年一次。
@@ -1216,20 +1202,6 @@
   literal: stablecoin
   meaning: 锚定法币（通常美元）的加密货币——1 USDT≈1 美金。币圈"美元"，交易对的计价基准。"脱锚"=失去锚定（如 UST 崩盘）。
   example: 资金避险时全部换成 USDT。
-
-- term: DeFi
-  aliases: [Decentralized Finance, 去中心化金融]
-  category: abbr
-  literal: Decentralized Finance
-  meaning: 跑在区块链上的金融应用——借贷、交易、衍生品全靠智能合约自动执行。"DeFi 之夏"指 2020 年那波 DeFi 暴涨。
-  example: 在 Aave 上抵押 ETH 借 USDT，年化 5%。
-
-- term: NFT
-  aliases: [Non-Fungible Token, 非同质化代币]
-  category: abbr
-  literal: Non-Fungible Token
-  meaning: 区块链上独一无二的代币——常用来表示数字艺术、收藏品。2021 年 BAYC 等炒到几十万美金、22 年崩盘 90%+。
-  example: 这只 BAYC 当年 50 万刀买的，现在卖不到 5 万。
 
 - term: 永续合约
   aliases: [perpetual, perp, perp swap]
@@ -1295,7 +1267,7 @@
   example: 半夜插针砸盘，多单全爆。
 
 - term: rug pull
-  aliases: [跑路, 抽地毯]
+  aliases: [抽地毯]
   category: jargon
   literal: rug pull
   meaning: 项目方卷钱跑路——发币融资后突然销毁流动性、清空资金池。土狗项目高频骗局。"我被 rug 了"=被骗了。
@@ -1307,34 +1279,6 @@
   literal: halving
   meaning: BTC 每 4 年挖矿奖励减半——历史上每次减半后 12-18 个月迎来牛市。币圈"四年周期"叙事的核心。
   example: 减半后 6 个月 BTC 一般起飞。
-
-- term: L1
-  aliases: [Layer 1, 一层]
-  category: abbr
-  literal: Layer 1 blockchain
-  meaning: 主链——比特币、以太坊、Solana 都是 L1。性能、安全性、去中心化要在 L1 上平衡。"L1 赛道"曾是币圈最大叙事。
-  example: SOL 是性能最快的 L1。
-
-- term: L2
-  aliases: [Layer 2, 二层]
-  category: abbr
-  literal: Layer 2 scaling
-  meaning: 跑在 L1 之上的扩容方案——以太坊的 Arbitrum、Optimism、Base 是 L2。把交易批量打包到 L1，降 Gas 提速度。
-  example: 现在大家都跑 L2，主网 Gas 太贵。
-
-- term: gas
-  aliases: [gas fee, 矿工费]
-  category: jargon
-  literal: gas fee
-  meaning: 在以太坊上做交易的手续费——以 ETH 计价。NFT mint 高峰期 gas 飙到 1000 gwei 一笔交易几百刀。L2 出来后 gas 大降。
-  example: 这次 mint 花了 0.3 ETH gas，比 NFT 还贵。
-
-- term: KYC
-  aliases: [Know Your Customer]
-  category: abbr
-  literal: Know Your Customer
-  meaning: 交易所要求"实名验证"——身份证、人脸、地址证明。币圈合规化必经流程。"非 KYC 交易所"是灰色地带。
-  example: 大额提现要 KYC，否则冻结。
 
 # ====================
 # 十、基金 / 投资工具
@@ -1367,20 +1311,6 @@
   literal: hedge fund
   meaning: 用做多+做空+衍生品+杠杆的私募基金——目标"绝对收益"（不管市场涨跌都赚）。Bridgewater、Citadel 是巨头。"对冲"原指控制风险，现在策略五花八门。
   example: 这家对冲基金去年纯多头跑赢标普 30%。
-
-- term: 量化
-  aliases: [quant, quantitative trading]
-  category: jargon
-  literal: quantitative trading
-  meaning: 用数学模型+算法+程序交易——人不下单、机器执行。高频、统计套利、因子模型都是量化。Citadel、文艺复兴是巅峰。
-  example: 量化私募今年靠超额因子跑赢指数。
-
-- term: 高频
-  aliases: [HFT, High-Frequency Trading]
-  category: abbr
-  literal: High-Frequency Trading
-  meaning: 毫秒级下单+撤单的算法交易——靠速度赚价差。机房离交易所越近越好（拼光速）。普通散户接触不到。
-  example: HFT 占美股成交量一半，散户对手盘都是它。
 
 - term: 指数基金
   aliases: [index fund]
@@ -1443,7 +1373,7 @@
   example: Q3 EPS $2.5 beat 预期 $2.2，盘后涨 8%。
 
 - term: P/E
-  aliases: [PE, 市盈率, price-to-earnings]
+  aliases: [市盈率, price-to-earnings]
   category: abbr
   literal: Price-to-Earnings ratio
   meaning: 股价/每股收益——多少年回本的概念。茅台 PE 30=30 年利润回本。"动态 PE"用预期 EPS、"静态 PE"用去年 EPS。高 PE 看成长、低 PE 看价值。
@@ -1457,14 +1387,14 @@
   example: PE 50 看着贵但增速 50%，PEG=1 合理。
 
 - term: P/B
-  aliases: [PB, 市净率, price-to-book]
+  aliases: [市净率, price-to-book]
   category: abbr
   literal: Price-to-Book ratio
   meaning: 股价 / 每股净资产——多少倍净资产。银行、地产、周期股常看 PB。PB<1=破净（股价跌破清算价）。
   example: 银行股 PB 0.5 历史低位。
 
 - term: P/S
-  aliases: [PS, 市销率]
+  aliases: [市销率]
   category: abbr
   literal: Price-to-Sales ratio
   meaning: 市值 / 营收——还没盈利的公司用 PS 估值。SaaS、生物医药、AI 早期常用。PS 20 倍以上有泡沫嫌疑。
@@ -1786,13 +1716,6 @@
   meaning: 股价不讲道理地暴涨——常用来形容妖股、AI 概念、Meme 股。"涨到怀疑人生"是同义词。
   example: 这股涨疯了，10 天 7 板。
 
-- term: YYDS
-  aliases: [永远的神]
-  category: slang
-  literal: forever the GOAT
-  meaning: 散户给爱股的"封神"称号——茅台 YYDS、英伟达 YYDS。但叫得越响离顶越近，市场会教做人。
-  example: 喊英伟达 YYDS 的时候一般要跌了。
-
 # ====================
 # 十四、债券 / 信用
 # ====================
@@ -1889,7 +1812,7 @@
   example: 次贷 CDO 当年 99% 是 AAA 评级，结果全是垃圾。
 
 - term: 永续债
-  aliases: [perpetual bond, perp]
+  aliases: [perpetual bond]
   category: jargon
   literal: perpetual bond
   meaning: 没有到期日的债券——理论永远付利息不还本。发行人可在指定日期赎回。银行二级资本债常用。利率敏感、跌起来不留情。
@@ -1998,7 +1921,7 @@
   example: 昨晚大宗交易卖出 5 亿，折价 8%。
 
 - term: 定增
-  aliases: [定向增发, private placement, PIPE]
+  aliases: [定向增发, private placement]
   category: jargon
   literal: private placement / PIPE
   meaning: 上市公司向特定机构定向发行新股募资——比公开增发快、给机构折扣（一般 8 折）。"定增价"常成为短期股价锚。
@@ -2091,13 +2014,6 @@
   literal: delisting
   meaning: 上市公司被踢出交易所——业绩太差、造假、市值过低都会触发。A 股退市新规后退市率大涨。"退市整理期"30 天最后给点机会跑。
   example: 这家被强制退市，散户血亏。
-
-- term: 熔断
-  aliases: [circuit breaker]
-  category: jargon
-  literal: market-wide circuit breaker
-  meaning: 大盘跌幅触线后全市场停止交易——给市场降温。A 股 2016 年 1 月试过 4 天 4 次熔断，立刻废除。美股 7%/13%/20% 三档熔断（08 年后建立）。
-  example: 美股盘中跌 7% 熔断 15 分钟。
 
 - term: 涨跌停制度
   aliases: [price limit]
@@ -2392,13 +2308,6 @@
 # 二十一、Crypto 进阶
 # ====================
 
-- term: DAO
-  aliases: [Decentralized Autonomous Organization]
-  category: abbr
-  literal: Decentralized Autonomous Organization
-  meaning: 用智能合约+代币治理替代公司管理层——成员持代币投票决定金库分配。Uniswap、ENS 都是 DAO 治理。理想很美、效率很慢。
-  example: Uniswap DAO 投票把财库挪一部分到基金会。
-
 - term: DApp
   aliases: [Decentralized Application, 去中心化应用]
   category: abbr
@@ -2433,13 +2342,6 @@
   literal: cryptocurrency mining
   meaning: 用算力解题获得区块奖励——比特币 PoW 共识机制。"矿场""矿池""矿机"是这个链条上的节点。2021 年中国全面禁矿后转移到北美/中亚。
   example: 比特币减半后挖矿成本翻倍。
-
-- term: 质押
-  aliases: [staking]
-  category: jargon
-  literal: staking (PoS)
-  meaning: 把代币锁仓为网络提供安全性，获得奖励——PoS 机制。ETH 转 PoS 后 Lido 流动性质押爆发。"质押年化"是币圈"理财"。
-  example: ETH 质押年化 3.5%，比美债还低。
 
 - term: 流动性挖矿
   aliases: [yield farming, LP挖矿]
@@ -2483,13 +2385,6 @@
   meaning: 实际成交价和预期价的差——大单或低流动性时滑点大。DEX 交易必设"最大滑点容忍"。"夹子机器人"会利用滑点抢跑。
   example: 这单滑点 5%，被三明治攻击了。
 
-- term: MEV
-  aliases: [Miner Extractable Value, 最大可提取价值]
-  category: abbr
-  literal: Maximal Extractable Value
-  meaning: 矿工/验证者通过排序交易能榨取的额外利润——抢跑、三明治攻击、清算抢单。MEV 是区块链 dark forest。
-  example: 这次清算被 MEV bot 抢了 50 万。
-
 - term: oracle
   aliases: [预言机]
   category: jargon
@@ -2517,13 +2412,6 @@
   literal: hot wallet
   meaning: 联网的软件钱包——MetaMask、Phantom。方便但易被钓鱼/木马。"热钱包不放大额"是基本常识。
   example: MetaMask 热钱包被钓走 5 个 ETH。
-
-- term: 私钥
-  aliases: [private key, 助记词, seed phrase]
-  category: jargon
-  literal: private key / seed phrase
-  meaning: 控制钱包的"密码"——12/24 个英文单词。"丢私钥=丢资产"，没有客服找回。"私钥即所有权"是 Web3 信仰。
-  example: 私钥写纸上锁保险箱，最安全。
 
 - term: 空投
   aliases: [airdrop]
@@ -2627,13 +2515,6 @@
   meaning: 用历史数据测试策略表现——量化第一步。"回测漂亮实盘亏"是行业魔咒。过拟合、未来函数、幸存者偏差都坑过新手。
   example: 回测年化 30%，实盘只跑出 8%。
 
-- term: 过拟合
-  aliases: [overfitting]
-  category: jargon
-  literal: overfitting
-  meaning: 策略过度迎合历史数据、对未来无效——量化最大敌人。"参数太多""数据挖掘到细节"都是过拟合。
-  example: 这模型 50 个参数，妥妥过拟合。
-
 - term: 夏普比率
   aliases: [Sharpe ratio, Sharpe]
   category: jargon
@@ -2683,51 +2564,9 @@
   meaning: 单一持仓在组合的占比——风险管理核心。"凯利公式"用数学算最优仓位。"不要把鸡蛋放一个篮子"的量化版。
   example: 单股不超 5% 是基本仓位过半纪律。
 
-- term: VaR
-  aliases: [Value at Risk, 在险价值]
-  category: abbr
-  literal: Value at Risk
-  meaning: 95% 概率下一天最多亏多少——风险量化的标准工具。"VaR 100 万 / 95%"=有 5% 概率单日亏超 100 万。08 年危机后 VaR 被诟病低估尾部风险。
-  example: 这组合 95% VaR 200 万，监管线。
-
 # ====================
 # 二十三、SaaS / 财务效率指标
 # ====================
-
-- term: ARPU
-  aliases: [Average Revenue Per User, 每用户平均收入]
-  category: abbr
-  literal: Average Revenue Per User
-  meaning: 每个用户每月/每年给公司贡献多少钱——SaaS、游戏、电信都看。ARPU 涨=变现能力强。"低 ARPU 高用户"和"高 ARPU 低用户"两种模式。
-  example: 微信 ARPU 远低于 LINE，但用户基数大。
-
-- term: LTV
-  aliases: [Lifetime Value, 用户生命周期价值]
-  category: abbr
-  literal: Customer Lifetime Value
-  meaning: 一个用户从开始到流失累计带来多少收入——SaaS 估值核心。LTV 必须远大于 CAC 才是健康模式。
-  example: 这家 SaaS LTV 1 万、CAC 2000，5 倍 ratio 健康。
-
-- term: CAC
-  aliases: [Customer Acquisition Cost, 获客成本]
-  category: abbr
-  literal: Customer Acquisition Cost
-  meaning: 获取一个新用户花多少钱——广告投放、销售提成、注册补贴都算。CAC 越来越高是互联网寒冬。"CAC 飙升"=渠道红利结束。
-  example: 教培行业 CAC 飙到 5000 一个用户，模式崩了。
-
-- term: 留存
-  aliases: [retention, 留存率]
-  category: jargon
-  literal: retention rate
-  meaning: 用户多久之后还在用——次日留存、7 日留存、30 日留存。"留存为王"是产品 KPI。流失的反面。
-  example: 7 日留存 30% 算游戏行业及格。
-
-- term: 流失率
-  aliases: [churn rate, churn]
-  category: jargon
-  literal: churn rate
-  meaning: 一段时间内流失用户的比例——和留存对应。SaaS 月 churn 1% 算健康、5% 就要出事。"流失漏斗"是产品诊断工具。
-  example: 这家 SaaS 月 churn 8%，留不住客户。
 
 - term: NRR
   aliases: [Net Revenue Retention, 净收入留存]
@@ -2742,13 +2581,6 @@
   literal: Gross Revenue Retention
   meaning: 老客户没流失的部分——只看保留不看增购。GRR 90% 算好。"NRR=GRR+扩张"。
   example: GRR 95% 但 NRR 130%，扩张超强。
-
-- term: 回本周期
-  aliases: [payback period, CAC payback]
-  category: jargon
-  literal: CAC payback period
-  meaning: 获客成本多久能用毛利回本——SaaS 18 个月算健康、>24 月偏差。结合 LTV/CAC 看商业模型可持续性。
-  example: 这家 CAC payback 36 个月，烧钱模型。
 
 - term: Rule of 40
   aliases: [40 法则]
@@ -2975,13 +2807,6 @@
   meaning: 趋势真正掉头——和反弹的根本区别。"反转"需要有更高的高+更高的低（道氏理论）。技术派最关心。
   example: 突破年线+周线 MACD 金叉，确认反转。
 
-- term: 横盘
-  aliases: [sideways, range-bound]
-  category: jargon
-  literal: sideways trading
-  meaning: 不涨不跌来回磨——震荡市的标签。"横盘消化"=高位横盘消化获利盘、"横盘构筑底部"=低位横盘形成底。
-  example: 这股横盘两个月，方向选择临近。
-
 - term: 站上/跌破
   aliases: []
   category: jargon
@@ -3137,13 +2962,6 @@
   meaning: 主力用震荡/下跌把不坚定散户洗下车——后面再启动。"洗盘"和"出货"散户最难区分。
   example: 跌 20% 后立刻涨回，应该是洗盘。
 
-- term: 拉升
-  aliases: [pump up]
-  category: slang
-  literal: pump up
-  meaning: 主力用资金拉高股价——为了出货或吸引跟风。"拉升对倒"=自己买自己卖造成交。
-  example: 尾盘拉升 5%，明显在做盘。
-
 - term: 跟主力
   aliases: []
   category: slang
@@ -3206,13 +3024,6 @@
   literal: main investment theme
   meaning: 一段时间内最强的板块/逻辑——大资金集中流入。"主线"消失=行情结束。AI、新能源、半导体都做过主线。
   example: 这季度主线明显是 AI 算力。
-
-- term: 风口
-  aliases: []
-  category: slang
-  literal: hot trend / "the wind"
-  meaning: 短期内最热的赛道——猪也能飞。雷军语录"站在风口上猪都能飞"。风口过去摔得也最惨。
-  example: 大模型是 2023 年最大的风口。
 
 - term: 风口板块
   aliases: []

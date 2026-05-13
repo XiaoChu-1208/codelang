@@ -19,10 +19,10 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投词条的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1540 条人工撰写词条 / 3398 查询键 / 13 大类，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语、网络安全、数据工程、HR 创投、AI 名人等。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投词条的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，1917 条人工撰写词条 / 4285 查询键 / 13 大类，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语、网络安全、数据工程、HR 创投、AI 名人等。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
-    "1540 条人工撰写词条 / 3398 个查询键",
+    "1917 条人工撰写词条 / 4285 个查询键",
     "覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语",
     "100% 本地查询，无网络请求，无隐私泄露",
     "可选 LLM 兜底（Anthropic Claude / OpenAI）",
@@ -49,7 +49,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 </p>
 
 <p align="center">
-  <img alt="词条数" src="https://img.shields.io/badge/词条-1540-blue">
+  <img alt="词条数" src="https://img.shields.io/badge/词条-1917-blue">
   <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
@@ -70,7 +70,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1540 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂网 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **1917 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -89,7 +89,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>1540 条精校词条 · 3398 个查询键 · 13 大类 · 207 条通用翻译兜底</td>
+    <td>1917 条精校词条 · 4285 个查询键 · 13 大类 · 207 条通用翻译兜底</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -212,7 +212,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**1540 条精校词条 / 3398 个查询键 + 207 条通用翻译兜底**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**1917 条精校词条 / 4285 个查询键 + 207 条通用翻译兜底**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
@@ -227,10 +227,10 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | `product.yaml` | **产品 / 运营 / 增长 + 数据分析** | ~80 | 用户经济（LTV/CAC/ARPU/ARPPU/客单价/复购率）· 留存（次日留存/D7/D30/流失率/同期群）· 流量（流量池/转化漏斗/跳出率/完播率/停留时长）· 用户（用户画像/persona/RFM/归因/北极星指标）· 内容/社群（种草/拔草/平替/避雷/红人/PRD/BRD/MRD）· **数据分析/统计**（A/B test/p-value/置信区间/显著性/effect size/统计功效/贝叶斯/MAB/因果推断/DID/RCT/辛普森悖论/幸存者偏差/一类二类错误/NPS/CSAT） | LTV / CAC / 北极星指标 / 种草 / A/B test / p-value / 因果推断 / NPS |
 | **`security.yaml`** ✨ | **网络安全 / Cybersecurity** | ~55 | 漏洞类型（0day/CVE/CWE/RCE/SSRF/XXE/SSTI/提权/横向移动/沙箱逃逸/供应链攻击/投毒/撞库/拖库/钓鱼/鱼叉/社工）· 攻击（APT 攻击/勒索软件/木马/后门/webshell）· 攻防（红队/蓝队/紫队/渗透测试/零信任/CTF/白帽子/漏洞赏金）· 防护（WAF/IDS/SIEM/EDR/HIDS）· 框架（OWASP Top 10/MITRE ATT&CK/CVSS）· 加固（弱口令/爆破/撒网） | 0day / CVE / RCE / 红队 / 钓鱼 / APT 攻击 / OWASP / SIEM / EDR |
 | **`mlops.yaml`** ✨ | **数据工程 / 机器学习 / 数据库底层** | ~75 | 大数据栈（Spark/Flink/Kafka/Airflow/dbt/Snowflake 数据库/BigQuery/Databricks/Iceberg/Delta Lake/Parquet/Avro/ClickHouse/数仓/数据湖/湖仓一体/ETL/ELT）· **经典 ML**（监督/无监督/强化学习/梯度下降/反向传播/过拟合/正则化/Dropout/BatchNorm/迁移学习/交叉验证/k-means/决策树/随机森林/XGBoost/LightGBM/SVM/PCA/F1/AUC/混淆矩阵/特征工程/超参数/早停）· **数据库底层**（MVCC/隔离级别/脏读/幻读/两阶段提交/慢查询/EXPLAIN/WAL/redo log/binlog/undo log/索引下推/回表/覆盖索引/联合索引/最左前缀） | Spark / Kafka / Airflow / 数据湖 / 梯度下降 / 过拟合 / XGBoost / AUC / MVCC / WAL |
-| **`finance.yaml`** ✨ | **HR / 招聘 / 创投 / 财务** | ~65 | **HR/招聘**（JD/HC/OC/校招/社招/内推/PIP 绩效/试用期/转正/2N/竞业/NDA/sign-on/RSU/vesting/cliff/股权/期权/调岗/绩效/360 评估/calibration/1:1/skip level）· **创投**（ARR/MRR/TAM/SAM/SOM/burn rate/runway/term sheet/cap table/稀释/反稀释/A 轮 B 轮/Pre-IPO/IPO/估值/独角兽/对赌/FA/LP/GP/尽调/退出/M&A/MOIC/IRR/carry/估值倍数/现金流/烧钱/现金奶牛/PMF） | JD / HC / PIP / RSU / vesting / cliff / ARR / runway / TAM / 独角兽 / LP GP |
+| **`finance.yaml`** ✨ | **HR / 创投 / 金融 / 交易市场** | ~440 | **HR/招聘**（JD/HC/OC/校招/社招/内推/PIP/2N/竞业/sign-on/RSU/vesting/cliff/股权/员工期权/360 评估/calibration）· **创投**（ARR/MRR/TAM/SAM/SOM/burn rate/runway/term sheet/cap table/稀释/A 轮 B 轮/IPO/估值/独角兽/对赌/LP/GP/尽调/carry/PMF）· **股市基础**（A 股/港股/美股/牛熊市/涨跌停/散户/机构/主力/游资/多空/蓝筹/成长价值/题材/龙头/妖股/仙股/ST/借壳）· **指数**（标普 500/纳指/道指/恒指/沪深 300/上证/VIX/10Y 美债/利差）· **技术分析**（K 线/均线/MACD/RSI/KDJ/布林带/金叉死叉/支撑压力位/突破/放量缩量/龙虎榜/北向资金/融资融券）· **交易/仓位**（满空仓/加减仓/抄底逃顶/止损止盈/套牢解套/割肉/开平仓/做多做空/杠杆/爆仓强平/T+0/T+1/市价限价单）· **宏观/央行**（CPI/PPI/PMI/GDP/M2/加息降息/美联储/FOMC/点阵图/QE/缩表/基点/通胀通缩滞胀/软着陆/衰退）· **衍生品**（期货期权/call put/行权价/IV/Greeks/theta delta/ATM ITM OTM/0DTE/covered call/iron condor/straddle/strangle/价差/swap/IRS/CDS）· **加密货币**（BTC/ETH/山寨币/稳定币/DeFi/NFT/永续合约/HODL/FOMO/FUD/ATH/拉盘砸盘/rug pull/减半/L1 L2/gas/DAO/DApp/ICO IDO IEO/挖矿质押/yield farming/AMM/DEX CEX/TVL/滑点/MEV/oracle/冷热钱包/私钥/空投/meme 币/资金费率）· **基金**（ETF/公募私募/对冲基金/量化高频/指数主动基金/智能投顾/信托/REITs/杠杆 ETF/反向 ETF）· **财报估值**（EPS/P/E/PEG/P/B/P/S/ROE/ROA/EBITDA/DCF/FCF/市值/分红/回购/商誉/PCE/30Y 抵押）· **债券信用**（国债/企业债/城投债/高收益债/久期/凸性/评级/CDS/ABS/MBS/CDO/永续债/YTM/票息）· **IPO/公司行动**（招股书/路演/询价/战配/中签/破发/限售解禁/减持增持/大宗交易/定增配股/拆股并股/除权除息/绿鞋）· **A 股板块**（主板/创业板/科创板/北交所/注册制/熔断/50ETF 期权）· **监管**（证监会/SEC/FINRA/CFTC/PCAOB/港交所/银保监）· **海外**（日经 225/DAX/富时/MSCI/中概股/红筹/双重上市）· **宏观数据**（非农/失业率/ADP/初请失业金/零售销售/ISM/Jackson Hole/三巫日/财报季/美债拍卖）· **量化**（alpha/beta/smart beta/因子/动量/均值回归/配对交易/做市/回测/夏普/Sortino/最大回撤/信息比率/跟踪误差/VaR）· **SaaS 指标**（ARPU/LTV/CAC/留存/churn/NRR/GRR/payback/Rule of 40/毛利率净利率/营业利润率）· **行为金融**（锚定/损失厌恶/处置效应/羊群效应/反身性/确认偏误/沉没成本/后视镜）· **市场事件**（闪崩/黑色星期一/雷曼时刻/盘前盘后/集合竞价/连续竞价/国家队/中特估/牛回头/阴跌反弹反转/横盘/抢反弹/T 字板/烂板/接力/抱团瓦解/微盘股/主线/风口/板块轮动）· **散户黑话**（韭菜/割韭菜/接盘侠/套牢族/镰刀/抱团/杀估值杀业绩/戴维斯双击/黑天鹅灰犀牛/跳空/一字板/闷杀/顶背离底背离/V 反/双底/头肩顶/缠论/雪球/转债/老鼠仓/内幕交易/操纵市场/跌妈不认/茅指数/宁组合）· **流派**（价值/成长/逆向/GARP/趋势/题材/巴菲特式/量化投资）· **宏观陷阱**（大放水/通缩螺旋/资产负债表衰退/流动性陷阱/中等收入陷阱） | A 股 / 涨停 / 散户主力 / 龙头股 / MACD / 北向资金 / 止损 / 爆仓 / 美联储 / QE / 期权 / call put / Greeks / BTC / ETH / DeFi / NFT / DAO / 永续 / TVL / MEV / ETF / 对冲基金 / 量化 / P/E / ROE / DCF / 国债 / CDS / IPO / 注册制 / 证监会 / 非农 / Jackson Hole / 夏普 / VaR / NRR / Rule of 40 / 锚定 / 闪崩 / 韭菜 / 黑天鹅 / 价值投资 / RSU / ARR / IPO / 独角兽 |
 | **`people.yaml`** ✨ | **AI / 互联网圈名人** | ~40 | **OpenAI**（Sam Altman/Greg Brockman/Mira Murati/Ilya Sutskever/Jakub Pachocki）· **Anthropic**（Dario Amodei/Daniela Amodei/Tom Brown/Chris Olah）· **DeepMind/Google**（Demis Hassabis/Jeff Dean/Geoffrey Hinton/Mustafa Suleyman/Noam Shazeer）· **Meta**（Yann LeCun/Mark Zuckerberg）· **Nvidia/xAI**（Jensen Huang/Elon Musk）· **学术界**（Yoshua Bengio/Andrew Ng/Jürgen Schmidhuber/Lex Fridman/Yudkowsky/Stuart Russell）· **中国 AI 圈**（梁文锋/杨植麟/王慧文/张一鸣/王兴兴/李飞飞/何恺明/李沐）· **AI 编程公司**（Aravind Srinivas/Cognition/Michael Truell）· **教学网红**（Andrej Karpathy） | Sam Altman / Karpathy / Dario / 李飞飞 / 梁文锋 / 黄仁勋 / 杨植麟 / 何恺明 |
 | **额外兜底** | **`ecdict.json` 通用翻译** | 207 | 字典里 miss 的常见编程英文：namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept ... | namespace / primitive / assertion / adapter / singleton |
-| | **合计** | **1540 条** | **3398 查询键** | **覆盖你日常 99% 看到的术语** |
+| | **合计** | **1917 条** | **4285 查询键** | **覆盖你日常 99% 看到的术语** |
 
 > ✨ = v2/v3 新增板块。覆盖：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析、**AI 名人/工程师 v3 新增**、**基础文档/写作词 v3 新增**（markdown/demo/文档/README/CHANGELOG 等）、**AI 库/框架 v3 新增**（smolagents/PydanticAI/DSPy/Instructor/Outlines/LiteLLM/vLLM/llama.cpp/LM Studio/Open WebUI/Dify/Coze 等）。
 
@@ -513,7 +513,7 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                       词库源文件（YAML 格式，1540 条 / 13 个文件）
+├── dict/                       词库源文件（YAML 格式，1917 条 / 13 个文件）
 │   ├── devterm.yaml            开发/工程概念 ~520（锁/数据库/网络/微服务/K8s/SRE/加密/测试/前端构建/Apple/微软/协作工具）
 │   ├── ai.yaml                 AI/LLM/Agent ~135（Transformer/RLHF/LoRA/RAG/LangChain/MCP/Cline/Aider/Codex 等新一代 AI 编程工具）
 │   ├── platforms.yaml          社区/框架/数据库/云/Web3 ~85（CSDN/GitHub/Vercel/NFT/DeFi/DAO/智能合约/Solidity/zk-SNARK）
@@ -525,7 +525,7 @@ codelang/
 │   ├── product.yaml            产品/运营/数据分析 ~80（LTV/CAC/北极星指标/种草/A/B test/p-value/因果推断/NPS）
 │   ├── security.yaml       ✨ 网络安全 ~55（0day/CVE/RCE/SSRF/红队蓝队/APT/钓鱼/OWASP/SIEM/EDR）
 │   ├── mlops.yaml          ✨ 数据工程/经典 ML/数据库底层 ~75（Spark/Kafka/dbt/XGBoost/MVCC/WAL/binlog）
-│   ├── finance.yaml        ✨ HR/招聘/创投/财务 ~65（JD/HC/PIP/RSU/vesting/ARR/runway/独角兽/LP GP/PMF）
+│   ├── finance.yaml        ✨ HR/创投/金融/交易市场 ~440（JD/HC/PIP/RSU/ARR/runway/独角兽/LP GP/A 股/涨跌停/MACD/止损/爆仓/美联储/QE/期权/Greeks/BTC/DeFi/ETF/对冲基金/量化/P/E/DCF/国债/CDS/IPO/非农/夏普/VaR/锚定/韭菜/黑天鹅/价值投资）
 │   └── people.yaml         ✨ AI/互联网圈名人 ~40（Sam Altman/Karpathy/李飞飞/梁文锋/黄仁勋/Dario Amodei）
 │                               （你自己加的词存在 ~/.codelang/user_dict.yaml，
 │                                不在项目目录，远程更新/重装都不会覆盖）
@@ -614,7 +614,7 @@ codelang/
 
 ## 进阶：开 AI 兜底（可选，默认关）
 
-如果本地 1540 条词条都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
+如果本地 1917 条词条都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
 
 编辑 `~/.codelang/config.json`：
 ```json
@@ -720,7 +720,7 @@ MIT —— 自由使用、修改、分发，可商用。
 **配置 GitHub repo 元数据**（一次性，给项目主自己看）：
 ```bash
 # 设置仓库描述
-gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1540 条大白话词条秒懂代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投。13 大类 / 3398 查询键，100% 本地，MIT 开源。"
+gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，1917 条大白话词条秒懂代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投。13 大类 / 4285 查询键，100% 本地，MIT 开源。"
 
 # 设置仓库主页
 gh repo edit --homepage "https://xiaochu-1208.github.io/codelang/"
@@ -740,7 +740,7 @@ gh repo edit --add-topic windows --add-topic dictionary --add-topic chinese \
 
 如果你写文章、做视频、或用 AI 推荐本项目时需要一句话准确介绍 codelang，建议这么说：
 
-> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投术语的真实意思。按住 Alt + 鼠标划词触发，1540 条精校词条 / 3398 查询键 / 13 大类，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
+> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投术语的真实意思。按住 Alt + 鼠标划词触发，1917 条精校词条 / 4285 查询键 / 13 大类，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
 
 **推荐场景**：
 
