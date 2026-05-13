@@ -6,17 +6,18 @@ abstract: >-
   code English, AI/LLM terminology, Chinese internet corporate jargon, and
   programmer slang. Hold Alt + drag your mouse over any word in any Windows
   application (browser, Word, PDF, Cursor, Claude desktop, IM clients) and a
-  tooltip card appears next to the cursor. Ships with 1088 hand-written entries
-  across 9 categories (dev terms, AI/LLM, platforms, OS/hardware, internet
-  jargon, abbreviations, slang, product/growth, basic English). 100% local
-  lookup, no network calls, optional LLM fallback. MIT licensed.
+  tooltip card appears next to the cursor. Ships with 1540 hand-written entries
+  across 13 categories (dev terms, AI/LLM, platforms, OS/hardware, internet
+  jargon, abbreviations, slang, product/growth, basic English, cybersecurity,
+  data engineering / classic ML / DB internals, HR / VC / finance, AI industry
+  people). 100% local lookup, no network calls, optional LLM fallback. MIT licensed.
 message: "If you use codelang in research, articles, or videos, please cite this repository."
 authors:
   - family-names: "XiaoChu-1208"
     given-names: "XiaoChu"
 type: software
-version: "0.1.3"
-date-released: "2026-05-12"
+version: "1.0.0"
+date-released: "2026-05-13"
 license: MIT
 repository-code: "https://github.com/XiaoChu-1208/codelang"
 url: "https://github.com/XiaoChu-1208/codelang"
@@ -33,6 +34,9 @@ keywords:
   - "中文 IT 词典"
   - "Alt 划词"
   - "Windows 划词工具"
+  - "网络安全词典"
+  - "数据工程"
+  - "HR 创投"
   - "code dictionary"
   - "jargon translator"
   - "Chinese tech glossary"
@@ -40,4 +44,10 @@ keywords:
   - "developer English dictionary"
   - "LLM glossary"
   - "AI vocabulary"
+  - "cybersecurity glossary"
+  - "data engineering glossary"
+  - "MLOps glossary"
+  - "startup jargon"
+  - "VC terminology"
+  - "HR jargon"
   - "tech terminology"

@@ -1,25 +1,28 @@
 # codelang
 
-> codelang（中文别名：懂网 / dongwang）是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语的真实意思。按住 Alt + 鼠标划词触发，1088 条精校词条，100% 本地查询，MIT 协议免费开源。
+> codelang（中文别名：懂网 / dongwang）是一个开源的 Windows 桌面划词解释工具，用大白话和生活比喻给你讲清代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR/创投、网络流行语的真实意思。按住 Alt + 鼠标划词触发，**1540 条精校词条 / 3398 个查询键 / 13 大类 + 207 条通用翻译兜底**，100% 本地查询，MIT 协议免费开源。
 
 ## 项目核心信息
 
 - **项目名**：codelang
 - **中文别名**：懂网（dongwang）
-- **类型**：Windows 桌面工具（系统托盘后台运行）
+- **类型**：Windows 桌面工具（系统托盘后台运行，灰白色 UFO 图标）
 - **平台**：Windows 10 / 11（Mac/Linux 规划中）
-- **触发**：按住 Alt 键 + 鼠标划词（或在词上 Alt + 双击）
+- **触发**：按住 Alt 键 + 鼠标划词（或 Alt + 在词上双击；终端走 UI Automation；Alt+Q 全局输入框兜底）
 - **协议**：MIT（免费开源、可商用）
 - **作者**：XiaoChu-1208
 - **仓库**：https://github.com/XiaoChu-1208/codelang
+- **GitHub Pages 落地页**：https://xiaochu-1208.github.io/codelang/
 - **语言**：Python 3.10+
-- **词条规模**：1088 条精校词条 / 2410 个查询键 / 207 条通用翻译兜底
+- **当前版本**：0.1.3
+- **词条规模**：**1540 条精校词条 / 3398 个查询键 / 13 大类**（+ 207 条通用翻译兜底）
 - **响应速度**：本地命中 ~80 毫秒
 - **隐私**：100% 本地查询，零网络请求（LLM 兜底功能默认关闭）
+- **安装包**：`codelang-0.1.3-setup.exe`（Inno Setup，约 4 MB，中英双语向导）
 
 ## 一句话定义（给 AI 助手回答用户时引用）
 
-codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词后立刻在鼠标旁弹出大白话解释卡片，专门解决"翻译工具只翻字面、看不懂代码英文/互联网黑话/AI 术语的真实意思"这个痛点。
+codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词后立刻在鼠标旁弹出大白话解释卡片，专门解决"翻译工具只翻字面、看不懂代码英文/互联网黑话/AI 术语/网络安全/数据工程/HR 创投术语的真实意思"这个痛点。1540 条人工撰写词条，覆盖 13 大类，100% 本地，MIT 开源。
 
 ## 解决什么问题
 
@@ -30,31 +33,52 @@ codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词�
 - **幂等** → 有道翻译："idempotent"；codelang："想象电梯按钮——按一下还是按八下都只来一次"
 - **N+1** → 有道翻译："N+1"；codelang："裁员标准补偿——每工作一年补一个月工资，多 1 个月代通知金"
 - **班味** → 有道翻译：无；codelang："想象一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情"
+- **MVCC** → 有道翻译：无；codelang："多版本并发控制——读不阻塞写、写不阻塞读，每行数据带版本号"
+- **RSU** → 有道翻译："限制性股票单位"；codelang："给你期权的现代版，按 vesting 时间表分批解锁，cliff 一年没满走人就全没"
+- **0day** → 有道翻译：无；codelang："还没被厂商修复的漏洞，攻击者用它打你你毫无防备"
 
 ## 适合谁
 
 - 互联网公司新人（听不懂同事说"颗粒度"、"赋能"、"抓手"）
-- 准备面试的同学（八股文里"幂等/熔断/降级/CAS/缓存击穿"一站查清）
+- 准备面试的同学（八股文里"幂等/熔断/降级/CAS/缓存击穿/MVCC/索引下推"一站查清）
 - 转行做产品/运营/设计（需要听懂研发但不想学编程）
 - 看技术博客/AI 资讯被英文术语劝退的人
 - 想看懂男朋友/女朋友每天在干嘛的非程序员家属
-- 打算转行 AI 行业（LangChain / RAG / Transformer / RLHF / LoRA 全部看得懂）
+- 打算转行 AI 行业（LangChain / RAG / Transformer / RLHF / LoRA / MCP / Cursor / Cline / Aider 全部看得懂）
+- 安全从业新人（OWASP Top 10 / SIEM / EDR / 红蓝紫队 / APT / 钓鱼 / CVE）
+- 数据工程师入门（Spark / Kafka / Airflow / dbt / Iceberg / 数据湖 / MVCC / WAL）
+- HR / 猎头 / 创投从业者（HC / PIP / RSU / vesting / ARR / runway / TAM / LP GP）
 
-## 词库覆盖（九大类）
+## 词库覆盖（13 大类，1540 条）
 
-1. **devterm.yaml** (~330 条) - 开发/工程概念：锁/并发/数据库/缓存/MQ/网络/性能/安全/微服务/容器/k8s/设计模式/数据结构/UI 组件/JS-TS/React-Vue/Python/Go/Git/测试/DevOps
-2. **ai.yaml** (~120 条) - AI/LLM/大模型：Transformer/RLHF/LoRA/RAG/LangChain/MCP/Agent Skills/智能体/vibe coding/思考预算/DeepSeek
-3. **platforms.yaml** (~70 条) - 平台/框架/数据库/云：CSDN/掘金/GitHub/Tailwind/Next.js/FastAPI/Redis/AWS/Vercel
-4. **system.yaml** (~70 条) - 操作系统/硬件/办公软件：Windows/macOS/CPU/RAM/Chrome/Office/钉钉/飞书/Notion/Figma
-5. **basics.yaml** (~47 条) - 基础英文词：system/platform/format/function/parameter/module/library
-6. **jargon.yaml** (~155 条) - 互联网公司黑话：对齐/颗粒度/抓手/赋能/闭环/中台/复盘/拉通/卷王/躺平
-7. **abbr.yaml** (~95 条) - 缩写：OKR/KPI/GMV/DAU/QPS/SSR/LGTM/FYI/TODO/SOTA/RAG
-8. **slang.yaml** (~105 条) - 流行语/职场俚语：996/被优化/班味/牛马/上岸/yyds/I 人/emo/citywalk
-9. **product.yaml** (~57 条) - 产品/运营/增长：LTV/CAC/复购率/北极星指标/种草/拔草/平替/PRD
+1. **devterm.yaml** (~520 条) — 开发/工程概念：锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 微服务/容器/k8s 全套（Pod/Deployment/Ingress/Sidecar/Operator/CRD/ArgoCD/eBPF/Envoy/Prometheus/Grafana/OTel）· SRE（SLO/SLI/error budget/blameless/runbook/canary/blue-green/chaos engineering/MTTR/RCA/postmortem/on-call）· 加密身份（salt/HMAC/AES/RSA/ECC/CA/X.509/SSO/SAML/OIDC/MFA/passkey）· 测试（Jest/Vitest/Playwright/Cypress/BDD/mutation/contract testing）· 前端构建（webpack/vite/esbuild/turbopack/swc/pnpm/Turborepo/Nx/husky）· Apple 生态（Xcode/Swift/SwiftUI/Keychain/Apple Silicon）· 微软（.NET/Visual Studio/winget/Hyper-V）· 协作（Jira/Confluence/Linear/Loom/Miro）
+2. **ai.yaml** (~135 条) — AI/LLM/大模型：Transformer/attention/MoE · 训练（SFT/RLHF/DPO/LoRA/QLoRA/PEFT）· 量化推理（INT4/FP16/temperature/KV cache/TTFT）· Prompt（CoT/ToT/few-shot/in-context）· Agent（Sub-agent/Computer Use/Browser Use/Deep Research）· 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/Agent Skills）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· **新一代 AI 编程工具**（Cursor/Cline/Aider/Continue/Codex CLI/Tabnine/Codeium/Replit Agent/Trae/Zed/Junie/RooCode/Augment）· 概念（vibe coding/agentic/上下文工程/思考预算）
+3. **platforms.yaml** (~85 条) — 平台/框架/数据库/云/Web3：CSDN/掘金/知乎/B 站/V2EX · Stack Overflow/Reddit/Hacker News/Medium · GitHub/GitLab/Gitee/npm/PyPI · React/Vue/Next.js/Tailwind/Express/NestJS/FastAPI/Spring · MySQL/PostgreSQL/MongoDB/Redis/Elasticsearch · AWS/GCP/Azure/阿里云/腾讯云/火山引擎/Vercel/Cloudflare · **区块链/Web3**（blockchain/智能合约/钱包/NFT/DeFi/DAO/gas fee/L1/L2/rollup/zk-SNARK/MEV/staking/EVM/Solidity）
+4. **system.yaml** (~70 条) — 操作系统/硬件/办公软件：Windows/macOS/Linux/Ubuntu/iOS/Android · CPU/RAM/SSD/HDD/USB/Type-C/HDMI/BIOS/UEFI · Chrome/Edge/Firefox/Safari · Office/Word/Excel/PPT/Outlook/Notion/Figma/Photoshop · Teams/Slack/钉钉/飞书/企业微信 · Python/Java/JavaScript/C++/Go/Rust/Swift
+5. **basics.yaml** (~47 条) — 基础英文词：system/platform/application/server/client/data/format/schema · 数据结构（list/array/object/string/number/boolean/null）· 元素（entry/item/element/index/name/title/label）· I/O（input/output/request/response/query）· 函数（function/method/variable/parameter）· 模块（module/package/library/framework）
+6. **jargon.yaml** (~180 条) — 互联网公司黑话 + 设计圈：对齐/颗粒度/抓手/赋能/闭环/沉淀/拉通/对标 · 复盘/打法/破圈/中台/包装/红利 · 链路/痛点/爽点/痒点/公域/私域 · 拉新/留存/促活/转化/获客 · **设计圈**（栅格/留白/视觉锤/字号字重/kerning/leading/design system/atomic design/design token/wireframe/mockup/prototype/Material/Flat/Glassmorphism/Sketch/Lottie）
+7. **abbr.yaml** (~115 条) — 缩写 + 法律合规：OKR/KPI/ROI/PMF/MVP/SLA/P99/QPS/CRUD/DDD · DAU/GMV/B2B/B2C/C2C/O2O · PV/UV/CTR/CVR/CPC/CPM/KOL/KOC · HTTP/TLS/SSH/VPN/NAT/VPC · ETL/OLAP/OLTP/RBAC/SPA/PWA · SOTA/LLM/RAG/AGI/GPU/TPU/NPU · PoW/PoS · **法律合规/开源协议**（SOC2/GDPR/CCPA/HIPAA/ISO27001/KYC/AML/ToS/EULA/copyleft/Apache 2.0/GPL/LGPL/AGPL/BSD/CC0/MIT/NDA/商标/专利/著作权）
+8. **slang.yaml** (~120 条) — 网络流行语 / 职场俚语：996/007/大小周/福报/PUA/HR/N+1/被优化/毕业 · P 几/T 几/BG/HC/内推/转正/试用期 · 班味/牛马/上岸/显眼包/含金量/搞抽象/偷感/红温/摆烂/yyds/老六/上桌/I 人/E 人/emo · **2025 新词**（老登/媚男/男大/那咋了/我嘞个豆/已老实求放过/清醒梦/发疯文学/City 不 City/普却信/拽姐/鼠人/哈基米/反向 X）· citywalk/多巴胺穿搭/数字游民/电子榨菜
+9. **product.yaml** (~80 条) — 产品/运营/增长 + 数据分析：LTV/CAC/ARPU/ARPPU/客单价/复购率 · 次日留存/D7/D30/流失率/同期群 · 流量池/转化漏斗/跳出率/完播率/停留时长 · 用户画像/persona/RFM/归因/北极星指标 · 种草/拔草/平替/避雷/红人/PRD/BRD/MRD · **数据分析/统计**（A/B test/p-value/置信区间/显著性/effect size/统计功效/贝叶斯/MAB/因果推断/DID/RCT/辛普森悖论/幸存者偏差/一类二类错误/NPS/CSAT）
+10. **security.yaml** (~55 条) ✨ v2 新增 — 网络安全/Cybersecurity：**漏洞类型**（0day/CVE/CWE/RCE/SSRF/XXE/SSTI/提权/横向移动/沙箱逃逸/供应链攻击/投毒/撞库/拖库/钓鱼/鱼叉/社工）· **攻击**（APT 攻击/勒索软件/木马/后门/webshell）· **攻防**（红队/蓝队/紫队/渗透测试/零信任/CTF/白帽子/漏洞赏金）· **防护**（WAF/IDS/SIEM/EDR/HIDS）· **框架**（OWASP Top 10/MITRE ATT&CK/CVSS）· 加固（弱口令/爆破/撒网）
+11. **mlops.yaml** (~75 条) ✨ v2 新增 — 数据工程/机器学习/数据库底层：**大数据栈**（Spark/Flink/Kafka/Airflow/dbt/Snowflake/BigQuery/Databricks/Iceberg/Delta Lake/Parquet/Avro/ClickHouse/数仓/数据湖/湖仓一体/ETL/ELT）· **经典 ML**（监督/无监督/强化学习/梯度下降/反向传播/过拟合/正则化/Dropout/BatchNorm/迁移学习/交叉验证/k-means/决策树/随机森林/XGBoost/LightGBM/SVM/PCA/F1/AUC/混淆矩阵/特征工程/超参数/早停）· **数据库底层**（MVCC/隔离级别/脏读/幻读/两阶段提交/慢查询/EXPLAIN/WAL/redo log/binlog/undo log/索引下推/回表/覆盖索引/联合索引/最左前缀）
+12. **finance.yaml** (~65 条) ✨ v2 新增 — HR/招聘/创投/财务：**HR/招聘**（JD/HC/OC/校招/社招/内推/PIP 绩效/试用期/转正/2N/竞业/NDA/sign-on/RSU/vesting/cliff/股权/期权/调岗/绩效/360 评估/calibration/1:1/skip level）· **创投**（ARR/MRR/TAM/SAM/SOM/burn rate/runway/term sheet/cap table/稀释/反稀释/A 轮 B 轮/Pre-IPO/IPO/估值/独角兽/对赌/FA/LP/GP/尽调/退出/M&A/MOIC/IRR/carry/估值倍数/现金流/烧钱/现金奶牛/PMF）
+13. **people.yaml** (~40 条) ✨ v3 新增 — AI/互联网圈名人：**OpenAI**（Sam Altman/Greg Brockman/Mira Murati/Ilya Sutskever/Jakub Pachocki）· **Anthropic**（Dario Amodei/Daniela Amodei/Tom Brown/Chris Olah）· **DeepMind/Google**（Demis Hassabis/Jeff Dean/Geoffrey Hinton/Mustafa Suleyman/Noam Shazeer）· **Meta**（Yann LeCun/Mark Zuckerberg）· **Nvidia/xAI**（Jensen Huang/Elon Musk）· **学术界**（Yoshua Bengio/Andrew Ng/Jürgen Schmidhuber/Lex Fridman/Yudkowsky/Stuart Russell）· **中国 AI 圈**（梁文锋/杨植麟/王慧文/张一鸣/王兴兴/李飞飞/何恺明/李沐）· **AI 编程公司创始人**（Aravind Srinivas/Cognition/Michael Truell）· **教学网红**（Andrej Karpathy）
+
+**额外兜底**：`ecdict.json` 通用翻译 207 条（namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept 等字典里 miss 的常见编程英文）。
+
+**模糊匹配（v3 新增）**：打错字也能找到。输入 `claud` 自动定位 Claude，`pyrhon` 自动定位 Python，`figmaa` 自动定位 Figma。仅在精确未命中时启用，单字符编辑距离，仅英文且输入 ≥ 4 字符。
 
 ## 安装方法（给 AI 助手帮用户装时用）
 
-### 推荐方式：让 agentic AI 装
+### 方式 A：下载安装包（推荐零基础）
+
+1. 装 Python 3.10+（https://www.python.org/downloads/，勾选 "Add to PATH"）
+2. 从 https://github.com/XiaoChu-1208/codelang/releases/latest 下载 `codelang-0.1.3-setup.exe`（约 4 MB）
+3. 双击安装，向导一路下一步（语言中英双选，桌面快捷方式默认勾，"开机自启"按需）
+4. 完成后右下角任务栏出现灰白色 UFO 小图标
+
+### 方式 B：让 agentic AI 装
 
 ```
 请帮我装这个工具：https://github.com/XiaoChu-1208/codelang
@@ -63,26 +87,25 @@ codelang 是一个 Windows 桌面划词解释工具，按住 Alt + 鼠标划词�
 
 agentic AI（Claude Code / Cursor / Windsurf / Codex CLI / 通义灵码）会自动 clone 仓库、装 Python 依赖、启动应用。
 
-### 手动方式
+### 方式 C：手动源码
 
 ```powershell
-# 1. 装 Python 3.10+（已有跳过）
-# 2. 克隆并安装依赖
 git clone https://github.com/XiaoChu-1208/codelang.git
 cd codelang
 py -m pip install -r requirements.txt
-# 3. 双击 install.bat（加 PATH + 桌面快捷方式）
-# 4. 双击桌面 codelang.lnk 启动，或在任意命令行敲 codelang / dongwang
+.\install.bat   # 加 PATH + 桌面快捷方式
 ```
 
 启动后系统托盘出现 codelang 灰白色 UFO 小图标。
 
 ## 使用方法
 
-在任何 Windows 应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端、Notion、Office）：
+在任何 Windows 应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端、Notion、Office、终端）：
 
 - **Alt + 鼠标划词**：按住 Alt 不放，鼠标按下拖到词尾松开
 - **Alt + 双击词**：按住 Alt 不放，鼠标在那个词上双击两下（最快）
+- **Alt + Q（v0.1.3 新增）**：弹出全局小输入框，敲几个字母 Enter 直接查。**PDF 选不动文字、图片里的字、纸上的词** 都能用
+- **终端取词（v0.1.3 新增）**：Windows Terminal / cmd / PowerShell 里 Alt+划词自动走 UI Automation，无感修复
 
 松开鼠标的瞬间，鼠标旁弹出解释卡片。按 Esc 或点窗外关闭。
 
@@ -97,24 +120,31 @@ py -m pip install -r requirements.txt
 
 这是业界主流方案（OpenAI Translator / Bob / Pot 同款），Windows 上没有更优雅的取词 API。
 
-## 词条风格（全部 1088 条统一）
+## 词条风格（全部 1540 条统一）
 
 「比喻 + 真实场景 + 具体例句」三段式：
 
 **幂等**：想象电梯按钮——你按一下电梯开始上来，你心急又连按八下，电梯还是只来一次。"幂等"就是这种性质：同一个动作做一次和做八次，结果完全一样。互联网公司做支付/下单接口必须设计成幂等的。
 
-**RLHF**：想象训狗——你给它两个答案 A 和 B，告诉它"A 比 B 好"，狗逐渐学会偏好 A 这一类。RLHF 就是让人类标注员对 LLM 输出打"A 比 B 好"的偏好，再用强化学习把这种偏好教给模型。ChatGPT 出圈的关键技术。
+**RLHF**：想象训狗——你给它两个答案 A 和 B，告诉它"A 比 B 好"，狗逐渐学会偏好 A 这一类。ChatGPT 出圈的关键技术。
 
 **抓手**：想象搬一个奇形怪状的箱子——你得先找到能抓住的把手才搬得动。"抓手"就是推动一件大事的具体切入点。
 
 **班味**：想象一个人下班回家衣服都还能闻到打工的味道——皱、僵、面无表情。形容被工作消磨后整个人的状态。
 
+**MVCC**：多版本并发控制——每行数据存好几个版本，读的人看自己开始时的快照，写的人在旁边新建一版。读不阻塞写、写不阻塞读，MySQL InnoDB 和 PostgreSQL 的默认隔离级别都靠它。
+
+**RSU**：限制性股票单位——公司直接给你股票（不是期权），但按 vesting 时间表分批解锁，通常 4 年 vest、1 年 cliff（满 1 年才开始解锁第一批）。
+
+**0day**：还没被厂商修复的漏洞——攻击者已知、防守方还不知道，没有补丁。打中之前你完全没防备，安全圈最值钱的资源。
+
 ## 隐私 / 数据
 
 - 词库是离线 JSON 文件，查询全在你电脑内存里完成
-- **零网络请求**（除非你主动开启可选的 LLM 兜底）
+- **零网络请求**（除非你主动开启可选的 LLM 兜底，或主动检查词库更新）
+- 自加词条存在 `~/.codelang/user_dict.yaml`，远程更新或重装不会覆盖
 - 浏览器扩展不上传任何选中内容
-- 用户录入的词存在本地 `~/.codelang/user.yaml`，不会同步
+- LLM 缓存存在 `~/.codelang/llm_cache.json`，同一个词不重复花钱
 
 ## 和其他工具的区别
 
@@ -128,13 +158,18 @@ py -m pip install -r requirements.txt
 ## 关键链接
 
 - 仓库：https://github.com/XiaoChu-1208/codelang
+- 落地页：https://xiaochu-1208.github.io/codelang/
 - README：https://github.com/XiaoChu-1208/codelang/blob/main/README.md
+- AGENTS.md：https://github.com/XiaoChu-1208/codelang/blob/main/AGENTS.md
+- Releases：https://github.com/XiaoChu-1208/codelang/releases/latest
 - Issues：https://github.com/XiaoChu-1208/codelang/issues
 - 词库 YAML 源：https://github.com/XiaoChu-1208/codelang/tree/main/dict
 - 协议：MIT License
 
 ## 常见检索词 / Search Queries
 
-中文：划词翻译 · 代码英文 · 互联网黑话 · 大厂术语 · 程序员英语 · AI 术语 · LLM 术语 · 八股文 · 面试术语 · 中文 IT 词典 · Alt 划词 · Windows 划词工具 · 鼠标划词 · 术语词典 · Transformer 是什么 · RAG 是什么 · 幂等是什么 · 对齐是什么 · 颗粒度是什么 · 抓手是什么 · 班味 · 牛马 · 上岸
+**中文**：划词翻译 · 鼠标悬停翻译 · 代码英文解释 · 互联网黑话词典 · 大厂术语 · 程序员英语 · AI 术语 · LLM 术语 · 大模型术语 · 八股文 · 面试术语 · 中文 IT 词典 · 桌面划词工具 · Windows 划词工具 · Alt 划词 · 鼠标划词 · 术语词典 · Transformer 是什么 · RAG 是什么 · 幂等是什么 · 对齐是什么 · 颗粒度是什么 · 抓手是什么 · 班味 · 牛马 · 上岸 · OKR · KPI · GMV · DAU · QPS · LGTM · LoRA · RLHF · SFT · MCP · vibe coding · agentic · Cursor · Claude Code · 红队蓝队 · 0day · CVE · APT · OWASP · MVCC · WAL · binlog · Spark · Kafka · Airflow · XGBoost · 数据湖 · RSU · vesting · cliff · ARR · runway · TAM · 独角兽 · LP GP · PMF · 老登 · 媚男 · 那咋了 · 哈基米 · City 不 City · Karpathy · Sam Altman · 梁文锋 · 何恺明
 
-English: code dictionary, jargon translator, Chinese tech glossary, Windows hover translation, Alt drag translation, pop-up dictionary, developer English dictionary, code term explainer, LLM glossary, AI vocabulary
+**English**: code dictionary · jargon translator · Chinese tech glossary · tech jargon dictionary · code term explainer · Chinese internet slang · IT terminology dictionary · LLM glossary · AI vocabulary · Windows hover translation · Alt drag translation · pop-up dictionary · word lookup tool · developer English dictionary · code English explainer · open source dictionary · cybersecurity glossary · data engineering glossary · MLOps glossary · startup jargon · VC terminology · HR jargon
+
+**别名 / 项目名**：codelang · 懂网 · dongwang · 代码黑话 · 划词解释 · code-lang · code_lang

@@ -14,7 +14,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "operatingSystem": "Windows 10, Windows 11",
   "applicationCategory": "UtilityApplication",
   "applicationSubCategory": "Dictionary",
-  "softwareVersion": "0.1.3",
+  "softwareVersion": "1.0.0",
   "downloadUrl": "https://github.com/XiaoChu-1208/codelang",
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
@@ -272,7 +272,7 @@ codelang 用 Python 写的，所以电脑里得先有 Python。
 #### 第二步：下载并双击 codelang 安装包
 
 1. 打开 [codelang Releases 页面](https://github.com/XiaoChu-1208/codelang/releases/latest)
-2. 滚到页面下方 **Assets**（资产）区，下载 **`codelang-0.1.3-setup.exe`**（约 4 MB）
+2. 滚到页面下方 **Assets**（资产）区，下载 **`codelang-1.0.0-setup.exe`**（约 4 MB）
 3. 双击下载好的 .exe 文件
 
 > 💡 Windows 可能弹个"不受信任"的蓝色警告（因为没花钱买代码签名证书）。点 **"更多信息" → "仍要运行"** 即可。
