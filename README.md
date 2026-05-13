@@ -254,7 +254,52 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 怎么用（3 分钟跑起来）
 
-### 0. 最懒办法：让 AI 帮你装（推荐零基础用户）
+### 0. 最简单：下载安装包（推荐零基础）
+
+**两步搞定**，全程不用碰命令行。
+
+#### 第一步：装 Python（一次性，以后都用得上）
+
+codelang 用 Python 写的，所以电脑里得先有 Python。
+
+1. 打开 [python.org 下载页](https://www.python.org/downloads/)
+2. 点黄色大按钮 **"Download Python 3.x.x"**，等它下完
+3. 双击下载好的安装程序，**最关键的一步**：把弹出窗口**最下面**那个 **☑ Add Python to PATH** 勾上！（这步漏了后面启动会失败）
+4. 点 **Install Now**，等它装完
+
+> 💡 怎么知道装好了？开始菜单搜 **cmd** 打开命令提示符，输入 `py --version` 回车，看到 `Python 3.x.x` 字样就成功了。如果提示找不到，说明上一步 PATH 没勾，重装一次勾上即可。
+
+#### 第二步：下载并双击 codelang 安装包
+
+1. 打开 [codelang Releases 页面](https://github.com/XiaoChu-1208/codelang/releases/latest)
+2. 滚到页面下方 **Assets**（资产）区，下载 **`codelang-0.1.0-setup.exe`**（约 4 MB）
+3. 双击下载好的 .exe 文件
+
+> 💡 Windows 可能弹个"不受信任"的蓝色警告（因为没花钱买代码签名证书）。点 **"更多信息" → "仍要运行"** 即可。
+
+4. 跟着安装向导一路点 **"下一步"**：
+   - 选语言（中文 / English）
+   - 同意协议
+   - 选安装位置（默认就行）
+   - 选可选项：**桌面快捷方式默认勾上**；"加入 PATH" 推荐勾上；"开机自启"按需
+   - 点 **"安装"**
+5. 最后一页勾上 **"立即启动 codelang"**，点 **"完成"**
+
+**装好的标志**：屏幕右下角任务栏出现一个**蓝色 UFO 小图标**，桌面也多了一个 codelang 快捷方式。
+
+> 💡 看不到右下角图标？点任务栏右下角的 **▲ 小箭头** 展开隐藏图标区找一下。
+
+##### 启动 / 开机自启 / 卸载
+
+| 想干啥 | 怎么操作 |
+|---|---|
+| 启动 | 双击桌面 `codelang` 图标 / 开始菜单找 codelang / 命令行敲 `codelang` 或 `dongwang` |
+| 开机自启 | 装的时候勾上"开机自启 codelang"就行（也可后期把桌面快捷方式拖进 `shell:startup` 文件夹） |
+| 卸载 | Windows **设置 → 应用 → 已安装的应用**，搜 codelang，点**卸载**（自动清掉快捷方式、PATH 条目、开始菜单项）|
+
+---
+
+### 1. 让 AI 帮你装
 
 如果你电脑上有任何 **agentic AI**——Claude Code、Cursor、Windsurf、OpenCode、通义灵码、Codex CLI 之类——直接复制这一段给它：
 
@@ -267,7 +312,7 @@ AI 会自己 clone 仓库、装 Python 依赖、启动应用。你只需要看�
 
 > 💡 没有 Claude Code？可以装 [Claude Code 官网](https://claude.ai/code) 或 [Cursor](https://cursor.com)，国产可以用通义灵码、CodeBuddy 等。任何一个能跑命令的 AI 都行。
 
-### 1. 手动装（如果你懒得搞 AI 助手）
+### 2. 手动装（源码方式 · 开发者向）
 
 需要你电脑上有 **Python 3.10 或以上**。没有的话：
 
@@ -284,7 +329,7 @@ py -m pip install -r requirements.txt
 
 如果你完全不懂 git，也可以点本仓库右上角「Code → Download ZIP」，解压到任意目录。
 
-### 2. 一键安装 + 启动
+### 3. 一键安装 + 启动（源码方式接续）
 
 **双击项目根目录的 `install.bat`** —— 一次性帮你做两件事：
 
@@ -321,7 +366,7 @@ py tools\uninstall_shortcuts.py --purge-config
 
 **托盘菜单点「查看日志」** —— 自动用记事本打开 `~/.codelang/codelang.log`，包含取词、Alt 检测、phantom 清理等所有诊断信息。
 
-### 3. 用
+### 4. 用
 
 **在任何窗口里**——浏览器、微信、Word、PDF、Cursor、Claude 桌面端——按住 **Alt 键**，鼠标划选一个不懂的词，松开鼠标的瞬间词的解释立刻弹在鼠标旁边。
 
@@ -349,7 +394,7 @@ py tools\uninstall_shortcuts.py --purge-config
 
 按 **Esc** 或 **点窗外**关闭卡片。
 
-### 4. 词库不够用？
+### 5. 词库不够用？
 
 **自己加词** —— 卡片弹出"未收录"时点「我录入这个词」按钮，输入含义保存，下次同样的词直接命中。不用懂代码、不用碰文件。
 
@@ -449,14 +494,18 @@ codelang/
 │   ├── dict.json               构建好的词典
 │   └── ecdict.json             通用翻译兜底（207 条）
 ├── tools/
-│   ├── build_dict.py           YAML → dict.json 构建脚本
-│   ├── render_icons.py         SVG → PNG/ICO（用 resvg-py）
-│   ├── install_shortcuts.py    一键安装（PATH + 桌面快捷方式）
-│   ├── uninstall_shortcuts.py  反向卸载
-│   ├── extract_terms.py        从开源仓库抽词条
-│   ├── gen_explanations.py     LLM 批量生成（构建期可选）
-│   └── setup_translator.py     ECDICT 通用翻译扩展
-├── install.bat                 双击一键安装（加 PATH + 建桌面快捷方式）
+│   ├── build_dict.py                 YAML → dict.json 构建脚本
+│   ├── render_icons.py               SVG → PNG/ICO（用 resvg-py）
+│   ├── build_installer_assets.py     生成 Inno Setup 向导插图（Pillow 合成）
+│   ├── install_shortcuts.py          一键安装（PATH + 桌面快捷方式）
+│   ├── uninstall_shortcuts.py        反向卸载
+│   ├── extract_terms.py              从开源仓库抽词条
+│   ├── gen_explanations.py           LLM 批量生成（构建期可选）
+│   └── setup_translator.py           ECDICT 通用翻译扩展
+├── installer/                  Windows 安装包构建（Inno Setup 6）
+│   ├── codelang.iss            Inno Setup 脚本（中英双语向导 + 自定义插图）
+│   └── build.bat               一键构建 dist\codelang-<ver>-setup.exe
+├── install.bat                 双击一键安装（源码方式 · 加 PATH + 建桌面快捷方式）
 └── uninstall.bat               双击反向卸载
 ```
 

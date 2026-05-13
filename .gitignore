@@ -34,3 +34,8 @@ tools/seeds/generated.jsonl
 
 # 临时设计稿
 icons-proposal-*.html
+
+# Inno Setup 生成产物
+dist/
+installer/wizard-large.bmp
+installer/wizard-small.bmp

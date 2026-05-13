@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LOGO_DIR = ROOT / "assets" / "logo"
 
 SIZES = [16, 32, 64, 128, 256, 512]
-ICO_SIZES = [16, 32, 48, 256]
+ICO_SIZES = [16, 24, 32, 48, 64, 128, 256]
 
 # Map output prefix → source SVG file. icon-{size}.png comes from the
 # user-facing minimal-gray design; icon-blueprint-{size}.png is the
@@ -68,14 +68,22 @@ def main() -> int:
             img.save(out, "PNG")
             print(f"wrote {out.relative_to(ROOT)} ({size}x{size}) from {svg_path.name}")
 
-    # Multi-resolution ICO from gray design (user-facing Windows icon)
-    ico_imgs = [render_svg(DESIGNS["icon"], s) for s in ICO_SIZES]
+    # Multi-resolution ICO from gray design (user-facing Windows icon).
+    # The SVG viewBox isn't square, so resvg-py renders non-square PNGs.
+    # ICO entries must be square, so we pad to a square canvas before saving.
+    # Pillow's ICO writer ignores `append_images`; instead we hand it the
+    # largest square source and let it downscale to all requested sizes.
+    src = render_svg(DESIGNS["icon"], 512)
+    w, h = src.size
+    side = max(w, h)
+    square = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    square.paste(src, ((side - w) // 2, (side - h) // 2), src)
+
     ico_path = LOGO_DIR / "icon.ico"
-    ico_imgs[0].save(
+    square.save(
         ico_path,
         format="ICO",
         sizes=[(s, s) for s in ICO_SIZES],
-        append_images=ico_imgs[1:],
     )
     print(f"wrote {ico_path.relative_to(ROOT)} (multi-res ICO from minimal-gray)")
     return 0
