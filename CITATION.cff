@@ -15,7 +15,7 @@ authors:
   - family-names: "XiaoChu-1208"
     given-names: "XiaoChu"
 type: software
-version: "0.1.2"
+version: "0.1.3"
 date-released: "2026-05-12"
 license: MIT
 repository-code: "https://github.com/XiaoChu-1208/codelang"

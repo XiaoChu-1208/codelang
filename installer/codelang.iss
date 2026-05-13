@@ -11,7 +11,7 @@
 
 #define MyAppName          "codelang"
 #define MyAppNameCN        "懂网"
-#define MyAppVersion       "0.1.2"
+#define MyAppVersion       "0.1.3"
 #define MyAppPublisher     "XiaoChu-1208"
 #define MyAppURL           "https://github.com/XiaoChu-1208/codelang"
 #define MyAppExeArgs       "-m desktop.app"
