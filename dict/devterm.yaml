@@ -2017,7 +2017,7 @@
   example: 面试投简历一定要发 PDF 版，Word 版在别人电脑上排版可能乱。
 
 - term: .wasm
-  aliases: [wasm 文件, WebAssembly]
+  aliases: [wasm 文件, wasm 后缀]
   category: devterm
   meaning: WebAssembly 二进制文件后缀——让浏览器跑接近原生速度的代码。C/C++/Rust 编译成 .wasm，浏览器加载后跑得比 JS 快很多。游戏、视频编辑、CAD 这类重计算场景用它。
   example: Figma 的核心渲染引擎是 C++ 编译成 WASM 在浏览器里跑的。
@@ -3308,3 +3308,760 @@
   literal: fair-use policy
   meaning: 标榜"unlimited"但暗藏限制的政策——电信"无限流量"超过 100GB 后限速、SaaS "unlimited seats" 但单租户超 1000 人要谈商务。"无限"在合同里基本都是 fair-use 包装。注意和版权法的 fair use（合理使用，免侵权）不同。
   example: 这个"unlimited" plan 实际有 fair-use cap，每天 10 万 API。
+
+# --- batch X: 设计模式（GoF 23 种 + 设计原则） ---
+
+- term: 设计模式
+  aliases: [design pattern, design patterns]
+  category: devterm
+  literal: design pattern
+  meaning: 面向对象编程里那些"前人踩坑总结出来"的固定套路——遇到某类问题就这么写，代码会清晰、可维护、好扩展。GoF 1994 年总结了 23 种经典（工厂/单例/观察者/策略……）。是面试老八股，也是真实生产代码里的高频套路。新人滥用容易过度设计，但完全不懂代码会越写越乱。
+  example: 这块业务用策略模式重构后，加新规则不用改老代码了。
+
+- term: 反模式
+  aliases: [anti-pattern, antipattern, 设计反模式]
+  category: devterm
+  literal: anti-pattern
+  meaning: 看起来像"模式"但其实是坑——前人也总结过：这么写一开始爽、后面必然翻车。比如"上帝类"（一个类管一切）、"金锤子"（什么问题都拿同把锤砸）、"魔法数字"（满代码硬编码 7、24、365）。代码评审时常用反模式名字精准吐槽。
+  example: 这函数 800 行什么都干，典型上帝类反模式，拆。
+
+- term: GoF
+  aliases: [Gang of Four, 四人帮]
+  category: devterm
+  literal: Gang of Four
+  meaning: 「四人帮」——1994 年合写《设计模式》那本书的四位作者（Gamma、Helm、Johnson、Vlissides）。这本书定义了 23 种经典设计模式，现在说"GoF 模式"就指那 23 种。面试和老一辈架构师的口头禅。
+  example: 这里用 GoF 的工厂方法模式，把对象创建逻辑拆出来。
+
+- term: 策略模式
+  aliases: [strategy pattern, Strategy 模式]
+  category: devterm
+  literal: Strategy pattern
+  meaning: 想象付款台支持微信/支付宝/银行卡——前台流程一样（"扫码—确认—成功"），但"具体怎么扣钱"是不同算法的实现。策略模式就是把"可替换的算法"封装成独立类，运行时按需挑一个用。新增支付方式不用动主流程，加新策略类即可。日常代码里出场率最高的模式之一。
+  example: 订单折扣用策略模式，节日活动直接换个 DiscountStrategy 上线。
+
+- term: 工厂模式
+  aliases: [factory pattern, factory method, 工厂方法]
+  category: devterm
+  literal: Factory pattern
+  meaning: 想象奶茶店"按订单做奶茶"——你不亲自去后厨拿茶叶/奶/糖混，只对柜台说"要一杯珍珠奶茶"，柜台（工厂）按订单返回成品。代码里你不直接 `new Class()`，而是 `factory.create("xxx")`——具体哪个子类由工厂决定。换实现只改工厂、调用方零改动。
+  example: 多端推送（微信/短信/邮件）用工厂模式按 channel 字段返回对应 Sender。
+
+- term: 抽象工厂
+  aliases: [abstract factory, 抽象工厂模式]
+  category: devterm
+  literal: Abstract Factory
+  meaning: 工厂模式的升级版——不造一个产品，造"一整套配套产品"。想象家具厂出"北欧风套装"=沙发+茶几+灯，全部统一风格。代码场景：跨平台 UI 库，WindowsFactory 出 Win 风格的按钮+菜单+滚动条，MacFactory 出 Mac 风格的一整套。
+  example: 跨平台主题用抽象工厂，切深色模式时整套组件一起换。
+
+- term: 单例模式
+  aliases: [singleton, singleton pattern, 单例]
+  category: devterm
+  literal: Singleton
+  meaning: 全局只允许一个实例的类——像一个国家只有一个总统。"配置中心""日志器""数据库连接池"通常做成单例：到处都要用、但反复创建浪费。新人爱滥用单例，容易把代码改成"全局变量伪装"，能不用尽量少用。多线程下还要处理双重检查锁定。
+  example: Logger 做成单例，全 App 共用一个实例写日志。
+
+- term: 观察者模式
+  aliases: [observer, observer pattern, pub-sub pattern, 发布订阅模式]
+  category: devterm
+  literal: Observer pattern
+  meaning: 想象订阅微信公众号——你不主动去查"博主更新没"，博主发文你就收到推送。代码里"被观察者"状态变了主动通知所有"观察者"。Vue 的响应式系统、JS 的 addEventListener、消息队列 pub-sub 全是观察者模式的实现。前端"响应式编程"底层就靠这。
+  example: 购物车数量变了，用观察者模式通知顶部图标和悬浮窗一起更新。
+
+- term: 装饰器模式
+  aliases: [decorator pattern, Decorator 模式]
+  category: devterm
+  literal: Decorator pattern
+  meaning: 给对象"套外壳"加功能、不改原代码——和语言层的 @decorator 同名但不完全一回事。比如咖啡店 Coffee → MilkCoffee → SugarMilkCoffee 一层层包装。Java IO 流是教科书例子：`BufferedReader(FileReader(...))` 一层一层套。和继承比更灵活，能运行时动态组合。
+  example: 给 HTTP 请求用装饰器模式串接日志、重试、限流三层，每层独立可拔。
+
+- term: 适配器模式
+  aliases: [adapter, adapter pattern, wrapper pattern, 适配器]
+  category: devterm
+  literal: Adapter pattern
+  meaning: 字面就是"转换头"——欧标插头插中国插座要个转换器，那玩意儿就是适配器。代码场景：你想用新接口、手头只有旧接口的库；写一个 adapter 在中间把调用翻译过去。集成第三方 SDK、对接老系统全靠这模式。
+  example: 集成支付宝旧 SDK 时写个 PayAdapter，对外暴露公司统一的 Payment 接口。
+
+- term: 代理模式
+  aliases: [proxy pattern, 代理]
+  category: devterm
+  literal: Proxy pattern
+  meaning: 中间人——调用方以为在直接调真对象，其实先经过代理。代理可以在调用前后加事儿：权限校验、缓存、懒加载、远程调用包装。Spring AOP、Java 动态代理、ORM 的懒加载 entity 都是代理模式的应用。
+  example: 用代理模式给 Service 自动加事务管理，业务代码不用写 begin/commit。
+
+- term: 模板方法
+  aliases: [template method, template method pattern, 模板方法模式]
+  category: devterm
+  literal: Template Method
+  meaning: 父类把"整体流程骨架"写死，子类只填几个空。想象做菜流程"洗菜→切→炒→装盘"父类定好，每步具体怎么做交给子类（番茄炒蛋类 vs 鱼香肉丝类各自实现"炒"）。JUnit 的 setUp/test/tearDown 就是模板方法的代表。
+  example: 数据导入做成模板方法，CSV/JSON 子类只实现"解析"那一步。
+
+- term: 责任链
+  aliases: [chain of responsibility, 责任链模式]
+  category: devterm
+  literal: Chain of Responsibility
+  meaning: 把请求依次传给一串处理者——每个处理者要么处理掉、要么传给下一个。想象公司报销审批：组长→经理→总监→CFO，谁有权批就批了、没权就往上送。Express/Koa 的 middleware、Servlet 的 filter chain、日志库的 handler 链都是责任链模式。
+  example: 风控用责任链：先黑名单→再频次→再金额→放行或拒绝。
+
+- term: 命令模式
+  aliases: [command pattern, Command 模式]
+  category: devterm
+  literal: Command pattern
+  meaning: 把"一个操作"封装成对象——能存能传能撤销。想象 Word 的"撤销"——每次编辑被存成一个 Command 对象塞栈里，Ctrl+Z 弹出来回放反向。游戏按键映射、宏录制、事务回滚都是命令模式。
+  example: 编辑器用命令模式，每个操作可撤销可重做。
+
+- term: 状态模式
+  aliases: [state pattern, 状态机模式]
+  category: devterm
+  literal: State pattern
+  meaning: 对象内部状态变了行为也跟着变——但不用一堆 if/switch。想象订单状态：未支付→已支付→已发货→已完成，每个状态能干的事不同（只有"已发货"才能"确认收货"）。把每个状态做成独立类，对象持有当前状态、状态自己决定下一步。
+  example: 订单生命周期用状态模式，新加"售后"状态只新增一个类。
+
+- term: 建造者模式
+  aliases: [builder, builder pattern, Builder 模式]
+  category: devterm
+  literal: Builder pattern
+  meaning: 构造对象参数太多/可选项太多时，用链式 API 一步步搭。想象点 Subway 三明治：选面包→选肉→选蔬菜→选酱，每步独立、顺序自由、最后一句 `build()` 出餐。Java 的 StringBuilder、Lombok 的 @Builder、HTTP client 的 request builder 都是这模式。
+  example: 用 builder 构造 HTTP 请求：`Request.builder().url(...).header(...).body(...).build()`。
+
+- term: 迭代器模式
+  aliases: [iterator pattern, Iterator 模式]
+  category: devterm
+  literal: Iterator pattern
+  meaning: 给容器提供一个"挨个遍历"的统一接口——不暴露内部结构。for-each 循环、Python 的 `for x in xs`、JS 的 `Symbol.iterator` 背后都是迭代器模式。让数组、链表、树这些不同容器都能用同一种 for 语法走。
+  example: 自定义集合实现 Iterable 接口，业务代码就能直接用 for-each 遍历。
+
+- term: 外观模式
+  aliases: [facade, facade pattern]
+  category: devterm
+  literal: Facade pattern
+  meaning: 给一团复杂的子系统包一个"统一前台"——调用方只看到简单门面、不知道内部多少模块。想象去政务大厅办事：一个窗口受理，背后协调税务/工商/民政各部门。SDK 通常就是 facade：里面 N 个内部组件，对外只露一个 init() 和几个高层 API。
+  example: 给底层音视频库写个 facade，业务只调 play()/pause()，不管解码细节。
+
+- term: 桥接模式
+  aliases: [bridge pattern, Bridge 模式]
+  category: devterm
+  literal: Bridge pattern
+  meaning: 把"抽象"和"实现"两条变化维度拆开——避免子类爆炸。想象笔×颜色组合：圆珠笔/钢笔/铅笔 × 红/蓝/黑，按继承是 9 个类，桥接拆成"笔"和"颜色"两条线，独立扩展。跨平台 UI、不同数据库后端常用这模式。
+  example: 通知模块用桥接：消息类型 × 发送渠道独立扩展，不会子类炸。
+
+- term: 组合模式
+  aliases: [composite pattern, Composite 模式]
+  category: devterm
+  literal: Composite pattern
+  meaning: 把"单个"和"一组"用同一种接口对待——树结构标配。文件系统就是经典例子：单文件和文件夹都实现 size()，文件夹的 size() 递归累加孩子。UI 树、组织架构图、菜单也都是组合模式。
+  example: 公司组织树用组合模式，员工和部门都实现 getHeadcount()。
+
+- term: 访问者模式
+  aliases: [visitor pattern, Visitor 模式]
+  category: devterm
+  literal: Visitor pattern
+  meaning: 在不改类结构的前提下、对一棵对象树做各种操作——把"操作"做成 visitor 类，遍历时让节点 `accept(visitor)`。AST 操作（编译器、Lint、代码格式化）几乎全用 visitor。模式偏复杂、新人慎用，但树深、操作多的场景非常合适。
+  example: ESLint 用 visitor 遍历 AST，每条规则是一个 visitor。
+
+- term: 享元模式
+  aliases: [flyweight, flyweight pattern]
+  category: devterm
+  literal: Flyweight pattern
+  meaning: 大量相似对象共享同一份"内部状态"，节省内存。例子：文档里成千上万个字符，每个字符对象只存"位置"，"字形/字体"指向共享的同一份数据。游戏里同种敌人、地图里同种瓦片也常用。Java 的 Integer 缓存 [-128,127] 是教科书例子。
+  example: 编辑器用享元模式：1 万字符共享同一份字体数据，内存省 80%。
+
+- term: 原型模式
+  aliases: [prototype pattern, 克隆模式]
+  category: devterm
+  literal: Prototype pattern
+  meaning: 通过"克隆现有对象"来创建新对象，而不是 new。JS 整门语言本身就是原型继承（参见 [[prototype]]）。场景：对象构造很贵但状态可复用——克隆比从头构造省事。Java 的 `Object.clone()`、深拷贝/浅拷贝讨论都源于这。
+  example: 模板订单用原型模式克隆，改两个字段就成新订单。
+
+# --- batch X: 正则表达式细节 + 回溯陷阱 ---
+
+- term: 正则验证
+  aliases: [regex validation, 正则校验, 表单正则]
+  category: devterm
+  literal: regex validation
+  meaning: 用正则表达式判断字符串"长得对不对"——前端验邮箱/手机号、后端验入参格式、配置文件 schema 校验。优点：一行代码顶 100 行 if-else。缺点：复杂正则难维护、写不好会触发[[回溯陷阱]]性能打满。能用现成库（validator.js、joi、Pydantic）就别手撸。
+  example: 注册表单用 `^\d{11}$` 做手机号正则验证。
+
+- term: 回溯陷阱
+  aliases: [catastrophic backtracking, 灾难性回溯, 正则回溯, regex backtracking]
+  category: devterm
+  literal: catastrophic backtracking
+  meaning: 正则引擎匹配不上时会"回头试别的可能"，某些写法在最坏情况下要试天文数字次组合——一个 50 字符的串能让 CPU 跑几秒甚至几分钟，整个服务直接卡死。常见祸首：嵌套量词如 `(a+)+`、`(.*)*`、`(a|a)*`。生产事故级问题，2019 Cloudflare 全球宕机就是它害的。
+  example: 这条 `^(\w+)*$` 正则一遇长字符串就 CPU 打满——经典回溯陷阱。
+
+- term: ReDoS
+  aliases: [regex DoS, 正则拒绝服务, 正则 DoS 攻击]
+  category: devterm
+  literal: Regular expression Denial of Service
+  meaning: 攻击者构造特殊输入触发[[回溯陷阱]]，让目标服务器 CPU 跑满——一行正则瘫一台服务器。本质是 DoS 攻击的一种、但门槛极低（一条 POST 就行）。防御：用线性时间引擎（Go RE2、Rust regex）、给正则设超时、用 safe-regex 之类工具扫代码里的危险正则。
+  example: 用户输入触发 ReDoS，单条请求让 API 节点 CPU 100% 持续 30 秒。
+
+- term: 贪婪匹配
+  aliases: [greedy match, greedy matching, 贪婪模式]
+  category: devterm
+  literal: greedy match
+  meaning: 量词（`*` `+` `?` `{n,m}`）默认尽量多吃——能匹 10 个字符就不匹 9 个。`a.*b` 匹 "axxbxxb" 时吃到最后一个 b。结果常和预期反——想截到第一个 b，得用[[懒惰匹配]] `a.*?b`。
+  example: '`<.*>` 在 `<a><b>` 上匹到整个串——典型贪婪坑。'
+
+- term: 懒惰匹配
+  aliases: [lazy match, non-greedy, 非贪婪匹配, 最小匹配]
+  category: devterm
+  literal: lazy / non-greedy match
+  meaning: 量词后加 `?` 变懒——能少吃就少吃，遇到第一个满足条件就停。`a.*?b` 匹 "axxbxxb" 只到第一个 b。提取 HTML 标签、JSON 字段时离不开。注意：懒惰不等于性能好，回溯次数可能更多。
+  example: 用 `<.*?>` 匹配单个 HTML 标签，不会一吃到底。
+
+- term: 捕获组
+  aliases: [capture group, capturing group, 分组捕获, 正则分组]
+  category: devterm
+  literal: capture group
+  meaning: 正则里用 `()` 包起来的部分会被"捕获"——匹配成功后能用 `$1`/`$2` 或 `group(1)`/`group(2)` 拿到那段。提取字符串里的关键片段（日期里的年/月/日、URL 里的域名、错误日志里的 ID）全靠捕获组。
+  example: '`(\d{4})-(\d{2})-(\d{2})` 匹 "2026-05-14"，三个捕获组分别是年月日。'
+
+- term: 非捕获组
+  aliases: [non-capturing group, 不捕获分组]
+  category: devterm
+  literal: non-capturing group
+  meaning: '`(?:...)` 只分组不捕获——表达"这堆东西算一组"但不占编号、不消耗捕获寄存器。好处：不浪费捕获、性能更好、后续编号不乱。`(?:https?)://` 把 http/https 当一组处理，不需要后面再引用。'
+  example: '`(?:abc|def)+` 用非捕获组，重复匹 abc/def，不占捕获位。'
+
+- term: 前瞻
+  aliases: [lookahead, 正向先行, 先行断言, 预查]
+  category: devterm
+  literal: lookahead
+  meaning: 正则的"偷看下一格"——`(?=...)` 要求后面是某模式但不吃掉。例："密码至少 8 位且含数字"= `(?=.*\d).{8,}`，前瞻断言"含数字"、主表达式只管长度。否定前瞻 `(?!...)` 反过来：后面别是某模式。
+  example: 用 `\d+(?=元)` 提取金额数字，不把"元"字一起吃。
+
+- term: 后顾
+  aliases: [lookbehind, 后行断言, 反向先行]
+  category: devterm
+  literal: lookbehind
+  meaning: 和[[前瞻]]配对——`(?<=...)` 要求前面是某模式但不吃。例：`(?<=\$)\d+` 提美元金额数字、不要 `$`。否定后顾 `(?<!...)` 反过来。JS 较新版本（ES2018+）才支持，Java/Python/PCRE 老牌支持。
+  example: 用 `(?<=user_)\w+` 提 "user_123" 里的 "123"，不带前缀。
+
+- term: 正则锚点
+  aliases: [regex anchor, regex anchors, 正则边界]
+  category: devterm
+  literal: regex anchor
+  meaning: 正则里不匹字符、只匹"位置"的符号。`^` 行首、`$` 行尾、`\b` 单词边界、`\B` 非单词边界、`\A`/`\z` 文本首尾。验"整串匹配"必加 `^...$`，否则 "abc123def" 在 `\d+` 下也能"匹中"。和黑话里"价格锚点"完全两回事。
+  example: 验整数加锚点 `^-?\d+$`，否则空字符串、含字母的串也会过。
+
+- term: 字符类
+  aliases: [character class, 字符集, char class]
+  category: devterm
+  literal: character class
+  meaning: 正则里用 `[...]` 表示"任选一个字符"——`[abc]` 匹 a/b/c 之一、`[a-z]` 匹任意小写字母、`[^0-9]` 匹非数字。预定义类：`\d`=`[0-9]`、`\w`=`[A-Za-z0-9_]`、`\s`=空白字符。新手最容易写错的：`[.]` 里面的点是字面点、不是元字符。
+  example: '`[A-Za-z0-9_]+` 匹合法标识符——典型字符类用法。'
+
+- term: 量词
+  aliases: [quantifier, regex quantifier, 重复符]
+  category: devterm
+  literal: quantifier
+  meaning: 控制"重复多少次"的符号——`*`（0+）、`+`（1+）、`?`（0 或 1）、`{n}`（恰好 n 次）、`{n,m}`（n 到 m 次）。配合贪婪/懒惰决定吃多吃少。嵌套量词最容易踩[[回溯陷阱]]，写之前先想"会不会回溯爆炸"。
+  example: '`\d{6,8}` 匹 6 到 8 位数字——常见量词写法。'
+
+- term: 反向引用
+  aliases: [backreference, back-reference, 引用前组]
+  category: devterm
+  literal: backreference
+  meaning: 在同一条正则后面引用前面捕获组的内容——`(.)\1` 匹"两个相同字符"如 "aa"/"bb"。能识别 HTML 配对标签、检测重复单词。代价：让回溯加剧、性能差、Go RE2 不支持（因为破坏线性时间保证）。
+  example: '`<(\w+)>.*?</\1>` 用反向引用确保闭合标签名一致。'
+
+- term: 元字符
+  aliases: [metacharacter, regex metacharacter, 正则特殊字符]
+  category: devterm
+  literal: metacharacter
+  meaning: 正则里有特殊意义的字符——`. ^ $ * + ? ( ) [ ] { } | \`。想"字面匹配"得反斜杠转义：匹真正的点用 `\.`。新手最常翻车：忘转义 `.`，结果 "a.b" 的正则把 "aXb" 也匹中了。绝大多数库提供 `regex.escape()` 自动转义。
+  example: 匹文件后缀写 `\.png$`，不是 `.png$`，否则 "apng" 也匹中。
+
+# --- batch X: 数据质量 / 脏数据 / 数据治理 ---
+
+- term: 脏数据
+  aliases: [dirty data, 烂数据, 不干净数据]
+  category: devterm
+  literal: dirty data
+  meaning: 不该出现却出现了的数据——格式错的（手机号 12 位）、值无效的（年龄 -5）、重复的、过期的、字符编码乱码的、缺字段的、单位不一致的（"元" vs "分"）。数据团队 80% 时间在洗脏数据。源头通常是：用户乱输、爬虫抓错、接口变更、迁库漏字段。脏数据进了模型 = 模型也脏。
+  example: 用户表里几万条 email 字段是字符串 "null"——典型脏数据，要清洗。
+
+- term: 数据清洗
+  aliases: [data cleaning, data cleansing, ETL 清洗, 洗数据]
+  category: devterm
+  literal: data cleaning
+  meaning: 把[[脏数据]]修正/剔除/补全的过程——去重、填缺失、归一化（"北京"="Beijing"="bj" 合一）、纠错（"1991-13-32" 丢弃）。数据科学家正式建模前的第一道工序，常占整个项目 60-80% 时间。"Garbage in, garbage out" 不是开玩笑。
+  example: 这份用户表先做数据清洗：手机号去空格、邮箱小写、生日格式统一。
+
+- term: 缺失值
+  aliases: [missing value, missing values, NaN, null 值, 空值]
+  category: devterm
+  literal: missing value
+  meaning: 该有值却空着的字段——用户没填、传感器掉线、接口超时没返回。处理策略：删除（行少、缺失多就删）、填充（用均值/中位数/上一条/默认值补）、特殊标记（NaN/None）。模型对缺失值敏感，不处理会直接报错或学歪。
+  example: 这列 30% 是缺失值，直接填中位数会拉偏分布，建模前讨论补法。
+
+- term: 异常值
+  aliases: [outlier, outliers, 离群值, 离群点]
+  category: devterm
+  literal: outlier
+  meaning: 偏离整体分布很远的数据点——大部分用户消费 100 元/月，突然来个 100 万的。可能是真值（土豪用户）、可能是脏数据（多打了俩 0）、可能是攻击（刷单/薅羊毛）。处理前必须先判断"哪种异常"，盲目剔除会丢真信号。
+  example: 检测到一笔 990 万订单，先确认是大客户还是异常值再决定要不要剔除。
+
+- term: 数据校验
+  aliases: [data validation, 数据验证, schema 校验, 入参校验]
+  category: devterm
+  literal: data validation
+  meaning: 数据入库/进流程前先按规则验一遍——类型对不对、必填字段有没有、值在合法范围内、和别的字段一致吗。前端校验防用户手滑、后端校验防恶意请求和上游脏数据。常用工具：JSON Schema、Pydantic、Joi、Zod、Great Expectations。"前端校验永远不可信"是基本盘。
+  example: API 入参用 Pydantic 做数据校验，缺一个字段直接 422 拒掉。
+
+- term: 数据治理
+  aliases: [data governance, 数据资产治理]
+  category: devterm
+  literal: data governance
+  meaning: 「数据资产怎么管」的整套体系——谁有权访问、字段含义在哪查、质量怎么监控、生命周期多长、出问题谁负责。大公司有专门的数据治理团队。「数据中台」火过那阵基本都在搞治理。做好了能让"哪张表能用、字段啥意思"不再靠口口相传。
+  example: 公司启动数据治理项目，先盘点所有库表、建数据字典。
+
+- term: 数据血缘
+  aliases: [data lineage, 血缘分析, 表血缘]
+  category: devterm
+  literal: data lineage
+  meaning: 一份数据"从哪儿来、流到哪儿去"的全链路图谱——这张表是哪几张上游表 JOIN 出来的、又被哪些下游报表/模型消费。改个字段前看血缘能知道会炸哪些下游。数据治理核心能力之一，DataHub、OpenLineage、Apache Atlas 是常用工具。
+  example: 改 user_id 类型前先看血缘图，下游 12 张表都要同步改。
+
+# --- batch X: 流量打满 / 性能饱和 / 压测 ---
+
+- term: 打满
+  aliases: [打到 100%, 占满]
+  category: devterm
+  meaning: 某项资源用到上限——"CPU 打满"=100% 利用率、"带宽打满"=链路饱和、"连接池打满"=没有空闲连接、"GPU 打满"=显存或算力顶死。一般是危险信号：再来一点请求就排队/超时/雪崩。和 [[拉满]] 字面接近但语境不同：打满偏负向（被挤爆/不健康），拉满偏正向（拉到顶配/努力到极致）。
+  example: 大促首小时 DB 连接池打满，新请求全部排队报 timeout。
+
+- term: 跑满
+  aliases: [running at max, 满负荷]
+  category: devterm
+  meaning: 同[[打满]]——资源利用率到顶。常用法："CPU 跑满了"、"GPU 跑满"、"网卡跑满"。语境多数描述事实（"机器在跑满"），未必带情绪色彩，但持续跑满 = 该扩容了。"短时跑满 OK，长时跑满迟早出事"是 SRE 通识。
+  example: 推理服务高峰 GPU 跑满，平均利用率 95%，得加卡。
+
+- term: 打爆
+  aliases: [挤爆, 冲爆, 撑爆, overload]
+  category: devterm
+  meaning: 流量瞬间把系统挤垮——"DB 被打爆"=数据库扛不住、"缓存被打爆"=缓存击穿/穿透到 DB、"服务被打爆"=直接 502。比[[打满]]更狠：打满是顶在 100% 还在跑、打爆是直接挂/拒服务。常见原因：明星离婚、大 V 转发、爬虫、营销活动没限流。
+  example: 微博服务器又被某顶流恋情打爆了——这是常态。
+
+- term: 压测
+  aliases: [stress test, load test, performance test, 性能测试, 压力测试, 负载测试]
+  category: devterm
+  literal: stress / load test
+  meaning: 上线前模拟"超高流量"打一遍系统——看到底能扛多少 QPS、什么时候开始变慢、什么时候挂。常用工具：JMeter、wrk、k6、Locust、ab。变种：load test（持续负载）、spike test（流量尖刺）、soak test（长时间烤机）。大促/春晚/直播首发前必做项。
+  example: 双 11 前压测得出系统瓶颈是 DB，提前扩了 5 倍只读库。
+
+- term: 高水位
+  aliases: [high watermark, HWM, 高位线, 高水位线]
+  category: devterm
+  literal: high watermark
+  meaning: 资源使用率的"警戒线"——通常 70-80%。一过高水位就该报警、扩容、降级；继续涨过 90% 离挂不远了。容量规划核心概念："留多少 buffer"=高水位以下的安全区。Kafka、HDFS、磁盘监控都用这词。
+  example: 磁盘高水位设 80%，到了自动扩盘 + 通知 SRE。
+
+- term: 水位线
+  aliases: [watermark, stream watermark]
+  category: devterm
+  literal: watermark
+  meaning: 系统里某个"进度标记"——流式计算里指"已处理到哪个时间点"，超过水位线的迟到数据可以丢；存储里指"提交到哪条 offset"。Flink/Kafka/数据库 WAL 都有水位线概念。和[[高水位]]不是一回事：这里是进度标记、那个是阈值线，新手很容易混。
+  example: Flink 水位线推进太慢，迟到数据被大量丢弃。
+
+- term: 饱和度
+  aliases: [saturation, system saturation, 资源饱和度]
+  category: devterm
+  literal: saturation
+  meaning: Google SRE Golden Signals 四件套之一（其余：流量/错误/延迟）——衡量资源"还有多少余量"。CPU 饱和度 = CPU 已用百分比、队列饱和度 = 队列已占空间百分比。和 utilization（利用率）接近，但 saturation 更强调"快撑不住了"的迫近感。
+  example: 队列饱和度持续 95%+，再来一波就要丢消息。
+
+- term: 顶峰
+  aliases: [peak, peak load, 峰值, 流量高峰, 峰值流量]
+  category: devterm
+  literal: peak
+  meaning: 某指标一天/一周/一年里最高那一刻。"日间顶峰"=白天最忙时段、"年度顶峰"=双 11/春节/春晚口播。容量规划就是按顶峰算的，"按 3 倍顶峰预留"是惯例。和均值差距越大的业务越难搞——电商、外卖、出行、票务典型。
+  example: 外卖订单顶峰在中午 12 点和晚上 7 点，其他时段流量只有 1/5。
+
+# --- batch X: Rust 生态（语言已在 system.yaml） ---
+
+- term: Cargo
+  aliases: [cargo, Rust cargo, cargo 包管理]
+  category: devterm
+  literal: Cargo
+  meaning: Rust 官方的"包管理器+构建工具+测试运行器"三合一——`cargo build` 编译、`cargo test` 跑测试、`cargo run` 执行、`cargo publish` 发布到 crates.io。npm + webpack + jest 在 Rust 里是一个 cargo 全搞定。Rust 工具链体验好的一大功臣。
+  example: 新项目 `cargo new myapp` 一行起步，依赖在 Cargo.toml 里加。
+
+- term: crate
+  aliases: [Rust crate, crates.io, 板条箱]
+  category: devterm
+  literal: crate
+  meaning: Rust 里的"包/库"概念——一个 crate = 一个可发布单元。crates.io 是官方仓库（相当于 npm registry / PyPI）。"加个 serde crate"就是加个序列化库。命名来源是"装东西的木箱"，呼应 [[Cargo]]（货物）。
+  example: 网络请求加 `reqwest` crate，几行代码就能发 HTTP 请求。
+
+- term: 所有权
+  aliases: [ownership, Rust ownership]
+  category: devterm
+  literal: ownership
+  meaning: Rust 内存安全的核心机制——每个值有唯一的"主人"，主人离开作用域值就被自动释放，不需要 GC 也不会内存泄漏。变量"赋值"默认是 move（所有权转移），不是复制——很多新人在这卡好久。理解 ownership 才算入门 Rust。
+  example: '`let b = a;` 之后 `a` 不能再用，所有权已转移给 b。'
+
+- term: 借用检查器
+  aliases: [borrow checker, Rust borrow checker, 借用检查]
+  category: devterm
+  literal: borrow checker
+  meaning: Rust 编译器的"内存警察"——编译期检查所有引用是否合法（不悬挂、读写不冲突、生命周期对得上）。它会拒绝大量在 C/C++ 里能编过但运行时崩的代码。新人写 Rust 常和借用检查器吵架（"fighting the borrow checker"），熟了才发现它救命。
+  example: 这段代码同时有可变和不可变借用，被借用检查器骂了。
+
+- term: 生命周期
+  aliases: [lifetime, Rust lifetime, 生命周期参数]
+  category: devterm
+  literal: lifetime
+  meaning: Rust 里给引用打"有效期标签"的机制——`&'a T` 里那个 `'a` 就是生命周期。编译器靠它判断"这个引用别比它指向的数据活得久"。多数时候编译器能自动推断，复杂场景才要手写标注。和[[EOL|End Of Life]]那个"产品生命周期结束"完全两码事。
+  example: "函数签名 `fn longest<'a>(x: &'a str, y: &'a str) -> &'a str` 显式标 lifetime。"
+
+- term: unsafe Rust
+  aliases: [unsafe, unsafe 块, unsafe block]
+  category: devterm
+  literal: unsafe Rust
+  meaning: Rust 里的"我自负盈亏"块——`unsafe { ... }` 内可以解引用裸指针、调 FFI、修可变全局变量等绕过安全检查的操作。不是"关掉所有保护"，只是"五件事可以做"。和 C 互操作、写极致优化、操作系统/驱动开发离不开它。Rust 圈共识：最小化 unsafe 范围、把它包成安全 API。
+  example: 调 C 库 `libsodium` 必须包 unsafe block 处理裸指针。
+
+# --- batch X: WebAssembly 生态（.wasm 文件后缀见上面） ---
+
+- term: WebAssembly
+  aliases: [Wasm, wasm 技术, web assembly]
+  category: devterm
+  literal: WebAssembly
+  meaning: 浏览器里跑的"二进制字节码"——让 C/C++/Rust/Go 编译后在浏览器接近原生速度执行。比 JS 快很多，适合游戏、视频处理、CAD、加解密这类重计算场景。逐步扩展到服务端、边缘函数、插件系统（Envoy、Istio、Docker、Cloudflare Workers）。文件后缀 `.wasm`，文本格式 `.wat`。
+  example: Figma 把 C++ 渲染引擎编译成 WebAssembly，浏览器里画图丝滑。
+
+- term: WASI
+  aliases: [WebAssembly System Interface, wasi]
+  category: devterm
+  literal: WebAssembly System Interface
+  meaning: 让 WebAssembly 在浏览器外（服务端、CLI、嵌入式）也能跑的"系统接口标准"——给 wasm 模块定义"怎么读文件、开网络、看时间"这些 OS 能力。有了 WASI，wasm 真正能当"通用沙箱字节码"——Docker 创始人原话："如果 2008 年有 wasm+WASI，就不会有 Docker。"
+  example: Wasmtime/Wasmer 这类运行时支持 WASI，wasm 模块能当独立 CLI 跑。
+
+- term: wasm-bindgen
+  aliases: [wasm bindgen, Rust wasm-bindgen]
+  category: devterm
+  literal: wasm-bindgen
+  meaning: Rust 和 JavaScript 之间的"翻译官"——让 Rust 编出的 wasm 模块能被 JS 直接调用、也能反过来调 JS。处理字符串/对象/Promise 跨边界传递的脏活全包了。Rust + WebAssembly 做前端集成离不开它。
+  example: 用 wasm-bindgen 把 Rust 函数暴露给 JS，前端直接 import 就能调。
+
+- term: Emscripten
+  aliases: [emscripten, emcc]
+  category: devterm
+  literal: Emscripten
+  meaning: 把 C/C++ 代码编译成 WebAssembly（也能编译成 asm.js）的工具链——基于 LLVM。Unity WebGL、AutoCAD Web、SQLite WASM、FFmpeg.wasm 都是 Emscripten 编出来的。比 wasm 本身还早，是浏览器跑 native 代码的奠基者。
+  example: 用 Emscripten 把开源 C 库编成 wasm，浏览器里直接调。
+
+- term: WAT
+  aliases: [WebAssembly Text, wat 格式, .wat]
+  category: devterm
+  literal: WebAssembly Text format
+  meaning: WebAssembly 的"人类可读文本格式"——和二进制 `.wasm` 对应、文件后缀 `.wat`。S 表达式写法（一堆括号像 Lisp）。日常很少手写、主要用来调试或学习——能看清 wasm 模块里到底是哪些指令。
+  example: 把 .wasm 反编译成 .wat 看看编译器到底生成了什么。
+
+# --- batch X: 数据库锁与索引细节 ---
+
+- term: 行锁
+  aliases: [row lock, 记录锁]
+  category: devterm
+  literal: row lock
+  meaning: 数据库只锁住要改的那一行，其他行别人照常读写——并发度最高的锁粒度。InnoDB 默认就是行锁。代价是开销大（要维护很多锁对象）、还可能升级成[[间隙锁]]甚至[[表锁]]。
+  example: UPDATE 一行加行锁，同时改隔壁行的事务完全不受影响。
+
+- term: 表锁
+  aliases: [table lock]
+  category: devterm
+  literal: table lock
+  meaning: 锁住整张表——所有改操作排队。开销小但并发差，大表上锁全员等。MyISAM 默认表锁、InnoDB 行锁失效时也会退化成表锁。DDL（ALTER TABLE）通常隐式加表锁，凌晨发版的常见原因。
+  example: 这条 SQL 没走索引，行锁升级成表锁，把整库写入卡死。
+
+- term: 间隙锁
+  aliases: [gap lock, 区间锁]
+  category: devterm
+  literal: gap lock
+  meaning: 锁的不是某一行、而是"两行之间的空隙"——防止你查到结果之后别人 INSERT 新行造成[[幻读]]。InnoDB 在 RR 隔离级别下自动加。坑：范围 UPDATE 容易锁住大段区间导致死锁，新人查 binlog 才看明白咋锁的。
+  example: WHERE id > 100 加间隙锁，结果新人插 id=101 的行卡死。
+
+- term: 主从延迟
+  aliases: [replication lag, 主从同步延迟, slave lag]
+  category: devterm
+  literal: replication lag
+  meaning: 主库写了之后、从库还没来得及同步上——这段时间差。读写分离架构的固有问题：你刚下单转到订单详情页（走从库读），看到"订单不存在"。生产环境一般 <1s，但大事务、网络抖动能拉到几十秒。秒杀场景必须强制读主库绕开延迟。
+  example: 用户改昵称立刻刷新还是旧的——典型主从延迟。
+
+- term: 唯一索引
+  aliases: [unique index, unique key]
+  category: devterm
+  literal: unique index
+  meaning: 既加速查询又保证"这列值不重复"的索引——插入重复值直接报错。手机号、邮箱、订单号字段常加。和[[主键]]区别：主键只能一个、唯一索引可以多个；主键不可为 NULL、唯一索引允许 NULL（且多个 NULL 不冲突）。
+  example: email 加唯一索引，应用层不用再查一遍是否已存在。
+
+- term: 全表扫描
+  aliases: [full table scan, table scan, 扫表]
+  category: devterm
+  literal: full table scan
+  meaning: 数据库逐行扫描整张表找你要的数据——没用上任何索引。小表无所谓、大表灾难（千万行扫一遍几秒到几分钟）。EXPLAIN 看到 type=ALL 就是全表扫描，DBA 看到要发火。原因通常是：忘加索引、SQL 写法让索引失效、统计信息过期。
+  example: 这条慢查询走了全表扫描，加个复合索引立刻从 8 秒降到 5 毫秒。
+
+- term: JOIN
+  aliases: [join, 联表查询, 连表查询, 关联查询]
+  category: devterm
+  literal: JOIN
+  meaning: 把两张/多张表"拼"在一起查——按某个共同字段对齐。订单表 JOIN 用户表= "每条订单连上对应用户名"。类型：INNER（取交集）、LEFT（左表全留）、RIGHT、FULL OUTER。复杂 JOIN 是慢查询大户，DBA 噩梦之一。
+  example: 这条 SQL JOIN 了 5 张表，性能差，先拆成两次查询再代码 JOIN。
+
+- term: 子查询
+  aliases: [subquery, 嵌套查询]
+  category: devterm
+  literal: subquery
+  meaning: 一条 SQL 里嵌一条 SQL——`WHERE id IN (SELECT user_id FROM ...)`。新人爱写、老 DBA 爱改——因为 MySQL 历来对子查询优化不好，大多数能改写成 JOIN 性能翻倍。PostgreSQL 优化器更聪明些。
+  example: 把子查询改写成 JOIN，执行时间从 3 秒变 30 毫秒。
+
+- term: 视图
+  aliases: [view, database view, SQL view]
+  category: devterm
+  literal: view
+  meaning: 「虚拟的表」——本身不存数据，只是一段 SELECT 的别名。让复杂 JOIN/聚合包装成一个"伪表"，业务方当普通表查就行。好处：屏蔽底层结构、做权限控制。坑：物化视图（materialized view）才真存数据；普通视图每次查都重跑底层 SQL。
+  example: 给数据分析师暴露一个用户聚合视图，他们不用了解底层 5 张表。
+
+- term: 存储过程
+  aliases: [stored procedure, SP, proc]
+  category: devterm
+  literal: stored procedure
+  meaning: 存在数据库里的"一段 SQL 函数"——业务方调用 `CALL my_proc(...)` 就执行一堆逻辑。优点：少一次网络往返、批量操作快。缺点：和数据库强绑定、难调试、难版本控制——现代互联网公司基本弃用，业务逻辑回到应用层。老传统行业（银行/电信）还重度依赖。
+  example: 这套老系统里 200 个存储过程，迁云时一个个改成应用代码。
+
+- term: 索引失效
+  aliases: [index invalidation, 索引不生效]
+  category: devterm
+  literal: index invalidation
+  meaning: 加了索引但 SQL 没用上——白加了。常见原因：列上加函数（`WHERE YEAR(date)=2026`）、隐式类型转换（字符串列传数字）、`LIKE '%xx'` 前导模糊、`OR` 一边没索引、`!=` 和 `NOT IN`。EXPLAIN 一看 type=ALL 就是索引失效，要改 SQL 不是改索引。
+  example: WHERE name LIKE '%张' 索引失效，全表扫了 200 万行。
+
+- term: 缓冲池
+  aliases: [buffer pool, InnoDB buffer pool, innodb_buffer_pool]
+  category: devterm
+  literal: buffer pool
+  meaning: 数据库在内存里开的一块"页缓存"——把磁盘上的数据页和索引页加载进来，下次读直接命中内存。InnoDB 性能命脉，配置 `innodb_buffer_pool_size` 通常给到机器内存的 60-80%。命中率 99%+ 才算健康。
+  example: 数据库慢可能是缓冲池太小，老在淘汰热数据。
+
+- term: 长事务
+  aliases: [long transaction, 慢事务]
+  category: devterm
+  literal: long transaction
+  meaning: 一个事务跑了很久还没提交——几秒到几分钟级。后果：占着行锁/间隙锁不放别人等、占着 undo log 让 MVCC 视图链拉长、回滚崩溃恢复时间也长。大坑：业务代码里事务方法套了个慢 HTTP 调用，整个事务挂在那儿。规范：事务里别做远程调用、别做大循环。
+  example: 这个长事务 30 秒没提交，整张表的更新都在等它。
+
+- term: 分布式事务
+  aliases: [distributed transaction, XA]
+  category: devterm
+  literal: distributed transaction
+  meaning: 一个业务操作跨多个数据库/服务、要么全成要么全败——经典难题。解法：[[2PC|两阶段提交]]（慢）、TCC（业务层补偿，复杂）、Saga（一连串本地事务+反向操作回滚）、本地消息表 + MQ（最终一致）。现代互联网公司倾向最终一致而不是强一致。
+  example: 下单扣库存 + 扣账户余额跨库，用 Saga 做分布式事务。
+
+# --- batch X: 缓存进阶（穿透/击穿/雪崩三件套之外） ---
+
+- term: 布隆过滤器
+  aliases: [bloom filter, BF]
+  category: devterm
+  literal: bloom filter
+  meaning: 用很少内存判断"某个 key 一定不存在 或 可能存在"的数据结构——多个哈希函数把 key 映到 bit 数组。会有假阳（说存在其实不存在）但不会假阴。挡[[缓存穿透]]神器：先过 bloom，filter 说不存在的直接拒，不查 DB。Redis、HBase、爬虫去重大量使用。
+  example: 商品 ID bloom filter 挡掉刷不存在 ID 的攻击，DB 压力降了 90%。
+
+- term: 热点 key
+  aliases: [hot key, 热 key]
+  category: devterm
+  literal: hot key
+  meaning: 缓存里某个 key 流量远超其他——单 Redis 节点扛不住。明星动态、限时秒杀、首页 banner 都是热点 key 高发场景。解决方案：本地缓存兜一层（牺牲一致性）、key 加随机后缀分散到多节点、多副本。
+  example: 双 11 大促 banner 是热点 key，单实例 50 万 QPS，加本地缓存救了。
+
+- term: 大 key
+  aliases: [big key, large key, bigkey]
+  category: devterm
+  literal: big key
+  meaning: Redis 单 key 数据特别大——一个 list 几百万元素、一个 hash 几 GB。后果：单次操作阻塞主线程（Redis 单线程）、网络 IO 卡、迁移和过期一删整个实例卡顿。规范：单 value <10KB、集合元素 <5000。要排查的话 `redis-cli --bigkeys` 扫一下。
+  example: 用户消息列表存成一个 list 涨到 200 万元素，典型大 key，得拆。
+
+- term: 缓存预热
+  aliases: [cache warmup, cache preloading, 预热缓存]
+  category: devterm
+  literal: cache warmup
+  meaning: 服务上线/缓存重启前，主动把热数据加载进缓存——避免一开门所有请求穿透到 DB 把它打爆（冷启动雪崩）。常见做法：跑预热脚本扫热门 ID 写一遍缓存、或灰度放流量逐步暖起来。
+  example: Redis 集群重启前先跑缓存预热脚本，把 Top 1 万商品塞进去。
+
+- term: 多级缓存
+  aliases: [multi-level cache, multi-tier cache]
+  category: devterm
+  literal: multi-level cache
+  meaning: 应用进程内本地缓存（Caffeine/Guava）+ 分布式缓存（Redis）+ 数据库——一层不命中查下一层。本地缓存挡热点、分布式缓存挡大头、DB 兜底。代价：一致性变难（本地缓存失效要靠 pub-sub 或短 TTL）。
+  example: 商品详情走多级缓存，99% 请求被本地缓存吃掉，Redis 都很闲。
+
+- term: 缓存一致性
+  aliases: [cache consistency, cache coherence]
+  category: devterm
+  literal: cache consistency
+  meaning: 缓存和数据库怎么保持数据一致——分布式系统老大难。常见策略：Cache Aside（先改 DB 再删缓存）、Write Through（同步双写）、Write Behind（异步写 DB）。完全一致基本做不到、追求"最终一致"。坑点："先删缓存还是先改 DB"老面试题，答案不是非此即彼。
+  example: 库存数据走 Cache Aside + 短 TTL 兜底，接受秒级最终一致性。
+
+- term: 本地缓存
+  aliases: [local cache, in-process cache, 进程内缓存]
+  category: devterm
+  literal: local cache
+  meaning: 缓存数据直接放在应用进程内存里——读不走网络、最快。Caffeine（Java）、Guava Cache、go-cache 常用。缺点：每个实例一份、改了别的实例不知道（一致性差）、占进程内存。适合：低频更新的热数据、纯读场景、配置类数据。
+  example: 国家码字典放本地缓存，TTL 1 小时，零延迟读。
+
+- term: 旁路缓存
+  aliases: [cache aside, cache-aside pattern]
+  category: devterm
+  literal: cache-aside
+  meaning: 最常用的缓存模式——读：先查缓存，没有就查 DB 并写回缓存；写：先改 DB 再删缓存。简单可靠但有短暂不一致窗口（删之前的请求拿到旧值）。"先删缓存还是先改 DB"经典之争，工业界主流是后者+延时双删兜底。
+  example: 商品详情走标准旁路缓存，命中率 95%+。
+
+- term: write-through
+  aliases: [write through, 写穿透]
+  category: devterm
+  literal: write-through
+  meaning: 写数据时同步双写缓存和 DB——保证缓存和 DB 强一致。代价：每次写都两份 IO，吞吐降。和[[旁路缓存]]相反思路。适合：读远多于写、对一致性敏感的场景。
+  example: 用户余额走 write-through，写慢 30% 但保证强一致。
+
+- term: 缓存命中率
+  aliases: [cache hit rate, hit ratio, 命中率]
+  category: devterm
+  literal: cache hit rate
+  meaning: 缓存命中次数 / 总请求数——衡量缓存效果的核心指标。90% 算合格、95%+ 是健康、99%+ 是优秀。命中率低查原因：key 设计差、TTL 太短、淘汰策略不对、容量不够、查询模式分散。Grafana 标配监控指标。
+  example: 这个接口缓存命中率只有 60%，要么 key 设计有问题要么数据本身就稀疏。
+
+# --- batch X: 并发与多线程进阶 ---
+
+- term: ABA 问题
+  aliases: [ABA problem]
+  category: devterm
+  literal: ABA problem
+  meaning: 用 CAS 做并发更新时的"看上去没变其实变过"陷阱——A 改成 B 又改回 A，CAS 检查"还是 A 吗"以为没动、但中间发生过你不知道的事。后果：链表/栈的并发操作可能错误覆盖。解法：加版本号（每次改 +1），Java 的 AtomicStampedReference 就是干这的。
+  example: 用 CAS 改链表节点踩了 ABA 问题，换 AtomicStampedReference 加版本戳解决。
+
+- term: 内存屏障
+  aliases: [memory barrier, memory fence, 内存栅栏]
+  category: devterm
+  literal: memory barrier
+  meaning: CPU 指令——强制"屏障前的读写都完成、再做屏障后的操作"。多核场景下，编译器和 CPU 会自由乱序执行指令以提速，导致线程间看到的顺序不一致。屏障就是显式"这里别乱序"。volatile、synchronized、Atomic 类的实现底层都靠内存屏障。
+  example: 写并发框架要手插内存屏障，业务代码用 volatile 就够。
+
+- term: volatile
+  aliases: [volatile 关键字]
+  category: devterm
+  literal: volatile
+  meaning: Java/C 的关键字——告诉编译器和 CPU"这变量随时可能被别的线程改，每次读都从主存拿、写完立刻刷回主存，且别和它周围的语句乱序"。提供可见性 + 有序性，但不保证原子性（`count++` 仍然不安全）。双重检查锁、状态标志常用。
+  example: 用 volatile 标记 "shutdown" 标志，其他线程读到值就退出。
+
+- term: 伪共享
+  aliases: [false sharing, 假共享]
+  category: devterm
+  literal: false sharing
+  meaning: 两个独立变量恰好落在同一个 CPU 缓存行（64 字节）——一个线程改 A、另一个线程的 B 的缓存被迫失效，性能暴跌。多核高性能并发场景的隐形杀手。Java 用 `@Contended` 注解或填充字段（padding）让变量独占缓存行解决。
+  example: 性能调优发现两个计数器伪共享，加 padding 后吞吐翻了一倍。
+
+- term: 可重入锁
+  aliases: [reentrant lock, ReentrantLock, 递归锁]
+  category: devterm
+  literal: reentrant lock
+  meaning: 同一个线程能反复拿同把锁不死锁——拿一次计数+1、释放一次-1、归零才真正放开。递归调用、嵌套加锁的场景必备。Java 的 synchronized 和 ReentrantLock 都是可重入的，不可重入的锁很容易把自己锁死。
+  example: 递归方法里加锁必须用可重入锁，否则第二层调用直接卡死。
+
+- term: 公平锁
+  aliases: [fair lock, 非公平锁]
+  category: devterm
+  literal: fair lock
+  meaning: 多线程抢锁时按"先到先得"排队的锁——避免线程饿死。代价：公平=慢，每次都要查队列、唤醒指定线程。非公平锁（默认）抢到就用、性能更好但可能让某些线程长期等不到。Java ReentrantLock 构造函数传 true 是公平锁。
+  example: 改成公平锁后吞吐降了 30%，但 P99 延迟稳定多了。
+
+- term: 锁粒度
+  aliases: [lock granularity, lock 粒度]
+  category: devterm
+  literal: lock granularity
+  meaning: 锁保护的范围大小——锁整张表是粗粒度、锁单行是细粒度。粗粒度简单但并发差、细粒度性能好但开销大且容易死锁。优化方向往往是"减小锁粒度"：从锁整段代码 → 锁数据结构 → 锁单个 key → 用无锁结构。
+  example: ConcurrentHashMap 把锁粒度从整表降到每个桶，并发翻了 16 倍。
+
+- term: 线程池
+  aliases: [thread pool, ExecutorService]
+  category: devterm
+  literal: thread pool
+  meaning: 预先创建一批线程"待命"——任务来了从池里拿一个执行、用完归还，避免反复 new/destroy 线程的开销。核心参数：核心线程数、最大线程数、队列、拒绝策略、空闲存活时间。新手最爱用 `Executors.newCachedThreadPool()`——线上事故级别坑（任务多到 OOM）。规范：手撸 ThreadPoolExecutor。
+  example: HTTP 服务用线程池处理请求，最大 200 线程 + 队列 1000，超了拒绝。
+
+- term: 条件变量
+  aliases: [condition variable, condvar, cond]
+  category: devterm
+  literal: condition variable
+  meaning: 多线程协作工具——一个线程 wait 等条件、另一个线程 notify 唤醒它。配合互斥锁使用。Java 的 Object.wait()/notify()、Condition.await()/signal()、C++ 的 std::condition_variable 都是。生产者-消费者模型的标准实现工具。
+  example: 阻塞队列内部用条件变量让 take() 在空时等到 put() 唤醒。
+
+- term: 活锁
+  aliases: [livelock]
+  category: devterm
+  literal: livelock
+  meaning: 死锁的"活泼版"——线程不阻塞但一直互相让/重试、永远做无用功，整体不前进。想象两个人在走廊面对面，A 让到左、B 也让到左，A 又让到右、B 也让到右……永远过不去。重试机制不加随机退避（jitter）容易活锁。
+  example: 两个事务都失败回滚立刻重试，永远同时冲突——典型活锁。
+
+- term: 饥饿
+  aliases: [starvation, thread starvation, 线程饥饿]
+  category: devterm
+  literal: starvation
+  meaning: 某线程一直拿不到资源、永远等下去——通常因为优先级低或锁不公平。和[[死锁]]区别：死锁是大家都不动、饥饿是别人在动只它不动。非公平锁、读写锁里写线程被读流量饿死是经典案例。
+  example: 读多写少场景下，写线程被一堆读锁饿到永远拿不到。
+
+- term: 上下文切换
+  aliases: [context switch, 进程切换, 线程切换]
+  category: devterm
+  literal: context switch
+  meaning: CPU 从一个线程切到另一个——保存当前线程现场（寄存器、栈指针、PC）、加载新线程现场。每次切换几微秒不起眼，但每秒几万次叠加起来就是大头。`vmstat 1` 看 cs 列、`pidstat -w` 看具体进程。线程开太多 = 上下文切换爆炸 = CPU 全在干切换不在干活。
+  example: 监控看到上下文切换每秒 50 万次，线程池开太大了。
+
+- term: happens-before
+  aliases: [HB, 先行发生]
+  category: devterm
+  literal: happens-before
+  meaning: Java 内存模型（JMM）规定的"操作顺序保证"——A happens-before B 意味着 A 的结果对 B 可见且按这个顺序。锁的释放/获取、volatile 的写/读、线程的 start/join 都有 happens-before 关系。理解并发编程绕不开这套规则。
+  example: volatile 写 happens-before 后续读，所以能传递可见性。
+
+- term: Future
+  aliases: [java.util.concurrent.Future, 任务结果句柄]
+  category: devterm
+  literal: Future
+  meaning: 异步任务的"占位符"——你提交任务马上拿到一个 Future，过会儿 `future.get()` 取结果（没好就阻塞等）。和 Promise 同源思想，Java、Scala、C++ 都有。CompletableFuture 是升级版，支持链式回调、组合多个异步结果。
+  example: 并发调 3 个接口拿 3 个 Future，全部完成再合并结果。
+
+- term: ThreadLocal
+  aliases: [thread local, 线程本地变量]
+  category: devterm
+  literal: ThreadLocal
+  meaning: 给每个线程一份独立的"本地变量"——多个线程读写同名变量互不干扰。常见用途：传 trace ID、用户上下文、SimpleDateFormat（非线程安全）。坑：线程池里用完不 remove 会内存泄漏（线程复用、值一直挂着）。
+  example: 用 ThreadLocal 存当前请求的用户 ID，整条调用链直接拿不用层层传参。
+
+- term: 双重检查锁
+  aliases: [DCL, double-checked locking, 双检锁]
+  category: devterm
+  literal: double-checked locking
+  meaning: 单例模式的并发安全写法——`if (instance==null) { synchronized { if (instance==null) instance = new X(); } }`。第一层判空避免每次进同步块。Java 必须加 volatile 防指令重排——否则可能拿到没初始化完的对象。新人最爱抄错版本。
+  example: 单例用双重检查锁，注意加 volatile 防止指令重排。
+
+- term: Redlock
+  aliases: [redis 红锁, 分布式红锁]
+  category: devterm
+  literal: Redlock
+  meaning: Redis 官方提出的分布式锁算法——向多个独立 Redis 实例加锁，过半成功才算拿到。目的是单 Redis 挂了仍然安全。学界（Martin Kleppmann）狠批过其安全性争议，实战中追求强一致用 etcd/Zookeeper 比 Redlock 更靠谱。
+  example: 抢单系统用 Redlock 不放心，最后换 etcd 做分布式锁。
+
+- term: 阻塞队列
+  aliases: [blocking queue, BlockingQueue]
+  category: devterm
+  literal: blocking queue
+  meaning: 满了就让 put 等、空了就让 take 等的队列——生产者消费者模式标配。Java 的 ArrayBlockingQueue/LinkedBlockingQueue/SynchronousQueue 各有定位。线程池的工作队列就是阻塞队列。
+  example: 用阻塞队列做生产消费，消费者天然限速。
+
+- term: ConcurrentHashMap
+  aliases: [CHM, 并发 HashMap]
+  category: devterm
+  literal: ConcurrentHashMap
+  meaning: Java 标配的线程安全 HashMap——通过分段锁（JDK7）或 CAS+synchronized（JDK8）实现高并发读写。比 `Collections.synchronizedMap` 性能高 N 倍。注意：复合操作（`if-absent-then-put`）仍需用 `putIfAbsent`/`compute` 这种原子方法。
+  example: 计数器统计用 ConcurrentHashMap + AtomicLong，全程无锁。

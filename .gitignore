@@ -46,3 +46,6 @@ dict/user.yaml.migrated
 
 # 项目根的临时测试脚本（手动跑的 throwaway，不进仓库）
 _test_*.py
+
+# Claude Code 本机个人配置（团队 skill 在 .claude/skills/ 跟仓库走）
+.claude/settings.local.json
