@@ -1169,3 +1169,19 @@
   literal: HR Director
   meaning: 人力总监——HR 部门的中高管。比 HRBP 高、比 CHRO 低。大厂里 HRD 负责一个 BU 或一个职能（如招聘 HRD）。
   example: HRD 周五开全员宣讲新绩效政策。
+
+# --- batch: 系统/架构缩写补充 ---
+
+- term: TUI
+  aliases: [tui, Terminal UI, terminal ui]
+  category: abbr
+  literal: Terminal User Interface
+  meaning: 想象记事本是 GUI、Vim 是 TUI——一个鼠标点点，一个全靠键盘在终端里用字符画出框框/列表/进度条。TUI 就是命令行里跑的图形界面。htop、k9s、lazygit、Claude Code 都是 TUI。和 GUI 对偶（一个终端字符画、一个桌面像素画）。2024-25 年 TUI 工具复兴：Charmbracelet 的 bubbletea (Go)、Textual (Python)、ratatui (Rust) 让写 TUI 比以前舒服得多。AI 编程工具流行后 TUI 几乎是默认形态——开发者本来就在终端里。
+  example: 这个 AI agent 做成 TUI 比 Web 版顺手，反正天天在终端待着。
+
+- term: SPoF
+  aliases: [spof, SPOF, single point of failure, Single Point of Failure, 单点故障]
+  category: abbr
+  literal: Single Point of Failure
+  meaning: 想象一栋楼只有一根承重柱——柱子一倒整楼塌。SPoF 就是系统里的"那根柱子"：某个组件挂了会导致整个服务不可用。架构 review 的高频关键词，「这个设计有 SPoF 吗」是面试必问。消除手段：冗余（多副本）、failover（主备切换）、分片（多担）。组织流程上的 SPoF 也叫单点兜底——一个环节没复核、事故就是时间问题。Claude Code 那次 .map 泄漏就是流程 SPoF。
+  example: 主数据库只有一台，挂了全瘫——典型 SPoF，赶紧上从库。

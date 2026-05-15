@@ -832,7 +832,7 @@
   example: 一个 500KB 的 JS 文件 minify 后变 80KB，传输快得多。
 
 - term: source map
-  aliases: [sourcemap, .map 文件]
+  aliases: [sourcemap, .map 文件, .map, '*.map']
   category: devterm
   meaning: 压缩后代码像被翻译成了一串密码，浏览器里报错指着 abc.min.js 第 1 行 5000 列谁也读不懂。source map 是一张"密码本"——告诉浏览器"这个 a 对应原文里的 userName，这一行对应你源码第 42 行"。Sentry 这类错误监控全靠它把堆栈翻译回来。
   example: 生产环境出 source map 给 Sentry，线上崩了能定位到原始代码第几行。
@@ -4065,3 +4065,18 @@
   literal: ConcurrentHashMap
   meaning: Java 标配的线程安全 HashMap——通过分段锁（JDK7）或 CAS+synchronized（JDK8）实现高并发读写。比 `Collections.synchronizedMap` 性能高 N 倍。注意：复合操作（`if-absent-then-put`）仍需用 `putIfAbsent`/`compute` 这种原子方法。
   example: 计数器统计用 ConcurrentHashMap + AtomicLong，全程无锁。
+
+# --- batch: 发布与凭证（《组织的回归》补词）---
+
+- term: .npmignore
+  aliases: [npmignore]
+  category: devterm
+  meaning: 想象寄快递的"禁运清单"——化妆品、电池别装进去。.npmignore 就是 npm publish 时的发布忽略名单，类似 .gitignore 但作用域是 npm 发布。如果没写或漏写，源码、source map、本地配置全会被传到 npm 公开包里。坑：项目没 .npmignore 时 npm 会 fallback 用 .gitignore；一旦建了 .npmignore，.gitignore 就被它覆盖，反而容易漏掉本该排除的东西。2026 年 3 月 Anthropic Claude Code 把 1900+ TS 源码连同 *.map 一起发上 npm，根因就是这个文件里没加 *.map。
+  example: 发包前过一遍 .npmignore，确认 `*.map`、`src/`、`.env*` 都在里头。
+
+- term: API Key
+  aliases: [api key, apikey, api-key, API 密钥]
+  category: devterm
+  literal: API Key
+  meaning: 想象进公司大门刷的工卡——上面写着你是谁、能进哪些楼层。API Key 就是调第三方服务的"工卡"。调用 OpenAI / Anthropic / Stripe / AWS 这类 API 时用来鉴权的字符串，通常长这样 `sk-xxxxxxxxxxx`。请求时塞在 HTTP header 或 query 里。泄露 = 钱包跑路：GitHub 公开仓库不小心 commit 一个 OpenAI key，几小时内就会被脚本扫到刷爆账单。约定俗成：放 .env、加 .gitignore、生产用环境变量或 Secret Manager。github 自己也有 secret scanning。
+  example: 实习生把 API Key 直接写死在源码里 push 上去，半夜账单被刷出五千刀。

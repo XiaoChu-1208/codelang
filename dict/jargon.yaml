@@ -1157,3 +1157,10 @@
   category: jargon
   meaning: 全产品所有页面的"视觉风格统一"——按钮长一样、字号系统一致、颜色不乱用。视觉一致性差用户感觉像"几个不同的产品拼凑起来的"。
   example: 这次走查发现按钮有 6 种圆角，视觉一致性差。
+
+- term: tradeoff
+  aliases: [trade-off, trade off, 权衡, 取舍, 权衡取舍]
+  category: jargon
+  literal: trade-off
+  meaning: 想象买手机——便宜 / 续航 / 性能 / 重量，没法同时全要，挑两个就得牺牲两个。tradeoff 就是这种"必须取舍"的处境。技术选型每一步都是 tradeoff：一致性 vs 可用性（CAP）、灵活 vs 性能、上线快 vs 代码质量。"这里有个 tradeoff"是技术评审的高频开场白。工程师面试常问"为什么选 X 不选 Y"——本质考的就是你能不能说清 tradeoff。说不上 tradeoff 等于"没想过 / 抄了结论"。和 silver bullet（银弹/万能解）相对——成熟工程师不信银弹只看 tradeoff。
+  example: 这方案 QPS 高但运维复杂，是个明显的 tradeoff，看你们更怕哪头。

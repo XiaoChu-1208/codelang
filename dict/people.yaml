@@ -263,3 +263,13 @@
   category: people
   meaning: Cursor（Anysphere）CEO、联合创始人——MIT 辍学创业。Cursor 2024-2025 年成 AI 编程工具王者，估值据传几十亿美金。年仅 20 多岁。
   example: Michael Truell 创办 Cursor 时才 22 岁。
+
+# ====================
+# Anthropic
+# ====================
+
+- term: Boris Cherny
+  aliases: [boris cherny, Boris]
+  category: people
+  meaning: Anthropic Claude Code 项目负责人。多次公开说「我对 Claude Code 100% 的贡献都是 Claude Code 自己写的」——这句被无数次引用作为「AI 写自己」的代表 case。2026 年 3 月 Claude Code 源码因 *.map 文件忘了加 .npmignore 而被一并发布到 npm（1900+ TS 文件泄露）时，他给出的官方定性是「plain developer error（普通的开发失误）」。是 Anthropic 内部 AI-Native 工作流 dogfooding 的代表人物，Twitter 上活跃，常发 Claude Code 的开发幕后。
+  example: Boris Cherny 出来认领 Claude Code 那次源码泄漏「就是一次普通的开发失误」。

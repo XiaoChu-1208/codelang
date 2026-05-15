@@ -603,4 +603,11 @@
   meaning: SaaS 销售圣经——先签小单"落地"（land），再通过更多席位/部门/产品做大（expand）。Atlassian/Snowflake/Datadog 都是这套打法。bottom-up SaaS 必备策略。
   example: 这家 land and expand 玩得溜，3 年单客户合同涨 10 倍。
 
+- term: onboarding
+  aliases: [on-boarding, 入职引导, 新手引导, 首次引导, 用户引导]
+  category: product
+  literal: onboarding
+  meaning: 想象去新公司第一天——HR 带你转一圈、办工卡、配电脑、加群、介绍同事。这套流程就是 onboarding。两种语境都常用：1) HR 圈：新员工入职引导；2) 产品圈：新用户首次打开产品到完成关键动作的引导流程（注册 → 验证 → 第一次用到核心功能）。决定首日留存。关键指标：完成率、Aha Moment 到达时间。坑：太长用户烦、太短用户懵。Notion / Linear / Superhuman 的产品 onboarding 是抄都抄不完的范本。AI Agent 产品兴起后，"AI 同事上岗 onboarding"成了新课题——Helio 一进门就是 HR Manager 帮你"招团队"。
+  example: 新版 onboarding 砍了 3 步后首日留存涨了 8 个点。
+
 

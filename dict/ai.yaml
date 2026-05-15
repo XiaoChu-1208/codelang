@@ -728,7 +728,7 @@
   example: 用 Claude Code 让 AI 接管整个 PR 流程，自己读 issue 写代码提 PR。
 
 - term: AI Worker
-  aliases: [AI 员工, AI 工人, AI workforce]
+  aliases: [AI 员工, AI 工人, AI workforce, Workforce, workforce]
   category: devterm
   meaning: 把 AI agent 部署成"虚拟员工"的产品形态——能自动处理客服、邮件、报告。和 chatbot 区别：worker 主动干活而非被动应答。Salesforce 的 Agentforce 是代表。
   example: Salesforce Agentforce 把 AI Worker 直接卖给企业当客服。
@@ -1182,3 +1182,40 @@
   literal: LLM API wrapper
   meaning: 直接调用别人家大模型 API 做产品的贬义说法——"你这不就是套了个 GPT 壳吗"。早期被嘲讽，后来发现套壳得好的（Perplexity / Cursor / Notion AI）反而盈利，比自研大模型公司更早赚钱。"套壳与否"已经不是问题、"套壳套得是否聪明"才是。
   example: 这家"套壳"做了 500 万 ARR，比某些自研大模型公司活得好。
+
+# --- batch: Anthropic 模型族 / AI-Native 工作流（《组织的回归》补词）---
+
+- term: Haiku
+  aliases: [haiku, Claude Haiku, Claude 3 Haiku, Claude 3.5 Haiku, Claude 4 Haiku, Claude 4.5 Haiku]
+  category: ai
+  literal: Claude Haiku
+  meaning: 想象快餐店三档套餐——便宜快、平衡、豪华全家桶。Haiku 是 Anthropic 三档里最小最快最便宜的那档。轻量任务（分类、判断、摘要、路由）用它最划算。Claude Code 的 /goal 机制就用 Haiku 当裁判模型——评估"目标达成与否"这种判断题不值得动用 Sonnet/Opus。名字来自俳句（最短诗体），和 Sonnet（十四行）/ Opus（史诗）三档分明。
+  example: Agent 流水线里用 Haiku 做意图分类，Sonnet 干活，Opus 兜底复杂推理。
+
+- term: Sonnet
+  aliases: [sonnet, Claude Sonnet, Claude 3.5 Sonnet, Claude 3.7 Sonnet, Claude 4 Sonnet, Claude 4.5 Sonnet, Claude 4.6 Sonnet]
+  category: ai
+  literal: Claude Sonnet
+  meaning: Anthropic 三档里的中档——价格不离谱、能力够顶大多数任务，是日常主力。写代码、读长文档、跑 agent 的默认选项。Claude Code 默认模型就是 Sonnet。坊间共识：Sonnet 是 Anthropic 投入调优最多的一档，多次公开评测对标 GPT 头部模型。名字来自十四行诗。
+  example: 公司项目主力用 Sonnet，省钱又能打，搞不定的活才切 Opus。
+
+- term: Opus
+  aliases: [opus, Claude Opus, Claude 3 Opus, Claude 4 Opus, Claude 4.5 Opus, Claude 4.7 Opus]
+  category: ai
+  literal: Claude Opus
+  meaning: Anthropic 三档里的顶配——最聪明也最贵，token 单价比 Sonnet 贵几倍。复杂推理、大型代码重构、长链 agent 规划用它。名字来自 Opus（大型作品/史诗）。2025-2026 年 Claude Opus 4.x 系列在代码评测多次刷榜，"愿意花钱就用 Opus"是 AI 工程圈共识。
+  example: 这次大重构切 Opus 一次跑通，花了五刀 token，省了俩小时人工。
+
+- term: DiNOv2
+  aliases: [dinov2, DINOv2, DiNO v2]
+  category: ai
+  literal: self-DIstillation with NO labels v2
+  meaning: 想象有人把一亿张图片喂给模型，让它自己学会"看图能不能找出相似的图"——不告诉它图里是什么。DiNOv2 就这么练出来的视觉特征模型。Meta 2023 年开源的自监督视觉 backbone，给图片输出高维 embedding，做检索/分类/检测的下游任务都好用。有 Small/Base/Large/Giant 多个变种 tradeoff 不同。和 CLIP 区别：CLIP 是图文对齐学的、DiNOv2 是纯视觉自监督。CV 圈做 embedding 默认选项之一。
+  example: 浮窗专利监控用 DiNOv2 抽图像 embedding 做相似检索，比 ResNet 准得多。
+
+- term: AI-Native Workforce
+  aliases: [AI native workforce, AI 员工团队, AI 团队, AI-Native 团队]
+  category: ai
+  literal: AI-Native Workforce
+  meaning: 想象一家公司全员是 AI——每个 AI 有独立邮箱、独立工号、独立记忆、独立岗位档案——这就是 AI-Native Workforce。2025-2026 年新冒出的产品定位（Helio 为代表）：AI 不当"助手"，而是当"同事"。HR Manager、PM、前端、设计师都是独立 AI 角色，有 JD、有审计、彼此能在频道里"吵架"。和 [[AI Worker]] 概念相近但更强调"组织结构原生为 AI 设计"——把人类一百年积累的"职责分离 + 交叉校验"重新装回到 AI 协作里，反对全能 Agent 单点兜底。
+  example: Helio 押的就是 AI-Native Workforce 方向，给你招"团队"而不是给你"配置 agent"。

@@ -1289,3 +1289,10 @@
   meaning: 产品形态是"AI 自主执行多步任务"——和 chat / copilot 区别。Devin、Manus、Claude Code 都是 agent product。AIPM 圈 2024-2025 风口。难点是"靠谱率"——多步累积错误后能完成任务的比例。
   example: 这是个 agent product，用户给目标 AI 自动跑完。
 
+- term: checklist
+  aliases: [check list, 清单, 检查清单, 检查表]
+  category: pm
+  literal: checklist
+  meaning: 想象飞行员起飞前对着清单一项项打勾——不是飞行员不专业，是再专业的人也会漏。checklist 就是把"必做项"列出来挨个勾，避免靠记忆出错。代码 review checklist、PRD checklist、发布上线 checklist 都是 SOP 的落地载体。经典书《清单革命》（The Checklist Manifesto）讲的就是这事：医生手术前过一遍 checklist 能把死亡率降一半。"靠谱"不是脑子记得住、是 checklist 写得全。Claude Code 那次 *.map 泄漏的根因就是 checklist 项漏了一条。
+  example: 上线前过一遍发布 checklist，少打一个勾就可能炸生产。
+

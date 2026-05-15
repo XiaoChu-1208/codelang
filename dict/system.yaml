@@ -616,3 +616,23 @@
   literal: PowerShell
   meaning: 微软 2006 出的现代 shell——核心特色是**对象管道**（不是文本管道）：bash 管道传字符串、PowerShell 管道传 .NET 对象。Verb-Noun 命令风格（`Get-Process`、`Stop-Service`）。2016 起开源跨平台（PowerShell Core / pwsh），Linux/macOS 也能用。Windows 系统管理员的主力工具。
   example: PowerShell `Get-Process | Where CPU -gt 50` 比 bash 写 awk 简洁。
+
+# --- batch: AI 公司专有名词 ---
+
+- term: Anthropic
+  aliases: [anthropic]
+  category: system
+  meaning: Claude 系列模型背后的公司——2021 年由 Dario Amodei、Daniela Amodei 等 OpenAI 前员工创立。主打 AI Safety、Constitutional AI、可解释性研究。Claude Code、MCP 协议、Computer Use、Agent Skills 都是它出的。和 OpenAI 风格差异明显：宣传偏低调、技术博客多、Safety 团队话语权大。2025-2026 估值飙到千亿美金级，被视为 OpenAI 最强对手。坊间戏称为「不让 AI 把人弄死」的那家。
+  example: Anthropic 出的 MCP 协议被各家 AI 都跟着接，事实标准化了。
+
+- term: OpenAI
+  aliases: [openai, open ai]
+  category: system
+  meaning: ChatGPT 那家公司——AI 圈的"老大哥"。2015 年由 Sam Altman、Greg Brockman、Ilya Sutskever 等创立，最初非盈利，后改"有限盈利"。GPT 系列、ChatGPT、DALL·E、Sora、Codex 都是它的。2022 年 ChatGPT 引爆全民 AI 时代。商业上和微软深度绑定（投资 + Azure 独家算力）。2023 年宫斗事件全球瓜——Sam 被董事会开除 5 天后回归。常被 Anthropic、Google DeepMind 追赶但始终在第一梯队。
+  example: OpenAI 又发了个新模型，AI 圈一晚上变天。
+
+- term: Stripe
+  aliases: [stripe]
+  category: system
+  meaning: 想象电商网站需要收信用卡——自己写一遍支付太累。Stripe 是「接几行代码就能收全球钱」的支付基础设施。2010 年由 Collison 兄弟创立。开发者体验出圈：API 干净、文档好读、SDK 多语言齐全。SaaS / 创业公司收款默认选它。硅谷"小团队 + 高自驱"打法的标志性产品——早期几十人撑起百亿美金估值，常和 [[Linear]] / [[Notion]] 一起被引用为"工程文化典范"。
+  example: 这家创业公司 3 个人三周接好 Stripe 开始收钱了。
