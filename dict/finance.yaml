@@ -431,7 +431,7 @@
   example: 2022 年纳斯达克跌进熊市。
 
 - term: 震荡市
-  aliases: [横盘, choppy market, range-bound]
+  aliases: [choppy market, range-bound]
   category: jargon
   literal: range-bound market
   meaning: 不涨不跌、上下来回磨——既没牛也没熊。震荡市最磨人，追涨被套、止损又错过反弹。技术派靠区间高抛低吸。
@@ -772,7 +772,7 @@
   example: 满仓抓了反弹，结果跌停板。
 
 - term: 空仓
-  aliases: [in cash, 清仓]
+  aliases: [in cash]
   category: jargon
   literal: in cash / no position
   meaning: 账户里没有股票，全是现金——熊市保命姿势。"空仓踏空"=没仓位错过暴涨。完整交易者都会用空仓做防御。
@@ -3129,5 +3129,468 @@
   literal: middle income trap
   meaning: 发展中国家到中等收入后增长停滞——拉美多国典型。中国能否跨越是经济学界大议题。
   example: 中国能不能跨越中等收入陷阱看转型。
+
+# ====================
+# 二十八、技术分析进阶 / 看盘指标
+# ====================
+
+- term: OBV
+  aliases: [能量潮, On-Balance Volume]
+  category: finance
+  literal: On-Balance Volume
+  meaning: 把成交量按涨跌"累加/累减"成一条线——涨了把当天量加上、跌了减掉。核心思路是"量在价先"，OBV 持续走高说明资金在偷偷进场，即使股价还没动。OBV 和股价背离（价跌 OBV 涨）常被看成见底信号。
+  example: 股价横盘但 OBV 一路新高，资金在吸筹。
+
+- term: 换手率
+  aliases: [turnover rate, 周转率]
+  category: finance
+  literal: turnover rate
+  meaning: 当天成交的股数占流通盘的比例——衡量交易活跃度和筹码"换手"程度。1% 以下冷清、3%-7% 活跃、10% 以上极度活跃（常是游资爆炒）。换手率高说明分歧大、有人在大举进出。
+  example: 这票换手率 30%，纯粹游资在里面打架。
+
+- term: 量比
+  category: finance
+  meaning: 当天每分钟平均成交量除以过去 5 日每分钟平均成交量——衡量"今天比平时活跃多少"。量比 1 是正常、大于 2 明显放量、小于 0.5 是缩量。开盘竞价后看量比能快速判断个股是否异动。
+  example: 开盘量比 8，今天这票肯定有事。
+
+- term: 委比
+  category: finance
+  meaning: 买卖盘力量对比指标——委买手数减委卖手数，再除以两者之和，范围 −100% 到 +100%。正值说明买盘挂单多、买方强势，负值反之。盘口看委比判断短时多空力量。
+  example: 委比 +80%，买盘挂得满满的。
+
+- term: 内盘/外盘
+  aliases: [内盘, 外盘, 主动买盘]
+  category: finance
+  meaning: 外盘=以卖价成交的量（买方主动出击）、内盘=以买价成交的量（卖方主动砸单）。外盘大于内盘说明买气旺。但主力能对敲伪造，单看内外盘容易被骗。
+  example: 外盘是内盘两倍，看着像有资金在抢。
+
+- term: 振幅
+  category: finance
+  meaning: 当天最高价和最低价的差占昨收价的比例——衡量股价"晃动幅度"。振幅大说明多空分歧剧烈，"高开低走大振幅"常是出货信号。和涨跌幅不是一回事（可以涨幅为 0 但振幅很大）。
+  example: 今天振幅 15%，坐了趟过山车。
+
+- term: 复权
+  aliases: [前复权, 后复权, adjusted price]
+  category: finance
+  meaning: 把除权除息造成的价格"跳空"抹平，让 K 线连续可比。前复权=以现价为基准往前调（看技术形态用）、后复权=以上市价为基准往后调（看真实涨幅用）。不复权的老股 K 线会出现假"暴跌"。
+  example: 看长期走势记得切后复权，不然涨幅全错。
+
+- term: 阳线/阴线
+  aliases: [阳线, 阴线, 大阳线, 大阴线]
+  category: finance
+  meaning: 单根 K 线收盘高于开盘=阳线（A 股红、美股绿）、收盘低于开盘=阴线。实体越长力量越强。"大阳线"是多头宣言、"光头光脚大阴线"是空头碾压。
+  example: 尾盘拉出一根大阳线，明天可能继续。
+
+- term: 十字星
+  aliases: [doji]
+  category: finance
+  literal: doji
+  meaning: 开盘价和收盘价几乎相等的 K 线，实体极小像个十字——多空打成平手、方向待定。高位十字星警示见顶、低位十字星暗示见底。本身不算信号，要看后一根 K 线确认。
+  example: 高位连续两根十字星，该减仓了。
+
+- term: 锤子线
+  aliases: [hammer, 上吊线]
+  category: finance
+  literal: hammer
+  meaning: 下影线很长、实体很小的 K 线，像把锤子——盘中被砸下去又被买回来。出现在下跌末端是见底信号（锤子线）、出现在上涨末端同样形态叫"上吊线"反而看跌。位置决定含义。
+  example: 跌了半个月，今天一根锤子线，可能要反弹。
+
+- term: 趋势线
+  aliases: [trendline]
+  category: finance
+  literal: trendline
+  meaning: 把一连串高点（或低点）连成的直线——上升趋势线连低点当支撑、下降趋势线连高点当压力。股价"跌破上升趋势线"是趋势转弱信号。画法主观，不同人画出来不一样。
+  example: 跌破上升趋势线，趋势可能要变。
+
+- term: 颈线
+  aliases: [neckline]
+  category: finance
+  literal: neckline
+  meaning: 头肩顶/双顶等形态里"连接两个低点"的关键线——股价跌破颈线确认形态成立、开始量度跌幅。颈线在头肩底里反过来是突破信号。技术派最看重的一条线之一。
+  example: 头肩顶跌破颈线，目标位还在下面。
+
+- term: 黄金分割
+  aliases: [斐波那契回撤, Fibonacci retracement, 黄金分割位]
+  category: finance
+  literal: Fibonacci retracement
+  meaning: 用 0.382、0.5、0.618 这些斐波那契比例预测回调/反弹的位置——一波涨势后常回调到 0.618 处获得支撑。0.618 被叫"黄金分割位"。玄学成分不少，但用的人多了就有"自我实现"效果。
+  example: 回调刚好到 0.618 黄金分割位，企稳了。
+
+- term: 波浪理论
+  aliases: [艾略特波浪理论, Elliott Wave]
+  category: finance
+  literal: Elliott Wave Theory
+  meaning: 艾略特提出——市场按"5 浪上涨 + 3 浪下跌"的固定节奏循环。理论很美，但浪怎么数极度主观，事后看人人都会数、事前没人数得准。"还有一浪"是套牢者的精神安慰。
+  example: 他说现在是第三浪主升，我数出来是第五浪末端。
+
+- term: 道氏理论
+  aliases: [Dow Theory]
+  category: finance
+  literal: Dow Theory
+  meaning: 技术分析的鼻祖理论——市场有主要/次要/短暂三种趋势，趋势会延续直到出现明确反转信号。"高点更高、低点更高=上升趋势"就是道氏的核心。后来的趋势分析全是它的延伸。
+  example: 按道氏理论，没破前低就还是上升趋势。
+
+- term: 分时图
+  category: finance
+  meaning: 当天股价随时间走的实时曲线（白线）加均价线（黄线）——盯盘看的就是它。股价在均价线上方运行偏强、下穿均价线偏弱。分时图配合成交量柱看主力盘中动作。
+  example: 分时图全天在均价线下方，弱势。
+
+- term: 筹码分布
+  aliases: [筹码峰, 成本分布]
+  category: finance
+  meaning: 把所有持股者的"买入成本"按价位画成一张分布图——某价位筹码堆得多叫"筹码峰"。上方筹码密集=套牢盘重、涨上去阻力大；筹码"低位单峰密集"常是启动前形态。
+  example: 上方一大堆套牢筹码，反弹到那就是压力。
+
+- term: 乖离率
+  aliases: [偏离率]
+  category: finance
+  literal: BIAS
+  meaning: 股价偏离均线的百分比——衡量短期"拉得太开了没有"。正乖离过大（涨太多脱离均线）容易回调、负乖离过大容易反弹。本质是"物极必反"的量化，给超买超卖一个数字。
+  example: 6 日乖离率 +15%，短期超买，等回踩均线。
+
+- term: CCI
+  aliases: [顺势指标, Commodity Channel Index]
+  category: finance
+  literal: Commodity Channel Index
+  meaning: 顺势指标——在 ±100 之间为常态区，突破 +100 进入强势、跌破 −100 进入弱势。和 RSI/KDJ 一样判断超买超卖，但 CCI 没有上下界，适合抓极端行情的启动。
+  example: CCI 上穿 +100，强势启动信号。
+
+- term: 威廉指标
+  aliases: [WR, W%R, Williams %R]
+  category: finance
+  literal: Williams %R
+  meaning: 衡量当前价在近期高低区间里的位置——0 到 −100（或 0 到 100，看软件）。靠近顶部为超买、靠近底部为超卖。和 KDJ 思路接近但更灵敏，短线客用来抓拐点。
+  example: 威廉指标到超卖区，博个反弹。
+
+- term: DMI
+  aliases: [ADX, 动向指标, Directional Movement Index]
+  category: finance
+  literal: Directional Movement Index
+  meaning: 判断趋势方向加强度的指标——+DI 和 −DI 谁在上决定多空方向，ADX 数值决定趋势够不够强（ADX 大于 25 才算有趋势、小于 20 是震荡）。震荡市里趋势指标全失灵，ADX 帮你避开。
+  example: ADX 才 15，没趋势，别用均线策略。
+
+- term: SAR
+  aliases: [抛物线指标, 停损转向, Parabolic SAR]
+  category: finance
+  literal: Stop and Reverse
+  meaning: 在 K 线上下跟随的一串圆点——点在 K 线下方时持有做多、价格跌破圆点翻到上方就转空。自带移动止损功能，最适合单边趋势行情；震荡市里会被来回打脸。
+  example: SAR 圆点翻到上面了，趋势转空。
+
+- term: K线级别
+  aliases: [日线, 周线, 月线, 分钟线]
+  category: finance
+  meaning: 一根 K 线代表的时间跨度——1 分钟/5 分钟/30 分钟/日线/周线/月线。级别越大信号越可靠也越滞后。"日线金叉不如周线金叉"说的就是大级别更管用。多级别共振是技术派追求的确定性。
+  example: 日线看着要涨，周线还在死叉，别急。
+
+- term: 跳水
+  aliases: [高台跳水]
+  category: finance
+  meaning: 股价在短时间内快速大幅下跌——分时图上画出一条近乎垂直的下坠线。盘中跳水常因突发利空或大资金出逃。"尾盘跳水"尤其难受，让全天持仓的人措手不及。
+  example: 午后一波跳水，直接从涨 3% 砸到跌 4%。
+
+- term: 高开/低开
+  aliases: [高开, 低开, 平开]
+  category: finance
+  meaning: 今天开盘价相对昨天收盘价的位置——高于=高开（情绪偏多）、低于=低开（情绪偏空）、持平=平开。开盘方式加之后走势组合出信号："高开低走"有出货嫌疑、"低开高走"是抢筹。
+  example: 利好出来却低开，说明利好被提前消化了。
+
+- term: 破位
+  category: finance
+  meaning: 股价跌破关键支撑（前低、均线、颈线、平台）——技术上确认弱势、常引发止损盘连锁抛售。"放量破位"比缩量破位更危险。技术派的纪律是破位无条件先走。
+  example: 跌破 60 日线破位了，先减一半仓。
+
+- term: 假突破
+  aliases: [假摔, 诱多, 诱空]
+  category: finance
+  meaning: 股价突破（或跌破）关键位后很快又收回来——骗了顺势进场的人。向上假突破叫"诱多"、向下假突破叫"诱空"。主力专门用假突破洗盘或骗止损。所以技术派要求"突破后站稳几天"才确认。
+  example: 冲过前高又砸回来，典型假突破诱多。
+
+- term: 缺口回补
+  aliases: [补缺口, 回补缺口]
+  category: finance
+  meaning: 股价回到之前跳空形成的缺口区域、把价格"空白"填上——市场有"缺口迟早要补"的说法。普通缺口大多会补、突破缺口和中继缺口不一定补。"补缺口"常被当成短线目标位。
+  example: 跌下来正好补掉上周的跳空缺口，企稳了。
+
+- term: 套牢盘
+  aliases: [解套盘, 获利盘]
+  category: finance
+  meaning: 买入后被深套、成本高于现价的那部分持仓——反弹到他们成本附近就会有"解套就跑"的抛压。上方套牢盘越重，股价突破越费劲。和"获利盘"（成本低于现价、随时可能兑现）相对。
+  example: 上方套牢盘太厚，每次反弹到那就被砸下来。
+
+- term: 箱体
+  aliases: [箱体震荡, 区间震荡, trading range]
+  category: finance
+  literal: trading range
+  meaning: 股价在一个上下边界之间来回震荡的形态——上沿是压力、下沿是支撑。"箱体操作"=碰下沿买、碰上沿卖。箱体一旦被放量突破或跌破，往往是趋势行情的开始。
+  example: 这票在 10-12 元箱体里磨了三个月。
+
+- term: 主力成本
+  aliases: [庄家成本]
+  category: finance
+  meaning: 大资金建仓的平均价位——散户极想知道但只能靠筹码分布、均价线估算。股价在主力成本之下，主力没动力拉抬；回到主力成本附近常有支撑。"主力都亏钱了"是种心理安慰式判断。
+  example: 估算主力成本在 8 块，现在 7 块多算地板价。
+
+# ====================
+# 二十九、盘口 / 操作 / A 股江湖（补全）
+# ====================
+
+- term: EMA
+  aliases: [指数移动平均线, 指数均线, Exponential Moving Average]
+  category: finance
+  literal: Exponential Moving Average
+  meaning: 移动平均线的一种——给近期价格更高权重，比普通均线(SMA)反应更快、更贴近当前走势。MACD、布林带底层用的都是 EMA。优点是转向灵敏，缺点是震荡市里假信号更多。
+  example: EMA 比 MA 拐头早，但也更容易骗线。
+
+- term: 盘口
+  category: finance
+  meaning: 实时的买卖挂单和成交明细——买卖五档报价、逐笔成交、内外盘。"看盘口"=从挂单和成交节奏揣摩主力意图。大单挂着不撤、突然扫单都是盘口语言，老手靠这个判断短线。
+  example: 盘口挂着一笔万手买单，像是在护盘。
+
+- term: 五档行情
+  aliases: [买卖五档, 五档盘口]
+  category: finance
+  meaning: 盘口显示的买一到买五、卖一到卖五共十个价位的挂单量——A 股普通行情就给五档（Level-1）。Level-2 能看十档甚至逐笔委托。挂单分布是判断短期支撑压力的直接依据。
+  example: 卖一压着大单，五档上方全是抛压。
+
+- term: 封单
+  aliases: [封板量, 封单量]
+  category: finance
+  meaning: 涨停（跌停）价位上排队等成交的挂单量——涨停封单越大说明买盘越坚决、越不容易被砸开。"封单几十万手"是强势板标志，"封单不断减少"预示要开板。
+  example: 封单从 50 万手掉到 5 万，随时炸板。
+
+- term: 涨速
+  category: finance
+  meaning: 股价在很短时间内（如 1 分钟、3 分钟）的涨跌速度——选股软件用涨速排行抓盘中异动。涨速榜突然冲上来的票，常是资金正在拉升或有突发消息。
+  example: 盯涨速榜，异动第一时间能发现。
+
+- term: 资金流向
+  aliases: [主力净流入, 资金流入流出]
+  category: finance
+  meaning: 按成交单子大小估算的"大资金净买卖"——大单/超大单净流入算主力买、净流出算主力卖。软件红绿数字看着直观，但算法靠成交价方向猜买卖，主力对敲就能伪造，仅供参考。
+  example: 全天主力净流入 3 个亿，但第二天照样跌。
+
+- term: 大单
+  aliases: [超大单, 扫单]
+  category: finance
+  meaning: 单笔金额很大的成交——通常是机构或游资。"扫单"=用大单连续吃掉卖盘往上打。盘口连续大买单是拉升信号、连续大卖单是出货信号。和散户的"小单"相对。
+  example: 一笔千万大单直接把卖盘扫光。
+
+- term: 对敲
+  aliases: [对倒]
+  category: finance
+  meaning: 主力用自己的多个账户互相买卖同一只股票——制造虚假的成交量和走势骗散户。"放量对敲"营造人气吸引跟风、高位对敲掩护出货。属于操纵市场，违规但难查。
+  example: 这放量根本是对敲，没真实买盘。
+
+- term: 多头排列
+  aliases: [均线多头排列, 空头排列]
+  category: finance
+  meaning: 均线从上到下按"短期在上、长期在下"排列（5 日在 10 日上、10 日在 20 日上、依次到 60 日）——典型强势上涨形态。反过来叫"空头排列"，是下跌趋势特征。均线由缠绕转为多头排列是趋势启动信号。
+  example: 均线刚走成多头排列，趋势确立。
+
+- term: 均线粘合
+  aliases: [均线缠绕]
+  category: finance
+  meaning: 多条均线挤在一起几乎重合——代表多空分歧小、长期横盘蓄势。粘合之后的"发散"方向往往是一波趋势的起点。"长期均线粘合后向上发散"是技术派最爱的买点之一。
+  example: 均线粘合三个月，就等选方向。
+
+- term: 回踩
+  aliases: [回抽, 回踩确认]
+  category: finance
+  meaning: 股价突破某个关键位（前高、均线、平台）后又回落到该位附近——测试这里是否由压力转为支撑。"回踩不破"是确认突破有效的信号，也是相对安全的买点。
+  example: 突破后回踩 20 日线不破，加仓。
+
+- term: 主升浪
+  category: finance
+  meaning: 一波上涨行情中涨幅最大、最流畅的阶段——通常成交量放大、连续阳线、不给上车机会。对应波浪理论里的"第三浪"。"吃到主升浪"是趋势交易者一年收益的主要来源。
+  example: 前面磨了半年，这才是主升浪。
+
+- term: 量能
+  category: finance
+  meaning: 成交量所代表的"资金活跃程度"——量能放大说明有增量资金、量能萎缩说明观望。"量能不足"是上涨乏力的常见说法。技术分析里"量是价的先行指标"。
+  example: 指数涨但量能跟不上，反弹质量差。
+
+- term: 标的
+  aliases: [交易标的, underlying]
+  category: finance
+  meaning: 交易或投资的对象——一只股票、一个 ETF、一份合约都可以是"标的"。期权/期货里特指"挂钩的底层资产"（如 50ETF 期权的标的是 50ETF）。"优质标的"=值得买的好品种。
+  example: 这个赛道里找不到合适的标的。
+
+- term: 趋势反转
+  aliases: [反转形态]
+  category: finance
+  meaning: 价格从上涨趋势转为下跌（或相反）——区别于趋势中途的"回调/反弹"。头肩顶、双底、跌破或突破长期均线都是反转信号。判断"是反转还是回调"是技术分析最难也最值钱的事。
+  example: 别把反弹当反转，容易抄在半山腰。
+
+- term: 超跌
+  aliases: [超跌反弹]
+  category: finance
+  meaning: 股价短期跌幅过大、明显脱离均线——技术上有"修复性反弹"需求。"超跌反弹"是跌多了的自然回抽，不代表趋势变好。抢超跌反弹是高风险短线玩法。
+  example: 跌了 40% 超跌了，博个反弹就跑。
+
+- term: 逼空
+  aliases: [轧空, short squeeze]
+  category: finance
+  literal: short squeeze
+  meaning: 股价持续单边上涨，逼得空头不断止损平仓（买回），买盘进一步推高价格的连锁——空头被"轧"。GameStop 逼空逼到对冲基金爆仓。A 股没做空机制，"逼空式上涨"多指踏空者被迫追高。
+  example: 这波逼空行情，空头全被埋了。
+
+- term: 踏空
+  category: finance
+  meaning: 看空或空仓时市场却大涨——眼睁睁看着别人赚钱自己没仓位。踏空的痛苦不亚于被套，容易引发"追高"的非理性操作。"满仓踏空"=满仓了但买错票，更难受。
+  example: 这波涨了 20%，踏空比亏钱还难受。
+
+- term: 护盘
+  aliases: [护盘资金]
+  category: finance
+  meaning: 大资金（公司、机构、国家队）在股价下跌时主动买入托住价格——防止破位引发恐慌。盘口表现为关键价位上常年挂着大买单。"护盘"撑得住一时撑不住趋势。
+  example: 尾盘有资金护盘，没让指数破 3000。
+
+- term: 横盘
+  aliases: [盘整, 横盘整理, 震荡整理]
+  category: finance
+  meaning: 股价在一个窄幅区间内长时间不涨不跌——多空力量均衡的蓄势阶段。横盘可以是上涨中继，也可以是下跌中继，方向要等放量突破才明朗。"横久必跌、横久必涨"是民间说法。
+  example: 横盘一个月了，迟早要选方向。
+
+- term: 吞没形态
+  aliases: [阳包阴, 阴包阳, engulfing]
+  category: finance
+  literal: engulfing pattern
+  meaning: 一根 K 线的实体完全"包住"前一根——大阳线包住前面阴线叫"阳包阴"（看涨）、大阴线包住前面阳线叫"阴包阳"（看跌）。出现在趋势末端时是较强的反转信号。
+  example: 低位一根阳包阴，可能见底了。
+
+- term: 长上影线
+  aliases: [上影线, 长下影线, 下影线]
+  category: finance
+  meaning: K 线实体上方/下方那根细线——长上影=冲高被打下来（上方抛压重）、长下影=砸低被拉回来（下方有承接）。高位长上影警惕见顶、低位长下影暗示见底。
+  example: 涨停板没封住，留个长上影线很难看。
+
+- term: 建仓
+  aliases: [逐步建仓]
+  category: finance
+  meaning: 开始买入、建立一个新仓位——可以一次买够，也可以"分批建仓"摊低风险。机构建仓往往要好几周，盘口看不出明显痕迹。和"加仓"（已有仓位再买）略有区别。
+  example: 主力还在低位慢慢建仓。
+
+- term: 补仓
+  aliases: [向下补仓, 摊薄成本]
+  category: finance
+  meaning: 已持有的股票跌了之后再买入——拉低平均成本。补仓的危险在于"越跌越买"可能补在半山腰、越补越深。纪律派只在趋势没坏时补、趋势破位坚决不补。
+  example: 别急着补仓，先看趋势坏没坏。
+
+- term: 清仓
+  aliases: [清仓出局]
+  category: finance
+  meaning: 把某只股票（或全部持仓）一次性全部卖出——仓位归零。止损清仓是认错、止盈清仓是落袋。"清仓式减持"指大股东几乎卖光，是强烈利空。
+  example: 趋势走坏，我直接清仓观望。
+
+- term: 半仓
+  aliases: [半仓操作]
+  category: finance
+  meaning: 资金一半买股票、一半留现金——攻守兼备的仓位状态。看不准方向时半仓是常见选择：涨了有收益、跌了有子弹。和"满仓""空仓"并称三种基本仓位状态。
+  example: 行情不明朗，先半仓应对。
+
+- term: 网格交易
+  aliases: [grid trading, 网格策略]
+  category: finance
+  literal: grid trading
+  meaning: 在一个价格区间里设多个档位，跌一档买一点、涨一档卖一点——机械地高抛低吸。适合震荡行情和波动大的标的（ETF、可转债、币），最怕单边大跌（越买越套）。
+  example: 用网格交易做这只 ETF，震荡市里挺香。
+
+- term: 定投
+  aliases: [定期定额, 基金定投, dollar-cost averaging]
+  category: finance
+  literal: dollar-cost averaging
+  meaning: 每隔固定时间投入固定金额——不择时，靠"高位少买、低位多买"摊平成本。最适合宽基指数基金，最考验的是熊市里能不能坚持扣款。懒人理财的标准答案。
+  example: 每月发工资定投沪深 300，十年别看。
+
+- term: 戴帽/摘帽
+  aliases: [戴帽, 摘帽, ST处理]
+  category: finance
+  meaning: 公司经营异常（连亏、违规）被加上 ST 标记叫"戴帽"、整改达标恢复正常叫"摘帽"。戴帽后涨跌停限制收窄到 5%、有退市风险。"摘帽行情"是博弈基本面反转的玩法。
+  example: 这票预期要摘帽，提前埋伏一波。
+
+- term: 破净
+  aliases: [破净股]
+  category: finance
+  meaning: 股价跌破每股净资产，即市净率 PB 不到 1——理论上"买公司比清算还便宜"。银行、地产、钢铁等周期股常年破净。破净不等于便宜，可能是市场认为它的资产要减值。
+  example: 银行股大面积破净，市场不信它的资产质量。
+
+- term: 股息率
+  aliases: [dividend yield, 分红率]
+  category: finance
+  literal: dividend yield
+  meaning: 每年现金分红除以股价——相当于持股的"利息回报率"。高股息股（银行、电力、煤炭）是熊市避风港和"类债券"配置。注意股价跌也会让股息率被动变高。
+  example: 这股股息率 7%，比存款香多了。
+
+- term: 基金净值
+  aliases: [净值, NAV, 单位净值]
+  category: finance
+  literal: Net Asset Value
+  meaning: 一份基金当前值多少钱——基金总资产除以总份额。开放式基金按每天收盘后的净值申赎。"净值创新高"说明持有人都赚钱。和股票"股价"是一个意思的概念。
+  example: 这只基金净值回到 1 块，老基民终于解套。
+
+- term: 增发
+  aliases: [再融资, 公开增发]
+  category: finance
+  meaning: 上市公司发行新股募集资金——股本变大、老股东股权被稀释。"定向增发"面向特定机构、"公开增发"面向所有人。增发常被解读为利空（摊薄）或利好（项目扩张），看募投方向。
+  example: 公告增发 100 亿，股权稀释，散户用脚投票。
+
+- term: 股本
+  aliases: [总股本, 流通股本, 流通盘]
+  category: finance
+  meaning: 公司发行在外的股票总数——总股本含未上市流通的部分，"流通盘"是市面上能交易的那部分。流通盘小的票容易被资金拉抬（"小盘股弹性大"），大盘股盘子重、不易撬动。
+  example: 流通盘才 2 个亿，游资一进就涨停。
+
+- term: 送转股
+  aliases: [送股, 转增股, 高送转]
+  category: finance
+  meaning: 公司用未分配利润或资本公积"送股/转增"——股东不掏钱就多得股份，但每股价格相应除权，总价值不变。"高送转"（如 10 转 10）是 A 股炒作题材，纯属数字游戏。
+  example: 10 转 10 高送转，除权后股价腰斩，份额翻倍。
+
+- term: 港股通
+  aliases: [南向资金, 南下资金]
+  category: finance
+  meaning: 内地和香港股市互联互通的渠道——内地资金经"港股通"南下买港股（南向资金），境外资金经"沪股通/深股通"北上买 A 股（北向资金，合称陆股通）。南向资金动向是港股的重要风向标。
+  example: 南向资金连续 20 天净买入，港股有支撑。
+
+- term: 打板
+  aliases: [涨停敢死队, 打板族]
+  category: finance
+  meaning: 专门在涨停瞬间挂单买入的短线玩法——赌封板后第二天溢价。最早一批打板游资被称"涨停敢死队"。打板是 A 股最刺激也最危险的玩法，吃面（次日低开被套）是家常便饭。
+  example: 打板打成接盘侠，第二天直接吃面。
+
+- term: 连板
+  aliases: [连续涨停, N连板]
+  category: finance
+  meaning: 股票连续多个交易日涨停——"二连板""五连板"。连板高度是市场情绪的温度计：能出高位连板说明情绪火热。连板股是游资接力的战场，散户追进去多半站岗。
+  example: 这只票七连板，情绪到顶了。
+
+- term: 反包
+  category: finance
+  meaning: 股票冲高回落（甚至吃个跌停）后，次日又强势涨停把前一天的阴线"包"回去——多方反扑的强势信号。"反包成功"常意味着主力没走、洗盘结束。打板客很看重反包。
+  example: 昨天烂板今天反包，主力还在。
+
+- term: 秒板
+  aliases: [换手板]
+  category: finance
+  meaning: 涨停板的成色——"秒板"=开盘几秒就封死涨停（最强）、"换手板"=涨停反复打开换手后再封（中等）、"烂板"=反复开开合合勉强收涨停（最弱）。成色预示次日强弱。
+  example: 从秒板退化成烂板，明天大概率走弱。
+
+- term: 杀跌
+  aliases: [恐慌杀跌]
+  category: finance
+  meaning: 因恐慌而不计成本地卖出——下跌时的"踩踏"行为。"放量杀跌"说明有人在夺路而逃。市场底部往往出现在"最后一波杀跌"之后，但杀跌时没人敢买。
+  example: 利空一出全市场杀跌，跌停一片。
+
+- term: 普涨/普跌
+  aliases: [普涨, 普跌, 全线飘红, 全线飘绿]
+  category: finance
+  meaning: 几乎所有股票一起涨（普涨）或一起跌（普跌）——由大盘系统性因素（政策、流动性、外围）驱动，而非个股逻辑。普涨日"闭眼买都赚"、普跌日"再好的票也难独善其身"。
+  example: 降准消息出来，今天市场普涨。
+
+- term: 补涨
+  aliases: [补涨股]
+  category: finance
+  meaning: 板块或题材已经涨过一轮，里面之前没怎么动的股票"补一波涨幅"——资金高低切换的结果。补涨往往出现在行情后期，"补涨即终结"是常见的见顶信号之一。
+  example: 龙头滞涨了，资金去炒补涨股，行情快到头了。
 
 
