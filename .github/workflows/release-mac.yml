@@ -1,0 +1,53 @@
+name: Build macOS app & release
+
+# codelang has no Windows-buildable macOS path — py2app produces a Mach-O
+# .app and needs iconutil / hdiutil / codesign. So a real macOS runner builds
+# the DMG here. Two triggers:
+#   - push a v* tag  → build + publish a GitHub Release with the DMG attached
+#   - manual dispatch → build only, DMG uploaded as a workflow artifact (use
+#                       this to test the build before cutting a release)
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-mac:
+    # macos-13 is the Intel (x86_64) runner. An x86_64 .app runs natively on
+    # Intel Macs AND on Apple Silicon via Rosetta — broader reach than an
+    # arm64-only build, without the universal2 packaging hassle.
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build codelang.app + DMG
+        run: |
+          chmod +x installer/build_mac.sh
+          ./installer/build_mac.sh
+
+      - name: Upload DMG as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codelang-macos-dmg
+          path: dist/*.dmg
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: codelang ${{ github.ref_name }}
+          files: dist/*.dmg
+          generate_release_notes: true
+          fail_on_unmatched_files: true

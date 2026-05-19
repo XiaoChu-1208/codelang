@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "codelang · 划词解释代码英文 / 互联网黑话 / AI 术语",
   "short_name": "codelang",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "按住 Alt 划词，立刻看懂！2453 条大白话词条 / 13 大类覆盖代码英文、AI/LLM 术语、互联网黑话、面试八股、产品运营、网络安全、数据工程、HR 创投、金融交易、网络流行语。100% 本地。",
   "homepage_url": "https://github.com/XiaoChu-1208/codelang",
   "author": "XiaoChu-1208",
