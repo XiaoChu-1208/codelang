@@ -40,6 +40,12 @@ dist/
 installer/wizard-large.bmp
 installer/wizard-small.bmp
 
+# macOS 打包中间产物（py2app / build_mac.sh）
+.build-venv/
+build/
+installer/codelang.icns
+installer/codelang.iconset/
+
 # 用户旧版自加词文件（迁移后会被改名为这个后缀，新位置在 ~/.codelang/user_dict.yaml）
 dict/user.yaml
 dict/user.yaml.migrated

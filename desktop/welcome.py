@@ -21,9 +21,10 @@ from PIL import Image, ImageTk, ImageDraw, ImageFilter, ImageChops
 
 from . import config
 from . import platform_compat as winhelp
+from .paths import resource_root
 
 
-ICON_PATH = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-512.png"
+ICON_PATH = resource_root() / "assets" / "logo" / "icon-512.png"
 
 WIN_W, WIN_H = 500, 230
 RIGHT_W = 370  # right text panel; left area = WIN_W - RIGHT_W for mascot
@@ -250,7 +251,7 @@ def show_welcome(root: tk.Tk) -> None:
         card1_title = "屏幕顶部菜单栏 灰白色小飞碟 图标"
         card1_body = "点一下可以 查看日志 / 重新加载词典 / 退出"
         card2_title = "想开机自启？"
-        card2_body = "系统设置 → 通用 → 登录项 → 把 codelang 启动脚本加进去"
+        card2_body = "系统设置 → 通用 → 登录项 → 点 + 把 codelang 加进去"
     else:
         card1_title = "右下角托盘 灰白色小飞碟 图标"
         card1_body = "右键可以 查看日志 / 重新加载词典 / 退出"

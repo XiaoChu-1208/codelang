@@ -30,8 +30,12 @@ from typing import Optional
 import requests
 
 from . import config
+from .paths import resource_root
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# Resource root: the repo root when run from source, codelang.app's
+# Contents/Resources/ when frozen into the .app. The bundled dict + ecdict
+# live directly under it either way.
+PROJECT_ROOT = resource_root()
 
 # Main dict has two possible homes — bundled (ships with the app, read-only) and
 # user-cache (downloaded updates land here). DictIndex picks whichever has the

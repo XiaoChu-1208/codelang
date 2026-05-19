@@ -15,9 +15,11 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import font as tkfont
 
+from .paths import resource_root
+
 IS_MAC = sys.platform == "darwin"
 
-ICON_PATH = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-128.png"
+ICON_PATH = resource_root() / "assets" / "logo" / "icon-128.png"
 
 # Design tokens — kept in sync with desktop/welcome.py + deps_error.py
 BG          = "#ffffff"

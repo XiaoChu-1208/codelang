@@ -34,6 +34,7 @@ if _missing:
 import pyperclip
 
 from . import config, dialog, dict_updater, mouse_backend, platform_compat as winhelp
+from .paths import resource_root
 from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
 from .lookup import (
@@ -157,6 +158,8 @@ class App:
         self._tray_icon = None
         self._mac_status_item = None  # NSStatusItem on Mac; held to prevent GC
         self._mac_menu_handler = None
+        self._mac_version_item = None   # NSMenuItem showing dict count/version
+        self._mac_download_item = None  # NSMenuItem "下载新词库" (hidden until update)
         # Track the timestamp of the last real mouse activity. The background Alt
         # cleanup thread uses this to decide whether to nuke a stuck Alt state:
         # if we haven't seen any mouse motion/click for a few seconds AND Alt
@@ -311,6 +314,10 @@ class App:
         elif kind == "show_info":
             _, title, body = msg
             dialog.show_info(self.root, title, body)
+        elif kind == "mac_menu_refresh":
+            # Posted by background threads so the AppKit menu mutation lands
+            # on the main thread (here, inside the tk queue poll).
+            self._mac_refresh_menu()
         elif kind == "quit":
             self.root.destroy()
 
@@ -379,7 +386,7 @@ class App:
         # Load the real codelang icon. Falls back to a drawn placeholder if
         # the asset file is missing (e.g. user ran without running render_icons.py).
         from pathlib import Path
-        icon_path = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-64.png"
+        icon_path = resource_root() / "assets" / "logo" / "icon-64.png"
         if icon_path.exists():
             img = Image.open(icon_path)
         else:
@@ -499,7 +506,7 @@ class App:
             return
 
         from pathlib import Path
-        icon_path = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-32.png"
+        icon_path = resource_root() / "assets" / "logo" / "icon-32.png"
 
         # Capture references for the inner NSObject subclass — we can't easily
         # close over `self` because PyObjC selectors need NSObject methods.
@@ -509,6 +516,8 @@ class App:
             def reload_(self, _sender):
                 app_ref.dict.reload()
                 print(f"[codelang] reloaded dict: {app_ref.dict.count} entries", file=sys.stderr)
+                # Menu action → on the main thread, safe to touch AppKit directly.
+                app_ref._mac_refresh_menu()
 
             def releaseAlt_(self, _sender):
                 winhelp.force_release_alt()
@@ -544,6 +553,9 @@ class App:
                     else:
                         app_ref.has_update = True
                         app_ref.pending_update = payload
+                        # Refresh on the main thread — this worker is a bg thread
+                        # and AppKit menu mutation must not happen off-main.
+                        app_ref.queue.put(("mac_menu_refresh",))
                         app_ref.queue.put((
                             "show_info", "词库更新",
                             f"发现新词库 {app_ref.dict.count} → "
@@ -561,6 +573,8 @@ class App:
                     app_ref.dict.reload()
                     app_ref.has_update = False
                     app_ref.pending_update = None
+                    # Menu action → main thread; refresh count + hide download item.
+                    app_ref._mac_refresh_menu()
                     app_ref.queue.put((
                         "show_info", "词库更新",
                         f"已更新到 {app_ref.dict.count} 条",
@@ -610,14 +624,23 @@ class App:
             return mi
 
         v = self.dict.version[:10] if self.dict.version else "—"
+        # Hold references to the two dynamic items so _mac_refresh_menu() can
+        # update them later. NSMenu has no pystray-style callable labels —
+        # items are static once added, so we mutate them in place.
+        version_item = _disabled_item(f"词库: {self.dict.count} 条 · {v}")
+        download_item = _action_item("下载新词库", "downloadUpdate:")
+        download_item.setHidden_(True)  # only revealed once an update is found
+        self._mac_version_item = version_item
+        self._mac_download_item = download_item
+
         menu.addItem_(_disabled_item("codelang"))
-        menu.addItem_(_disabled_item(f"词库: {self.dict.count} 条 · {v}"))
+        menu.addItem_(version_item)
         menu.addItem_(NSMenuItem.separatorItem())
         menu.addItem_(_action_item("查看日志", "openLogs:"))
         menu.addItem_(_action_item("打开配置目录", "openFolder:"))
         menu.addItem_(NSMenuItem.separatorItem())
         menu.addItem_(_action_item("检查词库更新", "checkUpdate:"))
-        menu.addItem_(_action_item("下载新词库", "downloadUpdate:"))
+        menu.addItem_(download_item)
         menu.addItem_(_action_item("重新加载词典", "reload:"))
         menu.addItem_(_action_item("释放卡住的 Option", "releaseAlt:"))
         menu.addItem_(NSMenuItem.separatorItem())
@@ -625,7 +648,32 @@ class App:
 
         item.setMenu_(menu)
         self._mac_status_item = item  # strong ref
+        # An update may already have been detected before the menu existed
+        # (the silent probe races menu construction) — sync state now.
+        self._mac_refresh_menu()
         print("[codelang] macOS menubar item installed", file=sys.stderr)
+
+    def _mac_refresh_menu(self) -> None:
+        """Sync the macOS menubar item titles + the download item's visibility
+        to the current dict count / pending-update state.
+
+        MUST run on the main thread (AppKit menu mutation is not thread-safe);
+        background callers post a ('mac_menu_refresh',) queue message instead.
+        """
+        if not IS_MAC:
+            return
+        version_item = self._mac_version_item
+        if version_item is not None:
+            v = self.dict.version[:10] if self.dict.version else "—"
+            version_item.setTitle_(f"词库: {self.dict.count} 条 · {v}")
+        download_item = self._mac_download_item
+        if download_item is not None:
+            if self.has_update and self.pending_update:
+                n = self.pending_update.get("count", "?")
+                download_item.setTitle_(f"下载新词库 ({n} 条)")
+                download_item.setHidden_(False)
+            else:
+                download_item.setHidden_(True)
 
     # ---------- remote dict update ----------
 
@@ -647,7 +695,9 @@ class App:
                 )
                 self._tray_icon.update_menu()
             elif IS_MAC:
-                # No native banner without bundling — surface via in-app dialog
+                # No native banner without bundling — surface via in-app dialog,
+                # and reveal the "下载新词库" menu item (refresh on main thread).
+                self.queue.put(("mac_menu_refresh",))
                 self.queue.put((
                     "show_info", "词库更新可用",
                     f"发现新词库 {self.dict.count} → "

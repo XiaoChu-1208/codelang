@@ -22,9 +22,11 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import font as tkfont
 
-ICON_PATH_128 = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-128.png"
-ICON_PATH_64 = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon-64.png"
-ICON_PATH_ICO = Path(__file__).resolve().parent.parent / "assets" / "logo" / "icon.ico"
+from .paths import resource_root
+
+ICON_PATH_128 = resource_root() / "assets" / "logo" / "icon-128.png"
+ICON_PATH_64 = resource_root() / "assets" / "logo" / "icon-64.png"
+ICON_PATH_ICO = resource_root() / "assets" / "logo" / "icon.ico"
 
 IS_MAC = sys.platform == "darwin"
 
@@ -37,16 +39,21 @@ else:
 
 
 # Modules to require, per platform. Each entry is (display name, import name).
-_REQUIRED_WIN = [
-    ("mouse", "mouse"),
+# Note: requests + pyyaml are needed on BOTH platforms — lookup.py imports yaml
+# at module load and dict_updater uses requests, so a missing one crashes the
+# app on import right after this preflight unless we catch it here.
+_REQUIRED_COMMON = [
     ("pyperclip", "pyperclip"),
-    ("pystray", "pystray"),
     ("Pillow", "PIL"),
+    ("requests", "requests"),
+    ("pyyaml", "yaml"),
 ]
-_REQUIRED_MAC = [
+_REQUIRED_WIN = _REQUIRED_COMMON + [
+    ("mouse", "mouse"),
+    ("pystray", "pystray"),
+]
+_REQUIRED_MAC = _REQUIRED_COMMON + [
     ("pynput", "pynput"),
-    ("pyperclip", "pyperclip"),
-    ("Pillow", "PIL"),
     ("pyobjc-framework-Quartz", "Quartz"),
     ("pyobjc-framework-Cocoa", "AppKit"),
 ]
@@ -184,7 +191,7 @@ def show(missing: list[str]) -> None:
     note.pack(anchor="w")
 
     # ---- bottom action row ----
-    project_root = Path(__file__).resolve().parent.parent
+    project_root = resource_root()
 
     def _copy():
         try:
