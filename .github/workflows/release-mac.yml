@@ -17,10 +17,11 @@ permissions:
 
 jobs:
   build-mac:
-    # macos-13 is the Intel (x86_64) runner. An x86_64 .app runs natively on
-    # Intel Macs AND on Apple Silicon via Rosetta — broader reach than an
-    # arm64-only build, without the universal2 packaging hassle.
-    runs-on: macos-13
+    # macos-latest = Apple Silicon (arm64). GitHub's macos-13 (Intel) runner
+    # has been retired; trying it just queues forever. The resulting DMG is
+    # arm64-only — fine in 2026 since Apple stopped selling Intel Macs in
+    # 2022; if Intel support is ever needed again, switch to universal2.
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
