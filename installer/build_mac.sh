@@ -43,19 +43,14 @@ grep -v -i 'resvg' requirements.txt > "$BUILD_VENV/req.txt"
 "$VPY" -m pip install -r "$BUILD_VENV/req.txt" py2app
 
 # ---- 2. generate codelang.icns from the committed PNG set ----
+# The committed icon-*.png files are ~16:15 aspect (the mascot's natural
+# bbox), not square. iconutil rejects non-square slices with a useless
+# "Failed to generate ICNS" — so make_iconset.py pads each slot to a
+# transparent square canvas first.
 echo "==> 生成 .icns 图标 ..."
 ICONSET="installer/codelang.iconset"
 rm -rf "$ICONSET" installer/codelang.icns
-mkdir -p "$ICONSET"
-cp assets/logo/icon-16.png  "$ICONSET/icon_16x16.png"
-cp assets/logo/icon-32.png  "$ICONSET/icon_16x16@2x.png"
-cp assets/logo/icon-32.png  "$ICONSET/icon_32x32.png"
-cp assets/logo/icon-64.png  "$ICONSET/icon_32x32@2x.png"
-cp assets/logo/icon-128.png "$ICONSET/icon_128x128.png"
-cp assets/logo/icon-256.png "$ICONSET/icon_128x128@2x.png"
-cp assets/logo/icon-256.png "$ICONSET/icon_256x256.png"
-cp assets/logo/icon-512.png "$ICONSET/icon_256x256@2x.png"
-cp assets/logo/icon-512.png "$ICONSET/icon_512x512.png"
+"$VPY" installer/make_iconset.py "$ICONSET"
 iconutil -c icns "$ICONSET" -o installer/codelang.icns
 rm -rf "$ICONSET"
 
