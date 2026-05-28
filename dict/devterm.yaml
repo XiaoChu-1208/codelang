@@ -4080,3 +4080,145 @@
   literal: API Key
   meaning: 想象进公司大门刷的工卡——上面写着你是谁、能进哪些楼层。API Key 就是调第三方服务的"工卡"。调用 OpenAI / Anthropic / Stripe / AWS 这类 API 时用来鉴权的字符串，通常长这样 `sk-xxxxxxxxxxx`。请求时塞在 HTTP header 或 query 里。泄露 = 钱包跑路：GitHub 公开仓库不小心 commit 一个 OpenAI key，几小时内就会被脚本扫到刷爆账单。约定俗成：放 .env、加 .gitignore、生产用环境变量或 Secret Manager。github 自己也有 secret scanning。
   example: 实习生把 API Key 直接写死在源码里 push 上去，半夜账单被刷出五千刀。
+
+# --- batch: infra / *Ops 家族 / 研发分工角色（"我做 infra 的"那类词）---
+
+- term: infra
+  aliases: [基础设施, infrastructure, 基建]
+  category: devterm
+  literal: infrastructure
+  meaning: 是 infrastructure（基础设施）的口头简称——指支撑业务跑起来的底层：服务器、网络、数据库、K8s 集群、CI/CD、监控这些。程序员说"我做 infra 的"=不写业务功能、专门搭和维护这套地基。和"业务开发"相对：业务是盖楼，infra 是修地基水电。AI 时代"AI infra"（GPU 集群、推理服务、向量库）成了最热的 infra 方向。
+  example: 这次大促前 infra 团队先把集群扩容了一倍。
+
+- term: AI infra
+  aliases: [AI 基础设施, AI Infrastructure, 智算基础设施, AI 基建]
+  category: devterm
+  literal: AI infrastructure
+  meaning: 专门支撑 AI 训练和推理跑起来的底层——GPU/TPU 集群、分布式训练框架、推理服务（vLLM/SGLang）、向量数据库、模型权重存储、显存调度。是 2024-2026 最烧钱也最抢手的方向：大模型再强，没有 AI infra 把它高效跑起来就是空中楼阁。英伟达、各家云厂、推理创业公司抢的就是这块。
+  example: 模型训出来只是开始，AI infra 跟不上、推理成本能把公司拖垮。
+
+- term: 运维
+  aliases: [ops, operations, 运维工程师, IT 运维]
+  category: devterm
+  literal: operations
+  meaning: 负责让系统"7×24 稳定跑着"的角色——部署上线、监控告警、扩容、排障、备份、处理半夜宕机。和开发分工：开发造，运维养。传统运维偏手工敲命令，现在被 DevOps/SRE/自动化取代了大半，但"运维"这个口头词还在用。出了线上事故，第一个被 call 醒的通常是他们。
+  example: 半夜服务挂了，运维先顶上止血，第二天开发再查根因。
+
+- term: DevOps
+  aliases: [开发运维一体化, dev ops]
+  category: devterm
+  literal: Development + Operations
+  meaning: 把"开发（Dev）"和"运维（Ops）"打通的文化和方法——不再是开发写完甩给运维上线，而是同一拨人对"写代码到跑生产"全负责，靠自动化（CI/CD、IaC、监控）把流程串起来。核心信条是"谁构建，谁运行"。配套工具一大堆（Jenkins/GitLab CI/Docker/K8s/Terraform）。它不是某个岗位，是一套协作方式。
+  example: 上了 DevOps 后，开发自己点一下就能把代码部署到生产。
+
+- term: DevSecOps
+  aliases: [开发安全运维一体化]
+  category: devterm
+  literal: Development + Security + Operations
+  meaning: 在 DevOps 的流水线里把"安全（Sec）"也左移进来——不再等上线前安全团队最后卡一道，而是在写代码、构建、部署每一步自动做安全扫描（依赖漏洞、密钥泄露、镜像扫描、SAST/DAST）。理念是"安全是每个人的事，而且越早做越省"。
+  example: DevSecOps 流水线一提交就跑漏洞扫描，带高危依赖直接卡住合并。
+
+- term: GitOps
+  aliases: [git ops]
+  category: devterm
+  literal: Git + Operations
+  meaning: 用 Git 仓库当"唯一真相源"来管运维——想改生产环境？不是手动登服务器敲命令，而是改 Git 里的声明式配置、提 PR、合并后由工具（ArgoCD/Flux）自动把集群同步成 Git 里写的样子。好处：所有变更可审计、可回滚（git revert）、可 review。K8s 时代的主流部署范式。
+  example: 改生产配置走 GitOps，提个 PR 合了 ArgoCD 自动同步，再不用手动 kubectl。
+
+- term: AIOps
+  aliases: [智能运维, AI for IT Operations]
+  category: devterm
+  literal: AI for IT Operations
+  meaning: 用 AI 和机器学习帮着干运维——海量监控日志和指标人看不过来，AIOps 自动做异常检测、告警降噪（把几千条告警归并成一个根因）、故障预测、根因定位。目标是从"人盯告警"升级到"系统自己发现并预判问题"。大厂监控平台的标配能力。
+  example: 上了 AIOps 后告警从一晚上几千条降到几十条，根因还自动标出来。
+
+- term: LLMOps
+  aliases: [大模型运维, 大模型工程化, LLM Ops]
+  category: devterm
+  literal: Large Language Model Operations
+  meaning: MLOps 在大模型时代的变体——专门管"把 LLM 应用稳定可靠地跑在生产"的全套工程：prompt 版本管理、评测（eval）、推理成本和延迟监控、幻觉和安全护栏、RAG 数据更新、A/B 测 prompt。和 MLOps 的区别：传统 ML 管模型训练，LLMOps 更多围着调用别人的大模型加 prompt 加检索打转。
+  example: 接了 GPT 做客服后才发现 LLMOps 才是难点，prompt 一改全线行为漂移。
+
+- term: FinOps
+  aliases: [云成本优化, 云财务管理, Cloud Financial Operations]
+  category: devterm
+  literal: Cloud Financial Operations
+  meaning: 专门管"云账单别失控"的实践——云资源点一下就开、用着用着账单爆炸。FinOps 让工程、财务、业务一起盯云花销：谁开的资源、值不值、能不能用竞价实例/预留实例/自动缩容省钱。理念是"让花钱的人看见花了多少"。AI 时代 GPU 太贵，FinOps 更是刚需。
+  example: FinOps 一盘点，发现一堆没人用的测试集群在白烧钱，关掉一个月省 20 万。
+
+- term: DataOps
+  aliases: [数据运维, 数据工程运维, Data Operations]
+  category: devterm
+  literal: Data Operations
+  meaning: 把 DevOps 那套（自动化、CI/CD、监控）搬到数据管道上——保证数据从采集、清洗、加工到给下游用的全链路质量和时效，数据错了、跑晚了、口径变了都要能自动发现。让"数据交付"像软件发布一样可靠、可测、可回滚。数据团队规模化后的必修课。
+  example: 没有 DataOps 时报表天天对不上，上了之后数据质量自动校验、出错告警。
+
+- term: MLOps
+  aliases: [机器学习运维, 模型工程化, Machine Learning Operations]
+  category: devterm
+  literal: Machine Learning Operations
+  meaning: 把 DevOps 理念用到机器学习全生命周期——数据版本、模型训练、实验追踪、模型部署、上线后监控（模型会随数据漂移而变差，要持续重训）。解决"模型在 Jupyter 里跑得好、一上生产就废"的鸿沟。和 LLMOps 的区别：MLOps 偏自家训练的传统模型。
+  example: 算法在 notebook 里调好了，但没有 MLOps 根本没法稳定上线和迭代。
+
+- term: 平台工程
+  aliases: [platform engineering, 平台团队, IDP, 内部开发者平台]
+  category: devterm
+  literal: platform engineering
+  meaning: 专门给"内部开发者"造工具和平台的工程方向——搭一套"内部开发者平台（IDP）"，让业务开发自助点几下就能建环境、部署、申请资源，不用每次求运维。理念是"把基础设施产品化"，开发者就是它的用户。被看作 DevOps 的演进：与其要求每个开发都懂一堆运维，不如让平台团队把复杂度封装掉。
+  example: 平台工程团队做了个自助门户，新服务从申请到上线从两周缩到半小时。
+
+- term: SRE
+  aliases: [Site Reliability Engineering, 站点可靠性工程, 网站可靠性工程师]
+  category: devterm
+  literal: Site Reliability Engineering
+  meaning: Google 提出的"用写软件的方式做运维"——不靠人肉值守，而用代码和自动化保障系统可靠性。核心工具箱：SLO/SLI（可靠性目标）、error budget（错误预算，没超就可以大胆发版）、消除重复劳动（toil）、blameless 复盘。可理解成"DevOps 的一种工程化实现"。大厂稳定性团队的标准范式。
+  example: SRE 定了 99.9% 的 SLO，error budget 用完这季度就停止上新功能、专心修稳定性。
+
+- term: 前端
+  aliases: [frontend, front-end, 前端开发, 前端工程师]
+  category: devterm
+  literal: front-end
+  meaning: 负责用户"看得见、点得着"那部分的开发——网页和 App 里的界面、按钮、交互、动画，跑在浏览器或客户端上。技术栈以 HTML/CSS/JavaScript 加 React/Vue 为主。和后端分工：前端管"长什么样、怎么交互"，后端管"数据和逻辑"。（注：缩写 FE 在本词典已指特征工程）
+  example: 这需求前端三天就能做完，卡在后端接口还没出。
+
+- term: 后端
+  aliases: [backend, back-end, BE, 后端开发, 服务端, server-side]
+  category: devterm
+  literal: back-end
+  meaning: 负责用户"看不见"那部分的开发——数据怎么存、业务逻辑怎么算、接口怎么提供、并发和安全怎么保证，跑在服务器上。技术栈 Java/Go/Python/Node 加数据库。和前端分工：前端要数据找后端要，后端通过 API 把数据吐给前端。"服务端"基本是它的同义词。
+  example: 后端把接口和数据库设计好，前端照着接口对接就行。
+
+- term: 全栈
+  aliases: [fullstack, full-stack, 全栈工程师, 全干工程师]
+  category: devterm
+  literal: full-stack
+  meaning: 前端后端都能写、一个人把功能从界面做到数据库通吃的开发。优点：小团队/创业公司一个人顶一条线，沟通成本低；现实是很难每层都精，常被调侃"全栈=全都会一点=全都不精"。AI 编程工具普及后门槛被拉低，一个人带几个 AI 干全栈活越来越常见。
+  example: 创业初期招了个全栈，前端后端一把梭先把 MVP 跑起来。
+
+- term: 大前端
+  aliases: [big frontend]
+  category: devterm
+  literal: 大前端
+  meaning: 前端职能扩张后的统称——不只写网页，还包括移动端（iOS/Android/Flutter/RN）、桌面端（Electron）、小程序、Node.js 中间层（BFF）。一个"大前端"团队把所有"贴近用户的客户端"都包了。体现的是前端从"切图仔"往"全端加工程化"演进的趋势。
+  example: 我们把 iOS、安卓、H5、小程序合并成一个大前端团队。
+
+- term: 嵌入式
+  aliases: [embedded, 嵌入式开发, embedded system, 嵌入式工程师]
+  category: devterm
+  literal: embedded system
+  meaning: 给"非通用电脑的硬件设备"写程序——单片机、路由器、智能家居、车载系统、工业控制器里跑的软件。特点：资源极度受限（内存几十 KB）、贴着硬件写、常用 C/C++/Rust、要懂寄存器和实时性。和互联网开发是两个世界：一个跟服务器云打交道，一个跟电路板和传感器打交道。
+  example: 嵌入式抠内存抠到字节，跟服务端动辄几个 G 内存是两种活法。
+
+- term: 数据基建
+  aliases: [data infrastructure, 数据基础设施, 数据底座]
+  category: devterm
+  literal: data infrastructure
+  meaning: 支撑全公司"数据能存、能流、能用"的底层——数仓/数据湖、ETL 管道、调度（Airflow）、实时流（Kafka/Flink）、指标平台、数据治理。是数据分析、报表、推荐、风控、训模型的共同地基。和 AI infra 常并列：一个喂数据、一个喂算力。
+  example: 数据基建没打好，上面做再多分析和模型都是沙上盖楼。
+
+- term: 云原生
+  aliases: [cloud native, cloud-native, CNCF]
+  category: devterm
+  literal: cloud native
+  meaning: 一套"为云而生"的架构理念和技术栈——应用从一开始就按"跑在云上、随时扩缩容、挂了能自愈"来设计，核心要素：容器（Docker）、编排（K8s）、微服务、不可变基础设施、声明式 API、可观测性，CNCF 基金会是它的大本营。反面是"把老单体直接搬上云"——那只是上云，不算云原生。
+  example: 这套老系统只是搬到云上，不是云原生，扩容还得手动加机器。

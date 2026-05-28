@@ -481,3 +481,566 @@
   literal: leftmost prefix
   meaning: 联合索引 (a, b, c) 只能加速查 a / a+b / a+b+c，不能加速查 b 或 c 单独。原因是索引按 a→b→c 顺序排序。建联合索引前必须确认查询条件的"打头字段"是啥。
   example: 联合索引最左前缀是 user_id，查 status 用不上。
+
+# ====================
+# 四、统计学基础
+# —— 描述统计 / 概率分布 / 假设检验 / 相关回归 / 估计与贝叶斯 / 常见偏差
+# ====================
+
+# ---- 4.1 描述统计 ----
+
+- term: 均值
+  aliases: [mean, average, 平均数, 算术平均, 平均值]
+  category: devterm
+  literal: mean
+  meaning: 全部数加起来除以个数，最常用的"中间水平"代表。但它怕极端值：马云走进一个小酒吧，全屋人均资产瞬间几十亿。所以看均值要警惕离群值，常和中位数一起看——均值远大于中位数就说明被少数大数拽偏了。
+  example: 团队人均薪资被一个高管拉高，看中位数更真实。
+
+- term: 中位数
+  aliases: [median, 中值]
+  category: devterm
+  literal: median
+  meaning: 把所有数从小到大排好，站正中间的那个。比均值抗极端值——10 个人 9 个月薪 1 万、1 个月薪 1 亿，均值上千万、中位数还是 1 万。统计收入、房价、接口耗时（P50）都爱用它。
+  example: 接口耗时看 P50（中位数）和 P99，别只看平均。
+
+- term: 众数
+  aliases: [mode]
+  category: devterm
+  literal: mode
+  meaning: 出现次数最多的那个值。一堆鞋码里 42 卖得最多，42 就是众数。和均值、中位数并称"集中趋势三兄弟"，但众数还能用在非数值数据上（最热门的颜色、最常见的报错码）。
+  example: 用户最爱用的支付方式（众数）是微信。
+
+- term: 方差
+  aliases: [variance, 样本方差]
+  category: devterm
+  literal: variance
+  meaning: 衡量数据"散不散"的指标——每个值离均值差多少，平方后求平均。方差大=忽高忽低不稳定，方差小=都挤在均值附近。平方是为了让正负差不互相抵消，副作用是单位变成了"平方"不好直接读，所以常开根号变成标准差。
+  example: 两个模型准确率均值一样，但这个方差小、更稳。
+
+- term: 标准差
+  aliases: [standard deviation, 标准偏差, stdev]
+  category: devterm
+  literal: standard deviation
+  meaning: 方差开根号——把单位拉回和原数据一致，所以能直接读"波动大约 ±X"。正态分布里约 68% 的数据落在均值 ±1 个标准差内、95% 在 ±2 个内（即 68-95-99.7 法则）。是描述波动和风险最常用的一把尺子。（注：缩写 SD 在本词典已指 Stable Diffusion）
+  example: 月收入均值 2 万、标准差 8 千，说明波动挺大。
+
+- term: 极差
+  aliases: [range, 全距]
+  category: devterm
+  literal: range
+  meaning: 最大值减最小值，最朴素的"散布"度量。简单但脆——只看头尾两个点，一个离群值就能把它撑爆，所以正经分析更爱用四分位距。
+  example: 这批样本极差太大，先排查有没有录错的异常值。
+
+- term: 四分位数
+  aliases: [quartile, Q1, Q3, 上四分位, 下四分位]
+  category: devterm
+  literal: quartile
+  meaning: 把排序后的数据切成四等份的三个刀口——Q1（25% 位置）、Q2（50%，就是中位数）、Q3（75%）。箱线图的盒子就是 Q1 到 Q3。看数据分布形状比只盯均值细腻得多。
+  example: Q1=10、Q3=30，一半的订单金额落在这区间。
+
+- term: 四分位距
+  aliases: [IQR, interquartile range, 四分位间距]
+  category: devterm
+  literal: interquartile range
+  meaning: Q3 减 Q1，即"中间 50% 数据"的跨度。因为砍掉了头尾各 25%，天然抗离群值。经典的离群点判定法：落在 Q1−1.5×IQR 以下或 Q3+1.5×IQR 以上的点就算异常。
+  example: 用 1.5 倍 IQR 规则筛掉了几个离群订单。
+
+- term: 分位数
+  aliases: [quantile]
+  category: devterm
+  literal: quantile
+  meaning: 百分位数的一般化叫法——把分布按比例切点。0.5 分位=中位数，0.25/0.75 分位=四分位。机器学习里的分位数回归、风控里的 VaR 都基于它。和"百分位"基本一回事，只是用 0~1 还是 0~100 表示。
+  example: 按 0.9 分位给响应时间设告警阈值。
+
+- term: 偏度
+  aliases: [skewness, 偏态]
+  category: devterm
+  literal: skewness
+  meaning: 描述分布"歪向哪边"。右偏（正偏）=长尾拖在右边，像收入分布——少数人极高把均值拽到中位数右边；左偏反之。偏度≈0 才接近对称的正态。看到均值明显大于中位数，基本就是右偏。
+  example: 消费金额右偏严重，建模前先做对数变换。
+
+- term: 峰度
+  aliases: [kurtosis]
+  category: devterm
+  literal: kurtosis
+  meaning: 描述分布"尖不尖、尾巴肥不肥"。峰度高=中间很尖加尾部厚（极端值比正态多），金融收益率就是典型的"尖峰肥尾"。风控里它是"黑天鹅有多容易出现"的信号，和偏度一起刻画分布形状。
+  example: 收益率峰度很高，极端暴跌的概率被正态模型低估了。
+
+- term: 箱线图
+  aliases: [box plot, boxplot, 盒须图, 箱型图]
+  category: devterm
+  literal: box plot
+  meaning: 用一个"盒子加两根须"把五个数（最小、Q1、中位数、Q3、最大）画在一张图上，盒外的孤立点就是离群值。一眼看出数据的中心、散布、对称性和异常，对比多组分布时特别好使。
+  example: 画个箱线图对比三个渠道的客单价分布。
+
+# ---- 4.2 概率与分布 ----
+
+- term: 概率分布
+  aliases: [probability distribution, 分布]
+  category: devterm
+  literal: probability distribution
+  meaning: 描述"某个随机变量取各种值的可能性有多大"的规律（表或曲线）。掷骰子是均匀分布（1-6 等概率），人的身高是正态分布。选对分布是统计建模的地基——分布选错，后面的检验和估计全跟着歪。
+  example: 先看数据像什么分布，再决定用哪种检验。
+
+- term: 正态分布
+  aliases: [normal distribution, Gaussian, 高斯分布, 钟形曲线, 常态分布]
+  category: devterm
+  literal: normal distribution
+  meaning: 那条对称的"钟形曲线"——中间高两边低，自然界和测量误差里到处是它（身高、体重、考试分）。一是被均值和标准差两个数完全确定，二是满足 68-95-99.7 法则。大量统计方法默认数据近似正态，所以它是统计学的"默认背景板"。
+  example: 残差近似正态，这个回归假设基本满足。
+
+- term: 二项分布
+  aliases: [binomial distribution]
+  category: devterm
+  literal: binomial distribution
+  meaning: '"做 n 次只有成功/失败两种结果的独立试验，成功 k 次的概率"——抛 10 次硬币正面朝上 6 次的概率就是它。A/B 测试里"n 个用户里有多少转化"天然是二项分布，n 很大时它逼近正态。'
+  example: 转化数服从二项分布，样本够大可用正态近似算区间。
+
+- term: 泊松分布
+  aliases: [Poisson distribution, 普阿松分布]
+  category: devterm
+  literal: Poisson distribution
+  meaning: 描述"单位时间或空间里某稀有事件发生几次"——每分钟来几个客服请求、每页有几个错别字、网站每秒崩几次。前提是事件独立且平均速率稳定。排队论、限流、容量规划的常用模型。
+  example: 每秒请求数按泊松分布建模，估峰值要留余量。
+
+- term: 均匀分布
+  aliases: [uniform distribution]
+  category: devterm
+  literal: uniform distribution
+  meaning: 区间内每个值出现的概率都一样——理想骰子、随机数生成器 random() 给的 [0,1) 就是均匀分布。是最"没有偏好"的分布，常作为随机抽样和模拟的起点。
+  example: 用均匀分布随机分桶，保证 A/B 流量均衡。
+
+- term: 指数分布
+  aliases: [exponential distribution]
+  category: devterm
+  literal: exponential distribution
+  meaning: 描述"两次随机事件之间要等多久"——下一个请求多久来、零件多久坏。核心特点是"无记忆性"：已经等了 5 分钟，再等的分布和刚开始时一模一样。和泊松分布是一对（一个数次数、一个数间隔）。
+  example: 故障间隔近似指数分布，算 MTBF 用它。
+
+- term: 伯努利分布
+  aliases: [Bernoulli distribution, 0-1 分布, 两点分布]
+  category: devterm
+  literal: Bernoulli distribution
+  meaning: 最简单的分布——只做一次试验，结果非 0 即 1（成功/失败、点/不点）。一个参数 p 就是成功概率。把 n 个独立伯努利加起来就是二项分布。是分类、点击率这类"是否"问题的最小积木。
+  example: 单个用户是否点击就是一次伯努利试验。
+
+- term: 幂律分布
+  aliases: [power law, 幂律, 帕累托分布, Pareto distribution, 二八法则]
+  category: devterm
+  literal: power law distribution
+  meaning: '"极少数占了极大头"的分布——少数热门商品贡献大部分销量、少数大 V 占大部分流量。尾巴又长又重，均值会被头部严重带偏，用正态那套会翻车。互联网的流量、财富、城市规模大多是幂律。'
+  example: 商品销量是幂律分布，头部 5% 撑起 80% 的 GMV。
+
+- term: 概率密度函数
+  aliases: [probability density function, 密度函数, 密度曲线]
+  category: devterm
+  literal: probability density function (PDF)
+  meaning: 连续随机变量的"概率曲线"——曲线下某一段的面积才是落在那段的概率（单点概率为 0）。正态那条钟形曲线就是它的图像。注意曲线本身的高度不是概率而是"密度"，别直接当概率读。（缩写 PDF 在本词典已指文件格式）
+  example: 密度函数下 [a,b] 的面积就是落在该区间的概率。
+
+- term: 累积分布函数
+  aliases: [CDF, cumulative distribution function, 累积分布]
+  category: devterm
+  literal: cumulative distribution function
+  meaning: '"取值小于等于 x 的概率有多大"——从左往右把密度一路累加到 1。求百分位、算 p 值、判断"比某值小的占比"都靠它。和密度函数是积分与求导的关系（一个累加、一个瞬时）。'
+  example: 用 CDF 反查 95 百分位对应的阈值。
+
+- term: 概率质量函数
+  aliases: [probability mass function, 质量函数]
+  category: devterm
+  literal: probability mass function (PMF)
+  meaning: 离散随机变量版的"概率表"——直接给出每个具体取值的概率（掷骰子得 3 的概率 1/6）。和连续变量的密度函数对应：一个逐点给概率、一个给密度，各点概率加起来必须等于 1。（缩写 PMF 在本词典已指 Product-Market Fit）
+  example: 骰子的质量函数就是每个面各 1/6。
+
+- term: 期望
+  aliases: [expected value, expectation, 期望值, 数学期望, EV]
+  category: devterm
+  literal: expected value
+  meaning: '"长期平均会是多少"——每个结果乘上它的概率再加总。买彩票期望为负就是"长期必亏"的数学说法。决策时常算期望比大小，但要小心：期望忽略了波动和极端风险（期望为正也可能一把破产）。'
+  example: 这个玩法期望收益为负，长期玩必亏。
+
+- term: 大数定律
+  aliases: [law of large numbers, LLN, 大数法则]
+  category: devterm
+  literal: law of large numbers
+  meaning: 试验次数越多，样本平均值越靠近真实期望——抛硬币 10 次可能 7 正，抛 10 万次必然接近 50%。这是"样本量越大越可信"的理论根基，也是保险、赌场稳赚的底气。注意它说的是"多了会准"，不保证下一次。
+  example: 样本量上来后指标稳了，大数定律生效。
+
+- term: 中心极限定理
+  aliases: [central limit theorem, CLT, 中央极限定理]
+  category: devterm
+  literal: central limit theorem
+  meaning: 不管原始数据是什么奇形怪状的分布，只要样本量够大，"样本均值"的分布都会趋近正态。这就是为什么正态无处不在、为什么很多检验都默认正态——它给了用正态方法的底气，是统计学最核心的定理之一。
+  example: 靠中心极限定理，样本均值可用正态近似做区间估计。
+
+- term: 条件概率
+  aliases: [conditional probability]
+  category: devterm
+  literal: conditional probability
+  meaning: '"在已知 B 发生的前提下 A 发生的概率"，记作 P(A|B)。下雨了堵车的概率比平时高。是贝叶斯定理和几乎所有推断的基础。经典坑：P(A|B) 和 P(B|A) 不是一回事（得病了检测阳，不等于检测阳就一定得病）。'
+  example: 别把 P(阳性|有病) 和 P(有病|阳性) 搞混。
+
+- term: 贝叶斯定理
+  aliases: [Bayes theorem, 贝叶斯公式, Bayes rule, 贝叶斯法则]
+  category: devterm
+  literal: Bayes' theorem
+  meaning: 用新证据更新概率的公式，核心是"后验 ∝ 似然 × 先验"——先有个初始判断（先验），看到数据后按比例修正成新判断（后验）。垃圾邮件过滤、医疗诊断、推荐系统背后都是它，也是"基率不能忽略"的数学来源。
+  example: 检测阳性后用贝叶斯定理算真实患病概率，别先吓自己。
+
+# ---- 4.3 推断统计与假设检验 ----
+
+- term: 总体
+  aliases: [population, 母体]
+  category: devterm
+  literal: population
+  meaning: 你真正想研究的"全部对象"——全中国网民、某 App 所有用户。通常大到没法全测，只能抽一部分（样本）来推断。统计推断的全部意义就是"用样本猜总体"。搞混总体和样本是新手第一坑。
+  example: 想知道全体用户偏好，但只能调研抽样的几千人。
+
+- term: 样本
+  aliases: [sample, 样本数据, 样本量]
+  category: devterm
+  literal: sample
+  meaning: 从总体里抽出来、真正拿到手测量的那一部分。样本要有"代表性"才能推断总体——只在写字楼发问卷推不出全民习惯。样本量越大、抽样越随机，结论越可信（见大数定律）。
+  example: 这个样本只覆盖年轻用户，结论别往全体上套。
+
+- term: 抽样
+  aliases: [sampling, 取样, 随机抽样, 分层抽样, stratified sampling]
+  category: devterm
+  literal: sampling
+  meaning: 从总体里挑样本的过程，怎么挑决定结论靠不靠谱：随机抽样最公平，分层抽样保证各类人群都被覆盖。抽样方法一旦有偏（只抽到某类人），样本再大也救不回来——这叫抽样偏差。
+  example: 用分层抽样，保证新老用户都被采到。
+
+- term: 统计量
+  aliases: [statistic, 样本统计量]
+  category: devterm
+  literal: statistic
+  meaning: 由样本算出来的数（样本均值、样本方差、t 值），和"总体参数"相对。参数是总体真值（未知、固定），统计量是样本估计（已知、随样本波动）。整个推断就是拿统计量去估参数。
+  example: 样本均值是统计量，总体均值是要估的参数。
+
+- term: 点估计
+  aliases: [point estimate, 点估计值]
+  category: devterm
+  literal: point estimate
+  meaning: 用一个具体数字去猜总体参数——"我估计转化率是 5%"。简单直接但没说"有多准"，所以正经报告会配上区间估计（5% ± 1%）来表达不确定性。光给点估计容易让人误以为很精确。
+  example: 点估计转化率 5%，但要给置信区间才完整。
+
+- term: 区间估计
+  aliases: [interval estimate, 区间估计值]
+  category: devterm
+  literal: interval estimate
+  meaning: 不给单个数，而是给一个"真值大概率落在里面"的范围（置信区间是最常见形式）。比点估计诚实——把不确定性摆上台面。区间越窄说明估得越准，样本量越大区间越窄。
+  example: 区间估计 [4%, 6%]，比单说 5% 更负责任。
+
+- term: 标准误
+  aliases: [standard error, SE, 标准误差]
+  category: devterm
+  literal: standard error
+  meaning: 衡量"样本统计量本身有多飘"——同一总体反复抽样，每次算出的样本均值会波动，标准误就量这个波动。注意它和标准差不同：标准差量数据本身的散布，标准误量"估计值"的不稳。样本越大标准误越小（按根号 n 缩）。
+  example: 样本翻 4 倍，标准误才减半（除以根号 4）。
+
+- term: 误差范围
+  aliases: [margin of error, 误差界限, 容许误差]
+  category: devterm
+  literal: margin of error
+  meaning: 置信区间里"± 后面那个数"——民调"支持率 52%，误差 ±3%"就是它，等于临界值乘标准误。样本越大误差范围越小。看到没标误差范围的百分比，多半是想让你以为它比实际更精确。
+  example: 民调误差 ±3%，52% 对 49% 其实分不出胜负。
+
+- term: 自由度
+  aliases: [degrees of freedom, df, 自由度数]
+  category: devterm
+  literal: degrees of freedom
+  meaning: 计算中"能自由变动的独立信息个数"。一组 n 个数若已知均值，最后一个数就被锁死，所以自由度常是 n−1。t 检验、卡方检验查临界值都要先定自由度。理解成"花掉一个约束就扣一个自由度"即可。
+  example: 这个 t 检验自由度 n−1，查临界值要对上。
+
+- term: 原假设
+  aliases: [null hypothesis, H0, 零假设, 虚无假设]
+  category: devterm
+  literal: null hypothesis
+  meaning: 假设检验里"默认无事发生"的保守立场——"新版和旧版没差别"。整个检验在问"数据有没有强到能推翻它"。注意逻辑：不能"证明"原假设成立，只能"拒绝"或"不拒绝"（没拒绝不等于它是真的，可能只是证据不够）。
+  example: H0 是"两组没差异"，p 够小才敢拒绝它。
+
+- term: 备择假设
+  aliases: [alternative hypothesis, H1, Ha, 对立假设]
+  category: devterm
+  literal: alternative hypothesis
+  meaning: 和原假设唱反调的那个——"新版确实更好"，是你真正想证明的结论。检验只有两种结局：证据够就拒绝原假设、转而支持它；证据不够就保留原假设。它和原假设一正一反、互斥。
+  example: 备择假设是"B 版转化更高"，这才是我们想要的。
+
+- term: 显著性水平
+  aliases: [significance level, 显著水平, 检验水平]
+  category: devterm
+  literal: significance level (α)
+  meaning: 你给假设检验划的"判定红线"——p 值小于它就算显著，常用 0.05，等于"愿意接受 5% 的误报率"。它是第一类错误的上限，做实验前就该定死，不能看完数据再挑个能过线的 α（那是作弊）。
+  example: α 先定 0.05，别跑完数据再改成 0.1 凑显著。
+
+- term: p-hacking
+  aliases: [p hacking, p 值操纵, 数据捞针, 钓鱼式分析, data dredging]
+  category: devterm
+  literal: p-hacking
+  meaning: 反复换指标、换分组、换时间窗，直到 p 值碰巧小于 0.05 才报告——把噪声硬凑成"显著"。看似科学实则自欺，是科研可重复性危机的元凶。防法：实验前预注册指标和样本量，别中途改口径。
+  example: 试了 20 个细分人群才找到一个显著的，典型 p-hacking。
+
+- term: 多重比较
+  aliases: [multiple comparison, 多重检验, Bonferroni, 多重比较校正, multiple testing]
+  category: devterm
+  literal: multiple comparison
+  meaning: 一次测一堆假设时，光靠运气也会蹦出"显著"结果——查 20 个指标，平均就有 1 个 p<0.05 纯属巧合。所以要做校正（如 Bonferroni 把阈值除以比较次数）压低整体误报。同时盯很多指标必须警惕这事。
+  example: 看了 30 个子指标，得做 Bonferroni 校正再下结论。
+
+- term: 单尾检验
+  aliases: [one-tailed test, two-tailed test, 单侧检验, 双侧检验, 双尾检验, 单边检验]
+  category: devterm
+  literal: one-tailed / two-tailed test
+  meaning: 检验只关心"一个方向"还是"两个方向"。双尾问"有没有差别"（高了低了都算），单尾问"是不是更高"（只看一边）。单尾更容易出显著（同样数据 p 减半），所以默认用双尾，除非事先有充分理由只看一个方向。偷偷改单尾凑显著是常见小动作。
+  example: 没充分理由就别用单尾检验偷 p 值。
+
+- term: t 检验
+  aliases: [t-test, t test, Student t, 学生 t 检验, t 值, t-statistic]
+  category: devterm
+  literal: t-test
+  meaning: 比较两组均值差异是否显著、且样本量不大或总体方差未知时的首选检验。"这两个版本人均时长有没有真差别"就用它。前提：数据近似正态、方差差不多。算出 t 值再配自由度查 p。A/B 测连续指标的常客。
+  example: 两组停留时长做 t 检验，p=0.03 算显著。
+
+- term: z 检验
+  aliases: [z-test, z test]
+  category: devterm
+  literal: z-test
+  meaning: 和 t 检验干一样的事（比均值、比比例），但用在样本量大或总体方差已知时。大样本下 t 分布趋近正态，z 检验和 t 检验结果几乎一样。比例类、大流量 A/B 测常直接用 z 检验。
+  example: 大流量转化率对比直接上 z 检验。
+
+- term: z-score
+  aliases: [z 分数, z 值, 标准分, standard score, 标准化, standardization, z-score 标准化]
+  category: devterm
+  literal: z-score
+  meaning: '"这个值离均值有几个标准差"——z=2 表示比均值高 2 个标准差。作用一是把不同量纲的数据拉到同一把尺子上比较（标准化），二是配正态表直接查百分位和概率。机器学习喂模型前的标准化就是算 z-score。'
+  example: 把特征都转成 z-score 再喂模型，量纲就统一了。
+
+- term: 卡方检验
+  aliases: [chi-square test, chi square, χ², 卡方, 卡方独立性检验, chi-squared]
+  category: devterm
+  literal: chi-square test
+  meaning: 专治"类别型数据"的检验——判断两个分类变量是否相关（性别和是否付费有没有关系），或实际分布和预期分布差多少。看的是"观察频数 vs 期望频数"的偏离。列联表、问卷交叉分析的标配。
+  example: 用卡方检验看渠道来源和转化是否相关。
+
+- term: 方差分析
+  aliases: [ANOVA, analysis of variance, F 检验, F-test, 单因素方差分析]
+  category: devterm
+  literal: analysis of variance (ANOVA)
+  meaning: 一次比较三组及以上均值有没有差异的检验。为啥不两两 t 检验？因为比较次数一多误报率飙升（见多重比较）。ANOVA 用一个 F 检验整体判断"这几组里至少有两组不一样"，再做事后比较定位是谁。
+  example: 三个落地页转化做 ANOVA，F 检验显著再两两看。
+
+# ---- 4.4 相关与回归 ----
+
+- term: 相关性
+  aliases: [correlation, 相关, 相关关系]
+  category: devterm
+  literal: correlation
+  meaning: 两个变量"一起变"的程度和方向——一个涨另一个也涨（正相关），或反着走（负相关）。最大的坑是相关不等于因果（冰淇淋销量和溺水数正相关，真凶是气温）。看到强相关先问"是不是有第三个变量在背后捣鬼"。
+  example: 这俩指标强相关，但别急着说谁导致谁。
+
+- term: 相关系数
+  aliases: [correlation coefficient, Pearson, 皮尔逊相关, 皮尔逊相关系数, Pearson r]
+  category: devterm
+  literal: correlation coefficient
+  meaning: 把相关性压成 −1 到 1 之间一个数：+1 完全正相关、−1 完全负相关、0 没线性关系。最常用的皮尔逊 r 只能抓"直线关系"——一条完美抛物线 r 可能为 0（关系强但不是直线）。所以光看 r 小别下"没关系"的结论。
+  example: r=0.8 说明强正相关，但仍不代表因果。
+
+- term: 斯皮尔曼相关
+  aliases: [Spearman, 斯皮尔曼, 秩相关, rank correlation, 等级相关]
+  category: devterm
+  literal: Spearman's rank correlation
+  meaning: 看"排名一致性"的相关系数——不管具体数值、只看大小顺序。所以它能抓非线性的单调关系、还抗离群值，数据不正态或有异常点时比皮尔逊稳。"X 越大 Y 是不是越大"这类问题用它。
+  example: 数据有离群点，改用斯皮尔曼相关更稳。
+
+- term: 协方差
+  aliases: [covariance, cov]
+  category: devterm
+  literal: covariance
+  meaning: 相关系数的"未标准化版"——同样衡量两变量一起变的方向，正负有意义，但数值大小受量纲影响、没法横向比较。除以两者标准差才变成 −1~1 的相关系数。投资组合算风险、PCA 的协方差矩阵都用它。
+  example: 两资产协方差为负，组合在一起能对冲风险。
+
+- term: 相关不等于因果
+  aliases: [correlation is not causation, 相关≠因果, correlation does not imply causation, 相关不代表因果]
+  category: devterm
+  literal: correlation is not causation
+  meaning: 两件事一起动，不代表谁导致谁——可能纯属巧合，也可能有个"混杂变量"同时驱动两者（气温同时推高冰淇淋销量和溺水数）。要证因果得靠随机对照实验（A/B 测试），不能只看观察数据的相关。数据分析第一铁律。
+  example: 用了新功能的人留存高？可能是活跃用户本就爱试新功能，相关≠因果。
+
+- term: 线性回归
+  aliases: [linear regression, 一元线性回归, 多元线性回归, 线性回归模型]
+  category: devterm
+  literal: linear regression
+  meaning: 用一条直线（或高维平面）去拟合"自变量怎么影响因变量"——房价随面积怎么变，产出每个因素的系数（面积每多 1 平米贵多少）。既能预测也能解释，是统计建模和机器学习最基础的模型，很多复杂模型都是它的变体。
+  example: 线性回归显示广告投入每加 1 万，销量约涨 200。
+
+- term: 最小二乘法
+  aliases: [OLS, ordinary least squares, 普通最小二乘, 最小平方法]
+  category: devterm
+  literal: ordinary least squares
+  meaning: 线性回归找那条"最佳直线"的标准方法——让所有点到直线的竖直距离平方和最小。为啥用平方？放大大偏差、且数学上好求解。OLS 是回归的默认拟合方式，但对离群值敏感（平方会让一个极端点主导）。
+  example: OLS 拟合受离群点影响大，先清异常再回归。
+
+- term: 决定系数
+  aliases: [R-squared, R², R2, 拟合优度, coefficient of determination, R 方]
+  category: devterm
+  literal: coefficient of determination (R²)
+  meaning: 回归模型"解释了因变量多少波动"——0 到 1，越接近 1 拟合越好（0.8 表示解释了 80% 的变化）。但高 R² 不等于模型对：加再多无关变量它也只升不降，所以多元回归要看调整后 R²。它衡量拟合，不衡量因果。
+  example: R² 0.9 看着漂亮，但可能是过拟合，看测试集。
+
+- term: 残差
+  aliases: [residual, 残差值]
+  category: devterm
+  literal: residual
+  meaning: 每个点的"真实值减模型预测值"——模型没解释掉的那部分误差。残差分析是回归体检的核心：残差应随机散开、近似正态、方差均匀；如果残差有规律（呈曲线或喇叭口），说明模型选错了或漏了变量。
+  example: 残差图呈喇叭口，存在异方差，得修模型。
+
+- term: 逻辑回归
+  aliases: [logistic regression, 逻辑斯蒂回归, LR, 对数几率回归]
+  category: devterm
+  literal: logistic regression
+  meaning: 名字带"回归"其实是做"分类"——预测"是/否"的概率（会不会点击、会不会流失），输出压在 0~1 之间。比深度模型简单、可解释（每个系数对应一个因素的影响方向），是风控、CTR 预估、医疗诊断的常青基线模型。
+  example: 流失预测先上逻辑回归做基线，再谈复杂模型。
+
+- term: 多重共线性
+  aliases: [multicollinearity, 共线性, collinearity, VIF]
+  category: devterm
+  literal: multicollinearity
+  meaning: 回归里几个自变量自己之间高度相关（身高和臂展一起放进模型）。后果：系数估计变得不稳、符号乱跳、没法解释"谁的功劳"，但通常不影响整体预测精度。用 VIF（方差膨胀因子）检测，处理靠删变量或降维。
+  example: 这几个特征高度相关，VIF 爆表，删掉冗余的。
+
+- term: 异方差
+  aliases: [heteroscedasticity, 异方差性, 同方差, homoscedasticity, 方差齐性]
+  category: devterm
+  literal: heteroscedasticity
+  meaning: 回归残差的波动"随自变量变大而变大"（收入越高、消费的离散度越大），残差图呈喇叭口。它违反了 OLS"方差恒定"的假设，会让标准误和 p 值不可信。处理：稳健标准误、加权回归或对数变换。
+  example: 残差随预测值发散，异方差，用稳健标准误修。
+
+# ---- 4.5 估计与贝叶斯 ----
+
+- term: 似然
+  aliases: [likelihood, 似然函数, likelihood function]
+  category: devterm
+  literal: likelihood
+  meaning: '"在某个参数取值下，看到当前这批数据的可能性有多大"。注意它和概率视角相反：概率是参数固定问数据，似然是数据固定问参数。是最大似然估计和贝叶斯的核心原料。日常说的"这个解释更说得通"就是似然更高。'
+  example: 哪组参数让观测数据的似然最大，就选哪组。
+
+- term: 最大似然估计
+  aliases: [MLE, maximum likelihood estimation, 极大似然估计]
+  category: devterm
+  literal: maximum likelihood estimation
+  meaning: 找参数的主流方法——"哪套参数最可能生成我手里这批数据，就选哪套"，直觉是"反推最合理的幕后设定"。从线性回归到神经网络训练，本质大多在做 MLE（最小化交叉熵就是它的一种）。是频率派的看家工具。
+  example: 这个分布的参数用 MLE 估出来。
+
+- term: 最大后验估计
+  aliases: [MAP, maximum a posteriori, 极大后验估计, MAP estimation]
+  category: devterm
+  literal: maximum a posteriori
+  meaning: MLE 的"带先验版本"——不光看数据似然，还乘上一个先验信念，取后验概率最大的参数。数据少时先验能防止瞎拟合，数据多时先验影响被冲淡。机器学习里的 L2 正则，本质就是给参数加了个正态先验的 MAP。
+  example: 样本少，加个先验做 MAP 比纯 MLE 稳。
+
+- term: 先验概率
+  aliases: [prior, prior probability, 先验, 先验分布]
+  category: devterm
+  literal: prior probability
+  meaning: 看到数据之前，你对某事的初始信念——"凭经验觉得这病发病率 1%"。贝叶斯方法的起点，会被新数据更新成后验。先验可来自历史数据或专家经验；选得离谱、数据又少时会带偏结论，所以选先验要讲道理。
+  example: 用历史转化率当先验，再用本周数据更新。
+
+- term: 后验概率
+  aliases: [posterior, posterior probability, 后验, 后验分布]
+  category: devterm
+  literal: posterior probability
+  meaning: 结合了先验信念和新数据之后更新出的新信念——贝叶斯定理的产出。"本来觉得 1% 患病，检测阳性后更新到 16%"。它会成为下一轮的先验、如此迭代。贝叶斯 A/B 测试直接给"B 比 A 好的概率 92%"这种好懂结论。
+  example: 看完这批数据，后验概率告诉我们 B 胜出有 92% 把握。
+
+- term: 蒙特卡洛
+  aliases: [Monte Carlo, 蒙特卡罗, 蒙特卡洛模拟, MC simulation, 蒙特卡洛方法]
+  category: devterm
+  literal: Monte Carlo method
+  meaning: '"算不出来就大量随机模拟"——用海量随机抽样去逼近一个难求的概率或积分。算圆周率、估投资组合风险、游戏 AI（MCTS）都靠它。核心信仰：随机试够多次，频率就逼近真概率（大数定律）。'
+  example: 期权定价用蒙特卡洛模拟跑十万条价格路径。
+
+- term: MCMC
+  aliases: [Markov Chain Monte Carlo, 马尔可夫链蒙特卡洛, 马氏链蒙特卡洛]
+  category: devterm
+  literal: Markov Chain Monte Carlo
+  meaning: 当后验分布复杂到没法直接算时，用"会聪明游走的随机抽样"采出它形状的一类算法（Gibbs、Metropolis-Hastings）。是贝叶斯统计的主力计算工具，PyMC、Stan 跑的就是它。慢、且要判断"采样收敛没"是它的日常痛点。
+  example: 后验没解析解，跑 MCMC 采样近似。
+
+- term: AIC
+  aliases: [Akaike information criterion, 赤池信息准则, 赤池信息量]
+  category: devterm
+  literal: Akaike information criterion
+  meaning: 模型选择的打分——既奖励拟合好、又惩罚参数多（防过拟合），分越低越好。专治"加变量 R² 只升不降"的毛病，帮你在拟合和简洁之间权衡。和 BIC 是一对，AIC 相对更倾向保留复杂一点的模型。
+  example: 几个模型比 AIC，挑最低的那个。
+
+- term: BIC
+  aliases: [Bayesian information criterion, 贝叶斯信息准则, 施瓦茨准则]
+  category: devterm
+  literal: Bayesian information criterion
+  meaning: 和 AIC 同类的模型选择分数，但对参数个数的惩罚更狠（含样本量项），所以倾向选更简单的模型，样本量大时尤其明显。和 AIC 一起看：想要简约选 BIC，想要预测力 AIC 往往更合适。
+  example: BIC 罚得重，最后选了更精简的模型。
+
+# ---- 4.6 常见偏差与陷阱 ----
+
+- term: 选择偏差
+  aliases: [selection bias, 选择性偏差]
+  category: devterm
+  literal: selection bias
+  meaning: 研究对象"挑得不公平"导致结论失真——只调研留下来的老用户问"满意度"，早就流失的根本没机会发声，于是满意度虚高。幸存者偏差是它的著名特例。防法：保证样本能代表整个总体。
+  example: 只问还在用的用户，选择偏差让满意度虚高。
+
+- term: 抽样偏差
+  aliases: [sampling bias, 取样偏差]
+  category: devterm
+  literal: sampling bias
+  meaning: 抽样方法本身偏了，样本系统性地不能代表总体——电话民调只覆盖接电话的人、网络问卷只覆盖上网活跃的人。和"样本太小"不同，它是再大也救不回的方向性错误。著名翻车：1936 年《文学文摘》民调两百万样本却预测错总统。
+  example: 只在 App 内发问卷，天然漏掉流失用户，抽样偏差。
+
+- term: 回归均值
+  aliases: [regression to the mean, RTM, 趋均数回归, 向平均回归, 均值回复]
+  category: devterm
+  literal: regression to the mean
+  meaning: 极端表现之后，下一次往往会回落到平均附近——不是因为你做了什么，纯属随机波动。"运动员上了封面下赛季就拉胯""骂完孩子他考好了"多半是它在作祟，而非干预有效。不懂它就容易把随机回落误当成因果。
+  example: 这月异常高的转化下月回落很正常，回归均值而已，别忙着归功运营。
+
+- term: 混杂变量
+  aliases: [confounding variable, confounder, 混杂因素, 混淆变量, 第三变量]
+  category: devterm
+  literal: confounding variable
+  meaning: 躲在背后同时影响"因"和"果"的第三个变量，制造出虚假的相关——气温同时拉高冰淇淋销量和溺水数，让两者看着相关。它是"相关不等于因果"的罪魁。控制手段：随机对照实验，或分析时把它纳入模型。
+  example: 没控制城市这个混杂变量，结论可能是假的。
+
+- term: 伪相关
+  aliases: [spurious correlation, 虚假相关, 假相关]
+  category: devterm
+  literal: spurious correlation
+  meaning: 两个变量数据上相关、实则毫无因果联系——可能是巧合（"凯奇电影数"和"溺水人数"逐年同步），也可能是混杂变量作祟。数据越多越容易钓出这种巧合相关，所以别一看相关就编故事。
+  example: 这俩曲线走势一样纯属伪相关，硬扯因果会闹笑话。
+
+- term: 基率谬误
+  aliases: [base rate fallacy, 基率, base rate, 基础概率谬误, 基本比率谬误]
+  category: devterm
+  literal: base rate fallacy
+  meaning: 判断时只盯着眼前证据、忘了"这事本身有多罕见"（基率），导致严重高估概率。经典：某病发病率 0.1%、检测准确率 99%，你测出阳性——真患病概率其实只有约 9%，因为健康人基数太大、假阳性更多。和贝叶斯定理是一体两面。
+  example: 别一看检测阳性就慌，忽略基率会吓自己。
+
+- term: 灵敏度
+  aliases: [sensitivity, true positive rate, TPR, 真阳性率, 灵敏性]
+  category: devterm
+  literal: sensitivity (true positive rate)
+  meaning: 在"真有病"的人里，被正确揪出来的比例——医学诊断、风控最看重它，等价于机器学习里的召回率。灵敏度高=漏网少（假阴性少）。常和特异度一起权衡：把阈值放宽能提灵敏度，但特异度会跟着降。
+  example: 这套筛查灵敏度 99%，几乎不漏诊，但误报会多。
+
+- term: 特异度
+  aliases: [specificity, true negative rate, TNR, 真阴性率, 特异性]
+  category: devterm
+  literal: specificity (true negative rate)
+  meaning: 在"真没病"的人里，被正确判为阴性的比例。特异度高=误报少（假阳性少）。和灵敏度是一对跷跷板：医学筛查常先用高灵敏度初筛（别漏），再用高特异度复检（别冤枉好人）。
+  example: 初筛重灵敏度，复检重特异度，两步把误诊压下来。
+
+- term: 归一化
+  aliases: [normalization, min-max scaling, 最小最大归一化, 特征缩放, feature scaling]
+  category: devterm
+  literal: normalization
+  meaning: 把不同范围的特征压到同一区间（常 0~1），免得"月薪几万"的特征把"年龄几十"的特征淹没。和标准化（z-score）是两种常见缩放：归一化压到固定区间、标准化转成均值 0 方差 1。KNN、神经网络、梯度下降前几乎必做。注意只能用训练集的范围去缩放测试集。
+  example: 喂神经网络前先把特征归一化到 [0,1]。

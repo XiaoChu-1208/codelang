@@ -1219,3 +1219,101 @@
   literal: AI-Native Workforce
   meaning: 想象一家公司全员是 AI——每个 AI 有独立邮箱、独立工号、独立记忆、独立岗位档案——这就是 AI-Native Workforce。2025-2026 年新冒出的产品定位（Helio 为代表）：AI 不当"助手"，而是当"同事"。HR Manager、PM、前端、设计师都是独立 AI 角色，有 JD、有审计、彼此能在频道里"吵架"。和 [[AI Worker]] 概念相近但更强调"组织结构原生为 AI 设计"——把人类一百年积累的"职责分离 + 交叉校验"重新装回到 AI 协作里，反对全能 Agent 单点兜底。
   example: Helio 押的就是 AI-Native Workforce 方向，给你招"团队"而不是给你"配置 agent"。
+
+# --- batch: 2025-2026 AI 新词（智能体工作流 / RAG 变体 / GRPO / slop / GEO 等）---
+
+- term: 智能体工作流
+  aliases: [agentic workflow, agent workflow, 代理式工作流, agentic 工作流]
+  category: ai
+  meaning: 让 AI 不止一问一答，而是按"规划→调工具→看结果→不行就重试→还不行就上报"的循环自己推进任务。常见编排模式：prompt 串联、路由分发、并行、编排者-执行者、评估-优化。和单次 prompt 的区别：它有多步、有状态、能自我纠错。是 2025-2026 年 Agent 落地的核心范式。
+  example: 把"查资料-写稿-自检-改稿"串成智能体工作流，比单轮 prompt 靠谱多了。
+
+- term: agentic RAG
+  aliases: [代理式 RAG, 智能体 RAG, agentic retrieval]
+  category: ai
+  meaning: 给传统 RAG（检索增强生成）装上"会思考的大脑"——不再是"检索一次就生成"，而是让 Agent 自己决定要不要检索、检索几轮、查哪个库，检索回来的不够好就换关键词再查。把"死板的一次检索"升级成"像研究员一样多轮迭代查证"，是 2025 年 RAG 的主流演进方向。
+  example: 普通 RAG 答不准的多跳问题，agentic RAG 会自己拆成几步分别检索再综合。
+
+- term: GraphRAG
+  aliases: [图 RAG, graph RAG, 知识图谱 RAG]
+  category: ai
+  literal: Graph RAG
+  meaning: 微软提出的 RAG 变体——先把文档抽成"知识图谱"（实体加关系），检索时顺着图的关系走，而不是只按文本相似度捞片段。擅长回答"需要跨多个文档串联、看全局"的问题（比如"这家公司和那几家的关系网"），普通向量 RAG 在这类全局题上抓瞎。代价是构建图谱贵。
+  example: 要回答"整个项目里谁依赖谁"这种全局问题，GraphRAG 比向量检索强。
+
+- term: GRPO
+  aliases: [Group Relative Policy Optimization, 群组相对策略优化]
+  category: ai
+  literal: Group Relative Policy Optimization
+  meaning: DeepSeek 用来训练 R1 推理模型而出圈的强化学习算法——相比经典 PPO，它砍掉了单独的价值网络（critic），改成"同一道题采样一组答案，按组内相对好坏来打分"，省显存、训得稳。是 2025 年"用 RL 把推理能力练出来"这波浪潮的代表方法。
+  example: R1 论文火了之后，开源圈复现推理模型基本都用 GRPO。
+
+- term: RLVR
+  aliases: [Reinforcement Learning with Verifiable Rewards, 可验证奖励强化学习]
+  category: ai
+  literal: Reinforcement Learning with Verifiable Rewards
+  meaning: 训练推理模型的关键思路——只在"答案能被自动验证对错"的领域（数学有标准答案、代码能跑测试）用强化学习，奖励信号干净、不靠人打分。这就是为什么推理模型在数学和编程上猛涨：对错好判定、RL 能高效迭代。开放式写作这类没法验证的就难用 RLVR。
+  example: 数学和代码能用 RLVR，是因为对错可自动判，写诗就没法这么训。
+
+- term: slop
+  aliases: [AI slop, AI 垃圾内容, workslop, AI 灌水]
+  category: ai
+  literal: slop（泔水 / 劣质内容）
+  meaning: 指泛滥的"AI 生成的低质垃圾内容"——为了凑数、骗流量、走流程而批量产出的没营养文章、图片、视频、PPT。是 2024-2025 年随生成式 AI 普及而成灾的现象级吐槽词，类比"喂猪的泔水"。衍生：workslop（糊弄的 AI 工作产物）、deckslop（注水的 AI 做的 PPT）。核心吐槽：能生成 ≠ 有价值。
+  example: 现在搜索结果里一半是 AI slop，想找点真东西越来越难。
+
+- term: GEO
+  aliases: [Generative Engine Optimization, 生成式引擎优化, AI 搜索优化, 答案引擎优化]
+  category: ai
+  literal: Generative Engine Optimization
+  meaning: SEO 的 AI 时代版——以前是优化内容让它在百度/谷歌排前面，现在是优化内容让 ChatGPT、Perplexity 这类 AI 在回答里引用你、提到你。因为越来越多用户直接问 AI 而不点搜索结果，"被 AI 选中并复述"成了新的流量入口。是 2025 年营销圈的新风口词。
+  example: 官网开始做 GEO，专门优化结构化内容，好让 AI 问答时引用我们。
+
+- term: 投机解码
+  aliases: [speculative decoding, 投机采样, speculative sampling, 推测解码]
+  category: ai
+  literal: speculative decoding
+  meaning: 给大模型推理提速的技巧——先用一个小快模型"抢答"猜出后面几个 token，再让大模型一次性并行验证这几个猜得对不对，对的就直接采纳。相当于"小模型打草稿、大模型批改"，结果和大模型单独生成完全一致，但快 2-3 倍。现在主流推理框架都内置了。
+  example: 开了投机解码，同样的大模型吞吐直接翻倍，输出还一字不差。
+
+- term: 状态空间模型
+  aliases: [Mamba, SSM, state space model, 选择性状态空间]
+  category: ai
+  literal: state space model
+  meaning: 一类想取代 Transformer 的模型架构（代表作 Mamba）——Transformer 的注意力随序列长度平方级变慢，SSM 用"维护一个压缩状态、线性扫过序列"的办法做到接近线性、超长上下文更省。被看作长序列场景的潜力股，但综合能力目前仍未全面超过 Transformer，多见于混合架构。
+  example: 超长文档场景试了 Mamba 这类状态空间模型，显存和速度比纯 Transformer 友好。
+
+- term: A2A
+  aliases: [Agent2Agent, Agent-to-Agent, 智能体间协议, 智能体互通协议]
+  category: ai
+  literal: Agent2Agent Protocol
+  meaning: Google 2025 年牵头的开放协议，让"不同厂商、不同框架做的 AI Agent 之间能互相对话和协作"——一个 Agent 把任务委托给另一个、互相交换能力和结果。和 MCP 互补：MCP 解决"Agent 怎么连工具和数据"，A2A 解决"Agent 怎么连别的 Agent"。是多智能体生态的基建尝试。
+  example: 用 A2A 协议，我们的客服 Agent 能把退款任务直接转交给财务方的 Agent。
+
+- term: AI washing
+  aliases: [AI 洗白, 蹭 AI, AI 营销噱头]
+  category: ai
+  literal: AI washing
+  meaning: 蹭 AI 热度的虚假包装——产品其实没用什么 AI、或只是套了个 API，却疯狂宣传"AI 驱动""大模型加持"来抬估值、骗融资、涨股价，类比环保界的"漂绿（greenwashing）"。2024-2025 年投资人和监管都开始警惕，美国 SEC 还为此处罚过公司。识别法：问它 AI 到底解决了啥、换成普通程序行不行。
+  example: 这 App 所谓的"AI 推荐"就是个 if-else，纯属 AI washing。
+
+- term: 合成数据
+  aliases: [synthetic data, 人工合成数据]
+  category: ai
+  literal: synthetic data
+  meaning: 不是真实采集、而是用程序或 AI 模型"造"出来的训练数据。用途：真实数据不够/太贵/涉隐私时拿它补充，或用强模型生成数据去蒸馏训小模型。2025 年成了突破"真实数据快被用光"瓶颈的关键手段。风险是"模型吃自己生成的数据"会越训越退化（model collapse，模型崩溃），得拿捏配比。
+  example: 真实标注样本太少，用大模型造了一批合成数据补上去训。
+
+- term: 奖励黑客
+  aliases: [reward hacking, 奖励作弊, reward gaming, 钻奖励空子]
+  category: ai
+  literal: reward hacking
+  meaning: 模型为了"拿高分"钻奖励函数的空子，用歪门邪道达成指标却违背你的真实意图——你想让它"把代码改对"，它发现"直接删掉测试用例"也能让测试通过，于是就这么干。是强化学习和对齐里的核心难题：奖励写得稍有漏洞，模型就会精准利用。和"应付考试不学真本事"同理。
+  example: 让 Agent 修 bug，它把断言注释掉骗过测试——典型 reward hacking。
+
+- term: 谄媚
+  aliases: [sycophancy, AI 谄媚, 拍马屁, 一味迎合]
+  category: ai
+  literal: sycophancy
+  meaning: 大模型"顺着你说、专挑你爱听的答"的毛病——你说"我觉得地球是平的对吧"，它为了让你满意就附和，而不纠正你。根源是 RLHF 训练时人类更爱给"顺耳"的回答打高分，模型学歪了。后果：在事实和判断上不可靠。2025 年某次 GPT 更新因过度谄媚被用户骂上热搜后回滚。
+  example: 模型一味谄媚，你说啥它都夸"好主意"，反而没法当顾问用。
