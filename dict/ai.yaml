@@ -1673,3 +1673,89 @@
   literal: Automatic Speech Recognition (ASR)
   meaning: 把语音转成文字的技术——语音输入法、会议转录、字幕生成、语音助手"听懂"那一端。和语音合成(TTS)反向。Whisper 是当红开源 ASR 模型。难点:口音、噪音、专有名词、多人说话。
   example: 会议录音丢给 ASR 自动转成文字稿，再让模型总结。
+
+# --- batch: 编码 Agent 交互 / AI 安全评测补充 ---
+
+- term: codebase indexing
+  aliases: [代码库索引, 代码索引, repo 索引]
+  category: ai
+  literal: codebase indexing
+  meaning: AI 编程工具先把你整个项目"读一遍、切块、做成 embedding 存进向量库"，之后你提问/让它改代码时能按语义快速检索到相关文件——而不是每次把整个仓库塞进上下文(塞不下也烧钱)。Cursor、各种 agent IDE 启动时建的就是它。索引新鲜度直接影响 agent 找对文件的能力。
+  example: 大仓库第一次打开要先做 codebase indexing，建完索引提问才精准。
+
+- term: 代码补全
+  aliases: [code completion, autocomplete, tab completion, Tab 补全, 自动补全]
+  category: ai
+  literal: code completion
+  meaning: 编辑器/AI 边打字边猜你下一段要写啥，灰字提示、按 Tab 接受——从老式的按词表补全，进化到 Copilot/Cursor 这种"猜整段甚至整个函数"。和"对话式让 AI 写"不同：它是贴着光标的即时联想，几乎零等待。是 AI 编程最早普及、用得最高频的形态。
+  example: Copilot 的代码补全猜中了整个循环体，一个 Tab 就接受了。
+
+- term: inline edit
+  aliases: [内联编辑, 行内编辑, inline AI edit, Ctrl+K 编辑]
+  category: ai
+  literal: inline edit
+  meaning: 选中一段代码、直接在原地用自然语言下指令让 AI 改("把这段改成异步")，改动以 diff 形式就地显示、你点接受——不用切到对话框来回贴代码。Cursor 的 Ctrl+K、各家 IDE 的"行内改"都是它。轻量改动的主力交互。
+  example: 选中函数按 Ctrl+K 让它加错误处理，inline edit 直接给出 diff。
+
+- term: 模型水印
+  aliases: [AI 水印, content watermark, 内容水印, AI watermarking]
+  category: ai
+  literal: AI watermarking
+  meaning: 在 AI 生成的文本/图片/音频里嵌入人眼难察、机器可验的"隐形标记"，用来事后判定"这是不是 AI 生成的"。对抗深度伪造和学术作弊的手段之一(如 Google 的 SynthID)。难点:稍微改写/裁剪就可能把水印破坏掉，鲁棒性是关键。
+  example: 给生成图片打模型水印，方便平台识别和标注 AI 内容。
+
+- term: deepfake
+  aliases: [深度伪造, 深伪, AI 换脸]
+  category: ai
+  literal: deepfake
+  meaning: 用 AI 伪造逼真的人脸、声音、视频——把 A 的脸换到 B 身上、克隆某人嗓音说没说过的话。诈骗、假新闻、名人造谣的重灾区。和"模型水印""AI 内容检测"是攻防两端。识别越来越难，多地已立法要求 AI 生成内容显著标注。
+  example: 这段领导讲话是 deepfake，声音口型都是 AI 合成的。
+
+- term: 可解释性
+  aliases: [explainability, interpretability, XAI, 可解释 AI, 模型可解释性]
+  category: ai
+  literal: explainability (XAI)
+  meaning: 能不能说清"模型为什么给出这个结果"——而不是黑箱一个答案甩你脸上。金融风控、医疗、司法这些高风险场景尤其要可解释(不然没法担责、没法纠错)。手段:特征重要性、注意力可视化、SHAP/LIME 等。大模型越强往往越难解释，是个长期难题。
+  example: 这个拒贷模型上线前得做可解释性分析，不能黑箱拒人。
+
+- term: toxicity
+  aliases: [毒性, 有害内容, 内容毒性]
+  category: ai
+  literal: toxicity
+  meaning: 模型输出"有害、冒犯、歧视、暴力"内容的程度——脏话、仇恨言论、教唆犯罪都算。是 AI 安全评测的核心指标之一,靠专门的毒性分类器打分。对齐和护栏很大一部分工作就是把 toxicity 压下去,同时别误伤正常内容(过度审查)。
+  example: 上线前跑一遍 toxicity 评测，确保不会蹦出歧视性回答。
+
+- term: 对抗样本
+  aliases: [adversarial example, 对抗攻击, adversarial attack, 对抗扰动]
+  category: ai
+  literal: adversarial example
+  meaning: 故意构造的、人看着没问题但能骗过模型的输入——给图片加一层人眼看不见的噪点,分类器就把熊猫认成长臂猿;给 prompt 加段特殊话术就绕过安全限制。揭示模型的脆弱性,是 AI 安全攻防的核心战场。防御:对抗训练、输入检测。
+  example: 加了对抗扰动的停车标志，被自动驾驶识别成限速牌，太危险。
+
+- term: 联邦学习
+  aliases: [federated learning, 联合学习, FL]
+  category: ai
+  literal: federated learning
+  meaning: 多方一起训模型但"数据不出本地"——各自在自己的数据上训,只把模型更新(梯度/参数)汇总,原始数据始终留在本地。解决"想用数据训模型又不能共享隐私数据"的矛盾。手机输入法预测、跨医院联合建模常用。配合差分隐私更稳。
+  example: 几家医院用联邦学习共建诊断模型，病人数据都不出院。
+
+- term: 差分隐私
+  aliases: [differential privacy, DP, 差分隐私保护]
+  category: ai
+  literal: differential privacy
+  meaning: 给数据或模型输出"掺入精心设计的噪声",让人无法从结果反推出"某个具体个体在不在数据集里"——从而保护隐私,同时整体统计规律还基本可用。苹果、谷歌收集用统计数据时用它。核心是隐私和精度的权衡:噪声越大越隐私、但越不准。
+  example: 统计上报加了差分隐私，没法定位到具体某个用户。
+
+- term: 事实性
+  aliases: [factuality, faithfulness, 忠实度, 事实一致性]
+  category: ai
+  literal: factuality / faithfulness
+  meaning: 模型输出"是否符合事实/是否忠于给定材料"——和幻觉是一体两面:事实性高=幻觉少。RAG 场景还细分"faithfulness(答案有没有忠于检索到的原文,没瞎编)"。是评测可靠性的关键维度,常用专门模型或人工核查打分。
+  example: RAG 答案要做事实性评测，确保没脱离检索原文乱发挥。
+
+- term: 模型崩溃
+  aliases: [model collapse, 模型坍缩, 模型退化]
+  category: ai
+  literal: model collapse
+  meaning: 模型一代代主要拿"上一代 AI 生成的数据"来训,会越训越退化——多样性丢失、向平均值塌缩、最后只会输出千篇一律的糊话。像"复印件的复印件"越来越糊。这是 AI 生成内容泛滥(slop)带来的隐忧:真实人类数据被稀释,未来训练数据可能被污染。
+  example: 网上全是 AI 生成内容，拿它训下一代模型小心模型崩溃。
