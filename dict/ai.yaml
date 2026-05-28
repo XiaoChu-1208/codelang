@@ -1759,3 +1759,89 @@
   literal: model collapse
   meaning: 模型一代代主要拿"上一代 AI 生成的数据"来训,会越训越退化——多样性丢失、向平均值塌缩、最后只会输出千篇一律的糊话。像"复印件的复印件"越来越糊。这是 AI 生成内容泛滥(slop)带来的隐忧:真实人类数据被稀释,未来训练数据可能被污染。
   example: 网上全是 AI 生成内容，拿它训下一代模型小心模型崩溃。
+
+# --- batch: 训练/推理基建 + prompt 技巧补充 ---
+
+- term: 并行训练
+  aliases: [tensor parallelism, 张量并行, pipeline parallelism, 流水线并行, data parallelism, 数据并行, model parallelism, 模型并行, 3D 并行]
+  category: ai
+  literal: parallel training
+  meaning: 一张 GPU 装不下大模型或训得太慢时，把训练拆到多张卡上并行。三种切法：数据并行(每卡一份完整模型、各喂不同数据，再汇总梯度)、张量并行(把单层的大矩阵切片分到多卡算)、流水线并行(不同层放不同卡，像流水线一段段往后传)。大模型训练通常几种混用，叫 3D 并行。
+  example: 70B 单卡放不下，张量并行加流水线并行拆到 8 张卡训。
+
+- term: continuous batching
+  aliases: [连续批处理, 动态批处理, in-flight batching]
+  category: ai
+  literal: continuous batching
+  meaning: LLM 推理服务的吞吐神器——不等一批请求都生成完才收下一批，而是谁先生成完谁的位置立刻让给新请求，持续把 GPU 填满。比传统"静态批处理(等齐再发)"利用率高得多。vLLM 等推理引擎的核心优化。
+  example: 上了 continuous batching，同样的卡 QPS 翻了好几倍。
+
+- term: PagedAttention
+  aliases: [分页注意力, paged attention]
+  category: ai
+  literal: PagedAttention
+  meaning: vLLM 提出的 KV cache 管理法——借操作系统"分页内存"的思路，把 KV cache 切成小块按需分配，而不是给每个请求预留一大段连续显存。大幅减少显存浪费、能同时塞下更多并发请求。是 vLLM 高吞吐的基石。
+  example: PagedAttention 把显存碎片几乎消掉，并发量直接上去了。
+
+- term: negative prompt
+  aliases: [负面提示, 反向提示词, 负向提示]
+  category: ai
+  literal: negative prompt
+  meaning: 文生图里告诉模型"不要出现什么"的提示词——正面写想要的，负面写别给我画的(多余手指、模糊、水印、低质)。Stable Diffusion 这类工具的标配，负面提示写得好坏明显影响出图质量。纯文本 LLM 里较少用这个词。
+  example: 加上 negative prompt "blurry, extra fingers"，出图的手不再畸形。
+
+- term: meta-prompting
+  aliases: [元提示, 元提示词, 提示词生成提示词, meta prompt]
+  category: ai
+  literal: meta-prompting
+  meaning: 让 LLM"帮你写或优化 prompt"——你给个粗略目标，模型产出一个打磨好的 prompt 你再拿去用。也指"教模型该怎么思考"的高层提示。本质是"用提示词去生成提示词"，把 prompt engineering 自动化。
+  example: 用 meta-prompting 让模型先把我这段需求改写成更规整的 prompt。
+
+- term: QAT
+  aliases: [量化感知训练, Quantization-Aware Training]
+  category: ai
+  literal: Quantization-Aware Training
+  meaning: 量化(把模型权重从高精度压到低精度省显存)的一种——训练时就"假装已经量化"地去练，让模型提前适应低精度带来的误差。比"训完直接压(PTQ 训后量化)"精度损失小，代价是要重新训。追求极致小模型、端侧部署时用。
+  example: 端侧部署精度掉太多，改用 QAT 把效果找回来。
+
+- term: 推理服务
+  aliases: [inference server, 推理引擎, serving, 模型服务, 推理框架]
+  category: ai
+  literal: inference server
+  meaning: 专门"把训练好的模型高效跑起来对外提供 API"的服务端——管批处理、KV cache、并发调度、负载均衡。vLLM、TGI、SGLang、TensorRT-LLM 都是。和训练两码事：训练求极致算力，推理服务求高吞吐、低延迟、低成本。线上扛不扛得住流量全看它。
+  example: 模型训好了，用 vLLM 起个推理服务对外提供接口。
+
+- term: 显存
+  aliases: [VRAM, GPU 内存, 显卡内存, GPU memory]
+  category: ai
+  literal: VRAM (GPU memory)
+  meaning: 显卡上的专用内存——大模型的权重、激活值、KV cache 全堆在这里。显存不够就装不下模型、跑不了长上下文、批量上不去(直接 OOM 爆掉)。"这模型要多少显存"是部署第一问。省显存的招(量化、GQA、PagedAttention、offload)全围着它转。
+  example: 24G 显存只够跑量化后的 13B，跑全精度直接 OOM。
+
+- term: 梯度累积
+  aliases: [gradient accumulation, 梯度累加]
+  category: ai
+  literal: gradient accumulation
+  meaning: 显存不够、塞不下大 batch 时的省钱招——把一个大 batch 拆成几个小 batch 依次前向反向，梯度先攒着不更新，攒够几步再一次性更新参数。效果约等于用了大 batch，但峰值显存只要小 batch 的。穷人训大模型必备。
+  example: 显存有限，用梯度累积 4 步模拟 batch size 64 的效果。
+
+- term: 混合精度
+  aliases: [mixed precision, AMP, 混合精度训练]
+  category: ai
+  literal: mixed precision
+  meaning: 训练时大部分计算用半精度(FP16/BF16)省显存、提速，关键的累加用全精度(FP32)保数值稳定——两种精度混着用。现代训练标配：显存省一半、速度快不少、精度几乎不掉。配合梯度缩放防止 FP16 下溢。
+  example: 开了混合精度训练，同样的卡能塞更大模型，还快了 40%。
+
+- term: 梯度检查点
+  aliases: [gradient checkpointing, activation checkpointing, 激活重计算]
+  category: ai
+  literal: gradient checkpointing
+  meaning: 用时间换显存的训练技巧——前向时不保存所有中间激活值，反向需要时再重新算一遍。显存大降(能训更大模型、更长序列)，代价是多一次前向计算、慢一点。常和梯度累积一起用，在小显存上硬训大模型。
+  example: 开梯度检查点后显存降一半，训练慢了 20% 但终于跑得起来了。
+
+- term: 角色提示
+  aliases: [role prompt, persona prompt, 角色扮演提示, 人设提示]
+  category: ai
+  literal: role prompting
+  meaning: 在 prompt 里给模型设定一个"身份/人设"来引导风格和专业度——"你是一位资深安全专家，请审查这段代码"。能让回答更聚焦、更专业、语气更可控。简单有效的老技巧，但别迷信：设个身份不等于真获得该领域能力。
+  example: 加一句角色提示"你是严格的代码审查员"，它挑刺就挑得更狠了。
