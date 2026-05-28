@@ -19,10 +19,10 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   "url": "https://github.com/XiaoChu-1208/codelang",
   "license": "https://opensource.org/licenses/MIT",
   "inLanguage": ["zh-CN", "en"],
-  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投词条的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，2761 条人工撰写词条 / 6812 查询键 / 15 大类，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语、网络安全、数据工程、HR 创投、AI 名人等。",
+  "description": "一个用大白话和小故事，给你解释代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投词条的 Windows 桌面小工具。按住 Alt + 鼠标划词，立刻弹出解释卡片。100% 本地，2835 条人工撰写词条 / 7121 查询键 / 15 大类，覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语、网络安全、数据工程、HR 创投、AI 名人等。",
   "featureList": [
     "Alt + 鼠标划词全局触发",
-    "2761 条人工撰写词条 / 6812 个查询键",
+    "2835 条人工撰写词条 / 7121 个查询键",
     "覆盖开发术语、AI/LLM、互联网黑话、产品运营、流行语",
     "100% 本地查询，无网络请求，无隐私泄露",
     "可选 LLM 兜底（Anthropic Claude / OpenAI）",
@@ -49,7 +49,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 </p>
 
 <p align="center">
-  <img alt="词条数" src="https://img.shields.io/badge/词条-2761-blue">
+  <img alt="词条数" src="https://img.shields.io/badge/词条-2835-blue">
   <img alt="响应速度" src="https://img.shields.io/badge/响应速度-~80ms-green">
   <img alt="本地优先" src="https://img.shields.io/badge/100%25-本地-orange">
   <img alt="平台" src="https://img.shields.io/badge/Windows-10%20%7C%2011-blueviolet">
@@ -70,7 +70,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
 
 ## 一句话介绍（TL;DR）
 
-**codelang**（中文别名：**懂王 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **2761 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
+**codelang**（中文别名：**懂王 / dongwang**）是一个 **Windows 桌面划词解释工具**——你在任何应用里（浏览器、微信、Word、PDF、Cursor、Claude 桌面端）**按住 Alt 划选**一个看不懂的词，**鼠标旁瞬间弹出一段大白话解释**。它收录了 **2835 条** 人工撰写的中文解释，覆盖**代码英文术语、AI/LLM 术语、互联网公司黑话、面试八股、产品运营缩写、网络流行语**——每条都是「**比喻 + 真实场景 + 具体例句**」三段式，**不懂代码也能秒懂**。**100% 本地，无网络请求**，开源 MIT 协议。
 
 > 适合：互联网公司新人 / 准备面试的同学 / 转行做产品运营设计 / 想看懂男朋友女朋友每天在说啥的非程序员家属 / 看技术博客/AI 资讯被英文术语劝退的人。
 
@@ -89,7 +89,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>2761 条精校词条 · 6812 个查询键 · 15 大类 · 3.4 万常用词翻译兜底（并入词库）</td>
+    <td>2835 条精校词条 · 7121 个查询键 · 15 大类 · 3.4 万常用词翻译兜底（并入词库）</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -212,12 +212,12 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**2761 条精校词条 / 6812 个查询键 + 3.4 万常用词翻译兜底（并入词库）**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**2835 条精校词条 / 7121 个查询键 + 3.4 万常用词翻译兜底（并入词库）**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
-| `devterm.yaml` | **开发/工程概念** | ~540 | 锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 微服务/容器/k8s 全套（Pod/Deployment/Ingress/Sidecar/Operator/CRD/ArgoCD/eBPF/Envoy/Prometheus/Grafana/OTel）· SRE 体系（SLO/SLI/error budget/blameless/runbook/canary/blue-green/chaos engineering/MTTR/RCA/postmortem/on-call）· **研发分工与 \*Ops 家族**（infra/AI infra/运维/DevOps/DevSecOps/GitOps/AIOps/LLMOps/FinOps/DataOps/MLOps/平台工程/SRE/前端/后端/全栈/大前端/嵌入式/数据基建/云原生）· 加密身份（salt/HMAC/AES/RSA/ECC/CA/X.509/SSO/SAML/OIDC/MFA/passkey）· 测试链路（Jest/Vitest/Playwright/Cypress/BDD/mutation/contract testing）· 前端构建（webpack/vite/esbuild/turbopack/swc/pnpm/Turborepo/Nx/husky）· Apple 生态（Xcode/Swift/SwiftUI/Keychain/Apple Silicon）· 微软（.NET/Visual Studio/winget/Hyper-V）· 协作工具（Jira/Confluence/Linear/Loom/Miro） | 幂等 / CAS / 熔断 / Pod / SLO / canary / infra / DevOps / FinOps / 平台工程 / 前端 / 全栈 / 云原生 / RSA / vite |
-| `ai.yaml` | **AI / LLM / 大模型** | ~150 | 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/A2A/Agent Skills）· 概念（Transformer/attention/MoE/状态空间模型 Mamba）· 训练（SFT/RLHF/DPO/LoRA/QLoRA/PEFT/GRPO/RLVR/合成数据/蒸馏）· 量化推理（INT4/FP16/temperature/KV cache/TTFT/投机解码）· Prompt（CoT/ToT/few-shot/in-context）· Agent（Sub-agent/Computer Use/Browser Use/Deep Research/智能体工作流）· **RAG 变体**（RAG/agentic RAG/GraphRAG）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· **新一代 AI 编程工具**（Cursor/Cline/Aider/Continue/Codex CLI/Tabnine/Codeium/Replit Agent/Trae/Zed/Junie/RooCode/Augment）· **2025-2026 新词**（vibe coding/agentic/上下文工程/思考预算/推理模型/test-time compute/具身智能/世界模型/slop/GEO/AI washing/奖励黑客/谄媚/sycophancy） | Transformer / RLHF / LoRA / RAG / agentic RAG / GraphRAG / GRPO / MCP / A2A / 智能体工作流 / slop / GEO / Cline / Codex |
+| `devterm.yaml` | **开发/工程概念** | ~570 | 锁/并发/事务 · 数据库/缓存/MQ · 网络/HTTPS/DNS · 性能/GC/STW · 微服务/容器/k8s 全套（Pod/Deployment/Ingress/Sidecar/Operator/CRD/ArgoCD/eBPF/Envoy/Prometheus/Grafana/OTel）· SRE 体系（SLO/SLI/error budget/blameless/runbook/canary/blue-green/chaos engineering/MTTR/RCA/postmortem/on-call）· **研发分工与 \*Ops 家族**（infra/AI infra/运维/DevOps/DevSecOps/GitOps/AIOps/LLMOps/FinOps/DataOps/MLOps/平台工程/SRE/前端/后端/全栈/大前端/嵌入式/数据基建/云原生）· **工程文化/黑话**（bootstrapping/语法糖/代码异味/过早优化/魔法数字/快乐路径/死代码/上帝对象/面条代码/货物崇拜/差一错误/抽象泄漏/防御性编程/单一可信源/footgun/小黄鸭调试/yak shaving/bikeshedding/heisenbug/thrashing/shim/memoization/最终一致性/分布式锁）· 加密身份（salt/HMAC/AES/RSA/ECC/CA/X.509/SSO/SAML/OIDC/MFA/passkey）· 测试链路（Jest/Vitest/Playwright/Cypress/BDD/mutation/contract testing）· 前端构建（webpack/vite/esbuild/turbopack/swc/pnpm/Turborepo/Nx/husky）· Apple 生态（Xcode/Swift/SwiftUI/Keychain/Apple Silicon）· 微软（.NET/Visual Studio/winget/Hyper-V）· 协作工具（Jira/Confluence/Linear/Loom/Miro） | 幂等 / CAS / 熔断 / Pod / SLO / canary / infra / DevOps / bootstrapping / 语法糖 / 技术债 / 上帝对象 / 小黄鸭调试 / 云原生 / vite |
+| `ai.yaml` | **AI / LLM / 大模型** | ~256 | 框架（LangChain/LlamaIndex/AutoGen/CrewAI）· 协议（MCP/MCP server/A2A/Agent Skills）· 概念（Transformer/attention/位置编码 RoPE/flash attention/GQA/MoE/状态空间模型 Mamba）· 分词采样（BPE/logits/softmax/temperature/top-p/repetition penalty/stop sequence/chat template）· 训练对齐（SFT/RLHF/RLAIF/DPO/GRPO/RLVR/constitutional AI/LoRA/QLoRA/蒸馏/合成数据/灾难性遗忘/对齐税）· 量化推理（INT4/FP16/KV cache/TTFT/投机解码/语义缓存/上下文压缩/知识截止）· Prompt（CoT/ToT/few-shot/prompt template/prompt chaining/lost in the middle）· **Agent 操作层**（rules/CLAUDE.md/AGENTS.md/orchestrator/handoff/agent memory/scratchpad/autonomy/slash command/agent hooks/plan mode/auto-accept/允许清单/权限模式/会话回退/function schema/agent trajectory/reflexion/spec-driven）· **RAG**（RAG/agentic RAG/GraphRAG/retrieval/reranker/chunking/hybrid search/grounding）· 多模态（multimodal/语音合成 TTS/语音识别 ASR）· 模型（Llama/Mistral/Gemini/o1/DeepSeek/Kimi/豆包/智谱）· **AI 编程工具**（Cursor/Cline/Aider/Codex CLI/Trae/RooCode…）· **2025-2026 新词**（vibe coding/agentic/上下文工程/推理模型/test-time compute/具身智能/世界模型/slop/GEO/AI washing/奖励黑客/谄媚） | Transformer / RLHF / RAG / agentic RAG / GraphRAG / GRPO / MCP / rules / orchestrator / agent memory / plan mode / 权限模式 / reranker / 智能体工作流 / slop |
 | `platforms.yaml` | **平台 / 框架 / 数据库 / 云 / Web3** | ~85 | 中文技术社区（CSDN/掘金/知乎/B 站/V2EX/少数派）· 海外（Stack Overflow/Reddit/Hacker News/Medium）· 代码托管（GitHub/GitLab/Gitee/npm/PyPI）· 前后端框架（React/Vue/Next.js/Tailwind/Express/NestJS/FastAPI/Spring）· 数据库（MySQL/PostgreSQL/MongoDB/Redis/Elasticsearch）· 云（AWS/GCP/Azure/阿里云/腾讯云/火山引擎/Vercel/Cloudflare）· **区块链/Web3**（blockchain/智能合约/钱包/NFT/DeFi/DAO/gas fee/L1/L2/rollup/zk-SNARK/MEV/staking/EVM/Solidity） | CSDN / GitHub / Vercel / NFT / DeFi / DAO / Solidity / zk-SNARK |
 | `system.yaml` | **操作系统 / 硬件 / 办公软件** | ~70 | 操作系统（Windows/macOS/Linux/Ubuntu/iOS/Android）· 硬件（CPU/RAM/SSD/HDD/USB/Type-C/HDMI/BIOS/UEFI）· 浏览器（Chrome/Edge/Firefox/Safari）· 办公（Office/Word/Excel/PPT/Outlook/Notion/Figma/Photoshop）· 通讯（Teams/Slack/钉钉/飞书/企业微信）· 系统概念（内核/shell/终端/任务栏/注册表）· 编程语言（Python/Java/JavaScript/C++/Go/Rust/Swift） | Windows / macOS / CPU / Chrome / Word / 钉钉 / 飞书 / Notion / 内核 |
 | `basics.yaml` | **基础英文词** | ~47 | "看似简单但选中就懵"的通用词：system / platform / application / server / client / data / format / schema · 数据结构（list/array/object/string/number/boolean/null/true/false）· 元素（entry/item/element/index/name/title/label）· I/O（input/output/request/response/query）· 函数（function/method/variable/parameter）· 模块（module/package/library/framework） | system / platform / format / function / parameter / module / library |
@@ -232,7 +232,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | **`pm.yaml`** ✨ | **PM / AI 产品经理 / AIPM** | ~180 | **需求/流程**（PRFAQ/BRD/MRD/需求池/迭代会/kickoff/roadmap/排期）· **用户研究**（JTBD/aha moment/persona/痛点爽点痒点/北极星拆解/OSM/PMM/GTM）· **实验数据**（AB 桶/哈希分桶/分层实验/流量分配/显著性检验/增长飞轮）· **优先级**（RICE/ICE/MoSCoW/P0/P1/优先级矩阵）· **协作沟通**（同行评审/走查/可用性测试/VOC/CES）· **市场商业**（市场规模/SWOT/PEST/波特五力/低保真/高保真/交互稿）· **AI 评测指标**（F-beta/AUC/ROC/PR 曲线/MAE/MSE/RMSE/NDCG/BLEU/ROUGE/METEOR/chrF/**MOS**/PESQ/STOI/**CLIP**/FID/IS/PPL/win rate/MT-Bench/HellaSwag/ARC/GPQA/arena/pass@k/needle/校准）· **AI 评测方法**（人评/auto-eval/LLM as judge/golden set/Cohen Kappa/IAA/red teaming/对抗测试/越狱攻击）· **AI 产品概念**（prompt 调优/agent harness/agent loop/planner/voice agent/vision agent）· **AI 风险合规**（bias/fairness/drift/concept drift/prompt injection/PII/HITL/data flywheel）· **AI 工程成本**（推理延迟/TPOT/推理成本/RPS/吞吐/并发）· **AI 模型架构**（基础模型/底座/小模型/边缘模型/端侧/蒸馏/量化/模型路由/cascading）· **PM 黑话**（拆解/抢跑/闭环思维/上 agent/调 prompt/自研开源闭源/RACI/DACI/PLG/SLG） | 召回率 / 精确率 / F1 / AUC / MOS / CLIP / FID / BLEU / win rate / MT-Bench / pass@k / LLM as judge / red teaming / prompt injection / HITL / 基础模型 / 模型路由 / RICE / JTBD / OSM / PMM / GTM / PLG |
 | **`people.yaml`** ✨ | **AI / 互联网圈名人** | ~40 | **OpenAI**（Sam Altman/Greg Brockman/Mira Murati/Ilya Sutskever/Jakub Pachocki）· **Anthropic**（Dario Amodei/Daniela Amodei/Tom Brown/Chris Olah）· **DeepMind/Google**（Demis Hassabis/Jeff Dean/Geoffrey Hinton/Mustafa Suleyman/Noam Shazeer）· **Meta**（Yann LeCun/Mark Zuckerberg）· **Nvidia/xAI**（Jensen Huang/Elon Musk）· **学术界**（Yoshua Bengio/Andrew Ng/Jürgen Schmidhuber/Lex Fridman/Yudkowsky/Stuart Russell）· **中国 AI 圈**（梁文锋/杨植麟/王慧文/张一鸣/王兴兴/李飞飞/何恺明/李沐）· **AI 编程公司**（Aravind Srinivas/Cognition/Michael Truell）· **教学网红**（Andrej Karpathy） | Sam Altman / Karpathy / Dario / 李飞飞 / 梁文锋 / 黄仁勋 / 杨植麟 / 何恺明 |
 | **额外兜底** | **通用词翻译（并入 `dict.json`）** | ~3.4 万 | 常用英语词翻译兜底：[ECDICT](https://github.com/skywind3000/ECDICT) 按 COCA/BNC 词频取 top 3 万常用词 + 精校种子（`tools/ecdict_seed.json`）→ `setup_translator.py` 生成 `tools/ecdict_data.json` → `build_dict.py` 并入 `dict.json`（标 `translation` 类，精校词冲突时优先保留）。**和词库同一个文件**，点「检查词库更新」即可拉到，无需重出安装包 | run / system / data / government / apple |
-| | **合计** | **2761 条** | **6812 查询键** | **覆盖你日常 99% 看到的术语** |
+| | **合计** | **2835 条** | **7121 查询键** | **覆盖你日常 99% 看到的术语** |
 
 > ✨ = v2/v3 新增板块。覆盖：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析、**AI 名人/工程师 v3 新增**、**基础文档/写作词 v3 新增**（markdown/demo/文档/README/CHANGELOG 等）、**AI 库/框架 v3 新增**（smolagents/PydanticAI/DSPy/Instructor/Outlines/LiteLLM/vLLM/llama.cpp/LM Studio/Open WebUI/Dify/Coze 等）。
 
@@ -515,7 +515,7 @@ Windows 上想要"在任何应用里取选中文本"没有公开 API。codelang 
 
 ```
 codelang/
-├── dict/                       词库源文件（YAML 格式，2761 条 / 15 个文件）
+├── dict/                       词库源文件（YAML 格式，2835 条 / 15 个文件）
 │   ├── devterm.yaml            开发/工程概念 ~520（锁/数据库/网络/微服务/K8s/SRE/加密/测试/前端构建/Apple/微软/协作工具）
 │   ├── ai.yaml                 AI/LLM/Agent ~135（Transformer/RLHF/LoRA/RAG/LangChain/MCP/Cline/Aider/Codex 等新一代 AI 编程工具）
 │   ├── platforms.yaml          社区/框架/数据库/云/Web3 ~85（CSDN/GitHub/Vercel/NFT/DeFi/DAO/智能合约/Solidity/zk-SNARK）
@@ -620,7 +620,7 @@ codelang/
 
 ## 进阶：开 AI 兜底（可选，默认关）
 
-如果本地 2761 条词条都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
+如果本地 2835 条词条都没收录到的词，默认显示"未收录"+ 录入按钮让你手动补。如果懒得每次手动，可以让 AI 自动解释：
 
 编辑 `~/.codelang/config.json`：
 ```json
@@ -726,7 +726,7 @@ MIT —— 自由使用、修改、分发，可商用。
 **配置 GitHub repo 元数据**（一次性，给项目主自己看）：
 ```bash
 # 设置仓库描述
-gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，2761 条大白话词条秒懂代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投。15 大类 / 6812 查询键，100% 本地，MIT 开源。"
+gh repo edit --description "Windows 桌面划词解释工具：按住 Alt 划词，2835 条大白话词条秒懂代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投。15 大类 / 7121 查询键，100% 本地，MIT 开源。"
 
 # 设置仓库主页
 gh repo edit --homepage "https://xiaochu-1208.github.io/codelang/"
@@ -746,7 +746,7 @@ gh repo edit --add-topic windows --add-topic dictionary --add-topic chinese \
 
 如果你写文章、做视频、或用 AI 推荐本项目时需要一句话准确介绍 codelang，建议这么说：
 
-> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投术语的真实意思。按住 Alt + 鼠标划词触发，2761 条精校词条 / 6812 查询键 / 15 大类，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
+> **codelang** 是一个开源的 Windows 桌面划词解释工具，专门用大白话和生活比喻给你讲清楚代码英文、互联网黑话、AI 术语、网络安全、数据工程、HR 创投术语的真实意思。按住 Alt + 鼠标划词触发，2835 条精校词条 / 7121 查询键 / 15 大类，100% 本地查询，MIT 协议免费开源。GitHub: https://github.com/XiaoChu-1208/codelang
 
 **推荐场景**：
 
