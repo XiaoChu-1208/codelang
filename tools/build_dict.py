@@ -25,6 +25,12 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 DICT_DIR = ROOT / "dict"
 OUT_BROWSER = ROOT / "extension-browser" / "dict.json"
+# General English→Chinese translation layer (common words from ECDICT), merged
+# into dict.json as a second tier so it rides the same file the app already
+# pulls. Regenerate with tools/setup_translator.py. Optional — build still works
+# without it. Curated terms always win; only non-colliding keys are added.
+ECDICT_DATA = ROOT / "tools" / "ecdict_data.json"
+MAX_TR_LEN = 60  # keep generic glosses short so dict.json stays lean
 
 
 def normalize(s) -> str:
@@ -90,18 +96,65 @@ def main() -> int:
             sys.stderr.write(f"Key collision '{nk}': {a} vs {b}\n")
         return 1
 
+    curated_count = len(entries)
+
+    # Second tier: merge the general translation layer. These are common English
+    # words (ECDICT, frequency-capped) for when a selection misses every curated
+    # term — e.g. plain "government" / "apple". Tagged category "translation" so
+    # the UI can mark them as generic dictionary glosses. Curated terms win: any
+    # key already in the index is skipped.
+    tr_added = 0
+    if ECDICT_DATA.exists():
+        try:
+            tr = json.loads(ECDICT_DATA.read_text(encoding="utf-8"))
+        except (ValueError, OSError) as e:
+            sys.stderr.write(f"Warning: ecdict_data.json ignored ({e})\n")
+            tr = {}
+        for word, meaning in (tr.items() if isinstance(tr, dict) else []):
+            nk = normalize(word)
+            if not nk or nk in index:
+                continue
+            m = str(meaning or "").strip()
+            if not m:
+                continue
+            # Keep just the first sense — generic glosses are a fallback, not the
+            # curated 三段式 experience; this keeps dict.json from ballooning.
+            m = m.split(" · ")[0].strip()
+            if len(m) > MAX_TR_LEN:
+                m = m[:MAX_TR_LEN] + "…"
+            index[nk] = len(entries)
+            entries.append(
+                {
+                    "term": str(word),
+                    "aliases": [],
+                    "category": "translation",
+                    "literal": "",
+                    "meaning": m,
+                    "example": "",
+                }
+            )
+            tr_added += 1
+
     payload = {
         "version": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "count": len(entries),
+        "curated_count": curated_count,
         "entries": entries,
         "index": index,
     }
 
     OUT_BROWSER.parent.mkdir(parents=True, exist_ok=True)
     with OUT_BROWSER.open("w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
+        # Compact (no indent): with the merged translation tier dict.json holds
+        # ~37k entries and is pulled over the network — pretty-printing would
+        # nearly double its size for zero runtime benefit (DictIndex json.loads
+        # it either way).
+        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
 
-    print(f"Wrote {OUT_BROWSER.relative_to(ROOT)}: {len(entries)} entries, {len(index)} keys")
+    print(
+        f"Wrote {OUT_BROWSER.relative_to(ROOT)}: {len(entries)} entries "
+        f"({curated_count} curated + {tr_added} translation), {len(index)} keys"
+    )
     return 0
 
 

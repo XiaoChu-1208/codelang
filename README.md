@@ -89,7 +89,7 @@ codelang —— 用大白话解释代码英文、AI 术语、互联网黑话的 
   </tr>
   <tr>
     <td><b>词库规模</b></td>
-    <td>2761 条精校词条 · 6812 个查询键 · 15 大类 · 207 条通用翻译兜底</td>
+    <td>2761 条精校词条 · 6812 个查询键 · 15 大类 · 3.4 万常用词翻译兜底（并入词库）</td>
   </tr>
   <tr>
     <td><b>响应速度</b></td>
@@ -212,7 +212,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 
 ## 词库覆盖了啥（全景）
 
-**2761 条精校词条 / 6812 个查询键 + 207 条通用翻译兜底**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
+**2761 条精校词条 / 6812 个查询键 + 3.4 万常用词翻译兜底（并入词库）**，覆盖十三大类。每一条都是「**比喻 + 真实场景 + 具体例句**」三段式，对完全不懂代码的人也能秒懂。
 
 | 文件 | 类别 | 数量 | 涵盖 | 例子 |
 |---|---|---|---|---|
@@ -231,7 +231,7 @@ codelang 就是为解决这事造的。它的解释是这样的：
 | **`gamedev.yaml`** ✨ | **游戏开发 / 玩家黑话** | ~196 | **引擎**（Unity/Unreal/Godot/Cocos/GameMaker/Bevy/RPG Maker/Roblox Studio/CryEngine/Source）· **图形 API**（Vulkan/OpenGL/DirectX/Metal/WebGL/WebGPU）· **Shader/PBR**（shader/HLSL/GLSL/ShaderGraph/PBR/vertex/fragment/compute shader）· **渲染**（光栅化/光追/路径追踪/GI/LOD/mipmap/MSAA/TAA/FXAA/DLSS/FSR/HDR）· **灯光阴影**（lightmap/baking/shadow map/bloom/SSAO）· **贴图材质**（texture/normal/roughness/metallic map/UV mapping/atlas/material）· **动画**（skeletal/rigging/bone/IK/blend shape/sprite sheet/rigify）· **特效**（particle system/VFX/Niagara/Shuriken/VAT）· **物理**（collider/rigidbody/raycast/trigger/PhysX/Box2D/Havok/ragdoll）· **性能**（FPS/frame time/V-Sync/G-Sync/FreeSync/draw call/batching/instancing/pooling/hitch/profiler）· **游戏循环**（Update/FixedUpdate/delta time/tick/ECS）· **网络 Netcode**（authoritative server/lockstep/rollback/prediction/lag compensation/tick rate/RTT/matchmaking/MMR/ELO）· **AI/寻路**（behavior tree/A*/NavMesh/steering/boids/GOAP）· **关卡**（scene/open world/spawn/checkpoint/tilemap/voxel）· **UI**（HUD/UMG/UGUI/canvas/minimap）· **音频**（3D audio/Wwise/FMOD/foley/VO）· **工具链**（Maya/Blender/ZBrush/Substance Painter/FBX/glTF/Perforce/Git LFS/cook/bake）· **类型**（RPG/MMORPG/MOBA/RTS/ARPG/battle royale/soulslike/metroidvania/roguelike/roguelite/sandbox/survival）· **商业**（F2P/P2W/DLC/battle pass/loot box/gacha/保底/欧皇非酋/skin/power creep/tier list）· **战斗**（buff/debuff/DPS/cooldown/aggro/tank/healer/crit）· **中文玩家黑话**（肝/氪/648/抽穿/国服/体验服/公测/内测/删档/上分/上车/带飞/速通/开服/开荒/副本/公会/外挂/代练/搬砖/开黑/首杀/演员/大版本/小版本/阴阳师/GG/AFK/AOE/PvP/PvE/装备/战斗力/装等/元素反应/卡 BOSS/一血/P 图） | Unity / UE5 / 光追 / DLSS / PBR / shader / FPS / draw call / netcode / rollback / MMR / ECS / NavMesh / RPG / MOBA / battle royale / soulslike / roguelike / gacha / 保底 / 肝 / 氪金 / 速通 / 上分 / 公测 / 副本 / 外挂 / 装等 |
 | **`pm.yaml`** ✨ | **PM / AI 产品经理 / AIPM** | ~180 | **需求/流程**（PRFAQ/BRD/MRD/需求池/迭代会/kickoff/roadmap/排期）· **用户研究**（JTBD/aha moment/persona/痛点爽点痒点/北极星拆解/OSM/PMM/GTM）· **实验数据**（AB 桶/哈希分桶/分层实验/流量分配/显著性检验/增长飞轮）· **优先级**（RICE/ICE/MoSCoW/P0/P1/优先级矩阵）· **协作沟通**（同行评审/走查/可用性测试/VOC/CES）· **市场商业**（市场规模/SWOT/PEST/波特五力/低保真/高保真/交互稿）· **AI 评测指标**（F-beta/AUC/ROC/PR 曲线/MAE/MSE/RMSE/NDCG/BLEU/ROUGE/METEOR/chrF/**MOS**/PESQ/STOI/**CLIP**/FID/IS/PPL/win rate/MT-Bench/HellaSwag/ARC/GPQA/arena/pass@k/needle/校准）· **AI 评测方法**（人评/auto-eval/LLM as judge/golden set/Cohen Kappa/IAA/red teaming/对抗测试/越狱攻击）· **AI 产品概念**（prompt 调优/agent harness/agent loop/planner/voice agent/vision agent）· **AI 风险合规**（bias/fairness/drift/concept drift/prompt injection/PII/HITL/data flywheel）· **AI 工程成本**（推理延迟/TPOT/推理成本/RPS/吞吐/并发）· **AI 模型架构**（基础模型/底座/小模型/边缘模型/端侧/蒸馏/量化/模型路由/cascading）· **PM 黑话**（拆解/抢跑/闭环思维/上 agent/调 prompt/自研开源闭源/RACI/DACI/PLG/SLG） | 召回率 / 精确率 / F1 / AUC / MOS / CLIP / FID / BLEU / win rate / MT-Bench / pass@k / LLM as judge / red teaming / prompt injection / HITL / 基础模型 / 模型路由 / RICE / JTBD / OSM / PMM / GTM / PLG |
 | **`people.yaml`** ✨ | **AI / 互联网圈名人** | ~40 | **OpenAI**（Sam Altman/Greg Brockman/Mira Murati/Ilya Sutskever/Jakub Pachocki）· **Anthropic**（Dario Amodei/Daniela Amodei/Tom Brown/Chris Olah）· **DeepMind/Google**（Demis Hassabis/Jeff Dean/Geoffrey Hinton/Mustafa Suleyman/Noam Shazeer）· **Meta**（Yann LeCun/Mark Zuckerberg）· **Nvidia/xAI**（Jensen Huang/Elon Musk）· **学术界**（Yoshua Bengio/Andrew Ng/Jürgen Schmidhuber/Lex Fridman/Yudkowsky/Stuart Russell）· **中国 AI 圈**（梁文锋/杨植麟/王慧文/张一鸣/王兴兴/李飞飞/何恺明/李沐）· **AI 编程公司**（Aravind Srinivas/Cognition/Michael Truell）· **教学网红**（Andrej Karpathy） | Sam Altman / Karpathy / Dario / 李飞飞 / 梁文锋 / 黄仁勋 / 杨植麟 / 何恺明 |
-| **额外兜底** | **`ecdict.json` 通用翻译** | 207 | 字典里 miss 的常见编程英文：namespace / wrapper / adapter / singleton / observer / iterator / redirect / intercept ... | namespace / primitive / assertion / adapter / singleton |
+| **额外兜底** | **通用词翻译（并入 `dict.json`）** | ~3.4 万 | 常用英语词翻译兜底：[ECDICT](https://github.com/skywind3000/ECDICT) 按 COCA/BNC 词频取 top 3 万常用词 + 精校种子（`tools/ecdict_seed.json`）→ `setup_translator.py` 生成 `tools/ecdict_data.json` → `build_dict.py` 并入 `dict.json`（标 `translation` 类，精校词冲突时优先保留）。**和词库同一个文件**，点「检查词库更新」即可拉到，无需重出安装包 | run / system / data / government / apple |
 | | **合计** | **2761 条** | **6812 查询键** | **覆盖你日常 99% 看到的术语** |
 
 > ✨ = v2/v3 新增板块。覆盖：网络安全、K8s/SRE、加密身份、测试工具链、前端构建、Apple/微软生态、协作工具、数据工程、经典 ML、数据库底层、HR/招聘、创投/财务、设计圈、新一代 AI 编程工具、区块链 Web3、法律合规/开源协议、2024-2025 新流行语、统计/数据分析、**AI 名人/工程师 v3 新增**、**基础文档/写作词 v3 新增**（markdown/demo/文档/README/CHANGELOG 等）、**AI 库/框架 v3 新增**（smolagents/PydanticAI/DSPy/Instructor/Outlines/LiteLLM/vLLM/llama.cpp/LM Studio/Open WebUI/Dify/Coze 等）。
@@ -553,7 +553,7 @@ codelang/
 │   └── banner-*.svg            README 顶部横幅
 ├── extension-browser/          浏览器扩展（备用方案）
 │   ├── dict.json               构建好的词典
-│   └── ecdict.json             通用翻译兜底（207 条）
+│   └── ecdict.json             旧版翻译种子（207 条，主翻译层已并入 dict.json）
 ├── tools/
 │   ├── build_dict.py                 YAML → dict.json 构建脚本
 │   ├── render_icons.py               SVG → PNG/ICO（用 resvg-py）
@@ -562,7 +562,9 @@ codelang/
 │   ├── uninstall_shortcuts.py        反向卸载
 │   ├── extract_terms.py              从开源仓库抽词条
 │   ├── gen_explanations.py           LLM 批量生成（构建期可选）
-│   └── setup_translator.py           ECDICT 通用翻译扩展
+│   ├── setup_translator.py           生成通用翻译数据（ECDICT 词频截断 + 种子合并）
+│   ├── ecdict_data.json              通用词翻译数据（~3.4 万条，build_dict 并入 dict.json）
+│   └── ecdict_seed.json              精校翻译种子（207 条，构建时叠在 ECDICT 之上）
 ├── installer/                  Windows 安装包构建（Inno Setup 6）
 │   ├── codelang.iss            Inno Setup 脚本（中英双语向导 + 自定义插图）
 │   └── build.bat               一键构建 dist\codelang-<ver>-setup.exe
