@@ -43,6 +43,12 @@ OPTIONS = {
     # explicitly is the reliable path.
     "packages": [
         "desktop",
+        # tkinter must be a full package include: modulegraph only traces
+        # statically-visible imports and misses submodules like tkinter.font
+        # (imported in deps_error.py), which crashed the bundle at launch with
+        # "cannot import name 'font' from 'tkinter'". Listing the package also
+        # triggers py2app's recipe that bundles the Tcl/Tk frameworks.
+        "tkinter",
         "pynput",
         "pyperclip",
         "PIL",

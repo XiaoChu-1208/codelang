@@ -21,15 +21,16 @@ IS_MAC = sys.platform == "darwin"
 
 ICON_PATH = resource_root() / "assets" / "logo" / "icon-128.png"
 
-# Design tokens — kept in sync with desktop/welcome.py + deps_error.py
+# Design tokens — kept in sync with desktop/welcome.py + deps_error.py.
+# Neutral, Apple-system-like palette.
 BG          = "#ffffff"
-BORDER      = "#d9dfe8"
-BLUE        = "#2956E6"
-BLUE_HOVER  = "#1f43c1"
-TEXT_DARK   = "#1a1a1a"
-TEXT_META   = "#6b7280"
+BORDER      = "#d2d2d7"
+BLUE        = "#007aff"   # macOS system accent
+BLUE_HOVER  = "#0066d6"
+TEXT_DARK   = "#1d1d1f"
+TEXT_META   = "#6e6e73"
 TEXT_HINT   = "#9aa0a6"
-ALERT_FG    = "#b91c1c"
+ALERT_FG    = "#d70015"
 
 
 def _pick_family() -> str:
@@ -127,16 +128,16 @@ def _show(
             except tk.TclError:
                 pass
 
-    btn = tk.Button(
-        btn_row, text=btn_text,
-        font=f_btn, bg=BLUE, fg="white",
-        activebackground=BLUE_HOVER, activeforeground="white",
-        bd=0, relief="flat", padx=18, pady=6, cursor="hand2",
-        highlightthickness=0,
-        command=_dismiss,
-    )
+    # Faux button: tk.Button ignores `bg` under macOS's aqua theme and renders
+    # as a default gray button, so we build a flat filled button from a
+    # Frame+Label instead — renders identically on both platforms.
+    btn = tk.Frame(btn_row, bg=BLUE, cursor="hand2")
+    btn_lbl = tk.Label(btn, text=btn_text, bg=BLUE, fg="white", font=f_btn, padx=18, pady=6)
+    btn_lbl.pack()
+    for w in (btn, btn_lbl):
+        w.bind("<Button-1>", lambda _e: (btn.config(bg=BLUE_HOVER), btn_lbl.config(bg=BLUE_HOVER)))
+        w.bind("<ButtonRelease-1>", lambda e: _dismiss(e))
     btn.pack(side="right")
-    btn.focus_set()
 
     win.bind("<Escape>", _dismiss)
     win.bind("<Return>", _dismiss)

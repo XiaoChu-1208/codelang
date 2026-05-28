@@ -65,6 +65,11 @@ rm -rf build "dist/codelang.app"
 # the permission stick per-bundle. For distribution outside your own Mac you
 # still want a Developer ID signature + notarization (see installer/README).
 echo "==> ad-hoc 签名 ..."
+# Strip extended attributes first. py2app copies the Tcl/Tk frameworks
+# (pulled in by the tkinter package include) with resource forks / Finder
+# info attached, which makes codesign bail with "resource fork, Finder
+# information, or similar detritus not allowed".
+xattr -cr "dist/codelang.app"
 codesign --force --deep --sign - "dist/codelang.app"
 
 # ---- 5. pack into a drag-to-install DMG ----
