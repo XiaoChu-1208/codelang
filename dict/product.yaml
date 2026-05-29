@@ -98,7 +98,7 @@
   example: 这个月流失率 15%，运营得搞召回活动。
 
 - term: 召回率
-  aliases: [recall rate]
+  aliases: [recall rate, recall, 查全率]
   category: jargon
   meaning: 两层意思：(1) 运营：被召回回来的流失用户占比；(2) 算法/搜索：相关结果被检索出来的比例（recall）。语境决定。
   example: 短信召回这批沉默用户，召回率 8%——回本了。
@@ -506,6 +506,92 @@
   literal: Customer Satisfaction Score
   meaning: 客户满意度——通常问"这次服务你打几分（1-5）"，算 4-5 分比例。客服/售后场景常用。和 NPS 互补，CSAT 看具体一次体验。
   example: 客服 CSAT 这季度 92%，达标。
+
+# --- 实验设计 / A·B 测试 ---
+
+- term: 实验组
+  aliases: [treatment group, 处理组, 干预组]
+  category: product
+  literal: treatment group
+  meaning: A/B 测试里用上"新东西"的那拨用户——看到新按钮、新策略的那组。它和对照组唯一的区别就是这个改动，这样两组一比，差异才能归因到改动本身。分组必须随机，否则差异说不清是改动的功劳还是人群本来就不同。
+  example: 实验组上新推荐算法，对照组保持原样，比两周留存。
+
+- term: 对照组
+  aliases: [control group, 控制组, 基准组, 对照桶]
+  category: product
+  literal: control group
+  meaning: A/B 测试里"啥也不改、保持原样"的那拨用户，当基准线用。没有它你根本不知道实验组的变化是改动带来的，还是大盘本来就在涨跌（节假日、季节都会动）。对照组就是用来扣掉这些大环境波动的。
+  example: 没设对照组，这次提升根本说不清是不是改版的功劳。
+
+- term: 流量分桶
+  aliases: [bucketing, 分桶, 流量分流, traffic split]
+  category: product
+  literal: traffic bucketing
+  meaning: 把用户按哈希切成若干"桶"，分别灌进实验组和对照组——这是 A/B 落地的第一步。讲究是同一个用户每次都进同一个桶（体验一致），且各桶人群随机均匀。分桶不均或串桶，实验数据就废了。
+  example: 按 user_id 哈希做流量分桶，保证用户每次进同一组。
+
+- term: AA 测试
+  aliases: [A/A test, AA test, A/A 实验, AA 实验]
+  category: product
+  literal: A/A test
+  meaning: 两组都用"同样的东西"先跑一轮——理论上不该有差异。它是 A/B 系统的体检：如果连 AA 都跑出"显著差异"，说明分桶有偏、埋点有 bug 或统计方法有问题，这时做 A/B 全是假信号。正式实验前的标准 sanity check。
+  example: 先跑 AA 测试，两组没差异再上真实验，否则先查分桶。
+
+- term: 最小可检测效应
+  aliases: [MDE, minimum detectable effect, 最小可检出效应]
+  category: product
+  literal: minimum detectable effect
+  meaning: 在给定样本量和功效下，这个实验"最小能看出多大的提升"。MDE=2% 意味着真实提升若小于 2% 你大概率检不出（会误判成没效果）。它和样本量互相牵制：想抓更小的提升，就得堆更多样本。设计实验时先想清楚要抓多大效应。
+  example: 样本就这么多，MDE 算下来 3%，1% 的小优化根本测不出。
+
+- term: 新奇效应
+  aliases: [novelty effect, 新鲜感效应]
+  category: product
+  literal: novelty effect
+  meaning: 新功能刚上线时用户因为"图新鲜"猛点，数据虚高，过阵子热度退了就打回原形。A/B 测试经典陷阱：跑两天看到暴涨就拍板，其实是新奇效应。解法是把实验跑够长（覆盖新鲜感消退），看稳定后的水平。
+  example: 上线头三天点击翻倍，多半是新奇效应，再观察一周再下结论。
+
+- term: 序贯检验
+  aliases: [sequential testing, peeking, 偷看问题, 反复看数据]
+  category: product
+  literal: sequential testing / peeking
+  meaning: A/B 实验"边跑边反复瞄 p 值，一看到显著就喊停"——这会把误报率严重放大（多看几次总能撞上一次偶然显著）。要么老实等预定样本量到了再看，要么用专门的序贯检验方法（已校正多次查看）。中途偷看就拍板是常见翻车点。
+  example: 别天天盯着 p 值、一显著就停——这种偷看让结论根本不可信。
+
+- term: CUPED
+  aliases: [方差削减, variance reduction]
+  category: product
+  literal: Controlled-experiment Using Pre-Experiment Data
+  meaning: 一种给 A/B 实验"提灵敏度"的技巧——用用户实验前的历史数据扣掉个体基线波动，让指标方差变小，于是更小的样本就能检出同样效应（或同样样本更快出结论）。大厂实验平台的标配优化，本质是"先减噪再比较"。
+  example: 上了 CUPED 后方差降了一截，实验跑一半时间就够显著。
+
+- term: 双盲
+  aliases: [double-blind, 双盲实验, 单盲, 盲评]
+  category: product
+  literal: double-blind
+  meaning: 实验里"参与者和执行者都不知道谁被分到哪组"，防的是心理暗示和主观打分作弊（知道自己用的是新版会自我感觉良好）。医学试验金标准。互联网 A/B 天然接近双盲（用户不知情），但人工评测打分时仍要做盲评防偏。
+  example: 人工评两版输出要盲评——别让标注员知道哪个是新模型。
+
+- term: 协变量
+  aliases: [covariate, 控制变量, 协变项]
+  category: product
+  literal: covariate
+  meaning: 不是你研究的主角、但会影响结果、需要"控制住"的变量——研究新功能对留存的影响时，用户活跃度、机型、地区都是协变量。分析时把它们对齐或纳入，才能把效果干净归因到你真正关心的因素，否则容易被带偏（见混杂变量）。
+  example: 两组年龄结构不一样，得把年龄当协变量调整后再比。
+
+- term: 交互效应
+  aliases: [interaction effect, 交互作用, 调节效应]
+  category: product
+  literal: interaction effect
+  meaning: 两个因素一起作用的效果不等于各自相加——新策略对新用户有用、对老用户反而有害，整体一平均看着"没影响"，其实是被交互效应掩盖了。所以 A/B 结论要分人群看，别只盯大盘平均，否则会错过"对某类人特别好/特别差"。
+  example: 大盘没动，但分群一看是交互效应：新客涨、老客跌，抵消了。
+
+- term: 安慰剂效应
+  aliases: [placebo effect, 安慰剂]
+  category: product
+  literal: placebo effect
+  meaning: 人只要"以为自己被特殊对待了"，哪怕啥也没真改，体验和反馈也会变好。这就是为什么要有对照组和盲评——不然你分不清提升是真功能带来的，还是用户"觉得有新东西"的心理作用。做用户调研、内测尤其要防它。
+  example: 内测组都说变快了，但其实没改性能——典型安慰剂效应。
 
 # ====================
 # SaaS 计费 / 套餐 / 用量

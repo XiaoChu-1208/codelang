@@ -425,7 +425,7 @@
   example: 数据先到 Kafka，下游消费方有十几个。
 
 - term: 阈值
-  aliases: [threshold, 临界值]
+  aliases: [threshold]
   category: jargon
   literal: 门槛值
   meaning: 触发某行为的临界数值。超过阈值就告警/降级/触发。

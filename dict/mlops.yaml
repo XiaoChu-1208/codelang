@@ -302,7 +302,7 @@
 
 
 - term: 精确率
-  aliases: [precision, 准确率]
+  aliases: [precision, 查准率]
   category: devterm
   literal: precision
   meaning: 你说"这是垃圾邮件"的那些里真的是垃圾的比例。说 100 封是垃圾真的 90 封是 = 精确率 90%。"误报"少 = 精确率高。
@@ -573,6 +573,62 @@
   meaning: 用一个"盒子加两根须"把五个数（最小、Q1、中位数、Q3、最大）画在一张图上，盒外的孤立点就是离群值。一眼看出数据的中心、散布、对称性和异常，对比多组分布时特别好使。
   example: 画个箱线图对比三个渠道的客单价分布。
 
+- term: 百分位数
+  aliases: [分位点]
+  category: devterm
+  literal: percentile
+  meaning: 把数据从小到大排好，第 90 百分位就是"90% 的数据都比它小"的那个值。比平均数更抗极端值，最常用来定 SLA/性能指标——P99 延迟＝99% 的请求都比它快，盯尾部体验就看它。和分位数是一回事，只是按 100 等分说。
+  example: 接口 P99 延迟 800ms，意思是 1% 的请求比这还慢。
+
+- term: 变异系数
+  aliases: [coefficient of variation, 离散系数]
+  category: devterm
+  literal: coefficient of variation
+  meaning: 标准差除以均值，量"相对波动有多大"。好处是去掉了量纲——比较"月薪波动"和"身高波动"哪个更不稳，不能直接比标准差（单位不同），比变异系数才公平。值越大越不稳定。
+  example: 两组均值差很多，比离散程度得用变异系数，别直接比标准差。
+
+- term: 加权平均
+  aliases: [weighted average, weighted mean, 加权平均数]
+  category: devterm
+  literal: weighted average
+  meaning: 不同数据"话语权不同"时的平均——算总评成绩，期末占 70%、平时占 30%，就按权重加起来。普通平均是加权平均里"权重都相等"的特例。指标按重要性/样本量加权汇总时天天用。
+  example: 各渠道转化率按流量加权平均，别直接算术平均。
+
+- term: 几何平均
+  aliases: [geometric mean, 几何平均数]
+  category: devterm
+  literal: geometric mean
+  meaning: n 个数连乘再开 n 次方，专门用来平均"增长率/倍数"这类乘法关系的量。三年分别涨 10%、50%、20%，年均增速要用几何平均算，用算术平均会高估。复利、收益率场景的正确平均法。
+  example: 算年均增长率得用几何平均，算术平均会虚高。
+
+- term: 调和平均
+  aliases: [harmonic mean, 调和平均数]
+  category: devterm
+  literal: harmonic mean
+  meaning: 倒数的平均再取倒数，专治"速率/比值"的平均——往返 60 和 40 的时速，平均不是 50 而是 48（调和平均）。它偏向小值、惩罚极端低的那个。F1 分数就是精确率和召回率的调和平均，逼两者都不能太低。
+  example: F1 用调和平均，所以精确率召回率有一个拉胯 F1 就上不去。
+
+- term: 直方图
+  aliases: [histogram, 频数分布图]
+  category: devterm
+  literal: histogram
+  meaning: 把数据切成一段段区间，数每段里落了多少个，用柱子高低画出来——一眼看出数据"长什么形状"：单峰还是双峰、对称还是偏、有没有离群。注意和柱状图不同：直方图横轴是连续数值区间、柱子挨着，柱状图是分类。
+  example: 先画直方图看看分布形状，再决定用均值还是中位数。
+
+- term: 偏态分布
+  aliases: [skewed distribution, 右偏, 左偏, 正偏, 负偏]
+  category: devterm
+  literal: skewed distribution
+  meaning: 不对称、一边拖着长尾的分布。右偏（正偏）是高值方向拖尾——收入就是典型，少数高薪把平均数拉到中位数之上（所以看收入要用中位数）。左偏反之。判断"该用均值还是中位数"先看它偏不偏。
+  example: 收入数据右偏严重，报中位数比平均数实在。
+
+- term: 经验法则
+  aliases: [empirical rule, 68-95-99.7 法则, 三西格玛法则, three-sigma rule]
+  category: devterm
+  literal: empirical rule (68-95-99.7)
+  meaning: 正态分布的"快速心算表"：约 68% 的数据落在均值 ±1 个标准差内、95% 在 ±2 个、99.7% 在 ±3 个。所以"超过 3 个标准差"基本就是罕见异常（工业质检的 3σ 控制线就是这么来的）。判断一个值算不算离谱，套这把尺子就行。
+  example: 这个值离均值 4 个标准差，按经验法则几乎不可能，先查是不是脏数据。
+
 # ---- 4.2 概率与分布 ----
 
 - term: 概率分布
@@ -625,7 +681,7 @@
   example: 单个用户是否点击就是一次伯努利试验。
 
 - term: 幂律分布
-  aliases: [power law, 幂律, 帕累托分布, Pareto distribution, 二八法则]
+  aliases: [power law, 幂律, 帕累托分布, Pareto distribution, 二八法则, 二八定律, 80/20 法则]
   category: devterm
   literal: power law distribution
   meaning: '"极少数占了极大头"的分布——少数热门商品贡献大部分销量、少数大 V 占大部分流量。尾巴又长又重，均值会被头部严重带偏，用正态那套会翻车。互联网的流量、财富、城市规模大多是幂律。'
@@ -687,6 +743,118 @@
   meaning: 用新证据更新概率的公式，核心是"后验 ∝ 似然 × 先验"——先有个初始判断（先验），看到数据后按比例修正成新判断（后验）。垃圾邮件过滤、医疗诊断、推荐系统背后都是它，也是"基率不能忽略"的数学来源。
   example: 检测阳性后用贝叶斯定理算真实患病概率，别先吓自己。
 
+- term: 随机变量
+  aliases: [random variable, 随机变数]
+  category: devterm
+  literal: random variable
+  meaning: 把"随机结果"翻译成数字的变量——掷骰子的点数、明天的订单量。分两种：离散型（取一个个孤立值，如点数 1-6）和连续型（取区间内任意值，如身高）。整个概率论就是研究随机变量"会取哪些值、各自概率多大"。
+  example: 把"是否点击"建成 0/1 随机变量，它的期望就是点击率。
+
+- term: 联合概率
+  aliases: [joint probability, 联合分布, joint distribution]
+  category: devterm
+  literal: joint probability
+  meaning: 两件事"同时发生"的概率——P(下雨 且 堵车)。两件事独立时联合概率就是各自概率相乘；不独立就得考虑相互影响。是条件概率、贝叶斯那套的基础积木。
+  example: 联合概率 P(老用户 且 付费) 比单看付费率更能刻画这群人。
+
+- term: 边缘概率
+  aliases: [marginal probability, 边际概率, marginal distribution]
+  category: devterm
+  literal: marginal probability
+  meaning: 从联合概率里"只关心一个变量、把另一个加总掉"得到的单变量概率——交叉表里某一行/列的合计就是它（写在表格"边缘"上，名字由此来）。比如不管天气，单独的堵车概率。把联合分布"压扁"到单维度。
+  example: 把各天气下的堵车概率加总，得到边缘概率：整体堵车率。
+
+- term: 独立性
+  aliases: [independence, 独立事件, 相互独立, statistically independent]
+  category: devterm
+  literal: independence
+  meaning: 一件事发不发生，完全不影响另一件的概率——抛两次硬币互不相干。判定：P(A 且 B)=P(A)×P(B) 才算独立。别和"互斥"混：互斥是不能同时发生（你死我活），独立是互不影响（井水不犯河水），两码事。
+  example: 假设用户两次访问独立，可同一个人前后高度相关，这假设常被打脸。
+
+- term: 全概率公式
+  aliases: [law of total probability, 全概率]
+  category: devterm
+  literal: law of total probability
+  meaning: 把一个复杂事件的概率，拆成"在各种互斥情形下分别算、再按各情形权重加起来"。比如总转化率 = 各渠道转化率 × 各渠道流量占比之和。先分情况、再加权汇总，也是贝叶斯公式分母的来源。
+  example: 整体故障率用全概率公式拆成各机型故障率乘各自占比再求和。
+
+- term: 独立同分布
+  aliases: [iid, i.i.d., independent and identically distributed, 独立同分布假设]
+  category: devterm
+  literal: independent and identically distributed
+  meaning: 一堆样本"彼此独立、且来自同一个分布"——这是大数定律、中心极限定理、几乎所有统计推断和机器学习的隐含前提。现实中常被破坏：时间序列前后相关、用户数据有群体差异，硬套 iid 的公式就会出错。看到模型假设先问一句"数据真 iid 吗"。
+  example: 时间序列不满足独立同分布，别直接套常规置信区间。
+
+- term: 标准正态分布
+  aliases: [standard normal, standard normal distribution, Z 分布, 标准正态]
+  category: devterm
+  literal: standard normal distribution
+  meaning: 均值为 0、标准差为 1 的那条特殊正态曲线。任何正态分布做 z-score 标准化后都变成它，所以查一张标准正态表就能算任意正态的概率。临界值 1.96（95%）、2.58（99%）都是从它身上读出来的。
+  example: 把数据转成 z-score 后，直接查标准正态分布表算概率。
+
+- term: t 分布
+  aliases: [t-distribution, Student t 分布, 学生 t 分布]
+  category: devterm
+  literal: Student's t-distribution
+  meaning: 长得像正态但"尾巴更胖"的分布，专用在样本量小、总体方差未知时。样本越小尾巴越胖（极端值更可能），样本一大就趋近正态。t 检验、小样本置信区间查的就是它，配自由度用。
+  example: 样本就 20 个，算置信区间得查 t 分布而不是正态。
+
+- term: 卡方分布
+  aliases: [chi-square distribution, χ² 分布, 卡方分布曲线]
+  category: devterm
+  literal: chi-square distribution
+  meaning: 若干个标准正态变量平方加起来服从的分布，永远非负、右偏，形状由自由度决定。卡方检验（类别相关性、拟合优度）和方差的区间估计都靠它查临界值。是"平方和"类统计量的归宿。
+  example: 卡方检验的统计量服从卡方分布，按自由度查临界值。
+
+- term: F 分布
+  aliases: [F-distribution, F 分布曲线]
+  category: devterm
+  literal: F-distribution
+  meaning: 两个卡方分布相除得到的分布，专门用来比"两个方差的比值"。方差分析（ANOVA）里的 F 检验就靠它判断"多组之间的差异比组内噪声大得够不够显著"。有两个自由度参数。
+  example: ANOVA 算出 F 值，查 F 分布看组间差异显不显著。
+
+- term: 对数正态分布
+  aliases: [log-normal, lognormal distribution, 对数正态]
+  category: devterm
+  literal: log-normal distribution
+  meaning: 一个变量取对数后服从正态，它本身就是对数正态——典型右偏、只取正值。收入、房价、停留时长、文件大小都接近它。处理这类数据常先取 log 拉成正态再分析，画图也用对数轴。
+  example: 停留时长是对数正态，先取 log 再求均值更靠谱。
+
+- term: 重尾分布
+  aliases: [heavy-tailed, heavy-tailed distribution, 厚尾, 重尾]
+  category: devterm
+  literal: heavy-tailed distribution
+  meaning: 尾巴比正态厚得多的分布——极端事件（黑天鹅、超大订单、病毒式传播）出现的概率没你想的那么小。金融风险、网络流量都是重尾，用正态那套去估会严重低估尾部风险（2008 年就栽在这）。幂律、帕累托、对数正态基本都属重尾。
+  example: 收益是重尾分布，按正态算风险会把黑天鹅概率算没了。
+
+- term: 几何分布
+  aliases: [geometric distribution, 几何分布曲线]
+  category: devterm
+  literal: geometric distribution
+  meaning: '"一直试到第一次成功，要试几次"的分布——反复投篮直到第一次命中、用户第几次推送才转化。每次成功概率固定且独立。它和二项分布是亲戚：二项问"n 次里成几次"，几何问"第几次首次成功"。'
+  example: 用几何分布建模"用户第几次 push 才下单"。
+
+- term: 多项分布
+  aliases: [multinomial distribution, 多项式分布]
+  category: devterm
+  literal: multinomial distribution
+  meaning: 二项分布的多类版——每次试验结果不止"成/败"两种，而是落进多个类别（掷骰子六面、用户点了 A/B/C/D 哪个），统计各类各出现几次。多分类模型的输出、问卷多选统计背后都是它。
+  example: 用户在四个入口的点击分布用多项分布刻画。
+
+- term: beta 分布
+  aliases: [Beta distribution, β 分布, 贝塔分布]
+  category: devterm
+  literal: Beta distribution
+  meaning: 取值固定在 0 到 1 之间的分布，天生适合描述"概率/比例本身"的不确定性——比如"这个按钮真实点击率可能是多少"。是贝叶斯里二项/伯努利的共轭先验：A/B 测试用它边收数据边更新对转化率的信念。
+  example: 贝叶斯 A/B 用 beta 分布表示对转化率的信念，越测越窄。
+
+- term: gamma 分布
+  aliases: [Gamma distribution, γ 分布, 伽马分布]
+  category: devterm
+  literal: Gamma distribution
+  meaning: 描述"等到第 k 件事发生要多久"的正值、右偏分布——是指数分布（等第 1 件）的推广。常用于建模等待时间、寿命、保险理赔额，也是贝叶斯里泊松/指数的共轭先验。和指数、泊松是一家人。
+  example: 用 gamma 分布建模设备到第三次故障的累计时间。
+
 # ---- 4.3 推断统计与假设检验 ----
 
 - term: 总体
@@ -697,14 +865,14 @@
   example: 想知道全体用户偏好，但只能调研抽样的几千人。
 
 - term: 样本
-  aliases: [sample, 样本数据, 样本量]
+  aliases: [sample, 样本数据]
   category: devterm
   literal: sample
   meaning: 从总体里抽出来、真正拿到手测量的那一部分。样本要有"代表性"才能推断总体——只在写字楼发问卷推不出全民习惯。样本量越大、抽样越随机，结论越可信（见大数定律）。
   example: 这个样本只覆盖年轻用户，结论别往全体上套。
 
 - term: 抽样
-  aliases: [sampling, 取样, 随机抽样, 分层抽样, stratified sampling]
+  aliases: [sampling, 取样]
   category: devterm
   literal: sampling
   meaning: 从总体里挑样本的过程，怎么挑决定结论靠不靠谱：随机抽样最公平，分层抽样保证各类人群都被覆盖。抽样方法一旦有偏（只抽到某类人），样本再大也救不回来——这叫抽样偏差。
@@ -739,7 +907,7 @@
   example: 样本翻 4 倍，标准误才减半（除以根号 4）。
 
 - term: 误差范围
-  aliases: [margin of error, 误差界限, 容许误差]
+  aliases: [margin of error, 误差界限, 容许误差, CI 半宽, 置信区间半宽, 误差幅度, 边际误差]
   category: devterm
   literal: margin of error
   meaning: 置信区间里"± 后面那个数"——民调"支持率 52%，误差 ±3%"就是它，等于临界值乘标准误。样本越大误差范围越小。看到没标误差范围的百分比，多半是想让你以为它比实际更精确。
@@ -829,6 +997,241 @@
   meaning: 一次比较三组及以上均值有没有差异的检验。为啥不两两 t 检验？因为比较次数一多误报率飙升（见多重比较）。ANOVA 用一个 F 检验整体判断"这几组里至少有两组不一样"，再做事后比较定位是谁。
   example: 三个落地页转化做 ANOVA，F 检验显著再两两看。
 
+# ---- 4.3b 抽样设计 / 置信与误差 / 评测基准（Gold Set 补充批次）----
+
+- term: 置信度
+  aliases: [置信水平, confidence level]
+  category: devterm
+  literal: confidence level
+  meaning: 置信区间前面那个"95%"——意思是"用同样方法反复抽样、反复算区间，长期有 95% 的区间会罩住真值"，而不是"真值有 95% 概率落在这一段里"（真值是固定的，要么在要么不在）。调高置信度（95%→99%）区间会变宽，因为想更保险就得把网撒得更大。
+  example: 95% 置信度说的是这套方法长期罩中率 95%，不是这一段有 95% 概率。
+
+- term: 样本量
+  aliases: [sample size, 样本大小, 样本数, n]
+  category: devterm
+  literal: sample size
+  meaning: 你实际抽了多少条，就是公式里那个 n。它直接决定估计有多准——置信区间宽窄按根号 n 缩，样本翻 4 倍误差才减半，所以"再多抽点"边际是递减的。正经做法是开测前用功效分析先算出"要多少 n 才够"，而不是拍脑袋定个数。
+  example: 算下来每组要 800 样本量才检得出这个差异，先别急着上线。
+
+- term: 假设检验
+  aliases: [hypothesis testing, 假设测试, 统计检验]
+  category: devterm
+  literal: hypothesis testing
+  meaning: 统计学下结论的标准套路——先立一个"没差别"的原假设，再看手里数据有没有强到能推翻它。够强（p 小于显著性水平）就拒绝原假设、宣布"有显著差异"；不够强就只能"不拒绝"（注意这不等于证明了没差别）。A/B 测试、医学试验背后都是这套流程。
+  example: 这个改版到底有没有用，跑个假设检验，别靠肉眼看曲线。
+
+- term: 临界值
+  aliases: [critical value, 临界点]
+  category: devterm
+  literal: critical value
+  meaning: 检验里的"过线分数"——把你算出的统计量（t 值、z 值）跟它比，超过就判显著。它由置信度和自由度查表定出，比如 95% 双尾对应 z 临界值 1.96。误差范围公式里"乘的那个数"就是它。理解成裁判事先划好的及格线即可。
+  example: z 算出来 2.3，超过临界值 1.96，拒绝原假设。
+
+- term: 抽样设计
+  aliases: [sampling design, 采样设计, 抽样方案]
+  category: devterm
+  literal: sampling design
+  meaning: 正式抽样前的"作战计划"——定清楚用哪种抽样方法（随机/分层/整群）、抽多大样本量、怎么保证代表性。设计没做好，后面再多统计也救不回来（垃圾进垃圾出）。评测集（Gold Set）能不能信，第一关就看抽样设计扎不扎实。
+  example: 先把抽样设计定下来——分层加每层多少条，再开始标注。
+
+- term: 随机抽样
+  aliases: [random sampling, simple random sampling, 简单随机抽样]
+  category: devterm
+  literal: random sampling
+  meaning: 最基本也最公平的抽法——总体里每个个体被抽中的机会均等，纯靠随机数、不掺人为偏好。它是所有抽样方法的基准：做到真随机，样本才没系统偏差，置信区间那套统计公式也才成立。难点常在工程上"怎么真随机"——按时间、按 ID 取模都可能偷偷引入规律。
+  example: 用随机数发生器做随机抽样，别手挑"看起来有代表性"的。
+
+- term: 分层抽样
+  aliases: [stratified sampling, 分层采样]
+  category: devterm
+  literal: stratified sampling
+  meaning: 先把总体按关键属性切成几层（新/老用户、高/中/低频），再在每层里各抽一部分，保证每类人都被采到、比例还可控。比纯随机更稳——随机抽运气差可能漏掉小众群体。做评测集常按话题热度分成 Head/Torso/Tail 层分别抽，就是它。
+  example: 按用户活跃度分三层做分层抽样，别让低频用户被冲没。
+
+- term: 系统抽样
+  aliases: [systematic sampling, 等距抽样]
+  category: devterm
+  literal: systematic sampling
+  meaning: 排好队后"每隔 k 个抽一个"——名单里每第 10 个抽一个。简单省事，但有个坑：名单本身若有周期性规律（每 10 个正好一个组长），抽样就会系统性偏掉。名单顺序足够随机时，它约等于随机抽样。
+  example: 按下单时间排序、每隔 50 单抽一单做系统抽样质检。
+
+- term: 整群抽样
+  aliases: [cluster sampling, 群组抽样, 聚类抽样]
+  category: devterm
+  literal: cluster sampling
+  meaning: 不一个个抽，而是先把总体分成一个个"群"（按城市、按门店），随机选几个群、把选中的群整个端走全测。省钱省事（不用全国跑），代价是同群内部往往相似，精度比同样本量的随机抽样差。调研常用：随机抽 10 个城市，每城全查。
+  example: 全国铺不开，就整群抽样选 8 个城市各自全量调研。
+
+- term: 便利抽样
+  aliases: [convenience sampling, 方便抽样, 便捷抽样]
+  category: devterm
+  literal: convenience sampling
+  meaning: 谁好抓就抽谁——公司门口发问卷、只问身边同事。最省力也最危险：样本根本不随机，结论基本推不到总体（你问的人和真实用户差太远）。学术上几乎不认，产品早期快速试水偶尔用，但得清醒知道它的结论只能参考、不能当真。
+  example: 只在内部群收的反馈是便利抽样，别拿去代表全体用户。
+
+- term: 抽样误差
+  aliases: [sampling error]
+  category: devterm
+  literal: sampling error
+  meaning: 纯粹因为"只抽了一部分而非全测"带来的随机偏差——换一批样本结果就会飘一点，这部分靠加大样本量能压小。注意和抽样偏差区分：抽样误差是随机的、可缩小；抽样偏差是方法错了导致的系统性偏，再大样本也救不回来。
+  example: 这点波动是抽样误差，多抽点就稳了，不是模型变差。
+
+- term: 样本代表性
+  aliases: [representativeness, 代表性, 样本偏差]
+  category: devterm
+  literal: representativeness
+  meaning: 样本的结构像不像总体——年龄、地域、新老比例是不是和真实用户一个样。代表性差的样本量再大也推不出总体（只在写字楼发问卷推不出全民习惯）。评测集最该死守的一条：别让某类数据超标或缺席，否则跑出来的分是"假准"。
+  example: 这批样本全是重度用户，代表性不行，分数虚高。
+
+- term: 功效分析
+  aliases: [power analysis, 样本量计算, 检验力分析]
+  category: devterm
+  literal: power analysis
+  meaning: 实验开跑前的"算账"——给定你想检出的最小差异、显著性水平和统计功效（通常 80%），倒推出"每组至少要多少样本量"。少了这步，样本不够会让真实存在的差异检不出来（白做）。正经 A/B 实验和论文都要求先做功效分析定 n。
+  example: 功效分析说每组要 1200 人，才有 80% 把握检出 2% 的提升。
+
+- term: 预测区间
+  aliases: [prediction interval]
+  category: devterm
+  literal: prediction interval
+  meaning: 给"下一个单独观测值"圈的范围，比置信区间宽。区别在于：置信区间估的是"平均水平"在哪（罩参数），预测区间估的是"某一个具体新样本"会落哪（还要叠加个体随机性）。预测明天某一单用户的消费用预测区间，估全体平均消费用置信区间。
+  example: 别拿置信区间当预测区间，后者宽得多，单点预测才不会翻车。
+
+- term: 置信带
+  aliases: [confidence band, 置信区域, 置信带状区]
+  category: devterm
+  literal: confidence band
+  meaning: 把置信区间从"一个点"推广到"整条曲线"——回归线、趋势线上下那条阴影带，表示这条线每一处的不确定范围。带越窄说明这段估得越准，数据稀疏的两端通常会变宽（喇叭口）。看图表时阴影带宽窄，往往比那条主线本身更能说明可信度。
+  example: 趋势图那条灰色置信带在末端张得很开，外推要谨慎。
+
+- term: 准确率
+  aliases: [accuracy, 正确率]
+  category: devterm
+  literal: accuracy
+  meaning: 全部预测里判对的比例（对的数÷总数）。最直觉但最容易骗人：正负样本悬殊时会失真——100 个里 99 个正常、1 个欺诈，模型全猜"正常"准确率也有 99%，却一个坏人没抓到。所以类别不平衡时要看精确率/召回率/F1，别只盯准确率。注意它和精确率（precision）不是一回事。
+  example: 准确率 99% 听着高，但样本不平衡，得看召回率才知道真本事。
+
+- term: 总体参数
+  aliases: [population parameter, 真值, 总体真值, 真实水平]
+  category: devterm
+  literal: population parameter
+  meaning: 总体那个"真实但未知"的数——全体用户的真实转化率、真实均值。它固定不动，只是你不知道，所有抽样和估计都是在猜它。和统计量相对：参数是要猜的真值，统计量是样本算出的估计。说"模型的真实水平""真值落在区间里"，指的都是它。
+  example: 我们永远拿不到总体参数，只能用样本去估它、给个置信区间。
+
+- term: 金标准
+  aliases: [gold standard, Gold Set, 黄金标准, 金标]
+  category: devterm
+  literal: gold standard
+  meaning: 公认最可信、拿来当"标准答案"的那份数据或方法——评测模型时人工精标、反复校对的参考集就是 Gold Set，所有模型的分都对着它量。它本身得够准够有代表性，否则"标尺歪了"量啥都不准。和普通测试集的区别在于：金标准强调"权威、可当裁判"。
+  example: 先把这 1000 条标成金标准，之后每版模型都拿它跑分对比。
+
+# ---- 4.3c 数据集划分 / 模型评测补充 ----
+
+- term: 训练集
+  aliases: [training set, train set, 训练数据]
+  category: devterm
+  literal: training set
+  meaning: 喂给模型"学习"的那部分数据——模型在它上面调参数、找规律。它必须和测试集分开：拿训练集的成绩当本事是自欺（等于考前背了答案再考原题）。一般占总数据 70%-80%。
+  example: 别拿训练集的准确率汇报，那是背过答案的分。
+
+- term: 验证集
+  aliases: [validation set, dev set, 开发集, 调参集]
+  category: devterm
+  literal: validation set
+  meaning: 训练过程中用来"调参数、挑模型"的中间集——不参与梯度更新，也不许动测试集。作用是边训边看哪组超参、哪个 checkpoint 更好。注意：反复在它上面挑，等于慢慢把它"用脏"，最终战绩还得看从没碰过的测试集。
+  example: 在验证集上选学习率，最后才在测试集上报成绩。
+
+- term: 测试集
+  aliases: [test set, 留出测试集, 测试数据集]
+  category: devterm
+  literal: test set
+  meaning: 全程锁起来、训练和调参都不许碰的那份数据，只在最后跑一次，用来估"上线后面对新数据"的真实水平。碰一次就少一分公信力——偷看测试集调模型是评测大忌。和 Gold Set 一个精神：它是裁判，不是陪练。
+  example: 测试集只在终评跑一次，别拿它来回调模型。
+
+- term: 数据集划分
+  aliases: [train-test split, 训练测试划分, 数据划分, 数据集切分]
+  category: devterm
+  literal: train/validation/test split
+  meaning: 把数据切成训练/验证/测试三份的动作，常见 8:1:1。关键是三份之间不能重叠或串味——同一用户、同一时间段的数据漏到两边都算泄露。时间序列还得按时间切（拿未来预测过去是作弊）。划分没做干净，后面所有分数都不可信。
+  example: 按用户 ID 做数据集划分，别让同一个人同时进训练和测试。
+
+- term: 留出法
+  aliases: [holdout, holdout method, 留出验证, 留出集]
+  category: devterm
+  literal: holdout method
+  meaning: 最简单的评测划分——直接切一块数据留出来不训练，只用来测。优点是快、省算力；缺点是结论受"恰好切到哪块"影响大，数据少时尤其不稳。数据少就改用交叉验证摊平这种运气。
+  example: 数据多就留出法够用，几千条还是上交叉验证稳。
+
+- term: k 折交叉验证
+  aliases: [k-fold cross-validation, K 折, k 折交叉]
+  category: devterm
+  literal: k-fold cross-validation
+  meaning: 把数据均分成 k 份，轮流拿 1 份当测试、其余 k−1 份训练，跑 k 次再平均成绩。好处是每条数据都当过一次测试，结论比单次留出法稳、不挑运气；代价是要训 k 遍、费算力。k 常取 5 或 10。
+  example: 数据就两千条，做 5 折交叉验证比单切一刀靠谱。
+
+- term: 留一法
+  aliases: [leave-one-out, LOOCV, 留一交叉验证]
+  category: devterm
+  literal: leave-one-out cross-validation
+  meaning: 交叉验证的极端版——每次只留 1 条当测试、其余全训练，有 n 条就跑 n 遍。几乎把数据用到极致，适合样本特别少的场景；但要训 n 遍，数据一多就贵到跑不动。是 k 折在 k=n 时的特例。
+  example: 样本只有几十条，用留一法把每条都榨出来。
+
+- term: 数据泄露
+  aliases: [data leakage, 数据泄漏, 标签泄露, 特征穿越, leakage]
+  category: devterm
+  literal: data leakage
+  meaning: 训练时偷偷用到了"上线时根本拿不到的信息"，导致离线分虚高、一上线就崩。经典坑：用未来数据预测过去、把含答案的特征喂进去、测试集信息混进训练。症状就是"离线 99 分、线上拉胯"。查泄露是评测最该警惕的事。
+  example: 这个特征其实是结果反算出来的，妥妥数据泄露，难怪离线高得离谱。
+
+- term: 对数损失
+  aliases: [log loss, logloss, 交叉熵, cross-entropy, 交叉熵损失]
+  category: devterm
+  literal: log loss / cross-entropy
+  meaning: 分类模型最常用的损失/评测之一，不只看"判对没"，还看"概率给得有多笃定"。说 90% 是垃圾邮件结果真是 → 罚得轻；信誓旦旦 99% 却判错 → 罚得极重。逼模型既准又别瞎自信。二分类的对数损失就是交叉熵，越小越好。
+  example: 准确率一样，但这版对数损失更低，概率校准得更好。
+
+- term: 基尼系数
+  aliases: [Gini, Gini coefficient, 基尼]
+  category: devterm
+  literal: Gini coefficient
+  meaning: 风控/评分卡里衡量模型区分好坏客户能力的指标，和 AUC 是亲戚（Gini = 2×AUC − 1）。越接近 1 区分力越强，0 等于瞎猜。注意它和经济学里"贫富差距的基尼系数"是两码事，只是同名同思路。
+  example: 这张评分卡 Gini 0.5 左右，区分度还行。
+
+- term: KS 值
+  aliases: [KS, Kolmogorov-Smirnov, KS 统计量, K-S]
+  category: devterm
+  literal: Kolmogorov-Smirnov statistic
+  meaning: 风控建模常看的区分指标——好客户和坏客户的累计分布拉开的最大距离。值越大说明把好坏分得越开，0.3 以上算可用、0.4 以上算不错。常和 AUC 一起给评分卡体检。
+  example: 模型 KS 0.35、AUC 0.72，上线前指标达标。
+
+- term: 提升度
+  aliases: [lift, lift 曲线, 增益曲线]
+  category: devterm
+  literal: lift
+  meaning: 用了模型比"瞎撒"好多少倍。发券时模型挑出的 top 10% 人群成交率是整体平均的 3 倍，提升度就是 3。直接回答"这模型到底值不值得用"，是运营/增长最听得懂的评测语言。
+  example: top 20% 人群提升度 4 倍，优先把预算砸这批人。
+
+- term: 基准测试
+  aliases: [跑分测试, 基准测评]
+  category: devterm
+  literal: benchmark
+  meaning: 用一套公开、固定的标准题库给模型/系统打分，好横向比谁强——大模型圈的 MMLU、GSM8K 就是。意义在于"同一把尺子量所有人"。但常被刷榜：专门冲着榜单训练，分高却不一定真能打（见过拟合）。
+  example: 别只看基准测试分，刷榜刷出来的高分不等于真好用。
+
+- term: 榜单
+  aliases: [leaderboard, 排行榜, 排行榜单]
+  category: devterm
+  literal: leaderboard
+  meaning: 把各家模型按某个基准分排排坐的榜——大模型竞技场、Kaggle 比赛都有。看榜要带脑子：分数接近时差异可能没统计显著、题目可能被针对性优化过、真实业务表现未必跟榜单一致。参考可以，迷信不行。
+  example: 它在榜单上排第一，但我们自己的 Gold Set 上没拉开差距。
+
+- term: 类别不平衡
+  aliases: [class imbalance, 样本不平衡, 数据不平衡, imbalanced data]
+  category: devterm
+  literal: class imbalance
+  meaning: 各类样本数量悬殊——99% 正常、1% 欺诈。坑在于模型全猜多数类，准确率也很漂亮却毫无用处（一个坏人没抓到）。所以这种场景别看准确率，要看召回率/精确率/F1/AUC；建模上还得靠重采样、调权重、改判定阈值来救。
+  example: 欺诈样本就 1%，典型类别不平衡，准确率指标直接作废。
+
 # ---- 4.4 相关与回归 ----
 
 - term: 相关性
@@ -915,6 +1318,83 @@
   meaning: 回归残差的波动"随自变量变大而变大"（收入越高、消费的离散度越大），残差图呈喇叭口。它违反了 OLS"方差恒定"的假设，会让标准误和 p 值不可信。处理：稳健标准误、加权回归或对数变换。
   example: 残差随预测值发散，异方差，用稳健标准误修。
 
+- term: 自变量
+  aliases: [independent variable, 解释变量, 预测变量, X 变量]
+  category: devterm
+  literal: independent variable
+  meaning: 回归/实验里"你主动改动或拿来解释别人"的变量，放在等号右边（X）——投放金额、价格、用户特征。和因变量相对：自变量是因、因变量是果（统计上只是"用 X 解释 Y"，不必然是真因果）。
+  example: 把广告花费当自变量，销量当因变量跑回归。
+
+- term: 因变量
+  aliases: [dependent variable, 被解释变量, 响应变量, 目标变量]
+  category: devterm
+  literal: dependent variable
+  meaning: 你真正想预测或解释的那个结果变量，放在等号左边（Y）——销量、转化率、留存。回归就是在找"自变量怎么影响因变量"。机器学习里它就是标签/target。
+  example: 因变量是次日留存，看看哪些自变量能解释它。
+
+- term: 回归系数
+  aliases: [regression coefficient, 回归权重]
+  category: devterm
+  literal: regression coefficient
+  meaning: 回归方程里每个自变量前面的那个数，表示"该自变量每变动一个单位、因变量平均跟着变多少"。正负看方向、大小看影响力（但要先把量纲对齐才好比大小）。它显不显著由对应的 p 值判断。
+  example: 价格的回归系数是 −0.8，涨一块钱销量平均掉 0.8。
+
+- term: 多元回归
+  aliases: [multiple regression, 多变量回归]
+  category: devterm
+  literal: multiple regression
+  meaning: 一次放多个自变量去解释一个因变量——比只看单因素更接近现实（销量同时受价格、广告、季节影响）。好处是能"控制住其他变量看某一个的净效应"，但自变量之间太相关会引发多重共线性，系数变得不可信。
+  example: 多元回归同时放价格、投放、季节，看价格的净影响。
+
+- term: 岭回归
+  aliases: [ridge regression, 脊回归, Ridge]
+  category: devterm
+  literal: ridge regression
+  meaning: 给线性回归加一个"别让系数太大"的 L2 惩罚项，专治多重共线性和过拟合——系数被整体压小但都保留。和 Lasso 的区别：岭回归只缩小不清零，Lasso 能把没用的系数直接压成 0（做特征选择）。
+  example: 自变量高度相关，用岭回归把系数压稳。
+
+- term: Lasso 回归
+  aliases: [Lasso, Lasso regression, 套索回归]
+  category: devterm
+  literal: Lasso regression
+  meaning: 给回归加 L1 惩罚，特点是能把不重要的自变量系数直接压成 0——等于顺手做了特征选择，留下一个稀疏、好解释的模型。变量一大堆、想自动筛掉没用的时首选。和岭回归常一起被提（L1 vs L2）。
+  example: 几百个特征，用 Lasso 回归自动筛出真正有用的十几个。
+
+- term: 哑变量
+  aliases: [dummy variable, 虚拟变量, 指示变量]
+  category: devterm
+  literal: dummy variable
+  meaning: 把"类别"塞进回归的办法——性别、城市这种非数值变量没法直接算，就拆成一个个 0/1 列（是北京=1 否则 0）。注意"哑变量陷阱"：k 个类别只能放 k−1 个哑变量，全放会和截距共线。和独热编码是一回事。
+  example: 把城市做成哑变量丢进回归，记得留一个当基准。
+
+- term: 自相关
+  aliases: [autocorrelation, 序列相关, ACF]
+  category: devterm
+  literal: autocorrelation
+  meaning: 一个序列"自己和自己过去的值相关"——今天的销量和昨天高度相关。时间序列里普遍存在，但它违反了"观测相互独立"的假设，会让普通回归的标准误和置信区间偏小、p 值虚假显著。建模时间序列必须先处理它。
+  example: 残差有自相关，说明模型漏了时间结构，置信区间不可信。
+
+- term: 时间序列
+  aliases: [time series, 时序数据, 时间序列数据]
+  category: devterm
+  literal: time series
+  meaning: 按时间先后排列的数据——每天的活跃、每分钟的股价。它的特殊在于前后不独立（有趋势、季节性、自相关），所以不能随便打乱、不能随机切训练测试（得按时间切），常规 iid 那套也要小心。预测它有专门方法（ARIMA、Prophet 等）。
+  example: 时间序列别随机划分，拿未来预测过去是作弊。
+
+- term: 中介变量
+  aliases: [mediator, 中介效应, mediating variable]
+  category: devterm
+  literal: mediator
+  meaning: 夹在因和果中间、"传话"的那个变量——广告提升了品牌认知（中介），认知再带来购买。它解释的是"X 为什么影响 Y"的机制。和调节变量不同：中介是中间桥梁，调节是"在什么条件下影响更强"。
+  example: 分析发现认知是中介变量：广告先提认知，认知再促转化。
+
+- term: 调节变量
+  aliases: [moderator, 调节效应变量, moderating variable]
+  category: devterm
+  literal: moderator
+  meaning: 决定"X 对 Y 的影响有多强"的第三个变量——促销对低收入人群效果猛、对高收入几乎没用，收入就是调节变量。它改变的是关系的强弱/方向，对应回归里的交互项。和中介变量别搞混：调节管"何时更强"，中介管"为什么"。
+  example: 收入是调节变量：同样的优惠，低收入组转化提升明显更大。
+
 # ---- 4.5 估计与贝叶斯 ----
 
 - term: 似然
@@ -980,6 +1460,76 @@
   meaning: 和 AIC 同类的模型选择分数，但对参数个数的惩罚更狠（含样本量项），所以倾向选更简单的模型，样本量大时尤其明显。和 AIC 一起看：想要简约选 BIC，想要预测力 AIC 往往更合适。
   example: BIC 罚得重，最后选了更精简的模型。
 
+- term: 估计量
+  aliases: [estimator, 估计子]
+  category: devterm
+  literal: estimator
+  meaning: 用样本去猜总体参数的那个"公式/规则"——样本均值就是总体均值的一个估计量。同一个参数可以有多个估计量，好坏看三条：无偏（不系统性偏）、有效（波动小）、一致（样本越大越准）。它算出的具体数字叫估计值。
+  example: 样本方差除以 n−1 才是无偏估计量，除以 n 会偏小。
+
+- term: 无偏估计
+  aliases: [unbiased estimator, 无偏性, 有偏估计, 无偏估计量]
+  category: devterm
+  literal: unbiased estimator
+  meaning: 一个估计量"长期平均下来正好等于真值、不系统性高估或低估"。样本方差除以 n−1 是无偏的，除以 n 会系统性偏小（这就是那个 n−1 的来历）。有偏不一定坏：有时为了方差更小，愿意接受一点偏（见偏差方差权衡）。
+  example: 为什么样本方差除 n−1？为了让它成为无偏估计。
+
+- term: 一致估计
+  aliases: [consistent estimator, 相合估计]
+  category: devterm
+  literal: consistent estimator
+  meaning: '"样本量越大，估计值越收敛到真值"的估计量。它是个底线——连"多给数据也不会越来越准"的估计量基本没用。注意一致和无偏是两回事：可以有偏但一致（样本大了偏自动消失），也可以无偏但不一致。'
+  example: 这个估计量一致，所以多采点数据就能逼近真值。
+
+- term: 偏差方差权衡
+  aliases: [bias-variance tradeoff, 偏差-方差权衡, 偏差方差分解]
+  category: devterm
+  literal: bias-variance tradeoff
+  meaning: 模型误差拆成两块：偏差（太简单、系统性差错，欠拟合）和方差（太敏感、换批数据就变脸，过拟合）。两者此消彼长——模型越复杂偏差越小但方差越大。调模型的核心就是在这条跷跷板上找平衡点，让总误差最小。
+  example: 树太深方差爆炸、太浅偏差大，偏差方差权衡里找深度。
+
+- term: 可信区间
+  aliases: [credible interval, 贝叶斯置信区间, 可信区间估计]
+  category: devterm
+  literal: credible interval
+  meaning: 置信区间的贝叶斯版本，但解释更符合直觉——"参数有 95% 概率落在这个区间里"这句话对可信区间是对的，对频率派的置信区间反而是错的。它直接从后验分布上取 95% 的范围。贝叶斯 A/B 报的就是它。
+  example: 贝叶斯 A/B 给的是 95% 可信区间，能直接说"有 95% 概率更好"。
+
+- term: 共轭先验
+  aliases: [conjugate prior, 共轭分布]
+  category: devterm
+  literal: conjugate prior
+  meaning: 选一个"和似然搭配后、后验还是同一类分布"的先验，好处是更新有解析解、不用跑 MCMC——比如 Beta 配二项、Gamma 配泊松。贝叶斯 A/B 用 Beta 先验就图这个：每来一批数据，后验还是 Beta，闭着眼就能更新。
+  example: 转化率用 Beta 共轭先验，新数据一来后验还是 Beta，更新极快。
+
+- term: 贝叶斯推断
+  aliases: [Bayesian inference, 贝叶斯估计, 贝叶斯分析]
+  category: devterm
+  literal: Bayesian inference
+  meaning: 一整套"用先验信念 + 数据 → 更新成后验信念"的统计思路，和频率派（只认数据、算 p 值）对着干。优点是能融入先验、结论好解释（直接给概率）、小样本也能用；代价是要选先验、算起来常得靠采样。贝叶斯 A/B、垃圾邮件过滤都是它。
+  example: 数据少、又有历史经验，用贝叶斯推断把先验用起来。
+
+- term: 朴素贝叶斯
+  aliases: [Naive Bayes, 朴素贝叶斯分类器]
+  category: devterm
+  literal: Naive Bayes
+  meaning: 基于贝叶斯定理的经典分类器，"朴素"在于硬假设所有特征相互独立（现实几乎不成立，但效果常意外地好）。又快又省、对小数据和文本友好，垃圾邮件过滤、情感分类的老牌基线。配拉普拉斯平滑防"没见过的词概率为 0"。
+  example: 文本分类先拿朴素贝叶斯做个基线，又快又够用。
+
+- term: EM 算法
+  aliases: [期望最大化, expectation-maximization, EM 期望最大化]
+  category: devterm
+  literal: expectation-maximization
+  meaning: 数据有"隐藏变量/缺失"时估参数的迭代套路：先猜参数 → 按它推断隐藏变量（E 步）→ 再用推断结果更新参数（M 步），来回循环直到收敛。高斯混合聚类、含缺失数据的估计都靠它。本质是"鸡生蛋蛋生鸡"问题的迭代解法。
+  example: 高斯混合模型用 EM 算法反复在分组和参数之间迭代。
+
+- term: 拉普拉斯平滑
+  aliases: [Laplace smoothing, 加一平滑, add-one smoothing, 加法平滑]
+  category: devterm
+  literal: Laplace smoothing
+  meaning: 给每个计数都"先加个 1"再算概率，专治"训练集里没出现过 → 概率算成 0 → 一票否决"的尴尬（朴素贝叶斯、n-gram 语言模型常见）。加了之后没见过的事件也有个很小的非零概率，更稳健。是最简单的平滑手段。
+  example: 朴素贝叶斯加拉普拉斯平滑，免得一个生词把整条概率清零。
+
 # ---- 4.6 常见偏差与陷阱 ----
 
 - term: 选择偏差
@@ -1044,3 +1594,59 @@
   literal: normalization
   meaning: 把不同范围的特征压到同一区间（常 0~1），免得"月薪几万"的特征把"年龄几十"的特征淹没。和标准化（z-score）是两种常见缩放：归一化压到固定区间、标准化转成均值 0 方差 1。KNN、神经网络、梯度下降前几乎必做。注意只能用训练集的范围去缩放测试集。
   example: 喂神经网络前先把特征归一化到 [0,1]。
+
+- term: 测量偏差
+  aliases: [measurement bias, 测量误差偏倚, 工具偏差]
+  category: devterm
+  literal: measurement bias
+  meaning: 测量工具/口径本身有系统性问题导致的偏——秤本身偏重 2 斤，称一万次平均还是偏。和随机误差不同：随机误差多测能平掉，测量偏差越测越固执地偏向一边。埋点口径错、问卷问法诱导，都会引入它。
+  example: 这指标埋点漏算了一类事件，是测量偏差，加样本也救不回来。
+
+- term: 响应偏差
+  aliases: [response bias, 应答偏差, 回答偏差]
+  category: devterm
+  literal: response bias
+  meaning: 被调查者"没如实回答"造成的偏——敏感问题往好了说、诱导性问法被带跑、只挑配合的人回答。问卷、满意度调研的常见坑。匿名、中性问法、随机应答技术能缓解。看到漂亮的调研结论，先想想是不是响应偏差。
+  example: 满意度高得反常，多半有响应偏差——没人当面给差评。
+
+- term: 发表偏差
+  aliases: [publication bias, 出版偏倚, 抽屉效应]
+  category: devterm
+  literal: publication bias
+  meaning: '"有显著/正面结果的研究更容易被发表，没结果的烂在抽屉里"，导致你看到的文献整体偏乐观——某疗法十个实验九个没用没发、一个碰巧显著的发了，你只看到那一个。元分析和"读论文别尽信"都得防它。'
+  example: 这领域全是阳性结果，警惕发表偏差，阴性的可能根本没发出来。
+
+- term: 遗漏变量偏差
+  aliases: [omitted variable bias, 遗漏变量, OVB]
+  category: devterm
+  literal: omitted variable bias
+  meaning: 回归里漏掉了一个"既影响因变量、又和已有自变量相关"的关键变量，导致剩下变量的系数被带偏——经典例子：不控制天气，得出"卖冰淇淋导致溺水增多"。它是伪相关和混杂的回归版本，控制住该变量就能修。
+  example: 没控制城市消费水平，房价对销量的系数有遗漏变量偏差。
+
+- term: 内生性
+  aliases: [endogeneity, 内生性问题]
+  category: devterm
+  literal: endogeneity
+  meaning: 自变量和回归残差相关，导致系数有偏、因果说不清——来源有遗漏变量、反向因果、测量误差。它是计量经济学里因果推断的头号敌人。解法常靠工具变量、双重差分（DID）、断点回归这些"准实验"手段绕开。
+  example: 广告和销量互相影响，有内生性，直接回归说不清谁导致谁。
+
+- term: 反向因果
+  aliases: [reverse causality, 因果倒置, 逆向因果]
+  category: devterm
+  literal: reverse causality
+  meaning: 把因果方向搞反了——"用了高级会员的人消费高"，到底是会员促进消费，还是本来就爱花钱的人才买会员？相关数据自己说不清方向，这正是"相关不等于因果"的一大来源。要定方向，得靠实验或时间先后等额外信息。
+  example: 城市警力多、犯罪也多，不是警察导致犯罪，是反向因果。
+
+- term: 删失
+  aliases: [censoring, 截断, 数据截断, truncation]
+  category: devterm
+  literal: censoring / truncation
+  meaning: 数据被"看不全"——研究存活时间，到实验结束有人还活着（只知道"至少活了 X"，不知道确切值），这叫删失。直接当确切值或扔掉都会让结论偏。生存分析专门处理它（卡普兰-迈耶、Cox 回归）。订阅留存、设备寿命分析都会撞上。
+  example: 还没流失的用户是删失数据，别当成"留存时间就这么短"。
+
+- term: 自选择偏差
+  aliases: [self-selection bias, 自我选择偏差, 自选择]
+  category: devterm
+  literal: self-selection bias
+  meaning: 研究对象"自己选了要不要进入某组"，导致两组本来就不可比——主动报名健身课的人本来就更自律，课程"效果"里混进了这层自我筛选。是选择偏差的一种，电商"用了某功能的人留存高"经常栽在这。解法是随机分配或统计校正。
+  example: 装了 App 的人活跃高？当心自选择偏差，他们本来就是重度用户。
