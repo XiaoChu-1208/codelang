@@ -46,8 +46,12 @@ OPTIONS = {
         # tkinter must be a full package include: modulegraph only traces
         # statically-visible imports and misses submodules like tkinter.font
         # (imported in deps_error.py), which crashed the bundle at launch with
-        # "cannot import name 'font' from 'tkinter'". Listing the package also
-        # triggers py2app's recipe that bundles the Tcl/Tk frameworks.
+        # "cannot import name 'font' from 'tkinter'".
+        #
+        # NOTE: py2app's tkinter recipe bundles only the Tcl/Tk *dylibs*, not
+        # the script libraries (init.tcl, tk.tcl, …). Those are copied into
+        # Contents/lib/{tcl8.6,tk8.6} by installer/build_mac.sh (step 3b);
+        # without them the .app crashes at launch with "Can't find init.tcl".
         "tkinter",
         "pynput",
         "pyperclip",

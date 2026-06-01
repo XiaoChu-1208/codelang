@@ -59,6 +59,40 @@ echo "==> 用 py2app 打包 codelang.app ..."
 rm -rf build "dist/codelang.app"
 "$VPY" installer/setup_mac.py py2app
 
+# ---- 3b. bundle the Tcl/Tk script libraries ----
+# py2app's tkinter recipe copies only the Tcl/Tk *dylibs* into
+# Contents/Frameworks — it does NOT copy the script libraries (init.tcl,
+# tk.tcl, encodings, …). Against a non-framework Tcl/Tk (e.g. Homebrew's
+# tcl-tk, which ships plain .dylibs rather than .frameworks) the bundle then
+# crashes at launch — but only when launched via Finder/`open` (a minimal
+# launchd env), since a shell launch may inherit a usable TCL_LIBRARY:
+#     _tkinter.TclError: Can't find a usable init.tcl ...
+# Fix: drop the script libs at Contents/lib/{tcl8.6,tk8.6} — the default
+# location Tcl/Tk search relative to the executable, so no env var is needed.
+echo "==> 补全 Tcl/Tk 脚本库（py2app 只打了 dylib，漏了 init.tcl 等脚本）..."
+# Ask Tcl/Tk themselves for their script dirs so this works for any layout
+# (Homebrew's lib/{tcl,tk}8.6 siblings, the python.org framework, …). tcl_library
+# needs no display; tk_library is read from a real Tk(), falling back to the
+# tcl sibling dir if we're headless and Tk() can't open a connection.
+read -r TCL_VER TCL_LIB <<EOF
+$("$VPY" -c 'import tkinter; t=tkinter.Tcl(); print(t.eval("info tclversion"), t.eval("info library"))')
+EOF
+TK_LIB="$("$VPY" -c 'import tkinter
+try:
+    r = tkinter.Tk(); print(r.tk.eval("set tk_library"))
+except Exception:
+    pass' 2>/dev/null)"
+[ -n "$TK_LIB" ] || TK_LIB="$(dirname "$TCL_LIB")/tk$TCL_VER"
+[ -f "$TCL_LIB/init.tcl" ] || { echo "build_mac.sh: 找不到 Tcl 脚本库 $TCL_LIB/init.tcl" >&2; exit 1; }
+[ -f "$TK_LIB/tk.tcl" ]    || { echo "build_mac.sh: 找不到 Tk 脚本库 $TK_LIB/tk.tcl" >&2; exit 1; }
+APP_LIB="dist/codelang.app/Contents/lib"
+mkdir -p "$APP_LIB"
+rm -rf "$APP_LIB/tcl$TCL_VER" "$APP_LIB/tk$TCL_VER"
+cp -R "$TCL_LIB" "$APP_LIB/tcl$TCL_VER"
+cp -R "$TK_LIB"  "$APP_LIB/tk$TCL_VER"
+echo "    tcl: $TCL_LIB -> $APP_LIB/tcl$TCL_VER"
+echo "    tk:  $TK_LIB  -> $APP_LIB/tk$TCL_VER"
+
 # ---- 4. ad-hoc code signing ----
 # Without a signature, macOS drops the app's Accessibility grant on every
 # rebuild and Gatekeeper is harsher. Ad-hoc (`-`) signing is free and makes
