@@ -151,6 +151,8 @@ class App:
             on_user_save=self._on_user_save,
             on_chip_click=self._on_chip_click,
             find_refs_fn=self.dict.find_referenced_terms,
+            dev_mode=bool(self.cfg.get("dev_mode", False)),
+            on_vocab_save=self._on_vocab_save,
         )
 
         self.queue: "queue.Queue[tuple]" = queue.Queue()
@@ -314,6 +316,11 @@ class App:
             if not path:
                 print("[codelang] OCR capture cancelled", file=sys.stderr)
                 return
+            # Snapshot the cursor the instant the drag ends (the selection box's
+            # release corner) — BEFORE the ~100ms OCR, during which the pointer
+            # drifts away. This anchors the card at the box corner instead of
+            # wherever the mouse happened to be after recognition finished.
+            cx, cy = winhelp.get_cursor_pos()
             try:
                 raw = ocr_mac.ocr_image_file(path)
             finally:
@@ -324,7 +331,6 @@ class App:
                 print("[codelang] OCR found no usable text", file=sys.stderr)
                 return
             print(f"[codelang] OCR captured: {term[:60]!r}", file=sys.stderr)
-            cx, cy = winhelp.get_cursor_pos()
             self.queue.put(("trigger", cx, cy, term))
         except Exception as e:
             import traceback
@@ -446,6 +452,13 @@ class App:
                 self.queue.put(("user_save_done", gen, False, str(e)[:120]))
 
         threading.Thread(target=worker, daemon=True).start()
+
+    def _on_vocab_save(self, term: str) -> None:
+        """Developer-only (存储词汇 button): stash a missed word to
+        ~/.codelang/saved_vocab.txt for a later dictionary-expansion pass.
+        Runs on the tk main thread; the file append is trivial so no worker."""
+        config.save_vocab(term)
+        print(f"[codelang] stashed vocab: {term!r}", file=sys.stderr)
 
     # ---------- tray ----------
 

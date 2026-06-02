@@ -9,6 +9,9 @@ CONFIG_DIR = Path(os.path.expanduser("~")) / ".codelang"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 CACHE_FILE = CONFIG_DIR / "llm_cache.json"
 MISSING_FILE = CONFIG_DIR / "missing_log.txt"
+# Developer-only: words stashed via the 存储词汇 button, for a later
+# dictionary-expansion pass (scan + deep-dig related terms).
+SAVED_VOCAB_FILE = CONFIG_DIR / "saved_vocab.txt"
 
 DEFAULTS = {
     "provider": "anthropic",      # anthropic | openai
@@ -18,6 +21,7 @@ DEFAULTS = {
     "selection_max_len": 32,
     "ocr_enabled": True,          # macOS: Option+` → crosshair screenshot → OCR → lookup
     "ocr_max_len": 80,            # OCR text longer than this is rejected (likely a paragraph, not a term)
+    "dev_mode": False,            # developer-only: shows 存储词汇 on miss cards (off in public release)
     "loading_dot_interval_ms": 250,
     "error_auto_close_ms": 1800,
     "welcome_shown": False,
@@ -73,3 +77,26 @@ def log_missing(term: str) -> None:
     _ensure_dir()
     with MISSING_FILE.open("a", encoding="utf-8") as f:
         f.write(term + "\n")
+
+
+def save_vocab(term: str) -> None:
+    """Developer-only: stash a word (via the 存储词汇 button) for a later
+    dictionary-expansion pass. One term per line, deduped against what's
+    already stored in SAVED_VOCAB_FILE."""
+    t = (term or "").strip()
+    if not t:
+        return
+    _ensure_dir()
+    existing: set[str] = set()
+    if SAVED_VOCAB_FILE.exists():
+        try:
+            existing = {
+                ln.strip()
+                for ln in SAVED_VOCAB_FILE.read_text(encoding="utf-8").splitlines()
+            }
+        except Exception:
+            existing = set()
+    if t in existing:
+        return
+    with SAVED_VOCAB_FILE.open("a", encoding="utf-8") as f:
+        f.write(t + "\n")

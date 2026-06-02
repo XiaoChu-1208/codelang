@@ -47,6 +47,8 @@ class Tooltip:
         on_user_save: Optional[Callable[[int, str, str, str], None]] = None,
         on_chip_click: Optional[Callable[[str], None]] = None,
         find_refs_fn: Optional[Callable[[str, set[str]], list[str]]] = None,
+        dev_mode: bool = False,
+        on_vocab_save: Optional[Callable[[str], None]] = None,
     ):
         self.root = root
         self.dot_interval_ms = dot_interval_ms
@@ -54,6 +56,8 @@ class Tooltip:
         self.on_user_save = on_user_save
         self.on_chip_click = on_chip_click  # callback(term) when user clicks a 相关 chip
         self.find_refs_fn = find_refs_fn    # callable(text, exclude_set) -> list[str]
+        self.dev_mode = dev_mode            # gate developer-only UI (存储词汇 button)
+        self.on_vocab_save = on_vocab_save  # callback(term): stash a word for later dict expansion
 
         self._gen = 0
         self._loading = False
@@ -278,6 +282,16 @@ class Tooltip:
         link.pack(side="left")
         link.bind("<Button-1>", lambda _e: self._show_input_form(gen, term))
 
+        # Developer-only: stash this missed word to a local list so a later
+        # dictionary-update pass can scan it and deep-dig related terms. Hidden
+        # unless dev_mode is on, so the public release never shows it.
+        if self.dev_mode and self.on_vocab_save is not None:
+            stash = tk.Label(btn_row, text="存储词汇", bg=self.bg, fg=self.cat_fg,
+                             font=self.font_btn, cursor="hand2")
+            stash.pack(side="left", padx=(14, 0))
+            stash.bind("<Button-1>",
+                       lambda _e, t=term, lbl=stash: self._on_vocab_stash(t, lbl))
+
         self.lbl_source.pack_forget()
 
         if x is not None and y is not None:
@@ -286,6 +300,17 @@ class Tooltip:
             self._reposition_if_needed()
         self.top.deiconify()
         self.top.lift()
+
+    def _on_vocab_stash(self, term: str, lbl: tk.Label) -> None:
+        """Developer-only: save the word via on_vocab_save and give inline
+        feedback on the clicked label (no popup, no card move)."""
+        try:
+            if self.on_vocab_save is not None:
+                self.on_vocab_save(term)
+            lbl.config(text="已存储", fg=self.text_meta, cursor="")
+            lbl.unbind("<Button-1>")
+        except Exception:
+            lbl.config(text="存储失败", fg="#b91c1c")
 
     def show_error(self, gen: int, msg: str) -> None:
         if gen != self._gen:

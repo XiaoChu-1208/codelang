@@ -53,20 +53,38 @@ def set_dpi_aware() -> None:
 
 # ---------- cursor ----------
 
+def _primary_screen_height() -> float:
+    """Height of the PRIMARY screen (frame origin == (0,0), the menu-bar
+    display). This is the correct reference for flipping AppKit's global
+    bottom-left coordinates to the top-left convention ui.py uses.
+
+    Do NOT use NSScreen.mainScreen() here: "main" is the screen with the
+    active/key window, which on a multi-monitor setup is frequently a SECONDARY
+    display of a different height. Using its height makes the y-flip come out
+    hundreds of px off, so tooltip / OCR cards land in the wrong spot ("flying
+    around the screen"). The global coordinate origin is always the primary's
+    bottom-left, regardless of which screen is currently active.
+    """
+    screens = NSScreen.screens()
+    for s in screens:
+        o = s.frame().origin
+        if int(o.x) == 0 and int(o.y) == 0:
+            return s.frame().size.height
+    return screens[0].frame().size.height if screens else 0.0
+
+
 def get_cursor_pos() -> tuple[int, int]:
     """Cursor position in **top-left origin** screen coordinates, matching the
     Windows convention used by ui.py for tooltip placement.
 
-    NSEvent.mouseLocation() is in bottom-left origin relative to the main
-    screen; we flip y by the main screen height.
+    NSEvent.mouseLocation() is in bottom-left origin relative to the primary
+    screen; we flip y by the primary screen height (NOT mainScreen — see
+    _primary_screen_height).
     """
     if not _HAVE_PYOBJC:
         return (0, 0)
     loc = NSEvent.mouseLocation()
-    main = NSScreen.mainScreen()
-    if main is None:
-        return (int(loc.x), int(loc.y))
-    h = main.frame().size.height
+    h = _primary_screen_height()
     return (int(loc.x), int(h - loc.y))
 
 
@@ -163,10 +181,13 @@ def get_monitor_work_rect(x: int, y: int) -> tuple[int, int, int, int]:
         return (0, 0, 1920, 1080)
 
     screens = NSScreen.screens()
-    main = NSScreen.mainScreen()
-    if main is None or not screens:
+    if not screens:
         return (0, 0, 1920, 1080)
-    main_h = main.frame().size.height
+    # Flip reference is the PRIMARY screen height, not mainScreen() — see
+    # _primary_screen_height. Using mainScreen() here breaks the y-flip (and
+    # thus the screen hit-test below) whenever the active window is on a
+    # secondary monitor, which is the multi-monitor "card flies away" bug.
+    main_h = _primary_screen_height()
 
     # Convert input cursor (which we report top-left) to AppKit's bottom-left
     y_bl = main_h - y
@@ -180,7 +201,7 @@ def get_monitor_work_rect(x: int, y: int) -> tuple[int, int, int, int]:
             chosen = screen
             break
     if chosen is None:
-        chosen = main
+        chosen = NSScreen.mainScreen() or screens[0]
 
     vf = chosen.visibleFrame()
     vx, vy = vf.origin.x, vf.origin.y
