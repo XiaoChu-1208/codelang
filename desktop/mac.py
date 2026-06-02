@@ -219,6 +219,40 @@ def is_accessibility_trusted(prompt: bool = False) -> bool:
         return True
 
 
+# ---------- screen recording permission (macOS, for OCR capture) ----------
+
+def is_screen_recording_trusted(prompt: bool = False) -> bool:
+    """Return True if this process may capture screen contents.
+
+    Screenshot OCR needs the *Screen Recording* TCC permission, which is
+    separate from Accessibility. If `prompt=True`, macOS shows its built-in
+    "allow screen recording" dialog the first time (the grant only takes
+    effect after the app restarts — macOS limitation).
+
+    Falls back to True if the CoreGraphics preflight API is unavailable (older
+    macOS), so we never block the feature on a missing check.
+    """
+    if not _HAVE_PYOBJC:
+        return True
+    try:
+        from Quartz import (
+            CGPreflightScreenCaptureAccess,
+            CGRequestScreenCaptureAccess,
+        )
+    except ImportError:
+        return True
+    try:
+        if CGPreflightScreenCaptureAccess():
+            return True
+        if prompt:
+            # Triggers the system dialog + registers us in the Screen Recording
+            # list. Returns the (usually still-False) immediate state.
+            return bool(CGRequestScreenCaptureAccess())
+        return False
+    except Exception:
+        return True
+
+
 if __name__ == "__main__":
     print("pyobjc available:", _HAVE_PYOBJC)
     print("cursor:", get_cursor_pos())

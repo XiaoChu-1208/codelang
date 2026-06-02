@@ -27,3 +27,5 @@ pynput>=1.7.6 ; platform_system == "Darwin"
 pyobjc-framework-Quartz>=10.0 ; platform_system == "Darwin"
 # NSStatusBar 菜单栏 + NSScreen 几何
 pyobjc-framework-Cocoa>=10.0 ; platform_system == "Darwin"
+# Vision 框架做截图 OCR（Option+` 取词），系统内置引擎、离线、中英文质量高
+pyobjc-framework-Vision>=10.0 ; platform_system == "Darwin"

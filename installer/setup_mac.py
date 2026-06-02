@@ -60,6 +60,7 @@ OPTIONS = {
         "yaml",
         "objc",
         "Quartz",
+        "Vision",   # screenshot OCR (Option+`); on-device VNRecognizeTextRequest
         "AppKit",
         "Foundation",
     ],

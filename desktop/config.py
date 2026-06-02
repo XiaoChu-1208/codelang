@@ -16,6 +16,8 @@ DEFAULTS = {
     "model": "",                  # empty = provider default
     "llm_fallback_enabled": False,  # only call LLM at runtime if True
     "selection_max_len": 32,
+    "ocr_enabled": True,          # macOS: Option+` → crosshair screenshot → OCR → lookup
+    "ocr_max_len": 80,            # OCR text longer than this is rejected (likely a paragraph, not a term)
     "loading_dot_interval_ms": 250,
     "error_auto_close_ms": 1800,
     "welcome_shown": False,

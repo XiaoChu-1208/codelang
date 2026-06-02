@@ -33,7 +33,7 @@ if _missing:
 
 import pyperclip
 
-from . import config, dialog, dict_updater, mouse_backend, platform_compat as winhelp
+from . import config, dialog, dict_updater, keyboard_backend, mouse_backend, platform_compat as winhelp
 from .paths import resource_root
 from .welcome import show_welcome, should_show as _welcome_should_show
 from .logging_setup import setup_logging, LOG_FILE
@@ -155,6 +155,8 @@ class App:
 
         self.queue: "queue.Queue[tuple]" = queue.Queue()
         self._mouse_hook = None
+        self._kb_hook = None
+        self._ocr_busy = False  # guards against re-entrant captures while one is open
         self._tray_icon = None
         self._mac_status_item = None  # NSStatusItem on Mac; held to prevent GC
         self._mac_menu_handler = None
@@ -263,6 +265,91 @@ class App:
 
         threading.Thread(target=loop, daemon=True).start()
         print("[codelang] alt idle-cleanup thread started", file=sys.stderr)
+
+    # ---------- OCR capture (macOS) ----------
+
+    def start_ocr_hotkey(self) -> None:
+        """Install the global ⌥+` hotkey that captures a screen region, OCRs
+        it, and feeds the text through the same lookup pipeline as a selection.
+        macOS-only for now; no-op elsewhere. Lets the user look up text that
+        can't be selected/copied — images, PDFs, video, locked-down fields.
+        """
+        if not IS_MAC or not self.cfg.get("ocr_enabled", True):
+            return
+
+        def on_hotkey():
+            # Fires on the pynput listener thread. Do the slow work (crosshair +
+            # OCR) on a worker so the listener stays responsive, and drop the
+            # event entirely if a capture is already in progress.
+            if self._ocr_busy:
+                return
+            self._ocr_busy = True
+            threading.Thread(target=self._ocr_worker, daemon=True).start()
+
+        self._kb_hook = keyboard_backend.install_hotkey(on_hotkey, winhelp.alt_pressed)
+        if self._kb_hook is not None:
+            print("[codelang] OCR hotkey installed (Option+`)", file=sys.stderr)
+
+    def _ocr_worker(self) -> None:
+        """Crosshair-capture a region → Vision OCR → queue a lookup trigger.
+        Runs on a daemon worker thread."""
+        from . import capture_mac, ocr_mac
+        try:
+            # Screenshot OCR needs Screen Recording permission (separate from
+            # Accessibility). Preflight first — without it the capture comes
+            # back blank/black and OCR silently finds nothing. Prompt + explain
+            # once, then bail; the grant only applies after a restart.
+            srt = getattr(winhelp, "is_screen_recording_trusted", None)
+            if srt is not None and not srt(prompt=False):
+                srt(prompt=True)
+                self.queue.put((
+                    "show_info", "codelang 需要屏幕录制权限",
+                    "截图取词（Option+`）需要「屏幕录制」权限才能看到屏幕内容。\n\n"
+                    "请打开：系统设置 → 隐私与安全性 → 屏幕录制\n"
+                    "把当前运行 codelang 的 Python（或 codelang）勾上，"
+                    "勾完后重启 codelang 即可。",
+                ))
+                return
+            path = capture_mac.capture_region_to_file()
+            if not path:
+                print("[codelang] OCR capture cancelled", file=sys.stderr)
+                return
+            try:
+                raw = ocr_mac.ocr_image_file(path)
+            finally:
+                capture_mac._unlink(path)
+
+            term = self._clean_ocr_text(raw)
+            if not term:
+                print("[codelang] OCR found no usable text", file=sys.stderr)
+                return
+            print(f"[codelang] OCR captured: {term[:60]!r}", file=sys.stderr)
+            cx, cy = winhelp.get_cursor_pos()
+            self.queue.put(("trigger", cx, cy, term))
+        except Exception as e:
+            import traceback
+            print(f"[codelang] OCR worker error: {e}", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+        finally:
+            self._ocr_busy = False
+
+    def _clean_ocr_text(self, raw: str) -> str:
+        """Normalize multi-line OCR output into a single lookup query: collapse
+        whitespace/newlines to single spaces. Reject empties and anything past
+        ocr_max_len (almost certainly a captured paragraph, not a term — the
+        downstream smart_lookup/LLM path isn't meant for that)."""
+        if not raw:
+            return ""
+        term = " ".join(raw.split())
+        if not term:
+            return ""
+        if len(term) > int(self.cfg.get("ocr_max_len", 80)):
+            print(
+                f"[codelang] OCR text too long ({len(term)} chars), ignoring",
+                file=sys.stderr,
+            )
+            return ""
+        return term
 
     # ---------- queue polling on main thread ----------
 
@@ -745,6 +832,7 @@ class App:
     def run(self) -> int:
         self.start_mouse_hook()
         self.start_alt_idle_cleanup()
+        self.start_ocr_hotkey()
         self.start_tray()
         # Silent dict-update probe (opt-out via config). Daemon, so quitting
         # before the request returns doesn't hang shutdown.

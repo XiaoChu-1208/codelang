@@ -30,6 +30,7 @@ force_release_alt = _impl.force_release_alt
 get_foreground_window_info = _impl.get_foreground_window_info
 get_monitor_work_rect = _impl.get_monitor_work_rect
 
-# Mac-only extra; exposed conditionally so callers can `getattr` check.
+# Mac-only extras; exposed conditionally so callers can `getattr` check.
 if IS_MAC:
     is_accessibility_trusted = _impl.is_accessibility_trusted  # type: ignore[attr-defined]
+    is_screen_recording_trusted = _impl.is_screen_recording_trusted  # type: ignore[attr-defined]
