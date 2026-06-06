@@ -288,7 +288,8 @@ def is_translocated() -> bool:
 
     The only real fix is to strip the quarantine xattr from the bundle
     (`xattr -dr com.apple.quarantine /Applications/codelang.app`) and relaunch
-    from a stable path — which is exactly what installer/首次安装.command does.
+    from a stable path — which is exactly what the bundled
+    「① 修复并启动.command」helper does.
     We surface this to the user instead of letting them chase a permission
     toggle that can never take effect.
     """

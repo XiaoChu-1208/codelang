@@ -832,8 +832,9 @@ class App:
                 "Translocation / 应用易位），这种情况下「辅助功能」权限永远存不住，"
                 "Option + 划词 会一直没反应。\n\n"
                 "修复办法（任选其一）：\n"
-                "① 退出 codelang，在「访达 → 应用程序」里找到 codelang，"
-                "双击随附的「① 修复并启动.command」；或\n"
+                "① 退出 codelang，双击 DMG（或应用程序旁）的"
+                "「① 修复并启动.command」。若提示「身份不明的开发者」打不开，"
+                "右键点它 →「打开」即可；或\n"
                 "② 打开「终端」，粘贴这一行回车：\n"
                 "    xattr -dr com.apple.quarantine /Applications/codelang.app\n"
                 "然后重新打开 codelang 即可。",

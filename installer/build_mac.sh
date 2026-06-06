@@ -134,6 +134,7 @@ echo "把 DMG 发给用户。安装步骤（务必告诉用户走这两步，别
 echo "  1. 双击挂载 DMG → 把 codelang 拖进 Applications。"
 echo "  2. 双击 DMG 里的「① 修复并启动.command」—— 它会去掉隔离属性"
 echo "     （根治应用易位）、启动 codelang、并弹出权限设置面板。"
+echo "     （脚本本身也带隔离标记，若双击提示打不开，右键它 → 打开，只需一次。）"
 echo
 echo "  说明：未公证的 app 浏览器下载后会带 quarantine，单纯「右键→打开」"
 echo "  不会去掉它，仍会触发应用易位、导致辅助功能授权存不住、划词没反应。"
