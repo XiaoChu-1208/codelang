@@ -697,3 +697,309 @@
   example: 新版 onboarding 砍了 3 步后首日留存涨了 8 个点。
 
 
+
+# --- batch: SEO 搜索引擎优化 ---
+
+- term: SEO
+  aliases: [Search Engine Optimization, 搜索引擎优化, 自然排名优化]
+  category: abbr
+  literal: Search Engine Optimization
+  meaning: 想象百度/谷歌是个大书架，谁排在第一排谁就被翻到——SEO 就是"不花广告费，靠优化网站让自己自然爬到搜索结果前排"的一整套功夫：选对关键词、把内容写好、让别的网站给你链接（外链）、把网页技术结构整干净（加载快、能被爬虫读懂）。和 SEM（花钱买排名）相对：SEO 慢但流量免费且持久，SEM 快但停投就没。是十几年的流量基本功，2025 年因为 AI 搜索崛起又派生出 GEO（让 AI 引用你）。
+  example: 公司官网把 SPA 改成 SSR 就是为了 SEO，让百度爬虫能读到内容。
+
+- term: SEM
+  aliases: [Search Engine Marketing, 搜索引擎营销, 付费搜索]
+  category: abbr
+  literal: Search Engine Marketing
+  meaning: 花钱买搜索结果排名——用户搜"减肥药"，你出价竞拍，价高者的广告显示在最上面（带"广告"小标）。和 SEO 对偶：SEM 立刻见效但烧钱、停投即停量；SEO 慢热但流量免费。广义 SEM 包含 SEO，但中文语境里 SEM 几乎专指"竞价/付费推广"。百度推广、Google Ads 就是 SEM 平台。
+  example: 新品上线先用 SEM 砸量测转化，跑通了再补 SEO 做长期。
+
+- term: SERP
+  aliases: [Search Engine Results Page, 搜索结果页]
+  category: abbr
+  literal: Search Engine Results Page
+  meaning: 你在搜索框敲完回车后看到的那一整页结果——SERP。它不只是十条蓝链接了：顶部有广告位、中间夹着"精选摘要"（直接给答案的方框）、"大家还在搜"、知识卡片、图片视频块。SEO 的目标就是抢占 SERP 上更靠前、更显眼的位置。AI 时代 SERP 顶部还多了"AI 概览"（AI Overviews），进一步挤压自然链接的点击。
+  example: 这个词的 SERP 顶部三条全是广告，自然排名第一其实是第四个才被看到。
+
+- term: 关键词
+  aliases: [keyword, 关键字, 搜索词]
+  category: jargon
+  meaning: 用户在搜索框里敲的那几个字——"上海 火锅 推荐"。SEO/SEM 的一切都围着关键词转：先做"关键词研究"（哪些词有人搜、搜的人多不多、竞争激烈不激烈），再决定优化哪些、投放哪些。分头部词（搜的人多但竞争狠，如"手机"）和长尾词（搜的人少但精准、好转化，如"2000元拍照好的安卓手机"）。
+  example: 先拉一份关键词清单，按搜索量和竞争度排个优先级再写内容。
+
+- term: 长尾关键词
+  aliases: [long-tail keyword, 长尾词]
+  category: jargon
+  literal: long-tail keyword
+  meaning: 又长又具体、单个搜的人不多但加起来量巨大的搜索词——"手机"是头部词，"预算两千续航好的备用机"就是长尾词。长尾词竞争小、意图明确、转化率高，是中小站做 SEO 的主战场（抢不过大站的头部词，就靠海量长尾词聚沙成塔）。名字来自长尾分布——参见 [[长尾]]。
+  example: 大词拼不过竞品，我们专做长尾关键词，几百个小词堆出来的流量比一个大词还多。
+
+- term: 外链
+  aliases: [backlink, 反链, 反向链接, 外部链接, 导入链接]
+  category: jargon
+  literal: backlink
+  meaning: 别的网站指向你网站的链接——相当于"投票"或"被人引用"。搜索引擎的逻辑：越多高质量网站链接你，说明你越权威，排名给你往上提。所以"发外链/换外链"是 SEO 老三样之一。但注意质量＞数量：垃圾站群的外链（黑帽）会被判作弊降权，权威媒体的一条外链顶一万条垃圾链。锚文本（链接上挂的文字）也影响效果。
+  example: 这篇被几个行业大号转载带了外链，关键词排名一周从第三页冲到首页。
+
+- term: 内链
+  aliases: [internal link, 站内链接]
+  category: jargon
+  literal: internal link
+  meaning: 网站内部页面之间的互相链接——文章 A 里链到文章 B。作用有二：① 帮搜索引擎爬虫把全站页面都爬到、理解结构（哪些是重点）；② 把首页/高权重页的"权重"分流给深层页面。"内链建设"是 SEO 基本功，常配合面包屑导航、相关推荐做。和外链对偶：内链是自己站里走，外链是别的站过来。
+  example: 给老文章补内链指向新落地页，没花一分钱排名就动了。
+
+- term: 锚文本
+  aliases: [anchor text, 锚文字]
+  category: jargon
+  literal: anchor text
+  meaning: 一个超链接上能点的那段文字——比如"点这里下载"里的"点这里"，或"最好的 CRM 工具"里挂着链接的整句。SEO 上很关键：搜索引擎会拿锚文本理解"被链接的页面是讲啥的"。所以做外链时，用"减肥食谱"当锚文本指向你的减肥页，比用"点击查看"效果好得多。但全站锚文本都一模一样会被判作弊。
+  example: 外链锚文本要自然多样化，全用同一个关键词反而被搜索引擎当成刷排名。
+
+- term: 收录
+  aliases: [indexing, 被收录, 建立索引]
+  category: jargon
+  literal: indexed
+  meaning: 搜索引擎的爬虫爬到你的网页、并把它存进索引库——这页才"被收录"了，用户才可能搜到它。没被收录＝在搜索引擎眼里这页不存在，再好的内容也是 0 流量。新站/新页常遇到"迟迟不收录"，解决靠：提交 sitemap、主动推送、补内外链引爬虫来爬。和"排名"是两回事：先收录（进库），才谈排名（库里排第几）。
+  example: 新站上线两周百度才收录三页，赶紧去站长平台手动提交链接催收录。
+
+- term: 蜘蛛
+  aliases: [spider, 搜索引擎蜘蛛, 爬虫, crawler, bot]
+  category: jargon
+  literal: spider / crawler
+  meaning: 搜索引擎派出去自动抓网页的程序——像蜘蛛顺着网（链接）一页页爬，把内容抓回去建索引。Googlebot、百度蜘蛛是代表。SEO 很多功夫是"伺候好蜘蛛"：robots.txt 告诉它哪能爬、sitemap 给它一张地图、网页加载快/结构清晰它才爬得动爬得全。SPA 纯前端渲染的坑就在这——蜘蛛抓到一片空白，所以要 SSR。
+  example: 日志里全是百度蜘蛛在爬深层页，说明 sitemap 提交生效了。
+
+- term: 落地页
+  aliases: [landing page, 着陆页]
+  category: jargon
+  literal: landing page
+  meaning: 用户点了广告/链接后"落地"的第一个页面——专为转化设计，目标单一（留资、下单、下载）。和普通官网首页不同：落地页砍掉一切干扰（没有复杂导航），从头到尾就一条线"勾起兴趣→讲清价值→喊你行动（CTA）"。投放圈"落地页转化率"是命根子：CTR 再高，落地页留不住人也白搭。A/B 测试最常测的就是落地页。
+  example: 同一批量投到两版落地页 A/B 测，短的那版转化率高 40%，全量切过去。
+
+- term: 白帽 SEO
+  aliases: [白帽, white hat SEO, 正规 SEO]
+  category: jargon
+  literal: white hat SEO
+  meaning: 守规矩的 SEO——按搜索引擎官方规则来：写真正有用的内容、自然获取外链、优化用户体验。慢，但稳，不会被惩罚。和黑帽对偶（黑帽走捷径作弊，快但随时被封）。名字借自西部片：好人戴白帽、坏人戴黑帽。还有"灰帽"——游走在规则边缘的擦边操作。
+  example: 我们只做白帽 SEO，宁可慢慢涨也不碰站群外链那套，怕哪天被一锅端。
+
+- term: 黑帽 SEO
+  aliases: [黑帽, black hat SEO, 作弊 SEO]
+  category: jargon
+  literal: black hat SEO
+  meaning: 走捷径作弊的 SEO——关键词堆砌、买卖外链、站群刷链接、隐藏文字（给爬虫看一套给用户看另一套，叫 cloaking）、刷点击。短期排名暴涨，但搜索引擎算法一更新或被人举报，轻则降权重则整站被 K（踢出索引），多年积累一夜归零。和白帽对偶。赌徒玩法，正经品牌不碰。
+  example: 那个站靠黑帽冲到首页，没俩月就被百度 K 站了，域名都废了。
+
+- term: 死链
+  aliases: [broken link, 死链接, 失效链接, 404 链接]
+  category: jargon
+  literal: dead link / broken link
+  meaning: 点了打不开、跳 404 的链接——目标页被删了、改了地址、或域名挂了。对用户是糟糕体验，对 SEO 是减分项（搜索引擎觉得你站没人维护）。所以要定期用工具扫死链、做 301 跳转或删掉。和"友链"相关：交换的友链对方哪天撤了或站挂了，就成了你这边的死链。
+  example: 站长工具扫出来三百条死链，全是早年下架商品页，批量做 301 跳到分类页。
+
+- term: 友链
+  aliases: [友情链接, link exchange, 互链]
+  category: jargon
+  literal: friendly link
+  meaning: 两个网站互相在自己页面（通常底部）挂对方链接——你链我、我链你，互相导流量、互相增外链权重。SEO 早年的常规操作，讲究"门当户对"（找权重相近、行业相关的站换）。坑：对方是垃圾站会连累你降权；对方哪天偷偷撤链（单向占便宜）或站挂了变死链，得定期检查。
+  example: 跟几个同行换了友链，互相导流，对双方排名都有点小帮助。
+
+- term: 站群
+  aliases: [PBN, 私有博客网络, 链接农场, link farm]
+  category: jargon
+  literal: PBN（Private Blog Network）
+  meaning: 批量建一堆网站、专门用来给"主站"刷外链的玩法——相当于自己养一群"托儿"互相点赞。黑帽 SEO 的经典套路，短期能把主站排名顶上去。但搜索引擎识别站群的能力越来越强，一旦被判定，整个网络连同主站一起降权/封杀。高风险，正规品牌不碰。
+  example: 竞品那波排名是靠站群刷的，扛不住算法更新，下个月估计就掉下来。
+
+- term: nofollow
+  aliases: [nofollow 标签, dofollow, rel=nofollow]
+  category: devterm
+  literal: rel="nofollow"
+  meaning: 链接上的一个属性标记，告诉搜索引擎"这条链接别传递权重、别算作我对它的背书"。用途：评论区/论坛的用户发的链接加 nofollow，防止被人灌垃圾外链蹭权重；付费广告链接按规则也要标 nofollow。反义是 dofollow（默认就是，会传权重）。做外链时大家都想要 dofollow 的（才有 SEO 价值），nofollow 的只能带点直接流量。
+  example: 这个大站给的外链是 nofollow，SEO 权重为零，但好歹能带点真人点击。
+
+- term: PageRank
+  aliases: [PR 值, 网页权重算法]
+  category: ai
+  literal: PageRank
+  meaning: 谷歌起家的核心算法——用"网页之间的链接关系"给每个页面打权重分：被越多、越权威的页面链接，你的分越高，排名越靠前。本质是把"链接当投票"，且大佬的票更值钱（递归定义）。以谷歌创始人 Larry Page 命名（一语双关）。早年谷歌工具栏会显示 0–10 的 PR 值，后来停更隐藏了，但思想仍是现代搜索排名的地基。
+  example: 这套页面权重传递的思路就是 PageRank，被高权重页链一次顶普通页十次。
+
+- term: 域名权重
+  aliases: [DA, PA, Domain Authority, Page Authority, 站点权重, 权重]
+  category: jargon
+  literal: Domain Authority / Page Authority
+  meaning: 第三方工具（Moz 等）给网站算的一个综合"江湖地位"分（0–100），预测它在搜索里的竞争力。DA 是整站权重、PA 是单页权重，分越高越好排名、外链越值钱。注意：这是工具的估算指标，不是谷歌官方排名因子，但 SEO 圈拿它当通用尺子衡量"这站强不强、值不值得换友链"。中文也常笼统说"权重几"。
+  example: 对方站 DA 才 15，换友链没多大用，找个 DA 50+ 的才划算。
+
+- term: 沙盒期
+  aliases: [谷歌沙盒, 新站考核期]
+  category: jargon
+  literal: sandbox effect
+  meaning: 新网站/新页面上线后的一段"观察期"——即便内容和外链都做得好，搜索引擎也先把它压着，不给好排名，等几周到几个月确认你不是垃圾站、有持续更新，才慢慢放出来。像新员工的试用期。所以做 SEO 急不得，新站头几个月"投入没产出"是正常的，熬过沙盒期流量才起。
+  example: 站上线两个月一直没排名，别慌，多半还在沙盒期，坚持更新就行。
+
+- term: TDK
+  aliases: [TKD, title description keywords, 三大标签]
+  category: abbr
+  literal: Title / Description / Keywords
+  meaning: 网页 SEO 的三个 meta 标签合称：Title（标题，SERP 上的蓝色大字，权重最高）、Description（描述，标题下那段灰色摘要，影响点击率）、Keywords（关键词，早被滥用刷烂、现在主流搜索引擎基本无视）。"设置 TDK"是每个页面做 SEO 的第一步基本功。Title 写不好＝白干。
+  example: 这批页面 TDK 全是默认模板没改，难怪一个都没排名，先把 Title 按关键词重写。
+
+- term: sitemap
+  aliases: [网站地图, 站点地图, sitemap.xml]
+  category: devterm
+  literal: sitemap
+  meaning: 一份列出网站所有重要页面地址的清单文件（通常是 sitemap.xml）——交给搜索引擎，相当于给爬虫递一张"全站地图"，告诉它"这些页都来爬一下、这页多久更新一次"。能加速收录、尤其帮深层页/新页被爬到。在站长平台提交 sitemap 是 SEO 标准动作。注意和给用户看的 HTML 网站导航页不是一回事。
+  example: 新站不收录？先生成 sitemap.xml 提交到百度站长平台催爬虫。
+
+- term: robots.txt
+  aliases: [robots 协议, 爬虫协议]
+  category: devterm
+  literal: robots.txt
+  meaning: '放在网站根目录的一个文本文件，用约定的语法告诉搜索引擎爬虫"哪些目录能爬、哪些别爬"（如后台、搜索结果页别爬）。是君子协定——正规爬虫（谷歌/百度）会遵守，恶意爬虫可以无视。SEO 上要小心：写错一行 `Disallow: /` 就是禁止爬全站，整站从搜索消失。AI 时代还衍生出用它（或 llms.txt）拦/放 AI 爬虫的讨论。'
+  example: '上线把测试环境的 `Disallow: /` 忘了删，结果正式站被屏蔽，搜索流量归零。'
+
+- term: 关键词堆砌
+  aliases: [keyword stuffing, 关键词堆叠, 堆关键词]
+  category: jargon
+  literal: keyword stuffing
+  meaning: 在网页里硬塞大量重复关键词想骗排名——"减肥减肥减肥药哪个好减肥就找…"，或在页脚藏一堆白底白字的关键词。黑帽 SEO 的老套路，早年管用，现在搜索引擎一眼识破并降权。正路是自然地把关键词融进有价值的内容里。
+  example: 这页一段话里"装修"出现二十遍，典型关键词堆砌，读着都难受，迟早被降权。
+
+- term: 内容农场
+  aliases: [content farm, 内容工厂]
+  category: jargon
+  literal: content farm
+  meaning: 批量生产大量低质、东拼西凑文章，专为蹭搜索流量挂广告赚钱的网站——不在乎内容好不好，只要能命中关键词、被搜到、有人点、看到广告就行。AI 时代成本暴跌，AI 批量生成的"内容农场"泛滥（参见 [[AI slop]]），逼得搜索引擎反复更新算法打击。和正经内容站对立。
+  example: 搜个菜谱前五条全是内容农场，AI 拼的废话，真方子翻三页才找到。
+
+# --- batch: SEM 竞价投放 + 广告技术栈 ---
+
+- term: 竞价排名
+  aliases: [付费排名, paid search, 竞价推广, PPC]
+  category: jargon
+  literal: paid search / PPC（Pay Per Click）
+  meaning: 搜索广告的计费/排序机制——广告主为关键词出价竞拍，谁出价高（×质量分）谁的广告排在搜索结果更靠前，用户点一次扣一次钱（PPC 按点击付费）。百度推广、Google Ads 的核心玩法。热词被几家互相抬价能贵到离谱（"减肥""贷款"单次点击几十上百块）。和自然排名（SEO）并列出现在搜索结果页，但带"广告"标识。
+  example: 「律师咨询」这词竞价排名一次点击 80 块，几家律所天天互相抬价。
+
+- term: CPA
+  aliases: [Cost Per Action, Cost Per Acquisition, 单次行动成本]
+  category: abbr
+  literal: Cost Per Action
+  meaning: 按"用户完成指定动作"付广告费——不是看了（CPM）、也不是点了（CPC），而是真注册/下单/下载了才扣钱。对广告主最划算（只为结果买单），所以出价也最高、平台门槛也高。和 CPC/CPM 是一组阶梯：CPM（曝光）→ CPC（点击）→ CPA（转化），越往后广告主风险越小、单价越贵。
+  example: 这个渠道走 CPA，一个注册 50 块，比 CPC 投出来的注册成本还低，加预算。
+
+- term: oCPM
+  aliases: [oCPC, optimized CPM, 优化转化出价, 智能出价]
+  category: abbr
+  literal: optimized Cost Per Mille
+  meaning: 信息流广告的"智能出价"——你设一个目标（如"一个下单我愿付 80 块"），平台用算法自动帮你找最可能转化的人、动态调每次曝光的出价，对外仍按曝光（CPM）结算但围着你的转化目标优化。比手动 CPC/CPM 省心、转化好，是巨量引擎/腾讯广告等信息流投放的主流出价方式。oCPC 同理（按点击结算的版本）。
+  example: 手动出价跑不动量，换 oCPM 设个转化目标，让系统自己跑，成本反而稳了。
+
+- term: 信息流广告
+  aliases: [feed ads, native ads, 原生广告, 信息流]
+  category: jargon
+  literal: feed ads / native advertising
+  meaning: 混在内容信息流里、长得跟正常帖子/视频几乎一样的广告——刷抖音/朋友圈/今日头条时夹在中间那条带"广告"小标的。特点是"原生"：不打断、伪装成内容、靠算法精准推给可能感兴趣的人。和搜索广告对偶（搜索是"人找货"用户主动搜，信息流是"货找人"算法主动推）。是过去十年中国互联网广告的最大金矿。
+  example: 信息流广告素材是命根子，同一产品换十版视频跑，跑出爆款再放量。
+
+- term: UTM
+  aliases: [UTM 参数, utm, 追踪参数, UTM tracking]
+  category: abbr
+  literal: Urchin Tracking Module
+  meaning: 加在链接末尾的一串追踪参数（?utm_source=weixin&utm_medium=...），用来标记"这个访客是从哪条渠道/哪个广告/哪次活动点进来的"。同一个落地页，发到微信、微博、邮件各挂一套不同 UTM，分析工具（GA 等）就能分清各渠道带来多少流量和转化。投放和运营做渠道归因的基本工具。
+  example: 每条推广链接都打上 UTM，月底一拉报表就知道哪个渠道 ROI 最高。
+
+- term: DSP
+  aliases: [Demand-Side Platform, 需求方平台]
+  category: abbr
+  literal: Demand-Side Platform
+  meaning: 程序化广告里"买广告"的一方平台——广告主在 DSP 上设好预算/人群/出价，DSP 替你去各大流量上自动竞价买曝光。和 SSP（卖方平台，媒体在上面卖广告位）相对，中间通过 ad exchange（广告交易所）实时撮合。一句话：DSP 是广告主的自动采购员，SSP 是媒体的自动销售员。
+  example: 通过 DSP 跨几十家媒体一键投放，比一家家谈广告位效率高太多。
+
+- term: SSP
+  aliases: [Supply-Side Platform, 供给方平台, 媒体方平台]
+  category: abbr
+  literal: Supply-Side Platform
+  meaning: 程序化广告里"卖广告位"的一方平台——有流量的媒体/App 把自己的广告位挂上 SSP，让它自动卖给出价最高的广告主，把每个曝光的收益最大化。和 DSP（买方）对偶，通过 ad exchange 实时撮合。一句话：SSP 帮媒体把广告位卖出好价钱。
+  example: 网站接了 SSP，广告位自动竞价填充，比自己拉广告主收入高三成。
+
+- term: DMP
+  aliases: [Data Management Platform, 数据管理平台]
+  category: abbr
+  literal: Data Management Platform
+  meaning: 广告投放里管"人群数据"的平台——把各处来的用户标签（性别、兴趣、行为、是否老客）收集打通、分群打包，再喂给 DSP 去精准投放。一句话：DMP 是广告系统的"人群仓库+分群工具"，决定了"广告投给谁"。和 CDP（客户数据平台）概念相近但侧重不同（DMP 偏匿名人群+投放，CDP 偏自有客户+运营）。
+  example: 先在 DMP 圈出"近 30 天看过竞品的人"，再用 DSP 定向投他们。
+
+- term: RTB
+  aliases: [Real-Time Bidding, 实时竞价]
+  category: abbr
+  literal: Real-Time Bidding
+  meaning: 程序化广告的核心机制——你打开一个网页的瞬间（几十毫秒内），后台就为"给你看哪条广告"完成一整场拍卖：SSP 把这次曝光机会喊价，各家 DSP 实时出价，价高者的广告立刻展示给你。每天发生千亿次。一句话：你每看一条广告，背后刚刚结束了一场毫秒级的自动拍卖。
+  example: RTB 一次竞价全程几十毫秒，页面还没加载完广告就拍卖定了。
+
+- term: ad exchange
+  aliases: [广告交易平台, 广告交易所]
+  category: jargon
+  literal: ad exchange
+  meaning: 程序化广告的"交易所"——撮合买方（DSP）和卖方（SSP）的中间市场，像股票交易所撮合买卖盘。每个广告曝光机会都在这里通过 RTB 实时竞价成交。Google AdX 是最大的一家。一句话：DSP/SSP 是买卖双方的代理，ad exchange 是他们做交易的那个market。
+  example: 这次曝光在 ad exchange 上被三家 DSP 抢，最后 12 块千次成交。
+
+# --- batch: 增长 / 内容运营缩写补充 ---
+
+- term: AARRR
+  aliases: [海盗模型, 海盗指标, 增长漏斗, Pirate Metrics]
+  category: abbr
+  literal: Acquisition / Activation / Retention / Revenue / Referral
+  meaning: 增长运营的经典框架，把用户生命周期拆成五步漏斗：获取（Acquisition 拉新）→ 激活（Activation 首次用到核心价值）→ 留存（Retention 持续回来）→ 收入（Revenue 付费）→ 推荐（Referral 拉来更多人）。因为五个首字母连起来像海盗喊的"Aarrr!"得名"海盗模型"。做增长先按这五层定位"哪一环漏得最狠"，再针对性补。近年也有人主张把留存提到激活前（RARRA）。
+  example: 按 AARRR 一拆发现卡在激活——拉来的人很多但没几个走到 Aha 时刻。
+
+- term: ASO
+  aliases: [App Store Optimization, 应用商店优化, 应用市场优化]
+  category: abbr
+  literal: App Store Optimization
+  meaning: SEO 的 App 版——优化 App 在应用商店（App Store / 各安卓市场）里的搜索排名和转化：标题/副标题关键词、截图和预览视频、评分评论、下载量。用户在商店里搜"记账"，谁排前面谁白捡免费下载。和 SEO 一个道理，只是战场从搜索引擎换成应用商店。还有刷量刷评的灰黑产。
+  example: 改了 App 标题里的关键词加 ASO，自然下载量两周涨了 60%。
+
+- term: 内容营销
+  aliases: [content marketing, 内容种草]
+  category: jargon
+  literal: content marketing
+  meaning: 不直接吆喝卖货，而是持续产出对目标用户有用/有趣的内容（文章、视频、教程、白皮书），靠内容吸引、培养信任，再自然带到产品——"先给价值，后做生意"。和硬广对偶。SEO 的弹药库（有内容才有页面被搜到）、私域的养料、B2B 获客的主力打法。小红书"种草"是其消费版变体。坑：见效慢、要长期投入。
+  example: 我们不投硬广，靠内容营销——每周发行业干货文，半年攒了几万精准粉。
+
+- term: EDM
+  aliases: [Email Direct Marketing, 邮件营销, 邮件直投]
+  category: abbr
+  literal: Email Direct Marketing
+  meaning: 邮件营销——给用户/订阅者批量发邮件做触达：新品通知、促销、内容简报（newsletter）、召回沉睡用户。在国外是主力获客/留存渠道（ROI 极高、是自有渠道不看平台脸色）；在中国 toC 弱（大家不看邮箱）、但 toB 和外贸仍很重要。核心指标：打开率、点击率、退订率。坑：发太勤被标垃圾邮件。
+  example: 外贸站靠 EDM 维护老客户，一封促销邮件就能盘活一批沉睡询盘。
+
+- term: UGC
+  aliases: [User Generated Content, 用户生成内容]
+  category: abbr
+  literal: User Generated Content
+  meaning: 用户自己产出的内容——小红书笔记、抖音视频、淘宝评价、知乎回答、B站弹幕。平台不用自己生产内容，靠海量用户免费供养，是社区/电商的护城河。和 PGC（专业团队产出，如长视频、媒体稿）对偶；中间还有 PUGC（专业化的个人创作者，如头部 up 主）。UGC 多＝社区有活力，但质量参差、要审核。
+  example: 这电商靠用户晒单的 UGC 撑起信任，比官方详情页说一百句都管用。
+
+- term: PGC
+  aliases: [Professionally Generated Content, 专业生产内容, PUGC]
+  category: abbr
+  literal: Professionally Generated Content
+  meaning: 专业团队/机构生产的内容——电视台节目、出版社的书、媒体的深度稿、平台自制剧。特点是质量高、有门槛、成本高。和 UGC（用户随手产）对偶。中间地带是 PUGC（Professional User，专业化的个人创作者，如百万粉知识 up 主）——兼具 UGC 的亲和与 PGC 的质量，是现在平台最想要的。
+  example: 平台早期靠 PGC 撑门面保质量，做大后再放开 UGC 拼数量和活跃。
+
+- term: CTA
+  aliases: [Call To Action, 行动号召, 行动召唤, 转化按钮]
+  category: abbr
+  literal: Call To Action
+  meaning: 页面/广告/邮件里那个"催你立刻行动"的按钮或话术——"立即购买""免费注册""限时领取"。落地页和营销文案的临门一脚：前面铺垫再好，CTA 不够醒目/不够有诱惑，用户也不动手。讲究文案（动词+利益+紧迫感）、颜色对比、位置。A/B 测试的高频对象，一个按钮文案改改转化率能差一截。
+  example: 把 CTA 从"了解更多"改成"免费试用 14 天"，点击率直接翻倍。
+
+- term: 冷启动
+  aliases: [cold start, 冷启动问题, 从 0 到 1]
+  category: jargon
+  literal: cold start
+  meaning: 两个语境：① 产品/运营——新产品没用户、没数据、没口碑时怎么"从 0 拉起第一批种子用户"的难题（鸡生蛋问题：没用户就没内容、没内容更没用户）。常靠地推、补贴、KOL、社群冷启。② 推荐系统/ML——新用户或新物品没有历史行为数据，算法"不了解他"推不准，也叫冷启动。两者都是"啥都没有时怎么开局"。
+  example: 社区产品最难是冷启动——头一千个活跃用户全靠创始人手动一个个拉。

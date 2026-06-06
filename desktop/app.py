@@ -819,6 +819,26 @@ class App:
         """
         if not IS_MAC:
             return
+        # If we're running from a macOS App Translocation path, the Accessibility
+        # grant can never stick (every launch is a fresh random read-only path),
+        # so prompting for it just sends the user in circles. Surface the real
+        # fix — strip the quarantine xattr — instead.
+        is_transloc = getattr(winhelp, "is_translocated", None)
+        if is_transloc is not None and is_transloc():
+            dialog.show_warning(
+                self.root,
+                "codelang 没法正常授权（应用易位）",
+                "codelang 正在一个 macOS 的临时随机路径下运行（App "
+                "Translocation / 应用易位），这种情况下「辅助功能」权限永远存不住，"
+                "Option + 划词 会一直没反应。\n\n"
+                "修复办法（任选其一）：\n"
+                "① 退出 codelang，在「访达 → 应用程序」里找到 codelang，"
+                "双击随附的「① 修复并启动.command」；或\n"
+                "② 打开「终端」，粘贴这一行回车：\n"
+                "    xattr -dr com.apple.quarantine /Applications/codelang.app\n"
+                "然后重新打开 codelang 即可。",
+            )
+            return
         check = getattr(winhelp, "is_accessibility_trusted", None)
         if check is None:
             return

@@ -34,3 +34,4 @@ get_monitor_work_rect = _impl.get_monitor_work_rect
 if IS_MAC:
     is_accessibility_trusted = _impl.is_accessibility_trusted  # type: ignore[attr-defined]
     is_screen_recording_trusted = _impl.is_screen_recording_trusted  # type: ignore[attr-defined]
+    is_translocated = _impl.is_translocated  # type: ignore[attr-defined]

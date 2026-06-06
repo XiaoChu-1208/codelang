@@ -274,6 +274,33 @@ def is_screen_recording_trusted(prompt: bool = False) -> bool:
         return True
 
 
+# ---------- App Translocation detection ----------
+
+def is_translocated() -> bool:
+    """Return True if this app is running from a macOS *App Translocation*
+    path (a randomized, read-only `…/AppTranslocation/…` location).
+
+    Gatekeeper translocates any quarantined app that wasn't moved into place
+    by Finder — and a translocated bundle gets a fresh random path on every
+    launch. That breaks Accessibility/Input-Monitoring permission outright:
+    even after the user grants it, the next launch is a "different" app from
+    macOS's point of view, so the grant never sticks and ⌥-drag stays dead.
+
+    The only real fix is to strip the quarantine xattr from the bundle
+    (`xattr -dr com.apple.quarantine /Applications/codelang.app`) and relaunch
+    from a stable path — which is exactly what installer/首次安装.command does.
+    We surface this to the user instead of letting them chase a permission
+    toggle that can never take effect.
+    """
+    # When frozen by py2app, sys.executable points inside the .app bundle;
+    # a translocated bundle carries the marker in that path. Check a couple
+    # of path sources to be robust across launch methods.
+    for p in (sys.executable, getattr(sys, "_MEIPASS", ""), __file__):
+        if p and "/AppTranslocation/" in p:
+            return True
+    return False
+
+
 if __name__ == "__main__":
     print("pyobjc available:", _HAVE_PYOBJC)
     print("cursor:", get_cursor_pos())
@@ -281,4 +308,5 @@ if __name__ == "__main__":
     print("monitor at cursor:", get_monitor_work_rect(*get_cursor_pos()))
     print("frontmost app:", get_foreground_window_info())
     print("accessibility trusted:", is_accessibility_trusted())
+    print("translocated:", is_translocated())
     sys.exit(0)
